@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor1"
+    android:gravity="center|center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/logoTextView"
+        android:layout_width="270dp"
+        android:layout_height="222dp"
+        android:contentDescription="Logo icon"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="Let's get started!"
+        android:textAlignment="center"
+        android:textColor="@color/text_color_black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subtitleTextView"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0.15"
+        android:text="Login to stay healthy and fit."
+        android:textAlignment="center"
+        android:textColor="@color/text_color_gray"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/loginButton"
+        style="@style/Theme.PrimaryButton"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:minHeight="48dp"
+        android:onClick="logInButton"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/signupButton"
+        style="@style/Theme.SecondaryButton"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button2_background"
+        android:fontFamily="@font/poppins_semibold"
+        android:minHeight="48dp"
+        android:onClick="signUpButton"
+        android:text="Sign Up"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+</LinearLayout>
