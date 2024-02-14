@@ -1,9 +1,3 @@
-<style>
-    table {
-        width: 100%;
-    }
-</style>
-
 # Préservation de la vie privée dans une platform é-sante
 
 \<Work in progress\>
