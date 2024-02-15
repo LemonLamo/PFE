@@ -2,26 +2,28 @@
 
 ## Architecture
 
-The platform is based on a single monolithic Laravel application. Code is organised following the MVC (Model-View-Controller) design pattern.
+La plateforme est basée sur une seule application monolithique Laravel. Le code est organisé selon le modèle de conception MVC (Model-View-Controller).
 
 ## Functionalities
 
-- Personnel management
-- Roles & Permissions
-- EHR management (Visits, Hospitiliastions, Tests...etc)
-- Beds & Rooms
-- Medecines stock
+- Gestion du personnel
+- Rôles et permissions
+- Gestion du DSE (Visites, Hospitalisations, Tests...etc)
+- Lits et chambres
+- Stock de médicaments
 - Codifications
 
 ## Critiques
 
-- This application is built on a single monolithic application, making it hard to maintain (bugfixes, evolution...) and scale.
-- Very low level of isolation. If an attacker gains access, the entire database is compromised.
--  \<Work in progress\>
+- Cette application est construite sur une seule application monolithique, ce qui la rend difficile à maintenir (corrections de bogues, évolution...) et à faire évoluer.
+- Niveau d'isolation très faible. Si un attaquant y accède, la base de données entière est compromise.
+- Le manque de cache ce qui met la base de données sous pression et peut entraîner des pannes et des temps de réponse lents.
+- Le manque de logging system ce qui signifie que le site web peut être confronté à des difficultés dans le suivi et le dépannage des problèmes de manière efficace.
+- \<Work in progress\>
 
 ## API Breakdown
 
-In this part, we will break down the api that already exists seperate routes by functionlities mentioned above.
+Dans cette partie, nous allons décomposer l'API qui existe déjà en routes séparées par les fonctionnalités mentionnées ci-dessus.
 
 ### Personnel management
 

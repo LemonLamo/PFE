@@ -1,10 +1,10 @@
 # 3- Microservices approach
 
-Now that we've discussed and critiqued the current state of the platform. We notice a big problem with it being based on a single monolithic application.
+Maintenant que nous avons discuté et critiqué l'état actuel de la plateforme. Nous avons remarqué un gros problème avec le fait qu'elle est basée sur une seule application monolithique.
 
-Thus making it hard to maintain, even harder to evolve. As well as making it more harder to scale and creating what's known as a bottleneck or a single point of failure.
+Il est donc difficile de la maintenir et encore plus de la faire évoluer. Il est également plus difficile de la faire évoluer et de créer ce que l'on appelle un goulot d'étranglement ou un point de défaillance unique.
 
-Our proposition is to base the platform on a microservices architecture.
+Notre proposition est de baser la plateforme sur une architecture microservices.
 
 ## What is a microservices architecture?
 
@@ -33,4 +33,9 @@ Cette modularité offre une plus grande souplesse, une évolutivité et une main
 
 ## Challenges
 
-\<Work in progress\>
+- Complexité accrue : Une application basée sur les microservices est plus complexe qu'une application monolithique en raison du nombre accru de services impliqués.
+- Changement de culture organisationnelle : Ce changement hiérarchique peut être difficile pour certains membres de l'organisation, nécessitant une adhésion complète à l'initiative.
+- Informations cloisonnées : La fragmentation des données sur les patients provoque une fragmentation des données, ce qui engendre des inefficacités, des problèmes de communication et des soins sous-optimaux.
+- Problèmes de sécurité : Protéger les données sensibles des patients tout en permettant un accès sécurisé aux professionnels de santé est crucial. Cela nécessite un équilibre délicat entre la sécurité et l'accessibilité.
+- Problèmes d'interopérabilité : Il est difficile de garantir une interopérabilité claire entre différents systèmes informatiques, donc il est nécessaire de définir des normes d'échange de données et de compatibilité.
+- Conformité réglementaire : L'intégration informatique doit assurer le respect rigoureux de ces réglementations pour éviter les conséquences juridiques.
