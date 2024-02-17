@@ -6,7 +6,7 @@ Il est donc difficile de la maintenir et encore plus de la faire évoluer. Il es
 
 Notre proposition est de baser la plateforme sur une architecture microservices.
 
-## What is a microservices architecture?
+## C'est quoi une architecture microservices?
 
 Dans l'architecture des microservices, les applications sont conçues comme un ensemble de petits services indépendants et faiblement couplés appellées "microservices".
 
@@ -22,7 +22,7 @@ Cette modularité offre une plus grande souplesse, une évolutivité et une main
 - Gestion décentralisée des données : Chaque service est responsable de ses propres données, ce qui permet d'assurer l'autonomie et de simplifier la gestion des données.
 - Déploiement continu (CI/CD) :  Les microservices peuvent être déployés de manière continue, ce qui permet une innovation plus rapide et une réponse plus rapide aux besoins des utilisateurs.
 
-## Advantages
+## Avantages
 
 - Évolutivité : les microservices peuvent être mis à l'échelle individuellement, permettant une allocation efficace des ressources en fonction de la demande de services spécifiques.
 - Scalabilité : Les microservices peuvent être escalés indépendamment les uns des autres, ce qui permet d'adapter la capacité de chaque service à la charge de travail spécifique.
@@ -31,11 +31,9 @@ Cette modularité offre une plus grande souplesse, une évolutivité et une main
 - Facilité de maintenance : On peut apporter des mises à jour ou des corrections de bugs à des services spécifiques sans que cela n'affecte l'ensemble de l'application.
 - Vitesse de développement : Les microservices favorisent l'accélération des cycles de développement en permettant aux développeurs de se focaliser sur des fonctionnalités spécifiques de manière autonome.
 
-## Challenges
+## Défis
 
-- Complexité accrue : Une application basée sur les microservices est plus complexe qu'une application monolithique en raison du nombre accru de services impliqués.
 - Changement de culture organisationnelle : Ce changement hiérarchique peut être difficile pour certains membres de l'organisation, nécessitant une adhésion complète à l'initiative.
 - Informations cloisonnées : La fragmentation des données sur les patients provoque une fragmentation des données, ce qui engendre des inefficacités, des problèmes de communication et des soins sous-optimaux.
 - Problèmes de sécurité : Protéger les données sensibles des patients tout en permettant un accès sécurisé aux professionnels de santé est crucial. Cela nécessite un équilibre délicat entre la sécurité et l'accessibilité.
-- Problèmes d'interopérabilité : Il est difficile de garantir une interopérabilité claire entre différents systèmes informatiques, donc il est nécessaire de définir des normes d'échange de données et de compatibilité.
 - Conformité réglementaire : L'intégration informatique doit assurer le respect rigoureux de ces réglementations pour éviter les conséquences juridiques.

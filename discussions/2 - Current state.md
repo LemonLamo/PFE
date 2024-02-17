@@ -2,9 +2,9 @@
 
 ## Architecture
 
-La plateforme est basée sur une seule application monolithique Laravel. Le code est organisé selon le modèle de conception MVC (Model-View-Controller).
+La plateforme est basée sur une seule application monolithique Laravel. Le code est organisé selon le design pattern MVC (Model-View-Controller).
 
-## Functionalities
+## Fonctionalités
 
 - Gestion du personnel
 - Rôles et permissions
@@ -15,34 +15,33 @@ La plateforme est basée sur une seule application monolithique Laravel. Le code
 
 ## Critiques
 
-- Cette application est construite sur une seule application monolithique, ce qui la rend difficile à maintenir (corrections de bogues, évolution...) et à faire évoluer.
+- Cette application est construite sur une seule application monolithique, ce qui la rend difficile à maintenir (corrections de bogues, évolution...) et aussi pose des problèmes de scalabilité.
 - Niveau d'isolation très faible. Si un attaquant y accède, la base de données entière est compromise.
 - Le manque de cache ce qui met la base de données sous pression et peut entraîner des pannes et des temps de réponse lents.
 - Le manque de logging system ce qui signifie que le site web peut être confronté à des difficultés dans le suivi et le dépannage des problèmes de manière efficace.
-- \<Work in progress\>
 
 ## API Breakdown
 
 Dans cette partie, nous allons décomposer l'API qui existe déjà en routes séparées par les fonctionnalités mentionnées ci-dessus.
 
-### Personnel management
+### Gestion du personnel
 
 - GET, POST, PUT, DELETE /users
-  - Varible role being an integer with 3=médecin, 5=infirmier, 6=agent.
+  - Varible role étant un entier dont 3=médecin, 5=infirmier, 6=agent.
 - GET, POST, PUT, DELETE /medecins
 - GET, POST, PUT, DELETE /infirmiers
 - GET, POST, PUT, DELETE /agents
 
-### Roles & Permissions
+### Rôles et permissions
 
 - GET, POST, PUT, DELETE /roles
 - GET POST, PUT, DELETE /permissions
 
-### EHR management
+### Gestion de DSE (Dossier de Santé electronique)
 
 \<Work in progress\>
 
-### Beds & Rooms Management
+### Gestion des lits et chambres
 
 - GET, POST, PUT, DELETE /chambres
 - GET, POST, PUT, DELETE /lits
@@ -50,7 +49,7 @@ Dans cette partie, nous allons décomposer l'API qui existe déjà en routes sé
   - Used to assign a bed
 - \<Work in progress\>
 
-### Medicines Stock Management
+### Stock de médicaments
 
 - GET, POST, PUT, DELETE /medicamenthopital
 

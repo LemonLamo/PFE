@@ -2,7 +2,7 @@
 
 ![Proposed Architecture](figures/architecture.png "Architecture")
 
-Comme vous pouvez le voir, notre architecture est divisée en deux systèmes principaux :
+Comme vous pouvez le voir, notre architecture est divisée en deux systèmes principaux, chacun emploit une architecture microservices :
 
 - **Système du ministère de la santé:** ce système doit être hébergé au niveau du ministère pour consolider toutes les données au niveau national.
 - **Système des prestataires de soins de santé:** ce système doit être hébergé par les différents prestataires de soins de santé pour gérer les données internes.
@@ -13,7 +13,7 @@ Comme vous pouvez le voir, notre architecture est divisée en deux systèmes pri
 
 - **API Gateway:** Assure la sécurité, l'équilibrage de la charge...
 - **Service Registry:** Assure que les services peuvent se découvrir les uns les autres.
-- **Identity Provider:** Base de données pour les informations d'identification acceptées.
+- **Authentication Service (Identity Provider):** Service + Base de données pour les informations d'identification acceptées.
 - **Monitoring Service:** Surveille les performances de l'infrastructure.
 - **Logging Service:** Enregistre les anomalies détectées dans les journaux d'événements.
 
@@ -23,7 +23,7 @@ Comme vous pouvez le voir, notre architecture est divisée en deux systèmes pri
 
 **Remarque:** Ces services doivent être répliqués entre les deux systèmes pour des raisons de performance.
 
-## Healthcare provider system
+## Système des prestataires de soins de santé
 
 On y trouve des services destinés aux praticiens de la santé. Certains services peuvent être omis en fonction de la nature de l'établissement de santé :
 
@@ -36,6 +36,6 @@ On y trouve des services destinés aux praticiens de la santé. Certains service
 - **Lab results service**
 - **Blockchain node**
 
-## Ministry of health system
+## Système du ministère de la santé
 
 - **CP-ABE Encryption service:** Service de chiffrement qui met en œuvre un chiffrement basé sur les attributs du texte chiffré.
