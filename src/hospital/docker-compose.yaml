@@ -9,15 +9,23 @@ networks:
 volumes:
   mysql-data:
 services:
-  api_gateway:
-    build: ./api_gateway
-    container_name: api_gateway
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
     networks:
       static-network:
         ipv4_address: 10.10.10.254
     ports:
     - "443:443"
     - "80:80"
+  service-discovery:
+    build: ./service-discovery
+    container_name: service-discovery
+    networks:
+      static-network:
+        ipv4_address: 10.10.10.253
+    ports:
+    - "3000:3000"
   frontend:
     build: ./frontend
     container_name: frontend
@@ -36,9 +44,9 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-  auth_service:
-    build: ./auth
-    container_name: auth_service
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
     networks:
       static-network:
         ipv4_address: 10.10.10.10
