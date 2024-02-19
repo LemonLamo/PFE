@@ -1,0 +1,43 @@
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` char(36) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `notifiable_type` varchar(255) NOT NULL,
+  `notifiable_id` bigint(20) UNSIGNED NOT NULL,
+  `data` text NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('01b6ad80-e7cb-4a89-9513-f3e6dc4b700d', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":140,\"date_sortie\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"patient_id\":211,\"nom\":\"BENREHAL\",\"prenom\":\"Ziyad\",\"heure\":\"09:15\"}', '2023-06-25 07:18:52', '2023-06-25 08:15:05', '2023-06-25 07:18:52'),
+('08935a7d-17f2-43bb-8ef1-4d99cc50c1ae', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":136,\"date_sortie\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"patient_id\":218,\"nom\":\"ARKAM\",\"prenom\":\"SALIHA\",\"heure\":\"11:07\"}', '2023-06-25 20:35:48', '2023-06-25 10:07:28', '2023-06-25 20:35:48'),
+('0967a0a2-966e-4bc7-b5b4-6caec3ebee99', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":138,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"proc\\u00e9dures de diagnostic\",\"date_sortie\":null,\"patient_id\":215,\"nom\":\"BENYOUCEF\",\"prenom\":\"ABD ALLAH\",\"heure\":\"08:53\"}', '2023-06-25 20:36:38', '2023-06-25 07:53:37', '2023-06-25 20:36:38'),
+('1ee79883-8c36-4a56-b8ff-c3be3dd490ba', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":139,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"observation\",\"date_sortie\":null,\"patient_id\":209,\"nom\":\"Merabti\",\"prenom\":\"Karim\",\"heure\":\"08:54\"}', '2023-06-25 20:36:30', '2023-06-25 07:54:31', '2023-06-25 20:36:30'),
+('266a5ca0-849a-4711-b628-5a41c8d17b3d', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":139,\"date_sortie\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"observation\",\"patient_id\":209,\"nom\":\"Merabti\",\"prenom\":\"Karim\",\"heure\":\"09:11\"}', '2023-06-25 20:36:19', '2023-06-25 08:11:49', '2023-06-25 20:36:19'),
+('3003fe51-33fc-49e6-a10b-6dae94de8eb3', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":137,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"urgence\",\"date_sortie\":null,\"patient_id\":217,\"nom\":\"MAHYOUT\",\"prenom\":\"Fatima\",\"heure\":\"08:52\"}', '2023-06-25 20:36:47', '2023-06-25 07:52:32', '2023-06-25 20:36:47'),
+('37e91968-c13d-4b5e-be1d-e465201cf231', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":145,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"urgence\",\"date_sortie\":null,\"patient_id\":220,\"nom\":\"Bendris\",\"prenom\":\"Mustapha\",\"heure\":\"19:12\"}', '2023-06-25 20:35:29', '2023-06-25 18:12:43', '2023-06-25 20:35:29'),
+('45aae973-cace-48b2-aa7a-f936546b063d', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":141,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"date_sortie\":null,\"patient_id\":211,\"nom\":\"BENREHAL\",\"prenom\":\"Ziyad\",\"heure\":\"09:16\"}', '2023-06-25 07:18:46', '2023-06-25 08:16:23', '2023-06-25 07:18:46'),
+('4e83e307-4bf1-49a1-a3d7-b5943aca5456', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":147,\"Date_entree\":\"2023-06-25T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"date_sortie\":null,\"patient_id\":221,\"nom\":\"BENHADI\",\"prenom\":\"Slimane\",\"heure\":\"11:18\"}', NULL, '2023-06-26 10:18:08', '2023-06-26 10:18:08'),
+('5386e9dd-8c77-4560-9eb2-8a107584f2d7', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":133,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"date_sortie\":null,\"patient_id\":218,\"nom\":\"ARKAM\",\"prenom\":\"SALIHA\",\"heure\":\"07:26\"}', '2023-06-25 05:43:17', '2023-06-25 06:26:12', '2023-06-25 05:43:17'),
+('5591aac6-2279-429c-be29-f3e3ed43e708', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":143,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"urgence\",\"date_sortie\":null,\"patient_id\":214,\"nom\":\"HIDDOUCHE\",\"prenom\":\"Hassiba\",\"heure\":\"10:46\"}', '2023-06-25 20:35:58', '2023-06-25 09:46:28', '2023-06-25 20:35:58'),
+('5e7b388e-6557-4438-bdb6-70ce00207883', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":136,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"date_sortie\":null,\"patient_id\":218,\"nom\":\"ARKAM\",\"prenom\":\"SALIHA\",\"heure\":\"07:43\"}', '2023-06-25 20:36:57', '2023-06-25 06:43:03', '2023-06-25 20:36:57'),
+('649d2b4a-9fa0-4ac6-bd4b-a8216f226876', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":140,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"date_sortie\":null,\"patient_id\":211,\"nom\":\"BENREHAL\",\"prenom\":\"Ziyad\",\"heure\":\"08:56\"}', '2023-06-25 07:04:26', '2023-06-25 07:56:11', '2023-06-25 07:04:26'),
+('7184d6f5-782a-49ee-9e10-429815f7e81b', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":134,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"date_sortie\":null,\"patient_id\":218,\"nom\":\"ARKAM\",\"prenom\":\"SALIHA\",\"heure\":\"07:35\"}', '2023-06-25 05:43:23', '2023-06-25 06:35:47', '2023-06-25 05:43:23'),
+('71be7c60-d4ab-45f9-b210-bb0a0ddaee63', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":136,\"date_sortie\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"patient_id\":218,\"nom\":\"ARKAM\",\"prenom\":\"SALIHA\",\"heure\":\"11:07\"}', '2023-06-25 14:47:00', '2023-06-25 10:07:38', '2023-06-25 14:47:00'),
+('9b936264-4091-4013-a96b-39314793075a', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":142,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"observation\",\"date_sortie\":null,\"patient_id\":211,\"nom\":\"BENREHAL\",\"prenom\":\"Ziyad\",\"heure\":\"09:45\"}', '2023-06-25 20:36:09', '2023-06-25 08:45:19', '2023-06-25 20:36:09'),
+('a4ecd9b2-a23a-40b0-98c5-8275ce8ee989', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":135,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"Chirurgie\",\"date_sortie\":null,\"patient_id\":218,\"nom\":\"ARKAM\",\"prenom\":\"SALIHA\",\"heure\":\"07:41\"}', '2023-06-25 05:43:10', '2023-06-25 06:41:11', '2023-06-25 05:43:10'),
+('a8790dab-e2e0-4204-bbb8-c6e914b71731', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":144,\"Date_entree\":\"2023-06-24T23:00:00.000000Z\",\"motif_hospitalisation\":\"urgence\",\"date_sortie\":null,\"patient_id\":218,\"nom\":\"ARKAM\",\"prenom\":\"SALIHA\",\"heure\":\"19:10\"}', '2023-06-25 20:35:38', '2023-06-25 18:10:25', '2023-06-25 20:35:38'),
+('c7e93ab7-234b-4f4d-94d9-cb6d0822a54c', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":146,\"Date_entree\":\"2023-06-25T23:00:00.000000Z\",\"motif_hospitalisation\":\"urgence\",\"date_sortie\":null,\"patient_id\":221,\"nom\":\"BENHADI\",\"prenom\":\"Slimane\",\"heure\":\"07:57\"}', '2023-06-26 08:33:59', '2023-06-26 06:57:39', '2023-06-26 08:33:59'),
+('d5d2d4a9-09cf-4294-a035-aac97291d114', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":146,\"date_sortie\":\"2023-06-25T23:00:00.000000Z\",\"motif_hospitalisation\":\"urgence\",\"patient_id\":221,\"nom\":\"BENHADI\",\"prenom\":\"Slimane\",\"heure\":\"08:22\"}', '2023-06-26 08:33:47', '2023-06-26 07:22:37', '2023-06-26 08:33:47'),
+('e5a3d178-7223-49d3-a06e-ebed16c2d4aa', 'App\\Notifications\\medecinNotifadmin', 'App\\Models\\User', 33, '{\"id\":145,\"date_sortie\":\"2023-06-25T23:00:00.000000Z\",\"motif_hospitalisation\":\"urgence\",\"patient_id\":220,\"nom\":\"Bendris\",\"prenom\":\"Mustapha\",\"heure\":\"11:55\"}', NULL, '2023-06-26 10:55:19', '2023-06-26 10:55:19');
