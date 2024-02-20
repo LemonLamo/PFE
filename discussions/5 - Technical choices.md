@@ -4,12 +4,12 @@ Dans cette discussion, nous passerons en revue les choix technologiques que nous
 
 Merci à [@mfornos](https://github.com/mfornos/) pour le [awesome-microservices](https://github.com/mfornos/awesome-microservices) repo qui nous a aidé à établir notre liste.
 
-## Microservices communication: RESTFUL API
+## Microservices communication: RESTFUL API (✅ le 20/02/2024)
 
 - Language agnostic & Modulrity: La possibilité de connecter des µ-services programmés dans des langues différentes.
 - Sécurité : grâce à des mécanismes d'authentification et d'autorisation courants : OAuth 2.0, JWT...etc.
 
-## Containarization: Docker
+## Containarization: Docker (✅ le 20/02/2024)
 
 Nous souhaitons isoler notre code en unités plus petites pour plusieurs raisons :
 
@@ -20,24 +20,24 @@ Nous souhaitons isoler notre code en unités plus petites pour plusieurs raisons
 **Pourquoi Docker plutôt qu'une machine virtuelle traditionnelle ?**\
 Parce que les conteneurs sont beaucoup plus légers, ce qui va de pair avec le concept de microservices.
 
-## Orchestration: Kubernetes
+## Orchestration: Kubernetes (✅ le 20/02/2024)
 
 Nous voudrions orchestrer nos conteneurs Docker à l'aide de Kubernetes.
 
 - Efficacité et évolutivité : Création automatique de conteneurs et équilibrage de la charge entre les instances.
 - Résilience : Redémarrage automatique en cas d'erreurs non gérées.
 
-## API Gateway vs Reverse Proxy + Load Balancer: (NETFLIX Zuul, Kong or Nginx)
+## API Gateway: Kong (60% ✅ le 20/02/2024)
 
 Nous proposons d'utiliser une passerelle API moderne qui gère à la fois le routage, la sécurité et l'équilibrage des charges.
 
 Quelques exemples :
 
+- **Nginx** -  Nginx peut être configuré comme une passerelle API et un équilibreur de charge, leur 'dynamic-configuration-api' peut être utilisé pour le registre des services.
 - **NETFLIX Zuul** - Passerelle API basée sur Java développée par Netflix.
 - **Kong** - Passerelle API Open Source qui prend en charge le routage, l'authentification et l'équilibrage de charge.
-- **Nginx** -  Nginx peut être configuré comme une passerelle API et un équilibreur de charge, leur 'dynamic-configuration-api' peut être utilisé pour le registre des services.
 
-## Service Discovery (Consul, NETFLIX Eureka)
+## Service Discovery: Kubernetes built-in DNS (60% ✅ le 20/02/2024)
 
 - **Consul** - La découverte et la configuration des services sont facilitées. Distribué, hautement disponible et adapté au centre de données.
 - **NETFLIX Eureka** - Service basé sur REST qui est principalement utilisé dans le nuage AWS pour localiser les services à des fins d'équilibrage de charge et de basculement des serveurs de niveau intermédiaire.
@@ -45,7 +45,7 @@ Quelques exemples :
 
 ## Authentication
 
-### Authentication Service: KeyCloak?
+### Authentication Service: Idk
 
 \<Work in progress\>
 
@@ -57,7 +57,7 @@ Au lieu d'utiliser des sessions, nous choisissons d'utiliser des jetons web json
 
 **Note:** JWT peut être utilisé pour stocker des données réelles (ex. privs) au lieu de s'appuyer sur la consultation d'un identifiant de session dans la base de données (ex. pour consulter les privs d'un utilisateur authentifié). Cela permet d'alléger le traitement nécessaire côté serveur.
 
-## API Scripting: Mostly Node+Express
+## API Scripting: Mostly Node+Express (✅ le 20/02/2024)
 
 **Note:** Pour la plupart du temps... Sauf exigence contraire pour un service spécifique.
 
@@ -66,17 +66,7 @@ Au lieu d'utiliser des sessions, nous choisissons d'utiliser des jetons web json
   - Pourquoi dans notre cas ? Nous n'avons pas de traitement lourd du côté du serveur de données (à l'intérieur des microservices).
 - Express est un framework très léger, très modulaire, avec de nombreux plugins... Idéal pour écrire des API plus petites sous forme de microservices.
 
-## Static File Server: Nginx or Apache
-
-Honnêtement, nginx ou apache fonctionneraient parfaitement. A partir de 2024, la différence de performance est négligeable.
-
-Nous penchons plus pour nginx car il est un peu plus léger et un peu plus courant dans les applications évolutives.
-
-## Frontend framework: Anything works
-
-Honnêtement, n'importe quel framework frontend fonctionne.
-
-## Monitoring Solution: (Prometheus + Graffana or OpenTelemetry)
+## Monitoring Solution: Prometheus + Graffana (80% ✅ le 20/02/2024)
 
 - Capacité à surveiller et analyser
 - Offre : Visibilité accrue + Analyse des métriques + Gestion des incidents + une optimisationde la performance + une gestion des ressources + evolotivité individuelle
