@@ -16,38 +16,34 @@ router.delete("/:id", destroy);
 async function select(req, res){
     let result = await Model.select(req.body)
 
-    if (result)
-        return res.status(200).json(result);
-    else
-        return res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
+    return result?
+            res.status(200).json(result) : 
+            res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
 }
 
 async function create(req, res) {
     let result = await Model.insert(req.body);
 
-    if (result)
-        return res.status(200).json(result);
-    else
-        return res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
+    return result ?
+        res.status(200).json(result) :
+        res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
         
 }
 
 async function update(req, res) {
     let result = await Model.update(req.body);
 
-    if (result)
-        return res.status(200).json(result);
-    else
-        return res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
+    return result ?
+        res.status(200).json(result) :
+        res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
 }
 
 async function destroy(req, res) {
     let result = await Model.delete(req.body);
 
-    if (result)
-        return res.status(200).json(result);
-    else
-        return res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer." });
+    return result ?
+        res.status(200).json(result) :
+        res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
 }
 
 module.exports = router

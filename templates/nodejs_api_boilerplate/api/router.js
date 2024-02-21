@@ -8,6 +8,6 @@ const auth = require('./middlewares/auth');
 const WilayasController = require('./controllers/WilayasController');
 
 /******** ROUTES ********/
-router.use('/wilayas', WilayasController);
+router.use('/api/wilayas', WilayasController);
 
 module.exports = router;
