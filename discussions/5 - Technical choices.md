@@ -27,35 +27,35 @@ Nous voudrions orchestrer nos conteneurs Docker à l'aide de Kubernetes.
 - Efficacité et évolutivité : Création automatique de conteneurs et équilibrage de la charge entre les instances.
 - Résilience : Redémarrage automatique en cas d'erreurs non gérées.
 
-## API Gateway: Kong (60% ✅ le 20/02/2024)
+## Service Discovery: Kube-Proxy, Kubernetes built-in DNS (60% ✅ le 20/02/2024)
 
-Nous proposons d'utiliser une passerelle API moderne qui gère à la fois le routage, la sécurité et l'équilibrage des charges.
-
-Quelques exemples :
-
-- **Nginx** -  Nginx peut être configuré comme une passerelle API et un équilibreur de charge, leur 'dynamic-configuration-api' peut être utilisé pour le registre des services.
-- **NETFLIX Zuul** - Passerelle API basée sur Java développée par Netflix.
-- **Kong** - Passerelle API Open Source qui prend en charge le routage, l'authentification et l'équilibrage de charge.
-
-## Service Discovery: Kubernetes built-in DNS (60% ✅ le 20/02/2024)
+Other options:
 
 - **Consul** - La découverte et la configuration des services sont facilitées. Distribué, hautement disponible et adapté au centre de données.
 - **NETFLIX Eureka** - Service basé sur REST qui est principalement utilisé dans le nuage AWS pour localiser les services à des fins d'équilibrage de charge et de basculement des serveurs de niveau intermédiaire.
-- Une autre option consiste à créer notre propre service de découverte de services personnalisé.
+
+## API Gateway: Kong Ingress Controller (60% ✅ le 20/02/2024)
+
+Nous proposons d'utiliser Kong Ingress Controller, une passerelle API moderne qui gère à la fois le routage, la sécurité et l'équilibrage des charges.
+
+Quelques autres possibilités dans l'ordre :
+
+- **Nginx Ingress Controller** -  Nginx peut être configuré comme une passerelle API et un équilibreur de charge, leur 'dynamic-configuration-api' peut être utilisé pour le registre des services.
+- **NETFLIX Zuul** - Passerelle API basée sur Java développée par Netflix.
 
 ## Authentication
 
-### Authentication Service: Idk
+### Authentication Service: unsure
 
 \<Work in progress\>
 
-### Authentication Mechanism: JWT
+### Authentication Mechanism: JSON Web Token (JWT)
 
-Traditionnellement, vous pouvez utiliser des sessions, ce qui signifie que vous stockez un identifiant dans les cookies de l'utilisateur, puis vous le recherchez dans un store côté serveur (par exemple, vous recherchez l'identifiant de l'utilisateur associé à la session, puis vous recherchez ses autorisations).
+Traditionnellement, on peut utiliser des sessions, ce qui signifie que on stock "session-id" dans les cookies de l'utilisateur, puis on le recherche dans un store côté serveur (par exemple, vous recherchez l'user-id associé au sessionid, puis recuperer ses permissions).
 
-Au lieu d'utiliser des sessions, nous choisissons d'utiliser des jetons web json (JWT), afin de minimiser le stockage de données sur le serveur et de stocker plutôt des jetons web json.
+Au lieu d'utiliser des sessions, nous choisissons d'utiliser des JSON Web Tokens (JWT), afin de minimiser le stockage de données sur le serveur et pour minimiser le cross-checking (communication inter-service pour verifier les permissions).
 
-**Note:** JWT peut être utilisé pour stocker des données réelles (ex. privs) au lieu de s'appuyer sur la consultation d'un identifiant de session dans la base de données (ex. pour consulter les privs d'un utilisateur authentifié). Cela permet d'alléger le traitement nécessaire côté serveur.
+**Note:** JWT peut être utilisé pour stocker des données réelles (ex. privilèges) au lieu de s'appuyer sur la consultation d'un identifiant de session dans la base de données (ex. pour consulter les privilèges d'un utilisateur). Cela permet d'alléger le traitement nécessaire côté serveur.
 
 ## API Scripting: Mostly Node+Express (✅ le 20/02/2024)
 
@@ -82,4 +82,8 @@ Redis est un standard de l'industrie en matière de mise en cache.
 
 ## Blockchain network : unsure
 
-\<Work in progress\>
+\<Out of scope at this point in time\>
+
+## CP-ABE Implementation : unsure
+
+\<Out of scope at this point in time\>

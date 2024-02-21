@@ -1,62 +1,26 @@
 version: '3'
-networks:
-  static-network:
-    ipam:
-      driver: default
-      config:
-          - subnet: 10.10.10.0/24
-            gateway: 10.10.10.1
 volumes:
   mysql-data:
 services:
-  api-gateway:
-    build: ./api-gateway
-    container_name: api-gateway
-    networks:
-      static-network:
-        ipv4_address: 10.10.10.254
-    ports:
-    - "443:443"
-    - "80:80"
-  service-discovery:
-    build: ./service-discovery
-    container_name: service-discovery
-    networks:
-      static-network:
-        ipv4_address: 10.10.10.253
-    ports:
-    - "3000:3000"
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    networks:
-      static-network:
-        ipv4_address: 10.10.10.30
-    ports:
-     - "8080:8080"
-  database:
-    build: ./database
-    container_name: database
-    networks:
-      static-network:
-        ipv4_address: 10.10.10.50
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
   auth-service:
     build: ./auth-service
     container_name: auth-service
-    networks:
-      static-network:
-        ipv4_address: 10.10.10.10
+  frontend:
+    build: ./frontend
+    container_name: frontend
     ports:
-     - "8081:8081"
-  backend:
-    build: ./backend
-    container_name: backend
-    networks:
-      static-network:
-        ipv4_address: 10.10.10.20
-    ports:
-     - "8082:8082"
+      - "3000:3000"
+  codification-service:
+    build: ./codification/codification-service
+    container_name: codification-service
+    volumes:
+      - mysql-data:/var/lib/mysql
+  codification-db:
+    build: ./codification/codification-db
+    container_name: codification-db
+    environment:
+      - ENV MYSQL_ROOT_USER=root
+      - ENV MYSQL_ROOT_PASSWORD=root
+      - ENV MYSQL_DB=forza
+    volumes:
+      - mysql-data:/var/lib/mysql

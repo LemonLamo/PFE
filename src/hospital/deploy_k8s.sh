@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl apply -f .kubernetes
+kubectl apply -R -f .kubernetes

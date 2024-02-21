@@ -1,3 +1,3 @@
 #!/bin/bash
-docker compose build
-docker compose up
+./deploy_docker.sh
+./deploy_k8s.sh

@@ -1,7 +1,5 @@
-FROM node:21
-RUN mkdir /app
-WORKDIR /app
-ADD src/* /app
+FROM node:20.11.1
+COPY . .
 RUN npm install
-EXPOSE 8081
+EXPOSE 8080
 CMD ["npm", "start"]

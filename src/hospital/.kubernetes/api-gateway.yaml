@@ -1,48 +1,79 @@
-apiVersion: v1
-kind: Service
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
 metadata:
-  name: api-gateway
+  name: kong
+  annotations:
+    konghq.com/gatewayclass-unmanaged: 'true'
 spec:
-  selector:
-    app: api-gateway
-  type: LoadBalancer
-  ports:
-    - name: "443"
-      port: 443
-      targetPort: 443
-    - name: "80"
-      port: 80
-      targetPort: 80
+  controllerName: konghq.com/kic-gateway-controller
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
 metadata:
-  name: api-gateway
+  name: kong
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: api-gateway
-  template:
-    metadata:
-      labels:
-        app: api-gateway
-    spec:
-      containers:
-        - image: api-gateway
-          name: api-gateway
-          ports:
-            - containerPort: 443
-              hostPort: 443
-              protocol: TCP
-            - containerPort: 80
-              hostPort: 80
-              protocol: TCP
-          resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-            requests:
-              cpu: 100m
-              memory: 100Mi
-      restartPolicy: Always
+  gatewayClassName: kong
+  listeners:
+  - name: proxy
+    port: 80
+    protocol: HTTP
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: echo
+  annotations:
+    konghq.com/strip-path: 'false'
+spec:
+  parentRefs:
+  - name: kong
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: frontend
+      kind: Service
+      port: 3000
+
+
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/login
+    backendRefs:
+    - name: auth-service
+      kind: Service
+      port: 8080
+
+
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/logout
+    backendRefs:
+    - name: auth-service
+      kind: Service
+      port: 8080
+
+
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/register
+    backendRefs:
+    - name: codification-service
+      kind: Service
+      port: 8080
+
+
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/codifications
+    backendRefs:
+    - name: codification-service
+      kind: Service
+      port: 8080
+  
