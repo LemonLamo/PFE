@@ -15,7 +15,5 @@ CREATE TABLE `parametres_d_hemobiologie` (
   `Taux_de_prothrombine_(TP)` varchar(255) NOT NULL,
   `Fibrinogène` varchar(255) NOT NULL,
   `resultat` varchar(255) NOT NULL,
-  `analyse_id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `analyse_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
