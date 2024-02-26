@@ -13,6 +13,6 @@ spec:
         type: PathPrefix
         value: /api/notifications
     backendRefs:
-    - name: notifications-service
+    - name: notification-service
       kind: Service
       port: 8080
