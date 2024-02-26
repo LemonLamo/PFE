@@ -30,23 +30,23 @@ spec:
         app: codification-db
     spec:
       containers:
-        - image: abdou1307/codification-db
+        - image: abdou1307/codification-db:latest
           name: codification-db
           ports:
             - containerPort: 3306
           volumeMounts:
-            - mountPath: /var/lib/mysql
-              name: mysql-data
+            - mountPath: /var/lib/codification
+              name: codification-data
       restartPolicy: Always
       volumes:
-        - name: mysql-data
+        - name: codification-data
           persistentVolumeClaim:
-            claimName: mysql-data
+            claimName: codification-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-data
+  name: codification-data
 spec:
   accessModes:
     - ReadWriteOnce

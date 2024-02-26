@@ -30,7 +30,7 @@ spec:
         app: auth-db
     spec:
       containers:
-        - image: abdou1307/auth-db
+        - image: abdou1307/auth-db:latest
           name: auth-db
           ports:
             - containerPort: 3306

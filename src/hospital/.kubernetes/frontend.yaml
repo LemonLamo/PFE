@@ -28,7 +28,7 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: abdou1307/frontend
+        - image: abdou1307/frontend:latest
           name: frontend
           ports:
             - containerPort: 3000

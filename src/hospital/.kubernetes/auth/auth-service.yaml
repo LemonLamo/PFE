@@ -8,6 +8,8 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
+  selector:
+    app: auth-service
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -26,7 +28,7 @@ spec:
         app: auth-service
     spec:
       containers:
-        - image: abdou1307/auth-service
+        - image: abdou1307/auth-service:latest
           name: auth-service
           ports:
             - containerPort: 8080

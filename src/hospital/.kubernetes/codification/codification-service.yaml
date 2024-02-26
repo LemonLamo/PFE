@@ -28,7 +28,7 @@ spec:
         app: codification-service
     spec:
       containers:
-        - image: abdou1307/codification-service
+        - image: abdou1307/codification-service:latest
           name: codification-service
           ports:
             - containerPort: 8080
