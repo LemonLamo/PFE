@@ -1,7 +1,8 @@
 #!/bin/bash
 REGISTRY="abdou1307"
 SERVICES=(
-    "auth-service"
+    "auth/auth-db"
+    "auth/auth-service"
     "codification/codification-db"
     "codification/codification-service"
     "frontend"

@@ -99,6 +99,7 @@ exports.verify_2fa = async (req, res) => {
 }
 exports.enable_2fa = async (req, res) => {
     const { NIN, password } = req.body
+    const user = await Model.selectByNIN(NIN)
     const login_match = user && await bcrypt.compare(password, user.password)
 
     if (login_match) {
@@ -117,6 +118,7 @@ exports.enable_2fa = async (req, res) => {
 }
 exports.disable_2fa = async (req, res) => {
     const { NIN, password } = req.body
+    const user = await Model.selectByNIN(NIN)
     const login_match = user && await bcrypt.compare(password, user.password)
 
     if (login_match) {
