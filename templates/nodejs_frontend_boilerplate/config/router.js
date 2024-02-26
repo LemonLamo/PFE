@@ -5,8 +5,15 @@ const router = express.Router();
 const auth = require('../middlewares/auth');
 
 /******** ROUTES ********/
-router.use('/', async(req, res)=>{
-    res.render('index')
+router.use('/', verifyhasprivilege(), async(req, res)=>{
+    let context = {
+        patients: [
+            { nom: "brahim", prenom: "abderrazak" },
+            { nom: "brahim2", prenom: "abderrazak2" },
+            { nom: "brahim3", prenom: "abderrazak3" },
+        ]
+    }
+    res.render('index', context)
 });
 
 module.exports = router;

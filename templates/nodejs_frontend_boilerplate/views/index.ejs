@@ -7,6 +7,9 @@
 </head>
 <body>
     <%- include('partials/header') %>
+    <% for(e of patients){ %>
+        <%= e.nom %> <%= e.prenom %> <br>
+    <% } %>
     rest of index
 </body>
 </html>

@@ -6,21 +6,21 @@ USE forza;
 -- Structure de la table `allergenes`
 --
 CREATE TABLE `allergenes` (
+  `code` varchar(255) NOT NULL PRIMARY KEY,
   `nom` varchar(255) NOT NULL,
-  `Code` varchar(255) NOT NULL,
-  `Code_Phadia` varchar(255) NOT NULL,
-  `Famille` varchar(255) NOT NULL,
-  `Sous_famille` varchar(255) NOT NULL,
-  `Type` varchar(255) NOT NULL,
-  `Codes_NABM` varchar(255) NOT NULL,
-  `Nom_complet` varchar(255) NOT NULL
+  `type` varchar(255) NOT NULL,
+  `famille` varchar(255) NOT NULL,
+  `sous_famille` varchar(255) NOT NULL,
+  `code_phadia` varchar(255) NOT NULL,
+  `code_NABM` varchar(255) NOT NULL,
+  `nom_complet` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `allergenes`
 --
 
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`) VALUES
 ('Ammonium quaternaire - myorelaxant', 'AM4', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', '0968', 'AM4-Ammonium quaternaire - myorelaxant'),
 ('IgE spécifiques - Pénicilline G', 'C1', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', '0968', 'C1-IgE spécifiques - Pénicilline G'),
 ('IgG spécifiques  - Pénicilline G', 'C1G', 'null', 'Médicaments', 'Médicaments', 'IgG spécifiques', 'null', 'C1G-IgG spécifiques  - Pénicilline G'),
@@ -361,7 +361,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Quinoa', 'F347S', 'null', 'Trophallergènes', 'Aliments d\'origine végétale', 'IgG spécifiques sous classes 4', 'null', 'F347S-Quinoa'),
 ('Litchi', 'F348', 'null', 'Trophallergènes', 'Aliments d\'origine végétale', 'IgE spécifiques', '1205', 'F348-Litchi'),
 ('Pomme de terre', 'F35', 'null', 'Trophallergènes', 'Aliments d\'origine végétale', 'IgE spécifiques', '1205', 'F35-Pomme de terre');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Crevette rPen a 1 Tropomyosine - recombinant', 'F351', 'null', 'Composants allergéniques', 'Origine animale - recombinants', 'IgE spécifiques', '1205', 'F351-Crevette rPen a 1 Tropomyosine - recombinant'),
 ('npen a 1 - tropomyosine', 'F351N', 'null', 'Composants allergéniques', 'Origine animale - recombinants', 'IgE spécifiques', '1205', 'F351N-npen a 1 - tropomyosine'),
 ('r Ara h 8 Arachis hypogaea - recombinant', 'F352', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F352-r Ara h 8 Arachis hypogaea - recombinant'),
@@ -665,7 +665,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Maxatase', 'K204', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K204-Maxatase'),
 ('Alkalase', 'K205', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K205-Alkalase'),
 ('Savinase', 'K206', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K206-Savinase');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Lysozyme,(nGal d 4)', 'K208', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K208-Lysozyme,(nGal d 4)'),
 ('Anhydride hexahydrophtalique', 'K209', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K209-Anhydride hexahydrophtalique'),
 ('Laine de mouton non traitée', 'K21', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K21-Laine de mouton non traitée'),
@@ -1017,7 +1017,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('null', 'null', 'null', 'null', 'null', 'null', 'null', '-'),
 ('null', 'null', 'null', 'null', 'null', 'null', 'null', '-'),
 ('null', 'null', 'null', 'null', 'null', 'null', 'null', '-');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('null', 'null', 'null', 'null', 'null', 'null', 'null', '-'),
 ('null', 'null', 'null', 'null', 'null', 'null', 'null', '-'),
 ('null', 'null', 'null', 'null', 'null', 'null', 'null', '-'),
@@ -1380,7 +1380,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Safran', 'F331', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F331-Safran'),
 ('Menthe', 'F332', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F332-Menthe'),
 ('Lin - graines - aliment', 'F333', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F333-Lin - graines - aliment');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Lupin - graines - aliment', 'F335', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F335-Lupin - graines - aliment'),
 ('Jujube', 'F336', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F336-Jujube'),
 ('Sole', 'F337', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgE spécifiques', '1205', 'F337-Sole'),
@@ -1688,7 +1688,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Mouche du Soudan', 'I72S', 'null', 'Venins et insectes', 'Venins et insectes', 'IgG spécifiques sous classes 4', 'null', 'I72S-Mouche du Soudan'),
 ('Larve de ver de vase', 'I73', 'null', 'Venins et insectes', 'Venins et insectes', 'IgE spécifiques', '1204', 'I73-Larve de ver de vase'),
 ('Venin de frelon - Vespa crabro', 'I75', 'null', 'Venins et insectes', 'Venins et insectes', 'IgE spécifiques', '0967', 'I75-Venin de frelon - Vespa crabro');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Venin de frelon', 'I75G', 'null', 'Venins et insectes', 'Venins et insectes', 'IgG spécifiques', 'null', 'I75G-Venin de frelon'),
 ('Venin de frelon', 'I75S', 'null', 'Venins et insectes', 'Venins et insectes', 'IgG spécifiques sous classes 4', 'null', 'I75S-Venin de frelon'),
 ('Scarabée', 'I76', 'null', 'Venins et insectes', 'Venins et insectes', 'IgE spécifiques', '1204', 'I76-Scarabée'),
@@ -2010,7 +2010,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('IgE spécifiques  - Erythromycine', 'C212', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C212-IgE spécifiques  - Erythromycine'),
 ('IgE spécifiques  - Gentamicine', 'C213', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C213-IgE spécifiques  - Gentamicine'),
 ('IgE spécifiques  - Doxycycline', 'C216', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C216-IgE spécifiques  - Doxycycline');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('IgE spécifiques  - Acide acétylsalicylique', 'C217', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C217-IgE spécifiques  - Acide acétylsalicylique'),
 ('IgE spécifiques  - Mélange de macrolides', 'C222', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C222-IgE spécifiques  - Mélange de macrolides'),
 ('IgE spécifiques  - Sulfaméthoxazol', 'C223', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C223-IgE spécifiques  - Sulfaméthoxazol'),
@@ -2353,7 +2353,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('f381  Vivaneau campèche', 'F381', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgE spécifiques', '1205', 'F381-f381  Vivaneau campèche'),
 ('f384 Sténode', 'F384', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgE spécifiques', '1205', 'F384-f384 Sténode'),
 ('Poisson - morue', 'F3G', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgG spécifiques', 'null', 'F3G-Poisson - morue');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Poisson - morue', 'F3S', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgG spécifiques sous classes 4', 'null', 'F3S-Poisson - morue'),
 ('Blé - aliment', 'F4', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F4-Blé - aliment'),
 ('Thon', 'F40', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgE spécifiques', '1205', 'F40-Thon'),
@@ -2659,7 +2659,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Latex rHev b 11(recombinant)', 'K224', 'null', 'Composants allergéniques', 'Latex - recombinants', 'IgE spécifiques', '1204', 'K224-Latex rHev b 11(recombinant)'),
 ('Poussiere de paille', 'K23', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K23-Poussiere de paille'),
 ('Hêtre - bois', 'K32', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K32-Hêtre - bois');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Chêne - Bois - sciure', 'K33', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K33-Chêne - Bois - sciure'),
 ('Frêne (bois)', 'K34', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K34-Frêne (bois)'),
 ('Cèdre rouge', 'K43', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K43-Cèdre rouge'),
@@ -2981,7 +2981,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('IgE spécifiques  - Insuline bovine', 'C71', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C71-IgE spécifiques  - Insuline bovine'),
 ('IgE spécifiques  - Nitrite de sodium', 'C711', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C711-IgE spécifiques  - Nitrite de sodium'),
 ('IgE spécifiques  - Parabène', 'C713', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C713-IgE spécifiques  - Parabène');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('IgE spécifiques  - Tartrazine', 'C717', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C717-IgE spécifiques  - Tartrazine'),
 ('IgE spécifiques  - Insuline humaine', 'C73', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C73-IgE spécifiques  - Insuline humaine'),
 ('IgE spécifiques  - Gélatine bovine', 'C74', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C74-IgE spécifiques  - Gélatine bovine'),
@@ -3319,7 +3319,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('RGad c1cabillaud - recombinant', 'F426', 'null', 'Composants allergéniques', 'Origine animale - recombinants', 'IgE spécifiques', '1205', 'F426-RGad c1cabillaud - recombinant'),
 ('rAra h 9 (LTP, arachide)', 'F427', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F427-rAra h 9 (LTP, arachide)'),
 ('f428 rCor a 1 (PR-10, noisette)', 'F428', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F428-f428 rCor a 1 (PR-10, noisette)');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('f430 Kiwi - rAct d 8 ; PR-10', 'F430', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F430-f430 Kiwi - rAct d 8 ; PR-10'),
 ('nGly m 5 b-conglycinine, soja', 'F431', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F431-nGly m 5 b-conglycinine, soja'),
 ('nGly m 6 glycinine, soja', 'F432', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F432-nGly m 6 glycinine, soja'),
@@ -3627,7 +3627,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Mélange de bois tendres - hêtre, pin, cèdre rouge, sapin argenté', 'KX4', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1201', 'KX4-Mélange de bois tendres - hêtre, pin, cèdre rouge, sapin argenté'),
 ('Penicillium notatum', 'M1', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgE spécifiques', '1204', 'M1-Penicillium notatum'),
 ('Stemphyllium botryosum', 'M10', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgE spécifiques', '1204', 'M10-Stemphyllium botryosum');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Stemphylium', 'M10S', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgG spécifiques sous classes 4', 'null', 'M10S-Stemphylium'),
 ('Rhizopus nigricans', 'M11', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgE spécifiques', '1204', 'M11-Rhizopus nigricans'),
 ('Rhizopus nigricans', 'M11S', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgG spécifiques sous classes 4', 'null', 'M11S-Rhizopus nigricans'),
@@ -4000,7 +4000,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('IgG spécifiques  - Pénicilline V', 'C2G', 'null', 'Médicaments', 'Médicaments', 'IgG spécifiques', 'null', 'C2G-IgG spécifiques  - Pénicilline V'),
 ('IgG spécifiques Pénicilline V', 'C2S', 'null', 'Médicaments', 'Médicaments', 'IgG spécifiques sous classes 4', 'null', 'C2S-IgG spécifiques Pénicilline V'),
 ('IgE spécifiques  - Codeïne', 'C300', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C300-IgE spécifiques  - Codeïne');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('IgE spécifiques  - Piroxicam', 'C304', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C304-IgE spécifiques  - Piroxicam'),
 ('IgE spécifiques  - Acide clavulanique (Augmentin)', 'C305', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C305-IgE spécifiques  - Acide clavulanique (Augmentin)'),
 ('IgE spécifiques  - Céfuroxime - Zinnat', 'C308', 'null', 'Médicaments', 'Médicaments', 'IgE spécifiques', 'null', 'C308-IgE spécifiques  - Céfuroxime - Zinnat'),
@@ -4344,7 +4344,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('rPru p 1 Pêche - recombinant', 'F419', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F419-rPru p 1 Pêche - recombinant'),
 ('Saumon', 'F41S', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgG spécifiques sous classes 4', 'null', 'F41S-Saumon'),
 ('f42   Aiglefin ( poisson )', 'F42', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgE spécifiques', '1205', 'F42-f42   Aiglefin ( poisson )');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('rPru p 3 Pêche - recombinant', 'F420', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F420-rPru p 3 Pêche - recombinant'),
 ('rPru p 4 Pêche - recombinant', 'F421', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F421-rPru p 4 Pêche - recombinant'),
 ('r Ara h 1 Arachis hypogaea - recombinant', 'F422', 'null', 'Composants allergéniques', 'Origine végétale - recombinants', 'IgE spécifiques', '1205', 'F422-r Ara h 1 Arachis hypogaea - recombinant'),
@@ -4650,7 +4650,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Isocyanate HDI', 'K77', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K77-Isocyanate HDI'),
 ('Oxyde déthylène', 'K78', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K78-Oxyde déthylène'),
 ('Anhydride phtalique', 'K79', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K79-Anhydride phtalique');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Anhydride phtalique', 'K79G', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgG spécifiques', 'null', 'K79G-Anhydride phtalique'),
 ('Formaldéhyde', 'K80', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K80-Formaldéhyde'),
 ('Ficus spp', 'K81', 'null', 'Allergènes professionnels', 'Allergènes professionnels', 'IgE spécifiques', '1204', 'K81-Ficus spp'),
@@ -4971,7 +4971,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('rDer p 2 (Gr 2 Acariens, D. pteronyssinus recombinant)', 'D203', 'null', 'Aéroallergènes', 'Acariens', 'IgE spécifiques', '1204', 'D203-rDer p 2 (Gr 2 Acariens, D. pteronyssinus recombinant)'),
 ('rDer p 10 (Tropomyosine acariens,  D. pteronyssinus recombinant)', 'D205', 'null', 'Aéroallergènes', 'Acariens', 'IgE spécifiques', '1204', 'D205-rDer p 10 (Tropomyosine acariens,  D. pteronyssinus recombinant)'),
 ('Dermatophagoïdes farinae', 'D2G', 'null', 'Aéroallergènes', 'Acariens', 'IgG spécifiques', 'null', 'D2G-Dermatophagoïdes farinae');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Dermatophagoïdes farinae', 'D2S', 'null', 'Aéroallergènes', 'Acariens', 'IgG spécifiques sous classes 4', 'null', 'D2S-Dermatophagoïdes farinae'),
 ('Dermatophagoides microceras', 'D3', 'null', 'Aéroallergènes', 'Acariens', 'IgE spécifiques', '1204', 'D3-Dermatophagoides microceras'),
 ('Dermatophagoides microceras', 'D3S', 'null', 'Aéroallergènes', 'Acariens', 'IgG spécifiques sous classes 4', 'null', 'D3S-Dermatophagoides microceras'),
@@ -5311,7 +5311,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Fraise', 'F44S', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgG spécifiques sous classes 4', 'null', 'F44S-Fraise'),
 ('Levure de bière', 'F45', 'null', 'Trophallergènes', 'Aliments dorigine animale', 'IgE spécifiques', '1205', 'F45-Levure de bière'),
 ('Ail', 'F47', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F47-Ail');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Ail', 'F47G', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgG spécifiques', 'null', 'F47G-Ail'),
 ('Ail', 'F47S', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgG spécifiques sous classes 4', 'null', 'F47S-Ail'),
 ('Oignon', 'F48', 'null', 'Trophallergènes', 'Aliments dorigine végétale', 'IgE spécifiques', '1205', 'F48-Oignon'),
@@ -5624,7 +5624,7 @@ INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille
 ('Penicillium frequentans', 'M209', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgE spécifiques', '1204', 'M209-Penicillium frequentans'),
 ('Trichophyton - Qoetzii', 'M210', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgE spécifiques', '1204', 'M210-Trichophyton - Qoetzii'),
 ('Trichophyton - Interdigitale', 'M211', 'null', 'Aéroallergènes', 'Micro-organismes', 'IgE spécifiques', '1204', 'M211-Trichophyton - Interdigitale');
-INSERT INTO `allergenes` (`nom`, `Code`, `Code_Phadia`, `Famille`, `Sous_famille`, `Type`, `Codes_NABM`, `Nom_complet`, `created_at`, `updated_at`) VALUES
+INSERT INTO `allergenes` (`nom`, `code`, `code_phadia`, `famille`, `sous_famille`, `type`, `code_NABM`, `nom_complet`, `created_at`, `updated_at`) VALUES
 ('Aspergillus rAspf1 - recombinant', 'M218', 'null', 'Composants allergéniques', 'Micro-organismes - recombinants', 'IgE spécifiques', '1204', 'M218-Aspergillus rAspf1 - recombinant'),
 ('Aspergillus rAspf2 - recombinant', 'M219', 'null', 'Composants allergéniques', 'Micro-organismes - recombinants', 'IgE spécifiques', '1204', 'M219-Aspergillus rAspf2 - recombinant'),
 ('Aspergillus rAspf3 - recombinant', 'M220', 'null', 'Composants allergéniques', 'Micro-organismes - recombinants', 'IgE spécifiques', '1204', 'M220-Aspergillus rAspf3 - recombinant'),

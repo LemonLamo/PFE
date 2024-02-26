@@ -25,7 +25,7 @@ INSERT INTO `bilans` (`nom`) VALUES
 ('Marqueurs tumoraux'),
 ('Autres paramètres biochimiques -Ionogramme sanguin Na K Cl - Amylase - Lipase - Beta HCG -ASLO - D-dimères\r\n'),
 ('Paramètres urinaires'),
-('auto-immunite'),
+('Auto-immunite'),
 ('Bilan hormonal'),
 ('Bilan immunochimie'),
 ('Bilan glucidique'),
