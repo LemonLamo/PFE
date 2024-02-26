@@ -63,15 +63,53 @@ exports.signup = async (req, res) => {
         res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
 }
 
-
-// TODO: Email verification
+// Email verification
 exports.verify_email_request = async (req, res) =>{
+    let { NIN } = req.body
+    const user = await Model.selectByNIN(NIN)
+    if(user){
+        const email_verify_token = crypto.randomBytes(32).toString("hex");
+        const email_verify_token_hash = await bcrypt.hash(email_verify_token, 10);
     
+        await Model.setVerifyToken(NIN, email_verify_token_hash);
+        //TODO: Send email with 'verify_token' and remove 'email_verify_token' from reply
+    
+        return res.status(200).json({
+            email_verify_token: email_verify_token,
+            sucessCode: "verify-email.requested",
+            successMessage: "A verification link was sent to the email address associated in our database."
+        })
+    }else{
+        return res.status(400).json({
+            errorCode: "unauthorized.no-account",
+            errorMessage: "No account is associated with this email."
+        });
+    }
 }
 exports.verify_email = async (req, res) => {
+    const { NIN, verify_token } = req.query
+    const user = await Model.selectByNIN(NIN)
     
+    if (user) {
+        if (user.email_verify_token && await bcrypt.compare(verify_token, user.email_verify_token)) {
+            await Model.verifyEmail(NIN)
+            return res.status(200).json({
+                sucessCode: "verify-email.verified",
+                successMessage: "Your email was verified."
+            })
+        } else {
+            return res.status(400).json({
+                errorCode: "unauthorized.missing-auth",
+                errorMessage: "Invalid verification token"
+            });
+        }
+    } else {
+        return res.status(400).json({
+            errorCode: "unauthorized.no-account",
+            errorMessage: "No account is associated with this email."
+        });
+    }
 }
-
 
 // 2FA verification
 exports.verify_2fa = async (req, res) => {
@@ -103,8 +141,8 @@ exports.enable_2fa = async (req, res) => {
     const login_match = user && await bcrypt.compare(password, user.password)
 
     if (login_match) {
-        const two_factor_secret = node2fa.generateSecret()
-        const result = Model.enable2FA(NIN, two_factor_secret.secret)
+        const two_factor_secret = node2fa.generateSecret().secret
+        const result = Model.enable2FA(NIN, two_factor_secret)
 
         return result ?
             res.status(200).json(result) :

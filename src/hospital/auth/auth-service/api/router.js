@@ -9,7 +9,7 @@ router.post('/api/auth/login', AuthController.login);
 router.post('/api/auth/logout', AuthController.logout);
 router.post('/api/auth/signup', AuthController.signup);
 
-router.get ('/api/auth/verify-email-request', AuthController.verify_email_request);
+router.post('/api/auth/verify-email-request', AuthController.verify_email_request);
 router.get ('/api/auth/verify-email', AuthController.verify_email);
 
 router.post('/api/auth/verify-2fa', AuthController.verify_2fa);
