@@ -1,6 +1,5 @@
 const mysql = require('mysql2/promise');
 
-//TODO: replace this later with sequelize if needed
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
