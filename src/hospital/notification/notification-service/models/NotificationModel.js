@@ -1,4 +1,4 @@
-const db = require('../../config/database').db;
+const db = require('../config/database').db;
 
 exports.validationRules = {
     'type': ['required', 'string'],
@@ -6,7 +6,10 @@ exports.validationRules = {
     'notifiable_type': ['required', 'string'],
     'notifiable_destination': ['required', 'string'],
 }
-
+exports.selectByID = async (ID) => {
+    const [results, fields] = await db.query('SELECT * FROM `notifications` WHERE `id`=?', [ID]);
+    return results[0]
+}
 exports.selectByNIN = async (NIN) => {
     const [results, fields] = await db.query('SELECT * FROM `notifications` WHERE `notifiable_id`=?', [NIN]);
     return results

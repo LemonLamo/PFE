@@ -1,10 +1,7 @@
 const Model = require('../models/NotificationModel');
-const validator = require('../middlewares/validation');
-const jwt = require('jsonwebtoken');
 const fs = require('fs')
 const nodemailer = require('nodemailer')
 const twilio = require('twilio')
-const stringUtils = require('../../utils/strings');
 const { randomUUID } = require('crypto');
 
 /******** CONSTANTS ********/
@@ -14,7 +11,7 @@ const NOTIF_TITLES = {
 
 /******** ACTIONS ********/
 // Private routes, notify
-exports.notify = async (req, res) => {
+async function notify(req, res) {
     const NIN = "100010364027390000"
     const { notification_type, notifiable_type, to, data } = req.body
 
@@ -29,28 +26,43 @@ exports.notify = async (req, res) => {
     let result = await Model.insert(randomUUID(), notification_type, NIN, notifiable_type, to, JSON.stringify(data))
     return result ?
         res.status(200).json(result) :
-        res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
+        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
 }
 
-exports.notifications = async (req, res) => {
-    const NIN = "100010364027390000"
+async function notifications(req, res){
+    const NIN = req.jwt.NIN;
     let result = await Model.selectByNIN(NIN)
 
     return result ?
         res.status(200).json(result) :
-        res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
+        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
 }
 
-exports.mark_as_read = async (req, res) => {
+async function mark_as_read(req, res){
+    const NIN = req.jwt.NIN;
     const { id } = req.params
+    const notif = await Model.selectByID(id);
+    
+    if (!notif || notif.notifiable_id != NIN)
+        return res.status(400).json({
+            errorCode: "not-found",
+            errorMessage: "Notification not found."
+        });
+
     let result = await Model.mark_as_read(id)
 
     return result ?
         res.status(200).json(result) :
-        res.status(400).json({ errorCode: "unhandled-error", errorMessage: "Contact developer" });
+        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
+}
+/******** EXPORTS ********/
+module.exports = {
+    notify,
+    notifications,
+    mark_as_read,
 }
 
-/***** CODE *****/
+/***** Utility *****/
 const email_client = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -62,13 +74,13 @@ const twilio_client = twilio(process.env.TWILIO_AUTH_SID, process.env.TWILIO_AUT
 
 // send email
 async function sendEmail(to, type, data) {
-    const emailText = stringUtils.format(fs.readFileSync(require.resolve(`../../templates/email/${type}.txt`)).toString(), data);
-    const emailBody = stringUtils.format(fs.readFileSync(require.resolve(`../../templates/email/${type}.html`)).toString(), data);
+    const emailText = format(fs.readFileSync(require.resolve(`../templates/email/${type}.txt`)).toString(), data);
+    const emailBody = format(fs.readFileSync(require.resolve(`../templates/email/${type}.html`)).toString(), data);
 
     var message = {
         from: process.env.GMAIL_USERNAME,
         to: to,
-        subject: stringUtils.format(NOTIF_TITLES[type], data),
+        subject: format(NOTIF_TITLES[type], data),
         text: emailText,
         html: emailBody
     };
@@ -85,7 +97,7 @@ async function sendPushNotification(to, type, data) {
 
 // send SMS
 async function sendSMS(to, type, data) {
-    const smsText = stringUtils.format(fs.readFileSync(require.resolve(`../../templates/sms/${type}.txt`)).toString(), data);
+    const smsText = format(fs.readFileSync(require.resolve(`../templates/sms/${type}.txt`)).toString(), data);
     await twilio_client.messages.create({
         from: process.env.TWILIO_PHONE_NUMBER,
         to: to,
@@ -94,3 +106,8 @@ async function sendSMS(to, type, data) {
         console.error(err);
     });
 }
+
+// format string
+function format(format, data){
+    return String(format).replace(/\${(.*?)}/g, (match, p1) => data[p1.trim()] || match);
+};

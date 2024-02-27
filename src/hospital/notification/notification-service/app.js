@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require("helmet");
 const database = require('./config/database');
-const router = require('./api/router');
 const app = express();
 
 // database connection
@@ -19,8 +18,13 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// routes
-app.use('/', router);
+// router
+const auth = require('./middlewares/auth')
+const NotificationController = require('./controllers/NotificationController');
+
+app.post('/api/notify', NotificationController.notify); // private route. should not be accessible from public
+app.get ('/api/notifications/', auth.requireAuth, NotificationController.notifications);
+app.post('/api/notifications/:id/mark-as-read', auth.requireAuth, NotificationController.mark_as_read);
 app.use((req, res) => res.sendStatus(404))
 
 // start server
