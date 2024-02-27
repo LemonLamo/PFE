@@ -1,0 +1,17 @@
+[Logo]
+
+EHR_ACCESS
+Nouvel accès à votre dossier médical.
+
+{doctor}
+
+[Seperateur]
+
+Cet email à été envoyé automatiquement par MedicaLife à ${to}.
+Veuillez ne pas répondre à cet email.
+
+[Login to MedicaLife]
+
+Copyright © 2024 by Abderrazak BRAHIM & NADIL Aicha Marwa.
+
+All rights reversed.
