@@ -47,8 +47,6 @@ exports.sendSMS = async (to, type, data) => {
         from: process.env.TWILIO_PHONE_NUMBER,
         to: to,
         body: smsText
-    }).then((err) => {
-        console.log("SMS sent to: "+ to);
     }).catch ((err) => {
         console.error(err);
     });
