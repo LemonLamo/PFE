@@ -75,7 +75,6 @@ async function sendEmail(to, type, data) {
     email_client.sendMail(message, (err, info) => {
         if (err)
             return console.error(err);
-        console.log('Email sent correctly to ' + to);
     });
 }
 
@@ -86,12 +85,12 @@ async function sendPushNotification(to, type, data) {
 
 // send SMS
 async function sendSMS(to, type, data) {
-    // TODO: Migrate to using restful api instead.
     const smsText = stringUtils.format(fs.readFileSync(require.resolve(`../../templates/sms/${type}.txt`)).toString(), data);
     await twilio_client.messages.create({
         from: process.env.TWILIO_PHONE_NUMBER,
         to: to,
         body: smsText
+    }).catch((err)=>{
+        console.error(err);
     });
-    console.log('SMS sent correctly to ' + to);
 }

@@ -3,11 +3,12 @@ const validator = require('../middlewares/validation');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
+const communication = require('../../utils/communication');
 const node2fa = require('node-2fa');
 
 /******** CONFIG ********/
 const JWT_OPTIONS = {
-    algorithm: "ES256"
+    algorithm: process.env.JWT_ALGORITHM
 }
 const COOKIES_OPTIONS = {
     httpOnly: true,
@@ -23,18 +24,24 @@ exports.login = async (req, res) => {
 
     if (login_match){
         if (user.two_factor_enabled){
+            // Generate & Send 2FA Token
             const token = node2fa.generateToken(user.two_factor_secret).token;
-            //TODO: Send email/sms with 'token' and remove 'token' from reply
+            if (user.email)
+                communication.sendEmail(user.email, 'TWO_FACTOR_TOKEN', {to: user.email, two_factor_token: token})
+
+            if (user.phoneNumber)
+                communication.sendSMS(user.phoneNumber, 'TWO_FACTOR_TOKEN', { to: user.phoneNumber, two_factor_token: token })
+
             return res.status(200).json({
-                token: token,
                 successCode: "login.2fa-code",
                 successMessage: "Please enter 2FA code"
             });
+        }else{
+            const permissions = [] // TODO: Add permissions fetch
+            const payload = {NIN, permissions}
+            const token = jwt.sign(payload, process.env.JWT_PRIVATE_KEY, JWT_OPTIONS)
+            return res.cookie('jwt', token, COOKIES_OPTIONS).status(200).json(token)
         }
-        const permissions = [] // TODO: Add permissions fetch
-        const payload = {NIN, permissions}
-        const token = jwt.sign(payload, process.env.JWT_PRIVATE_KEY, JWT_OPTIONS)
-        return res.cookie('jwt', token, COOKIES_OPTIONS).status(200).json(token)
     }else{
         return res.status(400).json({
             errorCode: "unauthorized.wrong-credentials",
@@ -72,10 +79,18 @@ exports.verify_email_request = async (req, res) =>{
         const email_verify_token_hash = await bcrypt.hash(email_verify_token, 10);
     
         await Model.setVerifyToken(NIN, email_verify_token_hash);
-        //TODO: Send email with 'verify_token' and remove 'email_verify_token' from reply
+
+        if (user.email){
+            const email_data = {
+                BASE_URL: process.env.BASE_URL,
+                NIN: NIN,
+                to: user.email,
+                verify_token: email_verify_token
+            }
+            await communication.sendEmail(user.email, 'VERIFY_EMAIL', email_data)
+        }
     
         return res.status(200).json({
-            email_verify_token: email_verify_token,
             sucessCode: "verify-email.requested",
             successMessage: "A verification link was sent to the email address associated in our database."
         })
@@ -184,10 +199,17 @@ exports.forgot_password = async (req, res) => {
         const reset_token_hash = await bcrypt.hash(reset_token, 10);
 
         await Model.setResetToken(NIN, reset_token_hash);
-        //TODO: Send email with 'reset_token' and remove 'reset_token' from reply
+        if (user.email) {
+            const email_data = {
+                BASE_URL: process.env.BASE_URL,
+                NIN: NIN,
+                to: user.email,
+                reset_token: reset_token
+            }
+            await communication.sendEmail(user.email, 'RESET_PASSWORD', email_data)
+        }
 
         return res.status(200).json({
-            reset_token: reset_token,
             sucessCode: "forgot-password.requested",
             successMessage: "A password reset link was sent to the email address associated in our database."
         })

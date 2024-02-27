@@ -1,0 +1,1 @@
+${two_factor_token} is your MedicaLife OTP. Keep it a secret.

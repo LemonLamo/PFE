@@ -12,6 +12,7 @@ USE forza;
 CREATE TABLE `users` (
   `NIN` varchar(255) NOT NULL PRIMARY KEY,
   `email` varchar(255) NOT NULL UNIQUE,
+  `phoneNumber` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
   `email_verify_token` varchar(255) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -27,6 +28,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users`
-(`NIN`, `email`, `password`) VALUES
-('100010364027390000', 'brahim.abderrazak1307@gmail.com', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW'),
-('111111111111111111', 'nadilmarwa02@gmail.com', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW');
+(`NIN`, `email`, `phoneNumber`, `password`) VALUES
+('100010364027390000', 'brahim.abderrazak1307@gmail.com', '+213549297666', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW'),
+('111111111111111111', 'nadilmarwa02@gmail.com', '+213799771062', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW');
