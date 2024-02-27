@@ -33,7 +33,7 @@ exports.notify = async (req, res) => {
 }
 
 exports.notifications = async (req, res) => {
-    const { NIN } = req.body
+    const NIN = "100010364027390000"
     let result = await Model.selectByNIN(NIN)
 
     return result ?
@@ -86,7 +86,8 @@ async function sendPushNotification(to, type, data) {
 
 // send SMS
 async function sendSMS(to, type, data) {
-    const smsText = stringUtils.format(fs.readFileSync(require.resolve(`../../templates/sms/${type}.txt`)), data);
+    // TODO: Migrate to using restful api instead.
+    const smsText = stringUtils.format(fs.readFileSync(require.resolve(`../../templates/sms/${type}.txt`)).toString(), data);
     await twilio_client.messages.create({
         from: process.env.TWILIO_PHONE_NUMBER,
         to: to,

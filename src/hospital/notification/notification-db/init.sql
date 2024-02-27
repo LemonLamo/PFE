@@ -28,5 +28,5 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications`
 (`id`, `type`, `notifiable_id`, `notifiable_type`, `notifiable_destination`, `data`) VALUES
-('01b6ad80-e7cb-4a89-9513-f3e6dc4b700d', 'TWO_FACTOR_TOKEN', '100010364027390000', 'sms', '+213549297666', 'This is a sample notification'),
-('da501d5e-51d3-4d79-bccb-419189ac922c', 'TWO_FACTOR_TOKEN', '111111111111111111', 'sms', '+213549297666', 'This too');
+('01b6ad80-e7cb-4a89-9513-f3e6dc4b700d', 'EHR_ACCESS', '100010364027390000', 'sms', '+213549297666', 'This is a sample notification'),
+('da501d5e-51d3-4d79-bccb-419189ac922c', 'EHR_ACCESS', '111111111111111111', 'sms', '+213549297666', 'This too');

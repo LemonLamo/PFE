@@ -11,6 +11,14 @@ spec:
   - matches:
     - path:
         type: PathPrefix
+        value: /api/notify
+    backendRefs:
+    - name: notification-service
+      kind: Service
+      port: 8080
+  - matches:
+    - path:
+        type: PathPrefix
         value: /api/notifications
     backendRefs:
     - name: notification-service

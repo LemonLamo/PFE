@@ -6,6 +6,8 @@ SERVICES=(
     "codification/codification-db"
     "codification/codification-service"
     "frontend"
+    "notification/notification-db"
+    "notification/notification-service"
 )
 
 trap "exit 130" SIGINT
