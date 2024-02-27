@@ -1,4 +1,4 @@
-const db = require('../../config/database').db;
+const db = require('../config/database').db;
 
 exports.validationRules = {
     NIN: ['required', 'digits:18'],
@@ -11,7 +11,7 @@ exports.selectByNIN = async (NIN) => {
     return results[0]
 }
 
-exports.setVerifyToken = async (NIN, email_verify_token) => {
+exports.saveVerificationToken = async (NIN, email_verify_token) => {
     const [results, fields] = await db.execute('UPDATE `users` SET email_verify_token=? WHERE NIN=?', [email_verify_token, NIN]);
     return results
 }
@@ -25,12 +25,12 @@ exports.setResetToken = async(NIN, resetToken) =>{
     return results
 }
 
-exports.enable2FA = async(NIN, secret) =>{
-    const [results, fields] = await db.execute('UPDATE `users` SET two_factor_enabled=1, two_factor_secret=? WHERE NIN=?', [secret, NIN]);
+exports.enable2FA = async(NIN) =>{
+    const [results, fields] = await db.execute('UPDATE `users` SET two_factor_enabled=1 WHERE NIN=?', [NIN]);
     return results
 }
 exports.disable2FA = async (NIN) => {
-    const [results, fields] = await db.execute('UPDATE `users` SET two_factor_enabled=0, two_factor_secret=NULL WHERE NIN=?', [NIN]);
+    const [results, fields] = await db.execute('UPDATE `users` SET two_factor_enabled=0 WHERE NIN=?', [NIN]);
     return results
 }
 
@@ -39,7 +39,7 @@ exports.resetPassword = async (NIN, password) => {
     return results
 }
 
-exports.insert = async (NIN, email, password) => {
-    const [results, fields] = await db.execute('INSERT INTO `users`(NIN, email, password) VALUES(?,?,?)', [NIN, email, password]);
+exports.insert = async (NIN, email, password, two_factor_secret) => {
+    const [results, fields] = await db.execute('INSERT INTO `users`(NIN, email, password, two_factor_secret) VALUES(?,?,?,?)', [NIN, email, password, two_factor_secret]);
     return results
 }

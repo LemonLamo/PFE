@@ -6,7 +6,6 @@ const app = express()
 const server = http.createServer(app);
 const port = 8080
 
-//TODO: replace this later with ORM if needed
 const db = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,

@@ -28,6 +28,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users`
-(`NIN`, `email`, `phoneNumber`, `password`) VALUES
-('100010364027390000', 'brahim.abderrazak1307@gmail.com', '+213549297666', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW'),
-('111111111111111111', 'nadilmarwa02@gmail.com', '+213799771062', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW');
+(`NIN`, `email`, `phoneNumber`, `password`, `two_factor_secret`) VALUES
+('100010364027390000', 'brahim.abderrazak1307@gmail.com', '+213549297666', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 'XFNHBGWMP6GATXOI4WZ7JMCX3QUDDIHN'),
+('111111111111111111', 'nadilmarwa02@gmail.com', '+213799771062', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 'IHNWHUQXBCWTEYMN2ET4EC7Q7V22CAUK');

@@ -26,7 +26,7 @@ function format(format, data) {
 
 // send email
 exports.sendEmail = async (to, type, data) => {
-    const body = format(fs.readFileSync(require.resolve(`../templates/email/${type}.html`)).toString(), data);
+    const body = format(fs.readFileSync(require.resolve(`../views/email/${type}.html`)).toString(), data);
 
     var message = {
         from: process.env.GMAIL_USERNAME,
@@ -42,7 +42,7 @@ exports.sendEmail = async (to, type, data) => {
 
 // send SMS
 exports.sendSMS = async (to, type, data) => {
-    const smsText = format(fs.readFileSync(require.resolve(`../templates/sms/${type}.txt`)).toString(), data);
+    const smsText = format(fs.readFileSync(require.resolve(`../views/sms/${type}.txt`)).toString(), data);
     await twilio_client.messages.create({
         from: process.env.TWILIO_PHONE_NUMBER,
         to: to,
