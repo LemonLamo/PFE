@@ -33,4 +33,7 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
       restartPolicy: Always
