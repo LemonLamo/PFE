@@ -1,5 +1,5 @@
 const Model = require('../models/MedicamentsModel');
-const validator = require('../middlewares/validation');
+//const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
 async function getAll(req, res){

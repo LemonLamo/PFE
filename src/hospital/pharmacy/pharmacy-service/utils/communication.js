@@ -22,7 +22,7 @@ const twilio_client = twilio(process.env.TWILIO_AUTH_SID, process.env.TWILIO_AUT
 // UTILS
 function format(format, data) {
     return String(format).replace(/\${(.*?)}/g, (match, p1) => data[p1.trim()] || match);
-};
+}
 
 // send email
 exports.sendEmail = async (to, type, data) => {
@@ -34,7 +34,7 @@ exports.sendEmail = async (to, type, data) => {
         subject: format(NOTIF_TITLES[type], data),
         html: body
     };
-    email_client.sendMail(message, (err, info) => {
+    email_client.sendMail(message, (err) => {
         if (err)
             return console.error(err);
     });

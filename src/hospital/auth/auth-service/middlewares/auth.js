@@ -7,7 +7,7 @@ exports.requireAuth = async (req, res, next) => {
     if (token == null)
         return res.status(401).json({ errorCode: "unauthorized.missing-auth", errorMessage: "Missing authentication header." });
 
-    jwt.verify(token, process.env.JWT_PUBLIC_KEY, (err, payload) => {
+    jwt.verify(token, process.env.JWT_PUBLIC_KEY, { algorithm: process.env.JWT_ALGORITHM }, (err, payload) => {
         if (err)
             return res.status(403).json({ errorCode: "unauthorized.invalid-jwt-token", errorMessage: "Invalid JWT token." })
 

@@ -84,7 +84,7 @@ async function sendEmail(to, type, data) {
         text: emailText,
         html: emailBody
     };
-    email_client.sendMail(message, (err, info) => {
+    email_client.sendMail(message, (err) => {
         if (err)
             return console.error(err);
     });
@@ -110,4 +110,4 @@ async function sendSMS(to, type, data) {
 // format string
 function format(format, data){
     return String(format).replace(/\${(.*?)}/g, (match, p1) => data[p1.trim()] || match);
-};
+}

@@ -7,7 +7,6 @@ const communication = require('../utils/communication');
 const node2fa = require('node-2fa');
 
 /******** CONFIG ********/
-const JWT_OPTIONS = { algorithm: process.env.JWT_ALGORITHM }
 const COOKIES_OPTIONS = { httpOnly: true, maxAge: 3600000 }
 
 /******** ACTIONS ********/
@@ -40,7 +39,7 @@ async function login (req, res){
 function setUpJWT(user) {
     const permissions = [] // TODO: Add permissions fetch
     const payload = { NIN: user.NIN, permissions: permissions }
-    return jwt.sign(payload, process.env.JWT_PRIVATE_KEY, JWT_OPTIONS)
+    return jwt.sign(payload, process.env.JWT_PRIVATE_KEY, { algorithm: process.env.JWT_ALGORITHM })
 }
 
 async function logout (req, res){
@@ -53,7 +52,8 @@ async function logout (req, res){
 
 async function signup(req, res) {
     let { NIN, email, password} = req.body
-
+    
+    const user = await Model.selectByNIN(NIN)
     validator.validate(req, res, Model.validationRules)
     password = await bcrypt.hash(req.body.password, 10);
     const two_factor_secret = node2fa.generateSecret().secret;
