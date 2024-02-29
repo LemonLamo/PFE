@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../src/css/animate.css" />
+    <link rel="stylesheet" href="../../../src/css/tailwind.css" />
+    <link rel="stylesheet" href="../../../src/css/styles.css" />
+    <link rel="stylesheet" href="../../../src/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/css/framework.css" />
+    <link rel="stylesheet" href="../../../src/css/nucleo-icons.css" />
+    <link rel="stylesheet" href="../../../src/css/nucleo-svg.css" />
+    <link rel="stylesheet" href="../../../src/css/perfect-scrollbar.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/css/soft-ui-dashboard-tailwind.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../src/css/soft-ui-dashboard-tailwind.min.css"
+    />
+    <link rel="stylesheet" href="../../../src/css/styles.min.css" />
+    <link rel="stylesheet" href="../../../src/css/tooltips.css" />
+    <link rel="stylesheet" href="../../../src/fancybox.css" />
+    <link rel="stylesheet" href="../../../src/inter-font.css" />
+    <link rel="stylesheet" href="../../../src/select2.min.css" />
+    <link rel="stylesheet" href="../../../src/notyf.min.css" />
+    <link rel="stylesheet" href="../../../src/css/app.css" />
+    <link rel="stylesheet" href="../../../src/nunito-font.css" />
+    <link rel="stylesheet" href="../../../src/tailwind.min.css" />
+    <link rel="stylesheet" href="../../../src/styles.css" />
+    <link rel="stylesheet" href="../../../src/select2.min.css" />
+    <script src="../../../src/js/wow.min.js"></script>
+    <script src="../../../src/js/app.js"></script>
+  </head>
+  <body>
+    @php $editing = isset($agent) @endphp
+
+    <div class="flex flex-wrap">
+      <x-inputs.group class="w-full">
+        <x-inputs.number
+          name="NIN_per"
+          label="Nin "
+          :value="old('NIN_per', ($editing ? $agent->NIN_per : ''))"
+          placeholder="Nin Per"
+          required
+        ></x-inputs.number>
+      </x-inputs.group>
+
+      <x-inputs.group class="w-full">
+        <x-inputs.text
+          name="adresse"
+          label="Adresse"
+          :value="old('adresse', ($editing ? $agent->adresse : ''))"
+          maxlength="255"
+          placeholder="Adresse"
+        ></x-inputs.text>
+      </x-inputs.group>
+
+      <x-inputs.group class="w-full">
+        <x-inputs.text
+          name="telephone"
+          label="Telephone"
+          :value="old('telephone', ($editing ? $agent->telephone : ''))"
+          maxlength="255"
+          placeholder="Telephone"
+        ></x-inputs.text>
+      </x-inputs.group>
+    </div>
+  </body>
+</html>

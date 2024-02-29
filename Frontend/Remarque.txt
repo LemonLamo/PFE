@@ -1,0 +1,16 @@
+coté patient : Done 
+
+coté personnel medical : 
+    patient : TODO
+    lits : TODO
+    permissions : (edit & create : check prblm)
+    role : (create & edit : assign permissions)
+    chambre : create : complet/non complet
+              show & edit : section lit 
+    medecin : show & create : assignation - visites - hospitalisations
+    infirmiers : edit - show : assignation
+    stockmed : Done
+    users : Done
+    Agents : Done
+    dashboard : Done
+CSS : all of them 
