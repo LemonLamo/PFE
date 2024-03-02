@@ -8,18 +8,18 @@ exports.validationRules = {
 }
 exports.selectByID = async (ID) => {
     const [results] = await db.query('SELECT * FROM `notifications` WHERE `id`=?', [ID]);
-    return results[0]
+    return results.length > 0 ? results[0] : {}
 }
 exports.selectByNIN = async (NIN) => {
     const [results] = await db.query('SELECT * FROM `notifications` WHERE `notifiable_id`=?', [NIN]);
     return results
 }
 exports.insert = async (id, type, notifiable_id, notifiable_type, notifiable_destination, data) => {
-    const [results] = await db.query('INSERT INTO `notifications`(`id`, `type`, `notifiable_id`, `notifiable_type`, `notifiable_destination`, `data`) VALUES(?, ?, ?, ?, ?, ?)', [id, type, notifiable_id, notifiable_type, notifiable_destination, data]);
-    return results
+    await db.execute('INSERT INTO `notifications`(`id`, `type`, `notifiable_id`, `notifiable_type`, `notifiable_destination`, `data`) VALUES(?, ?, ?, ?, ?, ?)', [id, type, notifiable_id, notifiable_type, notifiable_destination, data]);
 }
 exports.mark_as_read = async (id) => {
     const [results] = await db.query('UPDATE `notifications` SET `read_at`=CURRENT_TIMESTAMP WHERE `id`=?', [id]);
-    return results
+    if (results.affectedRows < 1)
+        throw new Error({ code: "ER_UPDATE_FAIL" })
 }
 

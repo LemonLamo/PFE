@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* add padding to main content on larger screens cause of the sidebar */
+@media screen and (min-width: 1200px){
+  main{
+    padding-left: 15.625rem;
+  }
+}

@@ -51,18 +51,20 @@ async function logout (req, res){
 }
 
 async function signup(req, res) {
-    let { NIN, email, password} = req.body
+    let { NIN, email, phoneNumber, password} = req.body
     
     const user = await Model.selectByNIN(NIN)
     validator.validate(req, res, Model.validationRules)
     password = await bcrypt.hash(req.body.password, 10);
     const two_factor_secret = node2fa.generateSecret().secret;
-    let result = Model.insert(NIN, email, password, two_factor_secret)
-    await send_email_verification(user);
+    try {
+        await Model.insert(NIN, email, phoneNumber, password, two_factor_secret)
+        await send_email_verification(user);
 
-    return result ?
-        res.status(200).json(result) :
-        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
+        return res.status(200).json({success: true});
+    }catch(err){
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 
 // Email verification
@@ -75,16 +77,15 @@ async function verify_email_request(req, res){
             errorCode: "unauthorized.no-account",
             errorMessage: "No account is associated with this email."
         });
-
+    
     // Generate verification_token
     const email_verify_token_hash = await send_email_verification(user);
-    await Model.saveVerificationToken(NIN, email_verify_token_hash);
-    
-    // Respond
-    return res.status(200).json({
-        sucessCode: "verify-email.requested",
-        successMessage: "A verification link was sent to the email address associated in our database."
-    })
+    try {
+        await Model.saveVerificationToken(NIN, email_verify_token_hash);
+        return res.status(200).json({success: true})
+    } catch (err) {
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 async function send_email_verification(user){
     const email_verify_token = crypto.randomBytes(32).toString("hex");
@@ -104,8 +105,8 @@ async function verify_email(req, res){
     
     if (!user)
         return res.status(400).json({
-            errorCode: "unauthorized.no-account",
-            errorMessage: "No account is associated with this email."
+            errorCode: "unauthorized.no-user",
+            errorMessage: "No account is associated with this NIN."
         });
 
     if (!user.email_verify_token || !await bcrypt.compare(verify_token, user.email_verify_token))
@@ -113,14 +114,13 @@ async function verify_email(req, res){
             errorCode: "unauthorized.missing-auth",
             errorMessage: "Invalid verification token"
         });
-
-    await Model.verifyEmail(NIN)
-
-    // Respond
-    return res.status(200).json({
-        sucessCode: "verify-email.verified",
-        successMessage: "Your email was verified."
-    })
+    
+    try {
+        await Model.verifyEmail(NIN)
+        return res.status(200).json({ success: true });
+    } catch (err) {
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 
 // 2FA verification
@@ -129,15 +129,15 @@ async function verify_2fa (req, res){
     const user = await Model.selectByNIN(NIN)
     if(!user)
         return res.status(200).json({
-            errorCode: "unauthorized.wrong-user",
+            errorCode: "unauthorized.no-user",
             errorMessage: "Wrong user credentials."
         });
 
     const two_factor_match = node2fa.verifyToken(user.two_factor_secret, token)
     if (two_factor_match?.delta != 0)
         return res.status(200).json({
-            errorCode: "unauthorized.wrong-2fa",
-            errorMessage: "Wrong 2FA token."
+            errorCode: "unauthorized.2fa-expired",
+            errorMessage: "This 2FA token is either invalid or has expired. Please try again"
         });
 
     const jwt = setUpJWT(user);
@@ -157,12 +157,12 @@ async function enable_2fa(req, res){
             errorMessage: "Wrong user credentials."
         })
 
-    const result = Model.enable2FA(NIN)
-
-    // Respond
-    return result ?
-        res.status(200).json(result) :
-        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
+    try {
+        await Model.enable2FA(NIN)
+        return res.status(200).json({ success: true });
+    } catch (err) {
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 async function disable_2fa (req, res){
     const NIN = req.jwt.NIN;
@@ -177,12 +177,12 @@ async function disable_2fa (req, res){
             errorMessage: "Wrong user credentials."
         })
     
-    const result = Model.disable2FA(NIN)
-
-    // Respond
-    return result ?
-        res.status(200).json(result) :
-        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
+    try{
+        await Model.disable2FA(NIN)
+        return res.status(200).json({ success: true });
+    }catch(err){
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 
 
@@ -198,23 +198,22 @@ async function forgot_password (req, res){
         });
 
     // Generate & Send reset token
-    const reset_token = crypto.randomBytes(32).toString("hex");
-    const reset_token_hash = await bcrypt.hash(reset_token, 10);
-    await Model.setResetToken(NIN, reset_token_hash);
-    
-    const email_data = {
-        BASE_URL: process.env.BASE_URL,
-        NIN: NIN,
-        to: user.email,
-        reset_token: reset_token
+    try{
+        const reset_token = crypto.randomBytes(32).toString("hex");
+        const reset_token_hash = await bcrypt.hash(reset_token, 10);
+        await Model.setResetToken(NIN, reset_token_hash);
+        
+        const email_data = {
+            BASE_URL: process.env.BASE_URL,
+            NIN: NIN,
+            to: user.email,
+            reset_token: reset_token
+        }
+        await communication.sendEmail(user.email, 'RESET_PASSWORD', email_data)
+        return res.status(200).json({ success: true });
+    }catch (err) {
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
-    await communication.sendEmail(user.email, 'RESET_PASSWORD', email_data)
-
-    // Respond
-    return res.status(200).json({
-        sucessCode: "forgot-password.requested",
-        successMessage: "A password reset link was sent to the email address associated in our database."
-    })
 }
 async function reset_password(req, res){
     const { NIN, reset_token, password } = req.body
@@ -232,14 +231,13 @@ async function reset_password(req, res){
             errorMessage: "Invalid reset token"
         });
 
-    const hashedPassword = await bcrypt.hash(password, 10)
-    await Model.resetPassword(NIN, hashedPassword)
-
-    // Respond
-    return res.status(200).json({
-        sucessCode: "forgot-password.reset",
-        successMessage: "Your password was reset."
-    })
+    try{
+        const hashedPassword = await bcrypt.hash(password, 10)
+        await Model.resetPassword(NIN, hashedPassword)
+        return res.status(200).json({success: true});
+    }catch(err){
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 
 /******** EXPORTS ********/

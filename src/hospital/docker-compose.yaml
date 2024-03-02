@@ -1,26 +1,44 @@
 version: '3'
 volumes:
-  mysql-data:
+  auth-data:
+  codification-data:
+  notification-data:
+  pharmacy-data:
 services:
+  auth-db:
+    build: ./auth/auth-db
+    container_name: auth-db
+    volumes:
+      - auth-data:/var/lib/auth
   auth-service:
-    build: ./auth-service
+    build: ./auth/auth-service
     container_name: auth-service
   frontend:
     build: ./frontend
     container_name: frontend
     ports:
-      - "3000:3000"
+      - 3000:3000
   codification-service:
     build: ./codification/codification-service
     container_name: codification-service
-    volumes:
-      - mysql-data:/var/lib/mysql
   codification-db:
     build: ./codification/codification-db
     container_name: codification-db
-    environment:
-      - ENV MYSQL_ROOT_USER=root
-      - ENV MYSQL_ROOT_PASSWORD=root
-      - ENV MYSQL_DB=forza
     volumes:
-      - mysql-data:/var/lib/mysql
+      - codification-data:/var/lib/codification
+  notification-service:
+    build: ./notification/notification-service
+    container_name: notification-service
+  notification-db:
+    build: ./notification/notification-db
+    container_name: notification-db
+    volumes:
+      - notification-data:/var/lib/notification
+  pharmacy-service:
+    build: ./pharmacy/pharmacy-service
+    container_name: pharmacy-service
+  pharmacy-db:
+    build: ./pharmacy/pharmacy-db
+    container_name: pharmacy-db
+    volumes:
+      - pharmacy-data:/var/lib/pharmacy

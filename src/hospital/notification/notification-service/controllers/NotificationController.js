@@ -15,27 +15,27 @@ async function notify(req, res) {
     const NIN = "100010364027390000"
     const { notification_type, notifiable_type, to, data } = req.body
 
-    if (notifiable_type == 'sms')
-        await sendSMS(to, notification_type, data)
-    else if (notifiable_type == 'push-notification')
-        await sendPushNotification(to, notification_type, data)
-    else
-        await sendEmail(to, notification_type, data)
-
-    // insert into database
-    let result = await Model.insert(randomUUID(), notification_type, NIN, notifiable_type, to, JSON.stringify(data))
-    return result ?
-        res.status(200).json(result) :
-        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
+    try {
+        // Insert
+        await Model.insert(randomUUID(), notification_type, NIN, notifiable_type, to, JSON.stringify(data))
+        // Send
+        if (notifiable_type == 'sms')
+            await sendSMS(to, notification_type, data)
+        else if (notifiable_type == 'push-notification')
+            await sendPushNotification(to, notification_type, data)
+        else
+            await sendEmail(to, notification_type, data)
+        // Respond
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 
 async function notifications(req, res){
     const NIN = req.jwt.NIN;
     let result = await Model.selectByNIN(NIN)
-
-    return result ?
-        res.status(200).json(result) :
-        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
+    return res.status(200).json(result)
 }
 
 async function mark_as_read(req, res){
@@ -49,11 +49,13 @@ async function mark_as_read(req, res){
             errorMessage: "Notification not found."
         });
 
-    let result = await Model.mark_as_read(id)
-
-    return result ?
-        res.status(200).json(result) :
-        res.status(400).json({ errorCode: "database-error", errorMessage: "Contact developer" });
+        
+    try {
+        await Model.mark_as_read(id)
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
 }
 /******** EXPORTS ********/
 module.exports = {

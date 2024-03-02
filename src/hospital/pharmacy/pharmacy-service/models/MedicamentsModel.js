@@ -12,14 +12,12 @@ exports.select = async () => {
 }
 
 exports.insert = async (code, nom, quantity) => {
-    const [results] = await db.query('INSERT INTO `medicaments`(`code`, `nom`, `quantity`) VALUES (?, ?, ?)', [code, nom, quantity]);
-    return results
+    await db.execute('INSERT INTO `medicaments`(`code`, `nom`, `quantity`) VALUES (?, ?, ?)', [code, nom, quantity]);
 }
 exports.update = async (code, quantity) => {
-    const [results] = await db.query('UPDATE `medicaments` SET `quantity`=? WHERE `code`=?', [quantity, code]);
-    return results
+    await db.query('UPDATE `medicaments` SET `quantity`=? WHERE `code`=?', [quantity, code]);
+
 }
 exports.remove = async (code) => {
-    const [results] = await db.query('DELETE FROM `medicaments` WHERE code=?', [code]);
-    return results
+    await db.query('DELETE FROM `medicaments` WHERE code=?', [code]);
 }

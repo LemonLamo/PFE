@@ -155,3 +155,4 @@ google-services.json
 
 # Android Profiling
 *.hprof
+.vscode
