@@ -1,9 +1,11 @@
 import { Menu } from '@headlessui/react'
 import user from '../../assets/user.svg'
 import NotificationDropdown from './NotificationDropdown';
+type HeaderProps = {
+    setOpen: () => void
+}
 
-function Header() {
-
+function Header({ setOpen } : HeaderProps) {
     return <nav className="pr-2 relative flex bg-white flex-wrap items-center justify-between py-2 transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start">
         <div className="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
             <nav>
@@ -44,10 +46,10 @@ function Header() {
                     </li>
                     <li className="flex items-center xl:hidden">
                         <a href="javascript:;" className="block p-0 transition-all ease-nav-brand text-sm text-slate-500">
-                            <div className="w-4.5 overflow-hidden">
+                            <div className="w-4.5 overflow-hidden" onClick={setOpen}>
+                                <i id="top_bread" className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
                                 <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-                                <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-                                <i className="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+                                <i id="bottom_bread" className="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
                             </div>
                         </a>
                     </li>

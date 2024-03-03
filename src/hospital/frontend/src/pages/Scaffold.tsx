@@ -1,23 +1,33 @@
 import Sidebar from '../components/Sidebar'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 type ScaffoldProps = {
-    Content : ReactNode
+  children : ReactNode
 }
 
-function Scaffold({ Content } : ScaffoldProps) {
+function Scaffold({ children } : ScaffoldProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  useEffect(()=>{
+    document.getElementById('sidenav_close_button')?.classList.toggle("hidden");
+    document.getElementById('sidenav')?.classList.toggle("translate-x-0");
+    document.getElementById('sidenav')?.classList.toggle("shadow-soft-xl");
+    document.getElementById('top_bread')?.classList.toggle("translate-x-[5px]");
+    document.getElementById('bottom_bread')?.classList.toggle("translate-x-[5px]");
+  }, [sidebarOpen]);
+
   return (
     <>
-          <Sidebar></Sidebar>
-          <main>
-              <Header></Header>
-              <div className="w-full px-6 py-6 mx-auto max-w-7xl">
-                  { Content }
-              </div>
-              <Footer></Footer>
-          </main>
+      <Sidebar setOpen={() => setSidebarOpen(!sidebarOpen)}></Sidebar>
+      <main>
+          <Header setOpen={() => setSidebarOpen(!sidebarOpen)}></Header>
+          <div className="w-full px-6 py-6 mx-auto max-w-7xl">
+            { children }
+          </div>
+          <Footer></Footer>
+      </main>
     </>
   )
 }

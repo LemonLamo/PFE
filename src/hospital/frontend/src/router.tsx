@@ -6,8 +6,8 @@ import NouveauPatient from "./pages/NouveauPatient";
 
 const router = createBrowserRouter([
     { path: "/", element: <Login /> },
-    { path: "/dashboard", element: <Scaffold Content=<Dashboard></Dashboard>/> },
-    { path: "/new_patient", element: <Scaffold Content=<NouveauPatient></NouveauPatient> /> },
+    { path: "/dashboard", element: <Scaffold> <Dashboard/> </Scaffold> },
+    { path: "/new_patient", element: <Scaffold> <NouveauPatient/> </Scaffold> },
 ]);
 
 export default router
