@@ -1,19 +1,11 @@
-import Sidebar from '../components/Sidebar'
-import Header from '../components/Header/Header'
-import Footer from '../components/Footer'
+import Card from '../components/Card'
+import Timeline from '../components/Timeline';
 
 function Dashboard(){
 
     return <>
-      <Sidebar></Sidebar>
-      <main>
-        <Header></Header>
-        <div className="w-full px-6 py-6 mx-auto max-w-7xl">
-          Hi, this is the dashboard
-          
-        </div>
-        <Footer></Footer>
-      </main>
+      <Card></Card>
+      <Timeline></Timeline>
     </>
 }
 
