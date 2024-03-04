@@ -5,11 +5,17 @@ import Table from "../components/UI/Table"
 import CreatePatientModal from "../components/CreatePatientModal"
 import Tabs from "../components/UI/Tabs/Tabs"
 import TabContent from "../components/UI/Tabs/TabContent"
+import Alert from "../components/Alert"
+import ProgressBar from "../components/ProgressBar"
 
 function Test() {
 
   return (
     <>
+      <Card title="Lets test out some stuff" subtitle="Alerts & progress bars">
+      <Alert color="bg-red-600"> DANGER! </Alert>
+      <ProgressBar title="Hi" color="bg-fuchsia-400" perc={69}></ProgressBar>
+      </Card>
       <Card title="New patient" subtitle="You wanna add a new patient huh?">
         <Tabs>
           <TabContent icon="fa fa-bell" text="Profile">
