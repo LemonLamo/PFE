@@ -1,6 +1,10 @@
+import Card from "../components/UI/Card"
+
 function NewPatientPage() {
   return (
-      <div>NewPatientPage: Work in Progress</div>
+    <Card title="New patient" subtitle="Create a new medical record">
+      <div>Work in Progress</div>
+    </Card>
   )
 }
 
