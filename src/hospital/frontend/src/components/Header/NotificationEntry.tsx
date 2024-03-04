@@ -13,7 +13,7 @@ function NotificationEntry({text, timestamp} : NotificationProps) {
   }, [time]);
 
   return (
-    <a className="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors">
+    <a className="ease-soft py-1.2 clear-both block w-full rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors">
       <div className="flex py-1">
         <div className="my-auto">
           <img src={user}

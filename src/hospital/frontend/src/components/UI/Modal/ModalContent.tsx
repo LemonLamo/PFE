@@ -1,4 +1,12 @@
-function Modal() {
+import { ReactNode } from "react";
+
+type ModalProps = {
+  action: () => void,
+  cancel: () => void,
+  children : ReactNode
+}
+
+function ModalContent({ action, cancel, children } : ModalProps) {
   return (
     <div className="z-10 fixed inset-0 bg-black/50 transition-opacity">
       <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -11,14 +19,13 @@ function Modal() {
                 </svg>
               </div>
               <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Title</h3>
-                <p className="text-gray-600">Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.</p>
+                {children}
               </div>
             </div>
           </div>
           <div className="bg-gray-50 pe-3 py-3 flex justify-end gap-3">
-            <button type="button" className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Action</button>
-            <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+            <button type="button" className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={action}>Action</button>
+            <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={cancel}>Cancel</button>
           </div>
         </div>
       </div>
@@ -26,4 +33,4 @@ function Modal() {
   )
 }
 
-export default Modal
+export default ModalContent
