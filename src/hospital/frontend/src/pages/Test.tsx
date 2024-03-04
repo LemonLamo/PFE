@@ -1,34 +1,35 @@
 import Card from "../components/UI/Card"
 import Timeline from "../components/UI/Timeline/Timeline"
 import TimelineItem from "../components/UI/Timeline/TimelineItem"
-import Table from "../components/UI/Table"
 import CreatePatientModal from "../components/CreatePatientModal"
 import Tabs from "../components/UI/Tabs/Tabs"
 import TabContent from "../components/UI/Tabs/TabContent"
 import Alert from "../components/Alert"
 import ProgressBar from "../components/ProgressBar"
-import TableDynamic from "../components/UI/Tables/TableDynamic"
+import Table from "../components/UI/Tables/Table"
+import TableEntry from "../components/UI/Tables/TableEntry"
 
 function Test() {
-  const HeaderRow = [
-    "#",
-    "Column 1",
-    "Column 2",
-    "Column 3",
-    "Column 4",
-    "Column 5",
-    "",
-  ];
+  const fields = ["#", "Column 1", "Column 2", "Column 3", "Column 4", "Column 5", ""];
   const tableContent = [
-    {id : "#", name : "Nadil", surname :"Marwa", age :"21ans", data1 :"jsp", data2 :"jsp", data3: ""},
-    {id : "#", name : "Nadil", surname :"Marwa", age :"21ans", data1 :"jsp", data2 :"jsp", data3: ""}
+    { id: "1", name: "Nadil", surname :"Marwa", age :"21ans", data1 :"jsp", data2 :"jsp", data3: "idk"},
+    { id: "2", name : "Brahim", surname :"Abderrazak", age :"22ans", data1 :"jsp", data2 :"jsp", data3: "idk"}
   ]
   return (
     <>
-      <Card title="Lets test out some stuff" subtitle="Alerts & progress bars">
-      <Alert color="bg-red-600"> DANGER! </Alert>
-      <ProgressBar title="Hi" color="bg-fuchsia-400" perc={69}></ProgressBar>
+      <Card title="New Patient dynamic" action=<CreatePatientModal/> >
+        <Table fields={fields}>
+          { tableContent.map((item : any) => 
+            <TableEntry data={Object.values(item)} />)
+          }
+        </Table>
       </Card>
+
+      <Card title="Lets test out some stuff" subtitle="Alerts & progress bars">
+        <Alert color="bg-red-600"> DANGER! </Alert>
+        <ProgressBar title="Hi" color="bg-fuchsia-400" perc={69}></ProgressBar>
+      </Card>
+      
       <Card title="New patient" subtitle="You wanna add a new patient huh?">
         <Tabs>
           <TabContent icon="fa fa-bell" text="Profile">
@@ -63,13 +64,6 @@ function Test() {
             <p className="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">As you like</p>
           </TimelineItem>
         </Timeline>
-      </Card>
-      <Card title="New Patient" action=<CreatePatientModal/> >
-        <Table></Table>
-      </Card>
-      <Card title="New Patient dynamic" action=<CreatePatientModal/> >
-        <TableDynamic HeaderRow={HeaderRow} tableContent={tableContent}></TableDynamic>
-
       </Card>
     </>
   )
