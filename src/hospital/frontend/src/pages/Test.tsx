@@ -6,7 +6,7 @@ import CreatePatientModal from "../components/CreatePatientModal"
 import Tabs from "../components/UI/Tabs/Tabs"
 import TabContent from "../components/UI/Tabs/TabContent"
 
-function NouveauPatient() {
+function Test() {
 
   return (
     <>
@@ -24,8 +24,27 @@ function NouveauPatient() {
           </TabContent>
         </Tabs>
       </Card>
+
+      <Card title="Idk" subtitle="This is a quick subtitle">
+        <Timeline>
+          <TimelineItem icon="fa fa-bell text-red-500" title="$2400, Design changes">
+            <p className="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">Wallahi idk</p>
+            <p className="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">Now we can fit more info</p>
+          </TimelineItem>
+
+          <TimelineItem icon="fa fa-bell text-red-500" title="Or not">
+          </TimelineItem>
+
+          <TimelineItem icon="fa fa-bell text-red-500" title="Depends">
+            <p className="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">As you like</p>
+          </TimelineItem>
+        </Timeline>
+      </Card>
+      <Card title="New Patient" action=<CreatePatientModal/> >
+        <Table></Table>
+      </Card>
     </>
   )
 }
 
-export default NouveauPatient
+export default Test
