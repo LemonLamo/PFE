@@ -3,7 +3,7 @@ type SidebarButtonProps = {
     text: string,
     route: string
 }
-function ConsuSidebar({icon, text, route} : SidebarButtonProps){
+function SidebarButton({icon, text, route} : SidebarButtonProps){
     return (
         <li className="w-full mt-1">
             <a className="py-1 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
@@ -19,4 +19,4 @@ function ConsuSidebar({icon, text, route} : SidebarButtonProps){
     )
 }
 
-export default ConsuSidebar
+export default SidebarButton

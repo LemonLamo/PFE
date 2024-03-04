@@ -52,15 +52,15 @@ function Test() {
 
       <Card title="Idk" subtitle="This is a quick subtitle">
         <Timeline>
-          <TimelineItem icon="fa fa-bell text-red-500" title="$2400, Design changes">
+          <TimelineItem icon="fa fa-bell text-red-500" title="$2400, Design changes" date={new Date()}>
             <p className="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">Wallahi idk</p>
             <p className="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">Now we can fit more info</p>
           </TimelineItem>
 
-          <TimelineItem icon="fa fa-bell text-red-500" title="Or not">
+          <TimelineItem icon="fa fa-bell text-red-500" title="Or not" date={new Date()}>
           </TimelineItem>
 
-          <TimelineItem icon="fa fa-bell text-red-500" title="Depends">
+          <TimelineItem icon="fa fa-bell text-red-500" title="Depends" date={new Date()}>
             <p className="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">As you like</p>
           </TimelineItem>
         </Timeline>

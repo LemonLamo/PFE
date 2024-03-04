@@ -1,6 +1,6 @@
 import logo from '../assets/logo.svg'
-import ConsuSidebar from './ConsuSidebar'
-import TitleSidebar from './TitleSidebar'
+import SidebarButton from './SidebarButton'
+import SidebarHeader from './SidebarHeader'
 
 type SidebarProps = {
     setOpen: () => void
@@ -26,22 +26,28 @@ function Sidebar({ setOpen } : SidebarProps){
                         <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Dashboard</span>
                     </a>
                 </li>
-                <TitleSidebar text="Consultation"></TitleSidebar>
-                <ConsuSidebar text="Nouveau Patient" icon="user" route="/nouveauPatient"></ConsuSidebar>
-                <ConsuSidebar text="Liste des patients" icon="user" route="/nouveauPatient"></ConsuSidebar>
-                <ConsuSidebar text="Rendez-vous" icon="user" route="/nouveauPatient"></ConsuSidebar>
-                <TitleSidebar text="Patient admis"></TitleSidebar>
-                <ConsuSidebar text="Hospitalisation" icon="user" route="/nouveauPatient"></ConsuSidebar>  
-                <TitleSidebar text="Laboratoire"></TitleSidebar>
-                <ConsuSidebar text="Bilans" icon="user" route="/nouveauPatient"></ConsuSidebar>
-                <TitleSidebar text="Radiologie"></TitleSidebar>
-                <ConsuSidebar text="Imageries Médicales" icon="user" route="/nouveauPatient"></ConsuSidebar>    
-                <TitleSidebar text="Pharmacie"></TitleSidebar>
-                <ConsuSidebar text="Médicaments" icon="user" route="/nouveauPatient"></ConsuSidebar>  
-                <TitleSidebar text="Administration"></TitleSidebar>     
-                <ConsuSidebar text="Personnel" icon="user" route="/nouveauPatient"></ConsuSidebar> 
-                <ConsuSidebar text="Rôles et Permissions" icon="user" route="/nouveauPatient"></ConsuSidebar> 
-                <ConsuSidebar text="Paramètres" icon="user" route="/nouveauPatient"></ConsuSidebar> 
+                <SidebarHeader text="Consultation" />
+                <SidebarButton text="Nouvelle consultation" icon="user" route="/new_visit" />
+                <SidebarButton text="Nouveau patient" icon="user" route="/new_patient" />
+                <SidebarButton text="Liste des patients" icon="user" route="/patients" />
+                <SidebarButton text="Rendez-vous" icon="user" route="/rendez_vous" />
+
+                <SidebarHeader text="Patient admis" />
+                <SidebarButton text="Hospitalisation" icon="user" route="/nouveauPatient" />  
+
+                <SidebarHeader text="Laboratoire" />
+                <SidebarButton text="Bilans" icon="user" route="/nouveauPatient" />
+
+                <SidebarHeader text="Radiologie" />
+                <SidebarButton text="Imageries Médicales" icon="user" route="/nouveauPatient" /> 
+
+                <SidebarHeader text="Pharmacie" />
+                <SidebarButton text="Médicaments" icon="user" route="/nouveauPatient" />  
+                
+                <SidebarHeader text="Administration" />     
+                <SidebarButton text="Personnel" icon="user" route="/nouveauPatient" /> 
+                <SidebarButton text="Rôles et Permissions" icon="user" route="/nouveauPatient" /> 
+                <SidebarButton text="Paramètres" icon="user" route="/nouveauPatient" /> 
             </ul>
         </div>
     </aside>
