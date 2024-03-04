@@ -7,9 +7,22 @@ import Tabs from "../components/UI/Tabs/Tabs"
 import TabContent from "../components/UI/Tabs/TabContent"
 import Alert from "../components/Alert"
 import ProgressBar from "../components/ProgressBar"
+import TableDynamic from "../components/UI/Tables/TableDynamic"
 
 function Test() {
-
+  const HeaderRow = [
+    "#",
+    "Column 1",
+    "Column 2",
+    "Column 3",
+    "Column 4",
+    "Column 5",
+    "",
+  ];
+  const tableContent = [
+    {id : "#", name : "Nadil", surname :"Marwa", age :"21ans", data1 :"jsp", data2 :"jsp", data3: ""},
+    {id : "#", name : "Nadil", surname :"Marwa", age :"21ans", data1 :"jsp", data2 :"jsp", data3: ""}
+  ]
   return (
     <>
       <Card title="Lets test out some stuff" subtitle="Alerts & progress bars">
@@ -25,6 +38,11 @@ function Test() {
           </TabContent>
           <TabContent icon="fa fa-user" text="Dashboard">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Dashboard Tab</h3>
+            <p className="mb-2">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+            <p>The tab JavaScript swaps classNamees to control the content visibility and styling.</p>
+          </TabContent>
+          <TabContent icon="fa fa-bell" text="Dashboard2">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Batata</h3>
             <p className="mb-2">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
             <p>The tab JavaScript swaps classNamees to control the content visibility and styling.</p>
           </TabContent>
@@ -48,6 +66,10 @@ function Test() {
       </Card>
       <Card title="New Patient" action=<CreatePatientModal/> >
         <Table></Table>
+      </Card>
+      <Card title="New Patient dynamic" action=<CreatePatientModal/> >
+        <TableDynamic HeaderRow={HeaderRow} tableContent={tableContent}></TableDynamic>
+
       </Card>
     </>
   )
