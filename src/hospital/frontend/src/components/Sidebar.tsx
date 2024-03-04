@@ -1,4 +1,7 @@
 import logo from '../assets/logo.svg'
+import ConsuSidebar from './ConsuSidebar'
+import TitleSidebar from './TitleSidebar'
+
 
 function Sidebar(){
     return <aside className="max-w-62.5 shadow-lg ease-nav-brand z-10 fixed inset-y-0 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-white">
@@ -20,19 +23,22 @@ function Sidebar(){
                         <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Dashboard</span>
                     </a>
                 </li>
-                <li className="w-full mt-4">
-                    <h6 className="pl-6 font-bold leading-tight uppercase text-xs opacity-60">Title</h6>
-                </li>
-                <li className="w-full mt-1">
-                    <a className="py-1 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
-                        href="../pages/profile.html">
-                        <div
-                            className="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                            <i className="cursor-pointer fa fa-bell text-xl"></i>
-                        </div>
-                        <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Option 1</span>
-                    </a>
-                </li>
+                <TitleSidebar text="Consultation"></TitleSidebar>
+                <ConsuSidebar text="Nouveau Patient" icon="user" route="/nouveauPatient"></ConsuSidebar>
+                <ConsuSidebar text="Liste des patients" icon="user" route="/nouveauPatient"></ConsuSidebar>
+                <ConsuSidebar text="Rendez-vous" icon="user" route="/nouveauPatient"></ConsuSidebar>
+                <TitleSidebar text="Patient admis"></TitleSidebar>
+                <ConsuSidebar text="Hospitalisation" icon="user" route="/nouveauPatient"></ConsuSidebar>  
+                <TitleSidebar text="Laboratoire"></TitleSidebar>
+                <ConsuSidebar text="Bilans" icon="user" route="/nouveauPatient"></ConsuSidebar>
+                <TitleSidebar text="Radiologie"></TitleSidebar>
+                <ConsuSidebar text="Imageries Médicales" icon="user" route="/nouveauPatient"></ConsuSidebar>    
+                <TitleSidebar text="Pharmacie"></TitleSidebar>
+                <ConsuSidebar text="Médicaments" icon="user" route="/nouveauPatient"></ConsuSidebar>  
+                <TitleSidebar text="Administration"></TitleSidebar>     
+                <ConsuSidebar text="Personnel" icon="user" route="/nouveauPatient"></ConsuSidebar> 
+                <ConsuSidebar text="Rôles et Permissions" icon="user" route="/nouveauPatient"></ConsuSidebar> 
+                <ConsuSidebar text="Paramètres" icon="user" route="/nouveauPatient"></ConsuSidebar> 
             </ul>
         </div>
     </aside>
