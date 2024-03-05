@@ -6,15 +6,29 @@ import { useMemo } from "react";
 
 function Medicaments() {
   const medicaments = useMemo<Medicament[]>(() => {
-    let data = [{ nom: "Patacétamol", code: "PC123", quantity:"156", level:"Faible" }];
-    return data
+    let data = [
+      { nom: "Patacétamol", code: "PC123", quantity: "156", level: "Faible" },
+      { nom: "Patacétamol", code: "PC123", quantity: "156", level: "Moyenne" },
+      { nom: "Patacétamol", code: "PC123", quantity: "156", level: "Elevée" },
+    ];
+    return data;
   }, []);
 
   return (
     <>
       <Card title="Stock Medicaments" action={<CreatePatientModal />}>
-        <Table fields={["Nom", "Code", "Quantité en stock", "Niveau de disponibilité", "", ]}>
-          {medicaments.map((medicament) => (<TableEntry data={Object.values(medicament)}></TableEntry>))}
+        <Table
+          fields={[
+            "Nom",
+            "Code",
+            "Quantité en stock",
+            "Niveau de disponibilité",
+            "",
+          ]}
+        >
+          {medicaments.map((medicament) => (
+            <TableEntry data={Object.values(medicament)}></TableEntry>
+          ))}
         </Table>
       </Card>
     </>
