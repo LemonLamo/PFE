@@ -7,7 +7,7 @@ type TabContent = {
 }
 function TabContent({ children }: TabContent) {
   return (
-      <div className="p-6 w-full bg-gray-50/50">
+      <div className="p-6 w-full bg-gray-50/50 col-span-4">
           {children}
       </div>
   )
