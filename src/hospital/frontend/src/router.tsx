@@ -8,6 +8,10 @@ import NewPatientPage from "./pages/NewPatientPage";
 import Test from "./pages/Test";
 import RendezVousPage from "./pages/RendezVousPage";
 import Medicaments from "./pages/Medicaments";
+import Chambres from "./pages/Chambres";
+import Agents from "./pages/Agents";
+import Infirmiers from "./pages/Infirmiers";
+import Medecins from "./pages/Medecins";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
@@ -62,6 +66,42 @@ const router = createBrowserRouter([
       <Scaffold>
         {" "}
         <Medicaments />{" "}
+      </Scaffold>
+    ),
+  },
+  {
+    path: "/chambres",
+    element: (
+      <Scaffold>
+        {" "}
+        <Chambres />{" "}
+      </Scaffold>
+    ),
+  },
+  {
+    path: "/medecins",
+    element: (
+      <Scaffold>
+        {" "}
+        <Medecins />{" "}
+      </Scaffold>
+    ),
+  },
+  {
+    path: "/agents",
+    element: (
+      <Scaffold>
+        {" "}
+        <Agents />{" "}
+      </Scaffold>
+    ),
+  },
+  {
+    path: "/infirmiers",
+    element: (
+      <Scaffold>
+        {" "}
+        <Infirmiers />{" "}
       </Scaffold>
     ),
   },
