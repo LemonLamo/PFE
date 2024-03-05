@@ -16,7 +16,7 @@ function Tabs({children} : TabsProps) {
                 {
                     children.map((tab, i)=>{
                         return <li key={`tab${i}`}>
-                            <button className={`${selected == i ? activeStyle : inactiveStyle} flex items-center w-full ps-2 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
+                            <button className={`${selected == i ? activeStyle : inactiveStyle} flex items-center text-left w-full ps-2 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
                                 {tab.props.icon && <i className={`${tab.props.icon} me-2`} />}
                                 {tab.props.text}
                             </button>

@@ -5,12 +5,14 @@ type ModalProps = {
   color: string,
   offColor?: string,
   iconColor?: string,
-  children : ReactNode[],
-  onAction: () => void,
+  children : ReactNode,
+  actionText?: string,
+  cancelText?: string,
+  onAction?: () => void,
   onCancel: () => void
 }
 
-function Modal({ icon, color, offColor, iconColor, children, onAction, onCancel } : ModalProps) {
+function Modal({ icon, color, offColor, iconColor, children, actionText='Submit', cancelText='Cancel', onAction, onCancel } : ModalProps) {
   return (
     <div className="z-10 fixed inset-0 bg-black/50 transition-opacity">
       <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -28,8 +30,8 @@ function Modal({ icon, color, offColor, iconColor, children, onAction, onCancel 
             </div>
           </div>
           <div className="pe-3 py-3 flex justify-end gap-3">
-            <button className={`${color} w-full rounded-md px-3 py-2 font-semibold text-white sm:w-auto`} onClick={onAction}>Submit</button>
-            <button className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={onCancel}>Cancel</button>
+            {onAction && <button className={`${color} w-full rounded-md px-3 py-2 font-semibold text-white sm:w-auto`} onClick={onAction}>{actionText}</button>}
+            <button className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={onCancel}>{cancelText}</button>
           </div>
         </div>
       </div>

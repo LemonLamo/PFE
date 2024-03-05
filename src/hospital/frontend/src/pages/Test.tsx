@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Card from "../components/UI/Card";
 import Timeline from "../components/UI/Timeline/Timeline";
 import TimelineItem from "../components/UI/Timeline/TimelineItem";
@@ -10,6 +11,23 @@ import Table from "../components/UI/Tables/Table";
 import TableEntry from "../components/UI/Tables/TableEntry";
 import Badge from "../components/UI/Badge";
 import SmallCalendar from "../components/Calendar/SmallCalendar";
+=======
+import Card from "../components/UI/Card"
+import Timeline from "../components/UI/Timeline/Timeline"
+import TimelineItem from "../components/UI/Timeline/TimelineItem"
+import Tabs from "../components/UI/Tabs/Tabs"
+import TabContent from "../components/UI/Tabs/TabContent"
+import Alert from "../components/UI/Alert"
+import ProgressBar from "../components/UI/ProgressBar"
+import Table from "../components/UI/Tables/Table"
+import CreateModal from "../components/Modals/CreateModal"
+import ViewModal from "../components/Modals/ViewModal"
+import EditModal from "../components/Modals/EditModal"
+import DeleteModal from "../components/Modals/DeleteModal"
+import TableRow from "../components/UI/Tables/TableRow"
+import TableCell from "../components/UI/Tables/TableCell"
+
+>>>>>>> 84b7b291cf5f8bf6bbc5715b817ed5517b39f0bd
 function Test() {
   const fields = [
     "#",
@@ -21,6 +39,7 @@ function Test() {
     "",
   ];
   const tableContent = [
+<<<<<<< HEAD
     {
       id: "1",
       name: "Nadil",
@@ -49,6 +68,48 @@ function Test() {
         <Table fields={fields}>
           {tableContent.map((item: any) => (
             <TableEntry data={Object.values(item)} />
+=======
+    { id: "1", name: "Nadil", surname :"Marwa", age :"21ans", data1 :"jsp", data2 :"jsp", data3: "idk"},
+    { id: "2", name : "Brahim", surname :"Abderrazak", age :"22ans", data1 :"jsp", data2 :"jsp", data3: "idk"}
+  ]
+
+  const createModal = <>
+    <CreateModal onCreate={() => alert("Created")} onCancel={() => console.log("Cancelled create")}>
+      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Create agent</h3>
+      <p className="text-gray-600">Here is the form.</p>
+    </CreateModal>
+  </>
+  return (
+    <>
+      <Card title="New Patient dynamic" action={createModal} >
+        <Table fields={fields}>
+          {tableContent.map((a) => (
+            <TableRow>
+              <TableCell> {a.id} </TableCell>
+              <TableCell> {a.name} </TableCell>
+              <TableCell> {a.surname} </TableCell>
+              <TableCell> {a.age} </TableCell>
+              <TableCell> {a.data1} </TableCell>
+              <TableCell> {a.data2} </TableCell>
+              <TableCell> {a.data3} </TableCell>
+
+              <TableCell className="flex justify-end gap-2">
+                <ViewModal onOpen={() => console.log("Viewing "+a.id)}>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">View agent</h3>
+                </ViewModal>
+
+                <EditModal onOpen={() => console.log("Editing " + a.id)} onEdit={() => console.log("Edited " + a.id)}>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Edit agent</h3>
+                  <p className="text-gray-600">Here is some more more info.</p>
+                </EditModal>
+
+                <DeleteModal onOpen={() => console.log("Deleting "+ a.id)} onDelete={() => console.log("Deleted " + a.id)}>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Agent</h3>
+                  <p className="text-gray-600">Are you sure you want to delete this record? All of your data will be permanently removed. This action cannot be undone.</p>
+                </DeleteModal>
+              </TableCell>
+            </TableRow>
+>>>>>>> 84b7b291cf5f8bf6bbc5715b817ed5517b39f0bd
           ))}
         </Table>
       </Card>
