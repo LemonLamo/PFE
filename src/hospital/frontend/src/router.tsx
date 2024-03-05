@@ -7,6 +7,7 @@ import PatientsPage from "./pages/PatientsPage";
 import NewPatientPage from "./pages/NewPatientPage";
 import Test from "./pages/Test";
 import RendezVousPage from "./pages/RendezVousPage";
+import Medicaments from "./pages/Medicaments";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
@@ -52,6 +53,15 @@ const router = createBrowserRouter([
       <Scaffold>
         {" "}
         <RendezVousPage />{" "}
+      </Scaffold>
+    ),
+  },
+  {
+    path: "/medicaments",
+    element: (
+      <Scaffold>
+        {" "}
+        <Medicaments />{" "}
       </Scaffold>
     ),
   },
