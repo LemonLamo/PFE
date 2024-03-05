@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import Card from "../components/UI/Card";
-import Timeline from "../components/UI/Timeline/Timeline";
-import TimelineItem from "../components/UI/Timeline/TimelineItem";
-import CreatePatientModal from "../components/CreatePatientModal";
-import Tabs from "../components/UI/Tabs/Tabs";
-import TabContent from "../components/UI/Tabs/TabContent";
-import Alert from "../components/UI/Alert";
-import ProgressBar from "../components/UI/ProgressBar";
-import Table from "../components/UI/Tables/Table";
-import TableEntry from "../components/UI/Tables/TableEntry";
-import Badge from "../components/UI/Badge";
-import SmallCalendar from "../components/Calendar/SmallCalendar";
-=======
 import Card from "../components/UI/Card"
 import Timeline from "../components/UI/Timeline/Timeline"
 import TimelineItem from "../components/UI/Timeline/TimelineItem"
@@ -26,8 +12,9 @@ import EditModal from "../components/Modals/EditModal"
 import DeleteModal from "../components/Modals/DeleteModal"
 import TableRow from "../components/UI/Tables/TableRow"
 import TableCell from "../components/UI/Tables/TableCell"
+import Badge from "../components/UI/Badge"
+import SmallCalendar from "../components/Calendar/SmallCalendar"
 
->>>>>>> 84b7b291cf5f8bf6bbc5715b817ed5517b39f0bd
 function Test() {
   const fields = [
     "#",
@@ -39,36 +26,6 @@ function Test() {
     "",
   ];
   const tableContent = [
-<<<<<<< HEAD
-    {
-      id: "1",
-      name: "Nadil",
-      surname: "Marwa",
-      age: "21ans",
-      data1: "jsp",
-      data2: "jsp",
-      data3: "idk",
-    },
-    {
-      id: "2",
-      name: "Brahim",
-      surname: "Abderrazak",
-      age: "22ans",
-      data1: "jsp",
-      data2: "jsp",
-      data3: "idk",
-    },
-  ];
-  return (
-    <>
-      <Card title="Buttons testing ground">
-        Work in progress, removed it so I can push before finishing it
-      </Card>
-      <Card title="New Patient dynamic" action=<CreatePatientModal />>
-        <Table fields={fields}>
-          {tableContent.map((item: any) => (
-            <TableEntry data={Object.values(item)} />
-=======
     { id: "1", name: "Nadil", surname :"Marwa", age :"21ans", data1 :"jsp", data2 :"jsp", data3: "idk"},
     { id: "2", name : "Brahim", surname :"Abderrazak", age :"22ans", data1 :"jsp", data2 :"jsp", data3: "idk"}
   ]
@@ -109,7 +66,6 @@ function Test() {
                 </DeleteModal>
               </TableCell>
             </TableRow>
->>>>>>> 84b7b291cf5f8bf6bbc5715b817ed5517b39f0bd
           ))}
         </Table>
       </Card>
@@ -196,7 +152,6 @@ function Test() {
         </Timeline>
       </Card>
       <Badge bgColor={"#ff0080"} textColor={"#4338ca"} Children={"Pink"}>
-        {" "}
       </Badge>
       <SmallCalendar />
     </>
