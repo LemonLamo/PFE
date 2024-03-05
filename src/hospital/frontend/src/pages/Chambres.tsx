@@ -7,15 +7,7 @@ function Chambres() {
   return (
     <>
       <Card title="Chambres" action={<CreatePatientModal />}>
-        <Table
-          fields={[
-            "Num",
-            "Etage",
-            "Nombre de lits",
-            "Niveau de disponibilité",
-            "",
-          ]}
-        >
+        <Table fields={["Num", "Etage", "Nombre de lits", "Niveau de disponibilité", "", ]}>
           <TableEntry data={["13", "123", "127839", "Faible"]}></TableEntry>
         </Table>
       </Card>

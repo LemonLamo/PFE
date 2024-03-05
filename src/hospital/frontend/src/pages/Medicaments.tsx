@@ -7,18 +7,8 @@ function Medicaments() {
   return (
     <>
       <Card title="Stock Medicaments" action={<CreatePatientModal />}>
-        <Table
-          fields={[
-            "Nom",
-            "Code",
-            "Quantité en stock",
-            "Niveau de disponibilité",
-            "",
-          ]}
-        >
-          <TableEntry
-            data={["Patacétamol", "PC123", "127839", "Faible"]}
-          ></TableEntry>
+        <Table fields={["Nom", "Code", "Quantité en stock", "Niveau de disponibilité", "", ]}>
+          <TableEntry data={["Patacétamol", "PC123", "127839", "Faible"]}></TableEntry>
         </Table>
       </Card>
     </>

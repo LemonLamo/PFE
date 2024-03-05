@@ -4,8 +4,8 @@ import TimelineItem from "../components/UI/Timeline/TimelineItem"
 import CreatePatientModal from "../components/CreatePatientModal"
 import Tabs from "../components/UI/Tabs/Tabs"
 import TabContent from "../components/UI/Tabs/TabContent"
-import Alert from "../components/Alert"
-import ProgressBar from "../components/ProgressBar"
+import Alert from "../components/UI/Alert"
+import ProgressBar from "../components/UI/ProgressBar"
 import Table from "../components/UI/Tables/Table"
 import TableEntry from "../components/UI/Tables/TableEntry"
 
@@ -17,6 +17,9 @@ function Test() {
   ]
   return (
     <>
+      <Card title="Buttons testing ground">
+        Work in progress, removed it so I can push before finishing it
+      </Card>
       <Card title="New Patient dynamic" action=<CreatePatientModal/> >
         <Table fields={fields}>
           { tableContent.map((item : any) => 

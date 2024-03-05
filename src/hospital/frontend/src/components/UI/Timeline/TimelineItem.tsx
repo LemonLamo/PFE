@@ -19,7 +19,7 @@ function TimelineItem({icon, date, title, children} : TimelineItemProps) {
               <i className={`${icon} relative leading-none leading-pro bg-clip-text fill-transparent`}></i>
           </span>
           <div className="ml-[7.5rem] pt-1.4 relative -top-1.5 w-auto">
-              <h6 className="mb-0 font-semibold leading-normal text-sm text-slate-700">{title}</h6>
+              <h6 className="mb-0 font-semibold leading-normal text-md text-slate-700">{title}</h6>
               {children}
           </div>
       </div>

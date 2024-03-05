@@ -1,36 +1,39 @@
-import React, { ReactNode, useState } from "react";
-import ModalContent from "./ModalContent";
+import { ReactNode} from "react"
 
 type ModalProps = {
-  children : ReactNode[]
-  onAction: () => void
+  icon?: string,
+  color: string,
+  offColor?: string,
+  iconColor?: string,
+  children : ReactNode[],
+  onAction: () => void,
   onCancel: () => void
 }
 
-function Modal({ children, onAction, onCancel } : ModalProps) {
-  const [open, setOpen] = useState(false);
-
-  function action(){
-    onAction();
-    setOpen(false);
-  }
-  function cancel(){
-    onCancel();
-    setOpen(false);
-  }
-
+function Modal({ icon, color, offColor, iconColor, children, onAction, onCancel } : ModalProps) {
   return (
-    <>
-      <button className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" onClick={() => setOpen(true)}>
-        {React.Children.toArray(children)[0]}
-      </button>
-      {
-        open &&
-        <ModalContent action={action} cancel={cancel}>
-            {children.slice(1)}
-        </ModalContent>
-      }
-    </>
+    <div className="z-10 fixed inset-0 bg-black/50 transition-opacity">
+      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+          <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div className="sm:flex sm:items-start">
+              { icon &&
+              <div className={`mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full ${offColor} sm:mx-0 sm:h-10 sm:w-10`}>
+                <i className={`${icon} ${iconColor}`} />
+              </div>
+              }
+              <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                {children}
+              </div>
+            </div>
+          </div>
+          <div className="pe-3 py-3 flex justify-end gap-3">
+            <button className={`${color} w-full rounded-md px-3 py-2 font-semibold text-white sm:w-auto`} onClick={onAction}>Submit</button>
+            <button className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={onCancel}>Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
