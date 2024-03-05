@@ -45,55 +45,30 @@ function Sidebar({ setOpen }: SidebarProps) {
             </a>
           </li>
           <SidebarHeader text="Consultation" />
-          <SidebarButton
-            text="Nouvelle consultation"
-            icon="user"
-            route="/new_visit"
-          />
-          <SidebarButton
-            text="Nouveau patient"
-            icon="user"
-            route="/new_patient"
-          />
-          <SidebarButton
-            text="Liste des patients"
-            icon="user"
-            route="/patients"
-          />
+          <SidebarButton text="Nouvelle consultation" icon="user" route="/new_visit" />
+          <SidebarButton text="Nouveau patient" icon="user" route="/new_patient" />
+          <SidebarButton text="Liste des patients" icon="user" route="/patients" />
           <SidebarButton text="Rendez-vous" icon="user" route="/rendez_vous" />
 
           <SidebarHeader text="Patient admis" />
-          <SidebarButton
-            text="Hospitalisation"
-            icon="user"
-            route="/nouveauPatient"
-          />
+          <SidebarButton text="Hospitalisation" icon="user" route="/dashboard"/>
 
           <SidebarHeader text="Laboratoire" />
-          <SidebarButton text="Bilans" icon="user" route="/nouveauPatient" />
+          <SidebarButton text="Bilans" icon="user" route="/dashboard" />
 
           <SidebarHeader text="Radiologie" />
-          <SidebarButton
-            text="Imageries Médicales"
-            icon="user"
-            route="/nouveauPatient"
-          />
+          <SidebarButton text="Imageries Médicales" icon="user" route="/dashboard"/>
 
           <SidebarHeader text="Pharmacie" />
           <SidebarButton text="Médicaments" icon="user" route="/medicaments" />
 
           <SidebarHeader text="Administration" />
-          <SidebarButton text="Personnel" icon="user" route="/nouveauPatient" />
-          <SidebarButton
-            text="Rôles et Permissions"
-            icon="user"
-            route="/nouveauPatient"
-          />
-          <SidebarButton
-            text="Paramètres"
-            icon="user"
-            route="/nouveauPatient"
-          />
+          <SidebarButton text="Medecins" icon="user" route="/medecins" />
+          <SidebarButton text="Infirmiers" icon="user" route="/infirmiers" />
+          <SidebarButton text="Agents" icon="user" route="/agents" />
+          <SidebarButton text="Chambres et Lits" icon="user" route="/chambres" />
+          <SidebarButton text="Rôles et Permissions" icon="user" route="/nouveauPatient"/>
+          <SidebarButton text="Paramètres" icon="user" route="/nouveauPatient"/>
         </ul>
       </div>
     </aside>

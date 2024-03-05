@@ -23,6 +23,20 @@ type Visite = {
     prochaine_consultaiton: Date,
 }
 type Hospitalisation = {
-    type_visite : string
     
+}
+type Medicament = {
+
+}
+type Chambre = {
+
+}
+type Medecin = {
+
+}
+type Infirmier = {
+
+}
+type Agent = {
+
 }
