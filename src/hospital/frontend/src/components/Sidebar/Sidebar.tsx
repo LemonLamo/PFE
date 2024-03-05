@@ -1,4 +1,4 @@
-import logo from "../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 import SidebarButton from "./SidebarButton";
 import SidebarHeader from "./SidebarHeader";
 

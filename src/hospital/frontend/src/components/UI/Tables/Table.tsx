@@ -6,7 +6,7 @@ type TableProps = {
 };
 function Table({ fields, children }: TableProps) {
   return (
-    <div className="block w-full overflow-auto scrolling-touch px-6">
+    <div className="block w-full overflow-auto scrolling-touch">
       <table className="w-full max-w-full mb-4 bg-transparent">
         <thead className="text-gray-700">
           <tr>
@@ -15,7 +15,9 @@ function Table({ fields, children }: TableProps) {
             ))}
           </tr>
         </thead>
-        <tbody className="text-gray-600">{children}</tbody>
+        <tbody className="text-gray-600">
+          {children}
+        </tbody>
       </table>
     </div>
   );

@@ -1,8 +1,13 @@
+import { useMemo, useState } from "react";
+import moment from "moment";
 import Card from "../components/UI/Card";
-import CreatePatientModal from "../components/CreatePatientModal";
+import CreateModal from "../components/Modals/CreateModal";
 import Table from "../components/UI/Tables/Table";
-import TableEntry from "../components/UI/Tables/TableEntry";
-import { useMemo } from "react";
+import TableRow from "../components/UI/Tables/TableRow";
+import TableCell from "../components/UI/Tables/TableCell";
+import ViewModal from "../components/Modals/ViewModal";
+import EditModal from "../components/Modals/EditModal";
+import DeleteModal from "../components/Modals/DeleteModal";
 
 function Infirmiers() {
   const infirmiers = useMemo<Infirmier[]>(() => {
@@ -15,7 +20,7 @@ function Infirmiers() {
 
   return (
     <>
-      <Card title="Infirmiers" action={<CreatePatientModal />}>
+      <Card title="Infirmiers" action={<button />}>
         <Table fields={["NIN", "Nom", "Prénom", "Date de naissance", "Sexe", "Adresse", "Numero de telephone", "", ]}>
           {infirmiers.map((infirmier) => (<TableEntry data={Object.values(infirmier)}></TableEntry>))}
         </Table>

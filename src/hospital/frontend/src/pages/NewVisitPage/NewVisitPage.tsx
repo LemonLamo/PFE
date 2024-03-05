@@ -11,7 +11,15 @@ import moment from "moment"
 import TabContent from "../../components/UI/Tabs/TabContent"
 
 function NewVisitPage() {
-  const [visiteData, setVisiteData] = useState({
+  const [state, setState] = useState<Record<string, boolean>>({
+    mediacments_active: false,
+    radiologie_active: false,
+    analyses_active: false,
+    interventions_active: false,
+    prochaine_consultation_active: true,
+  })
+
+  const [visiteData, setVisiteData] = useState<Visite>({
     date_visite: moment(new Date()).toDate(),
     type_visite: '',
     motif_visite: '',
@@ -23,19 +31,10 @@ function NewVisitPage() {
     diagnostique: '',
     diagnostique_details: '',
 
-    mediacments_active: false,
     medicaments: [],
-
-    radiologie_active: false,
     radiologie: [],
-
-    analyses_active: false,
     analyses: [],
-
-    interventions_active: false,
     interventions: [],
-
-    prochaine_consultation_active: true,
     prochaine_consultation: moment(new Date()).add(7).toDate(),
   })
 
@@ -61,19 +60,19 @@ function NewVisitPage() {
           </TabContent>
 
           <TabContent icon="fa fa-user" text="Motif de la visite" >
-            <TabMotif state={visiteData} setState={setVisiteData}/>
+            <TabMotif visiteData={visiteData} setVisiteData={setVisiteData}/>
           </TabContent>
 
           <TabContent icon="fa fa-user" text="Examen clinique" >
-            <TabExamenClinique state={visiteData} setState={setVisiteData}/>
+            <TabExamenClinique visiteData={visiteData} setVisiteData={setVisiteData}/>
           </TabContent>
 
           <TabContent icon="fa fa-user" text="Diagnostique" >
-            <TabDiagnostique state={visiteData} setState={setVisiteData}/>
+            <TabDiagnostique visiteData={visiteData} setVisiteData={setVisiteData}/>
           </TabContent>
 
           <TabContent icon="fa fa-user" text="Prise en charge" >
-            <TabPriseEnCharge state={visiteData} setState={setVisiteData}/>
+            <TabPriseEnCharge visiteData={visiteData} setVisiteData={setVisiteData} state={state} setState={setState}/>
           </TabContent>
         </Tabs>
 

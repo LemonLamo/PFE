@@ -1,16 +1,23 @@
-import TableEntry from "../../components/UI/Tables/TableEntry";
-import Table from "../../components/UI/Tables/Table";
 import moment from "moment";
+import Table from "../../components/UI/Tables/Table";
+import TableCell from "../../components/UI/Tables/TableCell";
+import TableRow from "../../components/UI/Tables/TableRow";
 
 type TabProps = {
-  state: any,
-  setState: any
+  visiteData: Visite,
+  setVisiteData: React.Dispatch<React.SetStateAction<Visite>>,
+  state: Record<string, boolean>,
+  setState: React.Dispatch<React.SetStateAction<Record<string, boolean>>>
 }
 
-export function TabPriseEnCharge({ state, setState }: TabProps) {
-  function updateState(id: string, value: any) {
-    setState((visiteData: Visite) => { return { ...visiteData, [id]: value } })
+export function TabPriseEnCharge({ visiteData, setVisiteData, state, setState }: TabProps) {
+  function updateVisiteData(id: keyof Visite, value: Visite[typeof id]) {
+    setVisiteData((visiteData) => ({ ...visiteData!, [id]: value }))
   }
+  function updateState(id: string, value: boolean) {
+    setState((state) => ({ ...state!, [id]: value }))
+  }
+
   return (
     <>
       <h3 className="text-lg font-bold text-gray-900 mb-0">Prise en charge</h3>
@@ -26,7 +33,15 @@ export function TabPriseEnCharge({ state, setState }: TabProps) {
         <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
         {state.medicaments_active &&
           <Table fields={['#', 'Médicament', 'Dosage', 'Fréquence', 'Durée', 'Remarques']}>
-            {state.medicaments.map((item: any) => <TableEntry data={item}></TableEntry>)}
+            {visiteData.medicaments.map((m) =>(
+              <TableRow>
+                <TableCell> {m.code} </TableCell>
+                <TableCell> {m.nom} </TableCell>
+                <TableCell> {m.frequency} </TableCell>
+                <TableCell> {m.duree} </TableCell>
+                <TableCell> {m.remarques} </TableCell>
+              </TableRow>
+            ))}
           </Table>
         }
         </div>
@@ -39,9 +54,15 @@ export function TabPriseEnCharge({ state, setState }: TabProps) {
           <button>Edit</button>
         </div>
         <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
-        {state.radiologie_active &&
+          {state.radiologie_active &&
           <Table fields={['#', 'Radio', 'Remarques']}>
-            {state.radiologie.map((item: any) => <TableEntry data={item}></TableEntry>)}
+              {visiteData.radiologie.map((r) => (
+                <TableRow>
+                  <TableCell> {r.code} </TableCell>
+                  <TableCell> {r.nom} </TableCell>
+                  <TableCell> {r.remarques} </TableCell>
+                </TableRow>
+              ))}
           </Table>
         }
         </div>
@@ -54,9 +75,15 @@ export function TabPriseEnCharge({ state, setState }: TabProps) {
           <button>Edit</button>
         </div>
         <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
-        {state.analyses_active &&
+          {state.analyses_active &&
           <Table fields={['#', 'Analyses', 'Remarques']}>
-            {state.analyses.map((item: any) => <TableEntry data={item}></TableEntry>)}
+              {visiteData.analyses.map((a) => (
+                <TableRow>
+                  <TableCell> {a.code} </TableCell>
+                  <TableCell> {a.nom} </TableCell>
+                  <TableCell> {a.remarques} </TableCell>
+                </TableRow>
+              ))}
           </Table>
         }
         </div>
@@ -71,7 +98,13 @@ export function TabPriseEnCharge({ state, setState }: TabProps) {
         <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
           {state.interventions_active &&
             <Table fields={['#', 'Intervention', 'Remarques']}>
-              {state.interventions.map((item: any) => <TableEntry data={item}></TableEntry>)}
+              {visiteData.interventions.map((i) => (
+                <TableRow>
+                  <TableCell> {i.code} </TableCell>
+                  <TableCell> {i.nom} </TableCell>
+                  <TableCell> {i.remarques} </TableCell>
+                </TableRow>
+              ))}
             </Table>
           }
         </div>
@@ -82,10 +115,11 @@ export function TabPriseEnCharge({ state, setState }: TabProps) {
             <label htmlFor="checkbox-5" className="cursor-pointer select-none text-slate-700">Prochaine consultation</label>
           </label>
         </div>
-        
-        <div className={"hidden overflow-hidden transition-all ease-soft-in-out duration-350 mb-2"}>
-          <input className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" type="datetime-local" value={moment(state.prochaine_consultaiton).format('YYYY-MM-DDTHH:mm')} onChange={(e) => updateState('prochaine_consultaiton', moment(e.target.value).format('YYYY-MM-DDTHH:mm'))}></input>
+        {state.prochaine_consultation_active &&
+        <div className={"overflow-hidden transition-all ease-soft-in-out duration-350 mb-2"}>
+          <input className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" type="datetime-local" value={moment(visiteData.prochaine_consultation).format('YYYY-MM-DDTHH:mm')} onChange={(e) => updateVisiteData('prochaine_consultation', moment(e.target.value).format('YYYY-MM-DDTHH:mm'))}></input>
         </div>
+        }
       </div>
     </>
   );

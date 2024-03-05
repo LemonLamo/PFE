@@ -1,12 +1,17 @@
-import TableEntry from "../../components/UI/Tables/TableEntry";
 import Table from "../../components/UI/Tables/Table";
+import TableCell from "../../components/UI/Tables/TableCell";
+import TableRow from "../../components/UI/Tables/TableRow";
 
 type TabProps = {
-  state: any,
-  setState: any
+  visiteData: Visite,
+  setVisiteData: React.Dispatch<React.SetStateAction<Visite>>,
 }
 
-export function TabExamenClinique({ state, setState }: TabProps) {
+export function TabExamenClinique({ visiteData, setVisiteData }: TabProps) {
+  function updateVisiteData(id: keyof Visite, value: Visite[typeof id]) {
+    setVisiteData((visiteData) => ({ ...visiteData!, [id]: value }))
+  }
+
   return (
     <>
       <h3 className="text-lg font-bold text-gray-900 mb-0">Examen clinique</h3>
@@ -18,7 +23,14 @@ export function TabExamenClinique({ state, setState }: TabProps) {
         </div>
         <div className="col-span-6">
           <Table fields={['#', 'Examen clinique', 'Résultat', 'Remarques']}>
-            {state.examens_cliniques.map((item: any) => <TableEntry data={item}></TableEntry>)}
+            {visiteData.examens_cliniques.map((e) => (
+              <TableRow>
+                <TableCell> {e.code} </TableCell>
+                <TableCell> {e.nom} </TableCell>
+                <TableCell> {e.result} </TableCell>
+                <TableCell> {e.remarques} </TableCell>
+              </TableRow>
+            ))}
           </Table>
         </div>
       </div>
