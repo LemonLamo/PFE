@@ -10,8 +10,8 @@ function Table({ fields, children }: TableProps) {
       <table className="w-full max-w-full mb-4 bg-transparent">
         <thead className="text-gray-700">
           <tr>
-            {fields.map((item) => (
-              <th className="pe-4 py-3 text-left">{item} </th>
+            {fields.map((item, i) => (
+              <th key={i} className="pe-4 py-3 text-left">{item} </th>
             ))}
           </tr>
         </thead>

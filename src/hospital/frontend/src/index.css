@@ -8,3 +8,26 @@
     padding-left: 15.625rem;
   }
 }
+
+select, textarea, input.primary {
+  @apply w-full ease-soft rounded border-gray-300 py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:transition-shadow focus:ring-0 focus:border-sky-600 me-3
+}
+
+button.primary{
+  @apply flex items-center justify-center py-2 px-4 rounded font-semibold transition font-semibold text-sky-600 border border-sky-600 hover:bg-sky-400 hover:text-white
+}
+button.primary-alt{
+  @apply flex items-center justify-center py-2 px-4 rounded font-semibold transition font-semibold font-semibold bg-sky-600 text-white hover:bg-sky-400
+}
+button.secondary {
+  @apply flex items-center justify-center py-2 px-4 rounded font-semibold transition font-semibold text-black hover:text-black
+}
+button.danger {
+  @apply flex items-center justify-center py-2 px-4 rounded font-semibold transition font-semibold text-red-600 border border-red-600 hover:bg-red-500 hover:text-white
+}
+button.danger-alt{
+  @apply flex items-center justify-center py-2 px-4 rounded font-semibold transition font-semibold font-semibold bg-red-500 text-white hover:bg-red-600
+}
+.checkbox{
+  @apply focus:ring-0 w-5 h-5 ease-soft text-base -ml-7 rounded-md checked:bg-gradient-to-tl checked:from-sky-300 checked:to-sky-500 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100
+}

@@ -10,20 +10,20 @@ import EditModal from "../components/Modals/EditModal";
 import DeleteModal from "../components/Modals/DeleteModal";
 
 function Medicaments() {
-  const medicaments = useMemo<Medicament[]>(() => {
+  const medicaments = useMemo<StockMedicament[]>(() => {
     let data = [
-      { nom: "Patacétamol", code: "PC123", quantity: "156", level: "Faible" },
-      { nom: "Patacétamol", code: "PC123", quantity: "156", level: "Moyenne" },
-      { nom: "Patacétamol", code: "PC123", quantity: "156", level: "Elevée" },
+      { nom: "Patacétamol", code: "PC123", quantite: 122 },
+      { nom: "Patacétamol", code: "PC123", quantite: 116 },
+      { nom: "Patacétamol", code: "PC123", quantite: 186 },
     ];
     return data;
   }, []);
 
   return (
     <>
-      <Card title="Stock Medicaments" action={<button />}>
+      <Card title="Stock Medicaments" action={<button />} className="w-full">
         <Table fields={["Nom", "Code", "Quantité en stock", "Niveau de disponibilité", "", ]}>
-          {medicaments.map((medicament) => (<TableEntry data={Object.values(medicament)}></TableEntry>))}
+          Redo
         </Table>
       </Card>
     </>

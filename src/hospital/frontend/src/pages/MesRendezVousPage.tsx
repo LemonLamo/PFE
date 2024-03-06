@@ -1,9 +1,13 @@
 import Calendar from "../components/Calendar/Calendar";
 import Card from "../components/UI/Card";
 
-function RendezVousPage() {
+function MesRendezVousPage() {
+  let events = [
+    { title: "Appendicite", date: new Date() },
+    { title: "Consultation", date: new Date() }
+  ]
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 w-full">
       <Card className="col-span-9">
         <Calendar></Calendar>
       </Card>
@@ -22,4 +26,4 @@ function RendezVousPage() {
   );
 }
 
-export default RendezVousPage;
+export default MesRendezVousPage;

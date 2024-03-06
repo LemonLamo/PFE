@@ -3,13 +3,13 @@ import TableCell from "../../components/UI/Tables/TableCell";
 import TableRow from "../../components/UI/Tables/TableRow";
 
 type TabProps = {
-  visiteData: Visite,
-  setVisiteData: React.Dispatch<React.SetStateAction<Visite>>,
+  consultationData: Consultation,
+  setConsultationData: React.Dispatch<React.SetStateAction<Consultation>>,
 }
 
-export function TabExamenClinique({ visiteData, setVisiteData }: TabProps) {
-  function updateVisiteData(id: keyof Visite, value: Visite[typeof id]) {
-    setVisiteData((visiteData) => ({ ...visiteData!, [id]: value }))
+function TabExamenClinique({ consultationData, setConsultationData }: TabProps) {
+  function updateConsultationData(id: keyof Consultation, value: Consultation[typeof id]) {
+    setConsultationData((consultationData) => ({ ...consultationData!, [id]: value }))
   }
 
   return (
@@ -23,11 +23,11 @@ export function TabExamenClinique({ visiteData, setVisiteData }: TabProps) {
         </div>
         <div className="col-span-6">
           <Table fields={['#', 'Examen clinique', 'Résultat', 'Remarques']}>
-            {visiteData.examens_cliniques.map((e) => (
+            {consultationData.examens_cliniques.map((e) => (
               <TableRow>
                 <TableCell> {e.code} </TableCell>
                 <TableCell> {e.nom} </TableCell>
-                <TableCell> {e.result} </TableCell>
+                <TableCell> {e.resultat} </TableCell>
                 <TableCell> {e.remarques} </TableCell>
               </TableRow>
             ))}
@@ -37,3 +37,5 @@ export function TabExamenClinique({ visiteData, setVisiteData }: TabProps) {
     </>
   );
 }
+
+export default TabExamenClinique

@@ -45,7 +45,7 @@ function Header({ setOpen } : HeaderProps) {
                         </Menu>
                     </li>
                     <li className="flex items-center xl:hidden">
-                        <a href="javascript:;" className="block p-0 transition-all ease-nav-brand text-sm text-slate-500">
+                        <a className="block p-0 transition-all ease-nav-brand text-sm text-slate-500">
                             <div className="w-4.5 overflow-hidden" onClick={setOpen}>
                                 <i id="top_bread" className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
                                 <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>

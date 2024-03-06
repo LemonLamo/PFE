@@ -11,15 +11,15 @@ import DeleteModal from "../components/Modals/DeleteModal";
 
 function Chambres() {
   const chambres = useMemo<Chambre[]>(() => {
-    let data = [{ num: "13", etage: "123", nb_lits: "8", taux: "4/8 (50%)" }];
+    let data = [{ num: "13", etage: "123", nombre_lits: 8, nombre_lits_occupe: 2 }];
     return data
   }, []);
 
   return (
     <>
-      <Card title="Chambres" action={<button />}>
-        <Table fields={["Num", "Etage", "Nombre de lits", "Taux d'occupation", "", ]}>
-          {chambres.map((chambre) => (<TableEntry data={Object.values(chambre)}></TableEntry>))}
+      <Card title="Chambres" className="w-full">
+        <Table fields={["Num", "Etage", "Nombre de lits", "Taux d'occupation", ""]}>
+          Redo
         </Table>
       </Card>
     </>

@@ -23,7 +23,7 @@ function Scaffold({ children } : ScaffoldProps) {
       <Sidebar setOpen={() => setSidebarOpen(!sidebarOpen)}></Sidebar>
       <main>
           <Header setOpen={() => setSidebarOpen(!sidebarOpen)}></Header>
-          <div className="w-full px-6 py-6 mx-auto max-w-7xl">
+          <div className="w-full px-6 py-6 mx-auto max-w-7xl flex justify-center flex-wrap">
             { children }
           </div>
           <Footer></Footer>

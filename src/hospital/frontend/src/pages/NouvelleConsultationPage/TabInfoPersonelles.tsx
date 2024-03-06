@@ -6,7 +6,7 @@ type TabInfoPersonnellesProps = {
   NIN: string
 }
 
-export function TabInfoPersonelles({NIN} : TabInfoPersonnellesProps) {
+function TabInfoPersonelles({NIN} : TabInfoPersonnellesProps) {
   const data = useMemo(()=>{
     return {
       nom: 'BRAHIM',
@@ -88,3 +88,5 @@ export function TabInfoPersonelles({NIN} : TabInfoPersonnellesProps) {
     </>
   );
 }
+
+export default TabInfoPersonelles

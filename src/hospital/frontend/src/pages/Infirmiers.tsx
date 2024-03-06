@@ -12,8 +12,8 @@ import DeleteModal from "../components/Modals/DeleteModal";
 function Infirmiers() {
   const infirmiers = useMemo<Infirmier[]>(() => {
     let data = [
-      { NIN: "1302893", nom: "NADIL", prenom: "Marwa", birthday: "12/05/2002", sexe: "Femme", addresse: "39 HAI MOUHOUS", telephone: "0799771062" },
-      { NIN: "1302893", nom: "NADIL", prenom: "Marwa", birthday: "12/05/2002", sexe: "Femme", addresse: "39 HAI MOUHOUS", telephone: "0799771062" }
+      { NIN: "100010364027390000", nom: "BRAHIM", prenom: "Abderrazak", date_naissance: new Date(), lieu_naissance: "Tebessa", sexe: "Female", addresse: "39 HAI MOUHOUS", email: "brahim.abderrazak1307@gmail.com", telephone: "0799771062" },
+      { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa", date_naissance: new Date(), lieu_naissance: "Blida", sexe: "Male", addresse: "39 HAI MOUHOUS", email: "nadilmarwa02@gmail.com", telephone: "0799771062" }
     ];
     return data
   }, []);
@@ -22,7 +22,7 @@ function Infirmiers() {
     <>
       <Card title="Infirmiers" action={<button />}>
         <Table fields={["NIN", "Nom", "Prénom", "Date de naissance", "Sexe", "Adresse", "Numero de telephone", "", ]}>
-          {infirmiers.map((infirmier) => (<TableEntry data={Object.values(infirmier)}></TableEntry>))}
+          Redo
         </Table>
       </Card>
     </>

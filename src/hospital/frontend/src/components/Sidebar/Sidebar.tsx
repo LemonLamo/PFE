@@ -36,7 +36,7 @@ function Sidebar({ setOpen }: SidebarProps) {
               className="py-2 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors"
               href="../pages/dashboard.html"
             >
-              <div className="bg-cyan-400 mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+              <div className="bg-sky-400 mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                 <i className="text-white cursor-pointer fa fa-bell text-xl"></i>
               </div>
               <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">
@@ -44,28 +44,24 @@ function Sidebar({ setOpen }: SidebarProps) {
               </span>
             </a>
           </li>
-          <SidebarHeader text="Consultation" />
-          <SidebarButton text="Nouvelle consultation" icon="user" route="/new_visit" />
-          <SidebarButton text="Nouveau patient" icon="user" route="/new_patient" />
-          <SidebarButton text="Liste des patients" icon="user" route="/patients" />
-          <SidebarButton text="Rendez-vous" icon="user" route="/rendez_vous" />
 
-          <SidebarHeader text="Patient admis" />
-          <SidebarButton text="Hospitalisation" icon="user" route="/dashboard"/>
+          <SidebarButton text="Nouveau patient" icon="user" route="/nouveau_patient" />
+          <SidebarHeader text="Consultation" />
+          <SidebarButton text="Nouvelle consultation" icon="user" route="/nouvelle_consultation" />
+          <SidebarButton text="Mes patients" icon="user" route="/mes_patients" />
+          <SidebarButton text="Mes rendez-vous" icon="user" route="/mes_rendez_vous" />
+
+          <SidebarHeader text="Hospitalisation" />
+          <SidebarButton text="Nouvelle hospitalisation" icon="user" route="/nouvelle_hospitalisation"/>
+          <SidebarButton text="Mes patients admis" icon="user" route="/mes_patients_admis" />
 
           <SidebarHeader text="Laboratoire" />
+          <SidebarButton text="Médicaments" icon="user" route="/medicaments" />
           <SidebarButton text="Bilans" icon="user" route="/dashboard" />
-
-          <SidebarHeader text="Radiologie" />
           <SidebarButton text="Imageries Médicales" icon="user" route="/dashboard"/>
 
-          <SidebarHeader text="Pharmacie" />
-          <SidebarButton text="Médicaments" icon="user" route="/medicaments" />
-
           <SidebarHeader text="Administration" />
-          <SidebarButton text="Medecins" icon="user" route="/medecins" />
-          <SidebarButton text="Infirmiers" icon="user" route="/infirmiers" />
-          <SidebarButton text="Agents" icon="user" route="/agents" />
+          <SidebarButton text="Personnel" icon="user" route="/agents" />
           <SidebarButton text="Chambres et Lits" icon="user" route="/chambres" />
           <SidebarButton text="Rôles et Permissions" icon="user" route="/nouveauPatient"/>
           <SidebarButton text="Paramètres" icon="user" route="/nouveauPatient"/>

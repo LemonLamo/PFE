@@ -12,12 +12,12 @@ import DeleteModal from "../components/Modals/DeleteModal";
 function Agents() {
   const agents = useMemo<Agent[]>(() => {
     let data = [
-      { NIN: "1302893", nom: "NADIL", prenom: "Marwa", birthday: new Date(), sexe: "Female", addresse: "39 HAI MOUHOUS", telephone: "0799771062" },
-      { NIN: "1302894", nom: "NADIL", prenom: "Marwa", birthday: new Date(), sexe: "Male", addresse: "39 HAI MOUHOUS", telephone: "0799771062" }
+      { NIN: "100010364027390000", nom: "BRAHIM", prenom: "Abderrazak", date_naissance: new Date(), lieu_naissance:"Tebessa", sexe: "Female", addresse: "39 HAI MOUHOUS", email:"brahim.abderrazak1307@gmail.com", telephone: "0799771062" },
+      { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa", date_naissance: new Date(), lieu_naissance:"Blida", sexe: "Male", addresse: "39 HAI MOUHOUS", email:"nadilmarwa02@gmail.com", telephone: "0799771062" }
     ];
     return data
   }, []);
-  const [selectedAgent, setSelectedAgent] = useState<Agent>({ NIN: "", nom: "", prenom: "", birthday: new Date(), sexe: "Male", addresse: "", telephone: "" });
+  const [selectedAgent, setSelectedAgent] = useState<Agent>({ NIN: "", nom: "", prenom: "", date_naissance: new Date(), lieu_naissance: "", sexe: "Male", addresse: "", email: "", telephone: "" });
 
   function create_agent() {
     console.log("Creating new agent")
@@ -57,15 +57,15 @@ function Agents() {
   return (
     <>
       <Card title="Agents" action={createModal}>
-        <Table fields={["NIN", "Nom", "Prénom", "Date de naissance", "Sexe", "Adresse", "Numero de telephone", "" ]}>
-          { agents.map((a) => (
-            <TableRow>
+        <Table fields={["NIN", "Nom", "Prénom", "Date et lieu de naissance", "Sexe", "Email", "Numero de téléphone", "" ]}>
+          { agents.map((a, i) => (
+            <TableRow key={i}>
               <TableCell> {a.NIN} </TableCell>
               <TableCell> {a.nom} </TableCell>
               <TableCell> {a.prenom} </TableCell>
-              <TableCell> {moment(a.birthday).format('DD/MM/YYYY')} </TableCell>
+              <TableCell> {moment(a.date_naissance).format('DD/MM/YYYY')}, {a.lieu_naissance} </TableCell>
               <TableCell> {a.sexe} </TableCell>
-              <TableCell> {a.addresse} </TableCell>
+              <TableCell> {a.email} </TableCell>
               <TableCell> {a.telephone} </TableCell>
 
               <TableCell className="flex justify-end gap-2">
