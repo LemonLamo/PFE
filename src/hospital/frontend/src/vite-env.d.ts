@@ -50,7 +50,7 @@ type Intervention = {
 }
 type ExamenClinique = {
     code: string,
-    nom: string,
+    nom?: string,
     resultat: string,
     remarques?: string
 }

@@ -12,8 +12,9 @@ import EditModal from "../components/Modals/EditModal"
 import DeleteModal from "../components/Modals/DeleteModal"
 import TableRow from "../components/UI/Tables/TableRow"
 import TableCell from "../components/UI/Tables/TableCell"
-import Badge from "../components/UI/Badge"
 import SmallCalendar from "../components/Calendar/SmallCalendar"
+import { useState } from "react"
+import Select from "../components/Select"
 
 function Test() {
   const fields = [
@@ -36,12 +37,22 @@ function Test() {
       <p className="text-gray-600">Here is the form.</p>
     </CreateModal>
   </>
+
+  const options  = [
+    { key: 'CM101', value: 'Appendectomie' },
+    { key: 'CM102', value: 'Cataract' },
+    { key: 'CM103', value: 'Bypass' },
+  ]
+  const [selectedOption, setSelectedOption] = useState('');
   return (
     <>
-      <Card title="New Patient dynamic" action={createModal} >
+      <Card title="testing new select" className="w-full">
+        <Select options={options} value={selectedOption} onChange={setSelectedOption} placeholder="herba derb"></Select>
+      </Card>
+      <Card title="New Patient dynamic" action={createModal} className="w-full">
         <Table fields={fields}>
-          {tableContent.map((a) => (
-            <TableRow>
+          {tableContent.map((a, i) => (
+            <TableRow key={i}>
               <TableCell> {a.id} </TableCell>
               <TableCell> {a.name} </TableCell>
               <TableCell> {a.surname} </TableCell>
@@ -69,11 +80,11 @@ function Test() {
           ))}
         </Table>
       </Card>
-      <Card title="Lets test out some stuff" subtitle="Alerts & progress bars">
+      <Card title="Lets test out some stuff" subtitle="Alerts & progress bars" className="w-full">
         <Alert color="bg-red-600"> DANGER! </Alert>
         <ProgressBar title="Hi" color="bg-fuchsia-400" perc={69}></ProgressBar>
       </Card>
-      <Card title="New patient" subtitle="You wanna add a new patient huh?">
+      <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
         <Tabs>
           <TabContent icon="fa fa-bell" text="Profile">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
@@ -119,7 +130,7 @@ function Test() {
           </TabContent>
         </Tabs>
       </Card>
-      <Card title="Idk" subtitle="This is a quick subtitle">
+      <Card title="Idk" subtitle="This is a quick subtitle" className="w-full">
         <Timeline>
           <TimelineItem
             icon="fa fa-bell text-red-500"
@@ -151,9 +162,9 @@ function Test() {
           </TimelineItem>
         </Timeline>
       </Card>
-      <Badge bgColor={"#ff0080"} textColor={"#4338ca"} Children={"Pink"}>
-      </Badge>
-      <SmallCalendar />
+      <Card title="Testing smoll calendar" className="w-full">
+        <SmallCalendar />
+      </Card>
     </>
   );
 }

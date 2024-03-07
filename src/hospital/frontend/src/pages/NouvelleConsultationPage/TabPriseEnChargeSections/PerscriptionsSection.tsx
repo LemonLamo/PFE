@@ -4,6 +4,7 @@ import TableRow from "../../../components/UI/Tables/TableRow";
 import Table from "../../../components/UI/Tables/Table";
 import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
+import Select from "../../../components/Select";
 
 type SectionProps = {
   state: Record<string, boolean>,
@@ -12,8 +13,17 @@ type SectionProps = {
   updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
 }
 
+const dictionnaire_medicaments = [
+  { key: 'M101', value: 'Paracetamol', },
+  { key: 'M102', value: 'Melatonin' },
+  { key: 'M103', value: 'Aspirin' },
+]
 function PerscriptionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps){
   const [selectedPrescription, setSelectedPrescription] = useState<Medicament>({ code: '', nom: '', posologie: 0, frequence:0, duree:0, remarques: '' })
+
+  function select_prescription({ key, value }: { key: string, value: string }) {
+    setSelectedPrescription({ ...selectedPrescription, code: key, nom: value })
+  }
 
   function add_prescription() {
     let prescriptions = [...consultationData.prescriptions, selectedPrescription]
@@ -37,13 +47,7 @@ function PerscriptionsSection({ state, updateState, consultationData, updateCons
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter une prescription</h3>
             <p className="text-gray-600">Remplissez ce formulaire pour ajouter une prescription à la consultation courante.</p>
             <div className="grid grid-cols-6 gap-2">
-              <select className="col-span-3" value={selectedPrescription.code} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, code: e.target.value })}>
-                <option value="" disabled>Code</option>
-                <option >CM 101</option>
-                <option >CM 102</option>
-                <option >CM 103</option>
-              </select>
-              <input className="primary col-span-3" type="text" placeholder="Nom" value={selectedPrescription.nom} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, nom: e.target.value })}></input>
+              <Select className="col-span-6" options={dictionnaire_medicaments} placeholder="Médicament" onChange={select_prescription} state={{ key: selectedPrescription.code, value: selectedPrescription.nom! }} />
               <input className="primary col-span-6" type="number" placeholder="Posologie" value={selectedPrescription.posologie} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, posologie: e.target.valueAsNumber })}></input>
               <input className="primary col-span-6" type="number" placeholder="Fréquence" value={selectedPrescription.frequence} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, frequence: e.target.valueAsNumber })}></input>
               <input className="primary col-span-6" type="number" placeholder="Duree" value={selectedPrescription.duree} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, duree: e.target.valueAsNumber })}></input>

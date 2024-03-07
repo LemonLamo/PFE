@@ -5,6 +5,7 @@ import Table from "../../../components/UI/Tables/Table";
 import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
 import moment from "moment";
+import Select from "../../../components/Select";
 
 type SectionProps = {
     state: Record<string, boolean>,
@@ -12,6 +13,10 @@ type SectionProps = {
     consultationData: Consultation,
     updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
 }
+
+const dictionnaire_interventions = [
+    { key: 'M101', value: 'Appendictomie', },
+]
 
 function InterventionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
     const [selectedInterventions, setSelectedInterventions] = useState<Intervention>({
@@ -23,6 +28,10 @@ function InterventionsSection({ state, updateState, consultationData, updateCons
         date: new Date(),
         remarques: ''
     })
+
+    function select_intervention({ key, value }: { key: string, value: string }) {
+        setSelectedInterventions({ ...selectedInterventions, code_intervention: key, nom: value })
+    }
 
     function add_interventions() {
         let interventions = [...consultationData.interventions, selectedInterventions]
@@ -46,15 +55,9 @@ function InterventionsSection({ state, updateState, consultationData, updateCons
                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter une intervention</h3>
                         <p className="text-gray-600">Remplissez ce formulaire pour ajouter une intervention à la consultation courante.</p>
                         <div className="grid grid-cols-6 gap-2">
-                            <select className="col-span-3" value={selectedInterventions.code_intervention} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, code_intervention: e.target.value })}>
-                                <option value="" disabled>Code</option>
-                                <option >CM 101</option>
-                                <option >CM 102</option>
-                                <option >CM 103</option>
-                            </select>
-                            <input className="primary col-span-3" type="text" placeholder="Nom" value={selectedInterventions.nom} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, nom: e.target.value })}></input>
+                            <Select className="col-span-6" options={dictionnaire_interventions} placeholder="Intervention" onChange={select_intervention} state={{ key: selectedInterventions.code_intervention, value: selectedInterventions.nom! }} />
                             <input className="primary col-span-6" type="datetime-local" placeholder="Date" value={moment(selectedInterventions.date).format('YYYY-MM-DDTHH:mm')} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, date: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate() })}></input>
-                            <textarea className="col-span-6" rows={5} placeholder="Remarques" value={selectedInterventions.remarques} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, remarques: e.target.value })}></textarea>
+                            <textarea className="col-span-6" rows={5} placeholder="Remarques" value={selectedInterventions.remarques} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, remarques:e.target.value})}></textarea>
                         </div>
                     </AddModal>
                 }

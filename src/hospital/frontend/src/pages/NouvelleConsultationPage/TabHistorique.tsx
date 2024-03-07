@@ -15,6 +15,28 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
     return [
       {
         code_consultation: "vis-0536518",
+        nom_hopital: 'CHU Mustapha Bacha',
+        medecin: 'Rahim Abdelkader',
+        patient: '',
+        date_consultation: d1,
+        type_consultation: "Evaluation de nouveau patient",
+        motif_consultation: "Plainte",
+        symptomes: "Mal au gorge",
+
+        resume_consultation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id venenatis lacus. Duis rutrum eros lectus, eu malesuada elit sodales a. Cras placerat tincidunt odio vitae pellentesque.",
+        examens_cliniques: [],
+
+        diagnostique: "Grippe saisonière",
+        diagnostique_details: "",
+
+        prescriptions: [],
+        radiologie: [],
+        analyses: [],
+        interventions: [],
+        prochaine_consultation: d2,
+      },
+      {
+        code_consultation: "vis-0536518",
         nom_hopital: 'CHU Kolea',
         medecin: 'Rahim Abdelkader',
         patient: '',

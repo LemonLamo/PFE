@@ -4,6 +4,7 @@ import TableRow from "../../../components/UI/Tables/TableRow";
 import Table from "../../../components/UI/Tables/Table";
 import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
+import Select from "../../../components/Select";
 
 type SectionProps = {
     state: Record<string, boolean>,
@@ -12,9 +13,16 @@ type SectionProps = {
     updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
 }
 
+const dcitionnaire_analyses = [
+    { key: 'M101', value: 'FSH-LH', },
+]
+
 function AnalysesSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
     const [selectedAnalyses, setSelectedAnalyses] = useState<Analyse>({ code: '', nom: '', remarques: '' })
 
+    function select_analyses({ key, value }: { key: string, value: string }) {
+        setSelectedAnalyses({ ...selectedAnalyses, code: key, nom: value })
+    }
     function add_analyses() {
         let analyses = [...consultationData.analyses, selectedAnalyses]
         updateConsultationData('analyses', analyses)
@@ -37,13 +45,7 @@ function AnalysesSection({ state, updateState, consultationData, updateConsultat
                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter des analyses</h3>
                         <p className="text-gray-600">Remplissez ce formulaire pour ajouter des analyses à la consultation courante.</p>
                         <div className="grid grid-cols-6 gap-2">
-                            <select className="col-span-3" value={selectedAnalyses.code} onChange={(e) => setSelectedAnalyses({ ...selectedAnalyses, code: e.target.value })}>
-                                <option value="" disabled>Code</option>
-                                <option >CM 101</option>
-                                <option >CM 102</option>
-                                <option >CM 103</option>
-                            </select>
-                            <input className="primary col-span-3" type="text" placeholder="Nom" value={selectedAnalyses.nom} onChange={(e) => setSelectedAnalyses({ ...selectedAnalyses, nom: e.target.value })}></input>
+                            <Select className="col-span-6" options={dcitionnaire_analyses} placeholder="Analyse" onChange={select_analyses} state={{ key: selectedAnalyses.code, value: selectedAnalyses.nom! }} />
                             <textarea className="col-span-6" rows={5} placeholder="Remarques" value={selectedAnalyses.remarques} onChange={(e) => setSelectedAnalyses({ ...selectedAnalyses, remarques: e.target.value })}></textarea>
                         </div>
                     </AddModal>
