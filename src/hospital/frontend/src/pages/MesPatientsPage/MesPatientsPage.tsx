@@ -10,13 +10,154 @@ import EditModal from "../../components/Modals/EditModal";
 import DeleteModal from "../../components/Modals/DeleteModal";
 
 function MesPatientsPage() {
+  const [selectedPatient, setSelectedPatient] = useState<Patient>({
+    NIN: "",
+    nom: "",
+    prenom: "",
+    date_naissance: "",
+    email: "",
+    telephone: "",
+  });
+
+  function create_patient() {
+    console.log("Creating new patient");
+    // use state variable to submit agent data
+  }
+
+  function view_patient(NIN: string) {
+    // use NIN to get the agent data into the state variable
+    console.log(`Viewing patient ${NIN}`);
+    setSelectedPatient((v) => ({ ...v, NIN: NIN }));
+  }
+
+  function load_edit_patient(NIN: string) {
+    console.log(`Loading information for edit modal ${NIN}`);
+    // use NIN to get the agent data into the state variable
+  }
+
+  function edit_patient(NIN: string) {
+    alert(`Editing patient ${NIN}`);
+  }
+
+  function delete_patient(NIN: string) {
+    alert(`Deleting patient ${NIN}`);
+    // do actual delete
+  }
+
+  const createModal = (
+    <>
+      <CreateModal
+        onCreate={create_patient}
+        onCancel={() => console.log("Cancelled create")}
+      >
+        <h3
+          className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+          id="modal-title"
+        >
+          Create patient
+        </h3>
+        <p className="text-gray-600">Here is the form.</p>
+      </CreateModal>
+    </>
+  );
+  const patients = useMemo<Patient[]>(() => {
+    let data = [
+      {
+        NIN: "100010364027390000",
+        nom: "BRAHIM",
+        prenom: "Abderrazak",
+        date_naissance: new Date(),
+        email: "brahim.abderrazak1307@gmail.com",
+        telephone: "0799771062",
+      },
+      {
+        NIN: "111111111111111111",
+        nom: "NADIL",
+        prenom: "Marwa",
+        date_naissance: new Date(),
+        email: "nadilmarwa02@gmail.com",
+        telephone: "0799771062",
+      },
+    ];
+    return data;
+  }, []);
+
   return (
-    <Card title="Liste des patients" subtitle="Une liste de tous les patients du service" className="w-full">
-      <Table fields={['NIN', 'Nom', 'Prénom', 'Date de naissance', 'Téléphone', 'Email', '']}>
-        
+    <Card
+      title="Liste des patients"
+      subtitle="Une liste de tous les patients du service"
+      className="w-full"
+    >
+      <Table
+        fields={[
+          "NIN",
+          "Nom",
+          "Prénom",
+          "Date de naissance",
+          "Téléphone",
+          "Email",
+          "",
+        ]}
+      >
+        {patients.map((a, i) => (
+          <TableRow>
+            <TableCell className="pe-3 py-2">{a.NIN} </TableCell>
+            <TableCell className="pe-3 py-2"> {a.nom} </TableCell>
+            <TableCell className="pe-3 py-2"> {a.prenom} </TableCell>
+            <TableCell className="pe-3 py-2">
+              {" "}
+              {moment(a.date_naissance).format("DD/MM/YYYY")},{" "}
+            </TableCell>
+            <TableCell className="pe-3 py-2"> {a.telephone} </TableCell>
+            <TableCell className="pe-3 py-2"> {a.email} </TableCell>
+            <TableCell className="flex justify-end gap-2">
+              <ViewModal onOpen={() => view_patient(a.NIN)}>
+                <h3
+                  className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+                  id="modal-title"
+                >
+                  View patient
+                </h3>
+                <form>
+                  <input type="text" value={selectedPatient.NIN}></input>
+                </form>
+              </ViewModal>
+
+              <EditModal
+                onOpen={() => load_edit_patient(a.NIN)}
+                onEdit={() => edit_patient(a.NIN)}
+                onCancel={() => console.log("Cancelled edit")}
+              >
+                <h3
+                  className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+                  id="modal-title"
+                >
+                  Edit patient
+                </h3>
+                <p className="text-gray-600">Here is some more more info.</p>
+              </EditModal>
+
+              <DeleteModal
+                onDelete={() => delete_patient(a.NIN)}
+                onCancel={() => console.log("Cancelled delete")}
+              >
+                <h3
+                  className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+                  id="modal-title"
+                >
+                  Delete patient
+                </h3>
+                <p className="text-gray-600">
+                  Are you sure you want to delete this record? All of your data
+                  will be permanently removed. This action cannot be undone.
+                </p>
+              </DeleteModal>
+            </TableCell>
+          </TableRow>
+        ))}
       </Table>
     </Card>
-  )
+  );
 }
 
-export default MesPatientsPage
+export default MesPatientsPage;
