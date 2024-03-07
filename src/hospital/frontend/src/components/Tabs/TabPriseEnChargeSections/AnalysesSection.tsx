@@ -45,8 +45,11 @@ function AnalysesSection({ state, updateState, consultationData, updateConsultat
                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter des analyses</h3>
                         <p className="text-gray-600">Remplissez ce formulaire pour ajouter des analyses à la consultation courante.</p>
                         <div className="grid grid-cols-6 gap-2">
-                            <Select className="col-span-6" options={dcitionnaire_analyses} placeholder="Analyse" onChange={select_analyses} state={{ key: selectedAnalyses.code, value: selectedAnalyses.nom! }} />
-                            <textarea className="col-span-6" rows={5} placeholder="Remarques" value={selectedAnalyses.remarques} onChange={(e) => setSelectedAnalyses({ ...selectedAnalyses, remarques: e.target.value })}></textarea>
+                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Analyse: </label>
+                            <Select className="col-span-4" options={dcitionnaire_analyses} placeholder="Analyse" onChange={select_analyses} state={{ key: selectedAnalyses.code, value: selectedAnalyses.nom! }} />
+
+                            <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
+                            <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedAnalyses.remarques} onChange={(e) => setSelectedAnalyses({ ...selectedAnalyses, remarques: e.target.value })}></textarea>
                         </div>
                     </AddModal>
                 }

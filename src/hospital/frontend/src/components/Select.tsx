@@ -28,10 +28,13 @@ function Select({ options, onChange, placeholder = '', className = '', state }: 
                     <ChevronDownIcon className="absolute right-3 top-[50%] bottom-[50%] mt-[-0.5rem] h-4 w-4 text-gray-600 curious-pointer" aria-hidden="true" />
                 </Combobox.Button>
 
-                <Combobox.Options className="absolute left-0 right-0 z-10 text-gray-700 border border-sky-700 placeholder:text-gray-500 shadow-soft-2xl focus:transition-shadow focus:ring-0 focus:border-sky-600 rounded-xs">
+                <Combobox.Options className="absolute w-full overflow-y-scroll max-h-34 text-gray-700 border border-sky-700 placeholder:text-gray-500 shadow-soft-2xl focus:transition-shadow focus:ring-0 focus:border-sky-600 rounded-xs">
                     {filteredOptions.map((o, i) => (
                         <Combobox.Option key={i} value={o} as={Fragment}>
-                            {({ active }) => (<li className={`px-2 py-1 text-md ${active ? 'bg-sky-500 text-white' : 'bg-white text-slate-800'}`}> {o.key} - {o.value} </li>)}
+                            {({ active }) => (
+                                <li className={`px-2 py-1 text-md ${active ? 'bg-sky-500 text-white' : 'bg-white text-slate-800'}`}> {o.key} - {o.value} </li>
+                            
+                            )}
                         </Combobox.Option>
                     ))}
                 </Combobox.Options>

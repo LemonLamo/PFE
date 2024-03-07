@@ -1,10 +1,10 @@
 import { useState } from "react";
-import DeleteModal from "../../components/Modals/DeleteModal";
-import Table from "../../components/UI/Tables/Table";
-import TableCell from "../../components/UI/Tables/TableCell";
-import TableRow from "../../components/UI/Tables/TableRow";
-import AddModal from "../../components/Modals/AddModal";
-import Select from "../../components/Select";
+import DeleteModal from "../Modals/DeleteModal";
+import Table from "../UI/Tables/Table";
+import TableCell from "../UI/Tables/TableCell";
+import TableRow from "../UI/Tables/TableRow";
+import AddModal from "../Modals/AddModal";
+import Select from "../Select";
 
 type TabProps = {
   consultationData: Consultation,
@@ -15,6 +15,13 @@ const dictionnaire_examens_clinique = [
   { key: 'CM101', value: 'Pression Artérielle',  },
   { key: 'CM102', value: 'Fréquence Cardiaque' },
   { key: 'CM103', value: 'Température'},
+  { key: 'CM103', value: 'Température' },
+  { key: 'CM103', value: 'Température' },
+  { key: 'CM103', value: 'Température' },
+  { key: 'CM103', value: 'Température' },
+  { key: 'CM103', value: 'Température' },
+  { key: 'CM103', value: 'Température' },
+  { key: 'CM103', value: 'Température' },
 ]
 function TabExamenClinique({ consultationData, setConsultationData }: TabProps) {
   const [selectedExamenClinique, setSelectedExamenClinique] = useState<ExamenClinique>({ code: '', nom: '', resultat: '', remarques: '' })
@@ -43,10 +50,15 @@ function TabExamenClinique({ consultationData, setConsultationData }: TabProps) 
           <AddModal onAdd={insert_examen_clinique} onCancel={() => console.log("Cancelled create")}>
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un examen clinique</h3>
             <p className="text-gray-600">Remplissez ce formulaire pour ajouter un examen clinique à la consultation courante.</p>
-            <div className="grid grid-cols-6 gap-2">
-              <Select className="col-span-6" options={dictionnaire_examens_clinique} placeholder="Examen Clinique" onChange={select_examen_clinique} state={{key: selectedExamenClinique.code, value:selectedExamenClinique.nom!}}/>
-              <input className="primary col-span-6" type="text" placeholder="Résultat" value={selectedExamenClinique.resultat} onChange={(e) => setSelectedExamenClinique({ ...selectedExamenClinique, resultat: e.target.value })}></input>
-              <textarea rows={5} className="col-span-6" placeholder="Remarques" value={selectedExamenClinique.remarques} onChange={(e) => setSelectedExamenClinique({ ...selectedExamenClinique, remarques: e.target.value })}></textarea>
+            <div className="grid grid-cols-6 gap-2 items-center">
+              <label className="font-semibold text-slate-700 text-sm col-span-2"> Examen clinique: </label>
+              <Select className="col-span-4" options={dictionnaire_examens_clinique} placeholder="Examen Clinique" onChange={select_examen_clinique} state={{key: selectedExamenClinique.code, value:selectedExamenClinique.nom!}}/>
+
+              <label className="font-semibold text-slate-700 text-sm col-span-2"> Résultats: </label>
+              <input className="primary col-span-4" type="text" placeholder="Résultat" value={selectedExamenClinique.resultat} onChange={(e) => setSelectedExamenClinique({ ...selectedExamenClinique, resultat: e.target.value })}></input>
+
+              <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
+              <textarea rows={5} className="col-span-4" placeholder="Remarques" value={selectedExamenClinique.remarques} onChange={(e) => setSelectedExamenClinique({ ...selectedExamenClinique, remarques: e.target.value })}></textarea>
             </div>
           </AddModal>
         </div>

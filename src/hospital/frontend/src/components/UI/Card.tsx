@@ -18,7 +18,7 @@ function Card({ title, subtitle, children, action, className }: CardProps) {
               </div>
               {action}
           </div>
-          <div className="block w-full overflow-auto scrolling-touch">
+          <div className="block w-full">
               {children}
           </div>
       </div>

@@ -47,11 +47,20 @@ function PerscriptionsSection({ state, updateState, consultationData, updateCons
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter une prescription</h3>
             <p className="text-gray-600">Remplissez ce formulaire pour ajouter une prescription à la consultation courante.</p>
             <div className="grid grid-cols-6 gap-2">
-              <Select className="col-span-6" options={dictionnaire_medicaments} placeholder="Médicament" onChange={select_prescription} state={{ key: selectedPrescription.code, value: selectedPrescription.nom! }} />
-              <input className="primary col-span-6" type="number" placeholder="Posologie" value={selectedPrescription.posologie} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, posologie: e.target.valueAsNumber })}></input>
-              <input className="primary col-span-6" type="number" placeholder="Fréquence" value={selectedPrescription.frequence} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, frequence: e.target.valueAsNumber })}></input>
-              <input className="primary col-span-6" type="number" placeholder="Duree" value={selectedPrescription.duree} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, duree: e.target.valueAsNumber })}></input>
-              <textarea className="col-span-6" rows={5}  placeholder="Remarques" value={selectedPrescription.remarques} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, remarques: e.target.value })}></textarea>
+              <label className="font-semibold text-slate-700 text-sm col-span-2"> Médicament: </label>
+              <Select className="col-span-4" options={dictionnaire_medicaments} placeholder="Médicament" onChange={select_prescription} state={{ key: selectedPrescription.code, value: selectedPrescription.nom! }} />
+
+              <label className="font-semibold text-slate-700 text-sm col-span-2"> Posologie: </label>
+              <input className="primary col-span-4" type="number" placeholder="Posologie" value={selectedPrescription.posologie} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, posologie: e.target.valueAsNumber })}></input>
+
+              <label className="font-semibold text-slate-700 text-sm col-span-2"> Fréquence: </label>
+              <input className="primary col-span-4" type="number" placeholder="Fréquence" value={selectedPrescription.frequence} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, frequence: e.target.valueAsNumber })}></input>
+
+              <label className="font-semibold text-slate-700 text-sm col-span-2"> Durée: </label>
+              <input className="primary col-span-4" type="number" placeholder="Duree" value={selectedPrescription.duree} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, duree: e.target.valueAsNumber })}></input>
+
+              <label className="font-semibold text-slate-700 text-sm col-span-2"> Remarques: </label>
+              <textarea className="col-span-4" rows={5}  placeholder="Remarques" value={selectedPrescription.remarques} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, remarques: e.target.value })}></textarea>
             </div>
           </AddModal>
         }

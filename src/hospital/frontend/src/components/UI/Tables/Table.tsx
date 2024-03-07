@@ -3,10 +3,11 @@ import { ReactNode } from "react";
 type TableProps = {
   fields: string[];
   children: ReactNode;
+  className?: string;
 };
-function Table({ fields, children }: TableProps) {
+function Table({ fields, children, className=''}: TableProps) {
   return (
-    <div className="block w-full overflow-auto scrolling-touch">
+    <div className={`block w-full overflow-auto scrolling-touch ${className}`}>
       <table className="w-full max-w-full mb-4 bg-transparent">
         <thead className="text-gray-700">
           <tr>
