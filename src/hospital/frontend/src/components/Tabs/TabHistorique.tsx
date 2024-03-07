@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import Timeline from "../../components/UI/Timeline/Timeline";
-import TimelineItem from "../../components/UI/Timeline/TimelineItem";
+import Timeline from "../UI/Timeline/Timeline";
+import TimelineItem from "../UI/Timeline/TimelineItem";
 import moment from "moment";
 
 type TabHistoriqueProps = {

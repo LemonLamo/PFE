@@ -1,45 +1,223 @@
 import Card from "../components/UI/Card"
 import profile from "../assets/profile.jpg"
+import Table from "../components/UI/Tables/Table"
+import TableRow from "../components/UI/Tables/TableRow"
+import TableCell from "../components/UI/Tables/TableCell"
+import DeleteModal from "../components/Modals/DeleteModal"
+import AddModal from "../components/Modals/AddModal"
 
 function NewPatientPage() {
   return (
     <Card title="Nouveau patient" subtitle="Create a new medical record" className="w-full">
       <div className="grid grid-cols-12 gap-x-4">
         <div className="col-span-4">
-          <h6 className="mb-0"> Informations Civiles</h6>
-          <input className="primary" placeholder="NIN" />
-          <input className="primary" placeholder="Nom" />
-          <input className="primary" placeholder="Prénom" />
-          <input className="primary" placeholder="Date de naissance" />
-          <input className="primary" placeholder="Lieu de naissance" />
-          <input className="primary" placeholder="Date de Naissance" />
+          <h6 className="mb-1"> Informations Civiles</h6>
+          <div className="mb-2">
+            <label className="text-sm font-semibold">NIN:</label>
+            <input type="text" className="primary" placeholder="ex. 111111111111111111" />
+          </div>
+          <div className="grid grid-cols-12 gap-x-2">
+            <div className="col-span-6 mb-2">
+              <label className="text-sm font-semibold">Nom:</label>
+              <input type="text" className="primary" placeholder="ex. Bouguerra" />
+            </div>
+            <div className="col-span-6 mb-2">
+              <label className="text-sm font-semibold">Prénom:</label>
+              <input type="text" className="primary" placeholder="ex. Mohammed" />
+            </div>
+            <div className="col-span-6 mb-2">
+              <label className="text-sm font-semibold">Date de naissance:</label>
+              <input type="date" className="primary" placeholder="Date" />
+            </div>
+            <div className="col-span-6 mb-2">
+              <label className="text-sm font-semibold">Lieu de naissance:</label>
+              <input type="text" className="primary" placeholder="ex. Alger" />
+            </div>
+            <div className="col-span-6 mb-2">
+              <label className="text-sm font-semibold">Sexe:</label>
+              <select>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div className="col-span-6 mb-2">
+              <label className="text-sm font-semibold">Situation Familiale:</label>
+              <select>
+                <option value="Célébataire">Célébataire</option>
+                <option value="Marrié(e)">Marrié(e)</option>
+                <option value="Divorcé(e)">Divorcé(e)</option>
+                <option value="Veuf(ve)">Veuf(e)</option>
+              </select>
+            </div>
+          </div>
 
-          <h6 className="mt-2 mb-0"> Addresse</h6>
-          <input className="primary" placeholder="Addresse" />
-          <input className="primary col-span-6" placeholder="Commune" />
-          <input className="primary col-span-6" placeholder="Zip Code" />
-          <input className="primary" placeholder="Wilaya" />
+          <h6 className="mt-4 mb-1"> Information de contact</h6>
+          <div className="mb-2">
+            <label className="text-sm font-semibold">Email:</label>
+            <input type="text" className="primary" placeholder="ex. bouguera.med@gmail.com" />
+          </div>
+          <div className="mb-2">
+            <label className="text-sm font-semibold">Numéro de téléphone:</label>
+            <input type="text" className="primary" placeholder="+213 549297666" />
+          </div>
         </div>
 
         <div className="col-span-4">
-          <h6 className="mb-0"> Informations Medicales</h6>
-          <input className="primary" placeholder="Group Sanguin" />
-          <input className="primary" placeholder="Taille" />
-          <input className="primary" placeholder="Poids" />
+          <h6 className="mt-4 mb-1"> Informations d'addresse</h6>
+          <div className="grid grid-cols-3 gap-x-2">
+            <div className="col-span-3 mb-2">
+              <label className="text-sm font-semibold">Addresse:</label>
+              <input type="text" className="primary" placeholder="ex. 22 BD Laichi Abdellah" />
+            </div>
+            <div className="mb-2">
+              <label className="text-sm font-semibold">Commune:</label>
+              <input type="text" className="primary" placeholder="ex. Bouarfa" />
+            </div>
+            <div className="mb-2">
+              <label className="text-sm font-semibold">Code postale:</label>
+              <input type="number" className="primary" placeholder="ex. 09000" />
+            </div>
+            <div className="mb-6">
+              <label className="text-sm font-semibold">Wilaya:</label>
+              <input type="text" className="primary" placeholder="ex. Blida" />
+            </div>
+          </div>
+          <h6 className="mb-1"> Informations Medicales</h6>
+          <div className="mb-2">
+            <label className="text-sm font-semibold">Groupe Sanguin:</label>
+            <select>
+              <option>A+</option>
+              <option>A-</option>
+              <option>B+</option>
+              <option>B-</option>
+              <option>AB+</option>
+              <option>AB-</option>
+              <option>O+</option>
+              <option>O-</option>
+            </select>
+          </div>
+          <div className="grid grid-cols-2 gap-x-2">
+            <div className="mb-2">
+              <label className="text-sm font-semibold">Taille:</label>
+              <div className="flex items-center">
+                <input className="primary mb-2" placeholder="170" type="number"/>
+                <span className="w-6 ms-2 text-right"> cm</span>
+              </div>
+            </div>
+            <div className="mb-2">
+              <label className="text-sm font-semibold">Poids:</label>
+              <div className="flex items-center">
+                <input className="primary mb-2" placeholder="72.8" type="number"/>
+                <span className="w-6 ms-2 text-right"> kg</span>
+              </div>
+            </div>
+            <div className="mb-2 pl-7 col-span-2">
+              <input id="chk" type="checkbox" className="checkbox"></input>
+              <label htmlFor="chk" className="select-none text-slate-700">Donneur d'organes?</label>
+            </div>
+            <div className="mb-2 pl-7 col-span-2">
+              <input id="chk" type="checkbox" className="checkbox"></input>
+              <label htmlFor="chk" className="select-none text-slate-700">Checkbox 2</label>
+            </div>
+          </div>
         </div>
 
         <div className="col-span-4">
-          <h6 className="mb-0"> Antécédants Familiales</h6>
-          <input className="primary" placeholder="Group Sanguin" />
+          <div className="mb-0 flex justify-between">
+            <h6 className="mb-0">Antécédants Familiales</h6>
+            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
+              <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
+              <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
+              <div className="grid grid-cols-6 gap-2">
 
-          <h6 className="mb-0"> Antécédants Médicales</h6>
-          <input className="primary" placeholder="Group Sanguin" />
+              </div>
+            </AddModal>
+          </div>
+          <Table fields={['#', 'Catégorie', 'Type', '']} className="mb-4">
+            <TableRow>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell className="text-right">
+                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
+                  <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
+                </DeleteModal>
+              </TableCell>
+            </TableRow>
+          </Table>
 
-          <h6 className="mb-0"> Allergies</h6>
-          <input className="primary" placeholder="Group Sanguin" />
+          <div className="mb-0 flex justify-between">
+            <h6 className="mb-1">Antécédants Médicales</h6>
+            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
+              <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
+              <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
+              <div className="grid grid-cols-6 gap-2">
 
-          <h6 className="mb-0"> Vaccinations</h6>
-          <input className="primary" placeholder="Group Sanguin" />
+              </div>
+            </AddModal>
+          </div>
+          <Table fields={['#', 'Catégorie', 'Type', '']} className="mb-4">
+            <TableRow>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell className="text-right">
+                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
+                  <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
+                </DeleteModal>
+              </TableCell>
+            </TableRow>
+          </Table>
+
+          <div className="mb-0 flex justify-between">
+            <h6 className="mb-1">Allergies</h6>
+            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
+              <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
+              <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
+              <div className="grid grid-cols-6 gap-2">
+
+              </div>
+            </AddModal>
+          </div>
+          <Table fields={['#', 'Catégorie', 'Type', '']} className="mb-4">
+            <TableRow>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell className="text-right">
+                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
+                  <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
+                </DeleteModal>
+              </TableCell>
+            </TableRow>
+          </Table>
+
+          <div className="mb-0 flex justify-between">
+            <h6 className="mb-1">Vaccinations</h6>
+            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
+              <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
+              <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
+              <div className="grid grid-cols-6 gap-2">
+
+              </div>
+            </AddModal>
+          </div>
+          <Table fields={['#', 'Catégorie', 'Type', '']} className="mb-4">
+            <TableRow>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell>Idk</TableCell>
+              <TableCell className="text-right">
+                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
+                  <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
+                </DeleteModal>
+              </TableCell>
+            </TableRow>
+          </Table>
         </div>
       </div>
 

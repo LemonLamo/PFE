@@ -5,7 +5,7 @@ type TableCellProps = {
     className?: string
 };
 
-function TableCell({ children, className }: TableCellProps) {
+function TableCell({ children, className='' }: TableCellProps) {
   return (
       <td className={`text-left ${className}`} >
         {children}

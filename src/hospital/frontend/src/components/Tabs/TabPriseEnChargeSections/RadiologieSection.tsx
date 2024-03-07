@@ -46,8 +46,11 @@ function RadiologieSection({ state, updateState, consultationData, updateConsult
                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
                         <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
                         <div className="grid grid-cols-6 gap-2">
-                            <Select className="col-span-6" options={dcitionnaire_radiologie} placeholder="Radio" onChange={select_radiologie} state={{ key: selectedRadiologie.code, value: selectedRadiologie.nom! }} />
-                            <textarea className="col-span-6" rows={5} placeholder="Remarques" value={selectedRadiologie.remarques} onChange={(e) => setSelectedRadiologie({ ...selectedRadiologie, remarques: e.target.value })}></textarea>
+                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Radio: </label>
+                            <Select className="col-span-4" options={dcitionnaire_radiologie} placeholder="Radio" onChange={select_radiologie} state={{ key: selectedRadiologie.code, value: selectedRadiologie.nom! }} />
+
+                            <label className="font-semibold text-slate-700 text-sm col-span-2  self-start"> Remarques: </label>
+                            <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedRadiologie.remarques} onChange={(e) => setSelectedRadiologie({ ...selectedRadiologie, remarques: e.target.value })}></textarea>
                         </div>
                     </AddModal>
                 }

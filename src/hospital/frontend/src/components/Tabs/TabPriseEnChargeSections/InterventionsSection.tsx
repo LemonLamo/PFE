@@ -55,9 +55,14 @@ function InterventionsSection({ state, updateState, consultationData, updateCons
                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter une intervention</h3>
                         <p className="text-gray-600">Remplissez ce formulaire pour ajouter une intervention à la consultation courante.</p>
                         <div className="grid grid-cols-6 gap-2">
-                            <Select className="col-span-6" options={dictionnaire_interventions} placeholder="Intervention" onChange={select_intervention} state={{ key: selectedInterventions.code_intervention, value: selectedInterventions.nom! }} />
-                            <input className="primary col-span-6" type="datetime-local" placeholder="Date" value={moment(selectedInterventions.date).format('YYYY-MM-DDTHH:mm')} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, date: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate() })}></input>
-                            <textarea className="col-span-6" rows={5} placeholder="Remarques" value={selectedInterventions.remarques} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, remarques:e.target.value})}></textarea>
+                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention: </label>
+                            <Select className="col-span-4" options={dictionnaire_interventions} placeholder="Intervention" onChange={select_intervention} state={{ key: selectedInterventions.code_intervention, value: selectedInterventions.nom! }} />
+
+                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
+                            <input className="primary col-span-4" type="datetime-local" placeholder="Date" value={moment(selectedInterventions.date).format('YYYY-MM-DDTHH:mm')} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, date: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate() })}></input>
+
+                            <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
+                            <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedInterventions.remarques} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, remarques:e.target.value})}></textarea>
                         </div>
                     </AddModal>
                 }
