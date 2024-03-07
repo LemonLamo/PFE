@@ -11,9 +11,9 @@ import DeleteModal from "../../components/Modals/DeleteModal";
 
 function MesPatientsAdmisPage() {
   return (
-    <Card title="Liste des patients" subtitle="Une liste de tous les patients du service" className="w-full">
+    <Card title="Liste des patients admis" subtitle="Une liste de tous les patients admis" className="w-full">
       <Table fields={['NIN', 'Nom', 'Prénom', 'Date de naissance', 'Téléphone', 'Email', '']}>
-        redo
+        
       </Table>
     </Card>
   )

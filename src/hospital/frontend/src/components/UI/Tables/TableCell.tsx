@@ -7,7 +7,7 @@ type TableCellProps = {
 
 function TableCell({ children, className }: TableCellProps) {
   return (
-      <td className={`py-3 text-left ${className}`} >
+      <td className={`text-left ${className}`} >
         {children}
       </td>
   )

@@ -6,20 +6,14 @@ import TabMotif from "./TabMotif"
 import TabExamenClinique from "./TabExamenClinique"
 import TabDiagnostique from "./TabDiagnostique"
 import TabPriseEnCharge from "./TabPriseEnCharge"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import moment from "moment"
 import TabContent from "../../components/UI/Tabs/TabContent"
 
 function NouvelleConsultationPage() {
   const [selectedPatient, setSelectedPatient] = useState<string>("")
   const [validPatient, setValidPatient] = useState(false)
-  const [state, setState] = useState<Record<string, boolean>>({
-    mediacments_active: false,
-    radiologie_active: false,
-    analyses_active: false,
-    interventions_active: false,
-    prochaine_consultation_active: true,
-  })
+  const [state, setState] = useState<Record<string, boolean>>({mediacments_active: false, radiologie_active: false, analyses_active: false, interventions_active: false, prochaine_consultation_active: true })
   const [consultationData, setConsultationData] = useState<Consultation>({
     code_consultation: '',
     nom_hopital: '',
@@ -40,7 +34,7 @@ function NouvelleConsultationPage() {
     radiologie: [],
     analyses: [],
     interventions: [],
-    prochaine_consultation: moment(new Date()).add(7).toDate(),
+    prochaine_consultation: moment(new Date()).add(7).toDate()
   })
 
   function choosePatient(){
@@ -61,14 +55,14 @@ function NouvelleConsultationPage() {
               <i className="fas fa-user" aria-hidden="true"></i>
             </span>
               <input type="text" className="primary pl-9" placeholder="Rechercher un patient par NIN..." value={selectedPatient} onChange={(e) => setSelectedPatient(e.target.value)}/>
-              <button className="primary" onClick={choosePatient}> Choisir </button>
+              <button className="primary ms-3" onClick={choosePatient}> Choisir </button>
           </div>
         </div>
       </Card>
       }
 
       {validPatient &&
-      <Card title="New patient" subtitle="You wanna add a new patient huh?">
+      <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
         <Tabs>
           <TabContent icon="fa fa-user" text="Informations Personnelles" >
             <TabInfoPersonelles NIN={'100010364027390000'}/>

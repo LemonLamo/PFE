@@ -19,7 +19,7 @@ const events = [
   },
 ];
 
-export function Calendarjs() {
+function Calendar() {
   return (
     <div className="h-full w-full">
       <FullCalendar
@@ -41,3 +41,5 @@ function renderEventContent(eventInfo) {
     </>
   );
 }
+
+export default Calendar

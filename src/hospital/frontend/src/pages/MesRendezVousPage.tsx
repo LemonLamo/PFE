@@ -1,10 +1,10 @@
-import Calendar from "../components/Calendar/Calendar";
+import Calendar from "../components/Calendar/FullCalendar";
 import Card from "../components/UI/Card";
 
 function MesRendezVousPage() {
   let events = [
-    { title: "Appendicite", date: new Date() },
-    { title: "Consultation", date: new Date() }
+    { title: "Appendicite", subtitle:"BRAHIM Abderrazak", date: new Date() },
+    { title: "Consultation", subtitle: "NADIL Marwa",  date: new Date() }
   ]
   return (
     <div className="grid grid-cols-12 w-full">
@@ -16,8 +16,8 @@ function MesRendezVousPage() {
               <li className="flex justify-between gap-x-3 mb-0">
                   <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                   <div className="min-w-0 flex-auto">
-                      <p className="text-sm font-semibold leading-6 text-gray-900 mb-0">Brahim Abderrazak</p>
-                      <p className="mb-0 truncate text-sm leading-5 text-gray-600">Appendicite - 04/03/2024 08:00</p>
+                    <p className="text-sm font-semibold leading-6 text-gray-900 mb-0">Appendicite</p>
+                    <p className="mb-0 truncate text-sm leading-5 text-gray-600">Brahim Abderrazak - 04/03/2024 08:00</p>
                   </div>
               </li>
           </ul>

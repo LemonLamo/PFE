@@ -11,7 +11,7 @@ function Table({ fields, children }: TableProps) {
         <thead className="text-gray-700">
           <tr>
             {fields.map((item, i) => (
-              <th key={i} className="pe-4 py-3 text-left">{item} </th>
+              <th key={i} className="pe-4 py-1 text-left">{item} </th>
             ))}
           </tr>
         </thead>

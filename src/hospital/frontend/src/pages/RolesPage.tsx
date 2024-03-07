@@ -9,20 +9,16 @@ import ViewModal from "../components/Modals/ViewModal";
 import EditModal from "../components/Modals/EditModal";
 import DeleteModal from "../components/Modals/DeleteModal";
 
-function Medicaments() {
-  const medicaments = useMemo<StockMedicament[]>(() => {
-    let data = [
-      { nom: "Patacétamol", code: "PC123", quantite: 122 },
-      { nom: "Patacétamol", code: "PC123", quantite: 116 },
-      { nom: "Patacétamol", code: "PC123", quantite: 186 },
-    ];
-    return data;
+function RolesPage() {
+  const roles = useMemo<Role[]>(() => {
+    let data = [{ id: "13", nom: "123", permissions: []}];
+    return data
   }, []);
 
   return (
     <>
-      <Card title="Stock Medicaments" action={<button />} className="w-full">
-        <Table fields={["Nom", "Code", "Quantité en stock", "Niveau de disponibilité", "", ]}>
+      <Card title="Roles" className="w-full">
+        <Table fields={["#", "Role", "Permissions", ""]}>
           
         </Table>
       </Card>
@@ -30,4 +26,4 @@ function Medicaments() {
   );
 }
 
-export default Medicaments;
+export default RolesPage;

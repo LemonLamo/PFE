@@ -13,7 +13,7 @@ function MesPatientsPage() {
   return (
     <Card title="Liste des patients" subtitle="Une liste de tous les patients du service" className="w-full">
       <Table fields={['NIN', 'Nom', 'Prénom', 'Date de naissance', 'Téléphone', 'Email', '']}>
-        redo
+        
       </Table>
     </Card>
   )

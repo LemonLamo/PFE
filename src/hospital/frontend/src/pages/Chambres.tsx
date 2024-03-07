@@ -19,7 +19,7 @@ function Chambres() {
     <>
       <Card title="Chambres" className="w-full">
         <Table fields={["Num", "Etage", "Nombre de lits", "Taux d'occupation", ""]}>
-          Redo
+          
         </Table>
       </Card>
     </>

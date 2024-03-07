@@ -1,6 +1,7 @@
 import { Menu } from '@headlessui/react'
 import user from '../../assets/user.svg'
 import NotificationDropdown from './NotificationDropdown';
+import { Link } from 'react-router-dom';
 type HeaderProps = {
     setOpen: () => void
 }
@@ -8,7 +9,7 @@ type HeaderProps = {
 function Header({ setOpen } : HeaderProps) {
     return <nav className="pr-2 relative flex bg-white flex-wrap items-center justify-between py-2 transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start">
         <div className="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
-            <nav>
+            <div>
                 <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
                     <li className="leading-normal text-sm">
                         <a className="opacity-50 text-slate-700">Pages</a>
@@ -20,7 +21,7 @@ function Header({ setOpen } : HeaderProps) {
                 <h6 className="mb-0 font-bold capitalize">
                     Dashboard
                 </h6>
-            </nav>
+            </div>
             <div className="flex justify-end  mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
                 <ul className="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full gap-4">
                     <li className="relative flex items-center">
@@ -36,10 +37,10 @@ function Header({ setOpen } : HeaderProps) {
                                     Manage Account
                                 </div>
                                 <Menu.Item>
-                                    <a className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition" href="profile">Profile</a>
+                                    <Link className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition" to="/parametres">Parametres</Link>
                                 </Menu.Item>
                                 <Menu.Item>
-                                    <a className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition" href="profile">Log out</a>
+                                    <button className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">Log out</button>
                                 </Menu.Item>
                             </Menu.Items>
                         </Menu>

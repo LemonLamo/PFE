@@ -2,7 +2,7 @@ import moment from "moment"
 import { ReactNode } from "react"
 
 type TimelineItemProps = {
-    date: Date,
+    date?: Date | null,
     icon : string,
     title : string,
     children? : ReactNode

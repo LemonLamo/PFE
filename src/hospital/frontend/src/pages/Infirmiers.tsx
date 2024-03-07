@@ -22,7 +22,7 @@ function Infirmiers() {
     <>
       <Card title="Infirmiers" action={<button />}>
         <Table fields={["NIN", "Nom", "Prénom", "Date de naissance", "Sexe", "Adresse", "Numero de telephone", "", ]}>
-          Redo
+          
         </Table>
       </Card>
     </>

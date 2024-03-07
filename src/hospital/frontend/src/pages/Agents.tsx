@@ -34,14 +34,11 @@ function Agents() {
     console.log(`Loading information for edit modal ${NIN}`);
     // use NIN to get the agent data into the state variable
   }
+  
   function edit_agent(NIN: string) {
     alert(`Editing agent ${NIN}`);
   }
 
-  function load_delete_agent(NIN: string) {
-    console.log(`Loading information for delete modal ${NIN}`);
-    // set NIN into the state variable
-  }
   function delete_agent(NIN : string) {
     alert(`Deleting agent ${NIN}`)
     // do actual delete
@@ -56,17 +53,17 @@ function Agents() {
 
   return (
     <>
-      <Card title="Agents" action={createModal}>
+      <Card title="Agents" action={createModal} className="w-full">
         <Table fields={["NIN", "Nom", "Prénom", "Date et lieu de naissance", "Sexe", "Email", "Numero de téléphone", "" ]}>
           { agents.map((a, i) => (
             <TableRow key={i}>
-              <TableCell> {a.NIN} </TableCell>
-              <TableCell> {a.nom} </TableCell>
-              <TableCell> {a.prenom} </TableCell>
-              <TableCell> {moment(a.date_naissance).format('DD/MM/YYYY')}, {a.lieu_naissance} </TableCell>
-              <TableCell> {a.sexe} </TableCell>
-              <TableCell> {a.email} </TableCell>
-              <TableCell> {a.telephone} </TableCell>
+              <TableCell className="pe-3 py-2"> {a.NIN} </TableCell>
+              <TableCell className="pe-3 py-2"> {a.nom} </TableCell>
+              <TableCell className="pe-3 py-2"> {a.prenom} </TableCell>
+              <TableCell className="pe-3 py-2"> {moment(a.date_naissance).format('DD/MM/YYYY')}, {a.lieu_naissance} </TableCell>
+              <TableCell className="pe-3 py-2"> {a.sexe} </TableCell>
+              <TableCell className="pe-3 py-2"> {a.email} </TableCell>
+              <TableCell className="pe-3 py-2"> {a.telephone} </TableCell>
 
               <TableCell className="flex justify-end gap-2">
                 <ViewModal onOpen={() => view_agent(a.NIN)}>
@@ -81,7 +78,7 @@ function Agents() {
                   <p className="text-gray-600">Here is some more more info.</p>
                 </EditModal>
 
-                <DeleteModal onOpen={() => load_delete_agent(a.NIN)} onDelete={() => delete_agent(a.NIN)} onCancel={() => console.log("Cancelled delete")}>
+                <DeleteModal onDelete={() => delete_agent(a.NIN)} onCancel={() => console.log("Cancelled delete")}>
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Agent</h3>
                   <p className="text-gray-600">Are you sure you want to delete this record? All of your data will be permanently removed. This action cannot be undone.</p>
                 </DeleteModal>

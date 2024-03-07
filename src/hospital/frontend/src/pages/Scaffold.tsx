@@ -4,10 +4,11 @@ import Footer from '../components/Footer'
 import { ReactNode, useEffect, useState } from 'react'
 
 type ScaffoldProps = {
+  size?: string,
   children : ReactNode
 }
 
-function Scaffold({ children } : ScaffoldProps) {
+function Scaffold({ size ="max-w-7xl", children } : ScaffoldProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
   useEffect(()=>{
@@ -21,12 +22,12 @@ function Scaffold({ children } : ScaffoldProps) {
   return (
     <>
       <Sidebar setOpen={() => setSidebarOpen(!sidebarOpen)}></Sidebar>
-      <main>
-          <Header setOpen={() => setSidebarOpen(!sidebarOpen)}></Header>
-          <div className="w-full px-6 py-6 mx-auto max-w-7xl flex justify-center flex-wrap">
-            { children }
-          </div>
-          <Footer></Footer>
+      <Header setOpen={() => setSidebarOpen(!sidebarOpen)}></Header>
+      <main className='min-h-[91vh] flex flex-col justify-between'>
+        <div className={`w-full px-6 py-6 mx-auto ${size} flex justify-center flex-wrap`}>
+          { children }
+        </div>
+        <Footer></Footer>
       </main>
     </>
   )

@@ -70,7 +70,7 @@ function TabInfoPersonelles({NIN} : TabInfoPersonnellesProps) {
           <li className="flex flex-col col-span-3">
             <strong className="text-slate-700">Phone:</strong>
             <ul className="ps-4 list-disc">
-              {data.numero_telephone.map((tel) => <li>{tel}</li>)}
+              {data.numero_telephone.map((tel, i) => <li key={i}>{tel}</li>)}
             </ul>
           </li>
           <li className="flex flex-col col-span-3">
@@ -80,7 +80,7 @@ function TabInfoPersonelles({NIN} : TabInfoPersonnellesProps) {
           <li className="flex flex-col col-span-3">
             <strong className="text-slate-700">Urgence:</strong>
             <ul className="ps-4 list-disc">
-              {data.contact_urgence.map((tel) => <li>{tel}</li>)}
+              {data.contact_urgence.map((tel, i) => <li key={i}>{tel}</li>)}
             </ul>
           </li>
         </ul>

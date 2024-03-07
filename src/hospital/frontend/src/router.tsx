@@ -2,18 +2,18 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Scaffold from "./pages/Scaffold";
 import Dashboard from "./pages/Dashboard";
-import NouvelleConsultationPage from "./pages/NouvelleConsultationPage/NouvelleConsultationPage";
-import MesPatientsPage from "./pages/MesPatientsPage/MesPatientsPage";
 import NouveauPatientPage from "./pages/NouveauPatientPage";
-import Test from "./pages/Test";
+import NouvelleConsultationPage from "./pages/NouvelleConsultationPage/NouvelleConsultationPage";
 import MesRendezVousPage from "./pages/MesRendezVousPage";
-import Medicaments from "./pages/Medicaments";
-import Chambres from "./pages/Chambres";
-import Agents from "./pages/Agents";
-import Infirmiers from "./pages/Infirmiers";
-import Medecins from "./pages/Medecins";
+import MesPatientsPage from "./pages/MesPatientsPage/MesPatientsPage";
 import NouvelleHospitalisationPage from "./pages/NouvelleHospitalisationPage/NouvelleHospitalisationPage";
 import MesPatientsAdmisPage from "./pages/MesPatientsAdmisPage/MesPatientsAdmisPage";
+import Medicaments from "./pages/Medicaments";
+import Agents from "./pages/Agents";
+import Chambres from "./pages/Chambres";
+import RolesPage from "./pages/RolesPage";
+import ParemetresPage from "./pages/ParametresPage";
+import Test from "./pages/Test";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
@@ -28,9 +28,9 @@ const router = createBrowserRouter([
 
   { path: "/medicaments", element: (<Scaffold> <Medicaments/> </Scaffold>) },
   { path: "/chambres", element: (<Scaffold> <Chambres/> </Scaffold>) },
-  { path: "/medecins", element: (<Scaffold> <Medecins/> </Scaffold>) },
   { path: "/agents", element: (<Scaffold> <Agents/> </Scaffold>) },
-  { path: "/infirmiers", element: ( <Scaffold> <Infirmiers/> </Scaffold>) },
+  { path: "/roles", element: (<Scaffold> <RolesPage /> </Scaffold>) },
+  { path: "/parametres", element: (<Scaffold> <ParemetresPage /> </Scaffold>) },
   { path: "/test", element: (<Scaffold> <Test/> </Scaffold>) },
 ]);
 

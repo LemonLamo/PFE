@@ -17,14 +17,14 @@ function TabMotif({ consultationData, setConsultationData }: TabProps) {
 
         <input className="primary col-span-2" type="datetime-local" value={moment(consultationData.date_consultation).format('YYYY-MM-DDTHH:mm')} onChange={(e) => updateState('date_consultation', moment(e.target.value).format('YYYY-MM-DDTHH:mm'))}></input>
         <select className="col-span-2" value={consultationData.type_consultation} onChange={(e) => updateState('type_consultation', e.target.value)}>
-          <option disabled value={""} selected>Type de la consultation</option>
+          <option disabled value={""}>Type de la consultation</option>
           <option>Evaluation de nouveau patient</option>
           <option>Suivi periodique (non urgent)</option>
           <option>Viste de soins (urgent)</option>
         </select>
 
         <select className="col-span-2" value={consultationData.motif_consultation} onChange={(e) => updateState('motif_consultation', e.target.value)}>
-          <option disabled value={""} selected>Motif de la consultation</option>
+          <option disabled value={""}>Motif de la consultation</option>
           <option>Symptôme</option>
           <option>Plainte</option>
         </select>

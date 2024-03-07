@@ -38,6 +38,16 @@ type Hospitalisation = {
     mode_sortie: string,
     resume_hospitalisation: string,
 }
+type Intervention = {
+    code_intervention: string,
+    nom_hopital: string,
+    medecin: string,
+    patient: string,
+    nom: string,
+    date?: Date | null,
+    protocole_operatoire?: string,
+    remarques?: string
+}
 type ExamenClinique = {
     code: string,
     nom: string,
@@ -60,20 +70,13 @@ type StockMedicament = {
 type Radio = {
     code: string,
     nom: string,
-    fichiers: File[],
+    fichiers?: File[],
     remarques?: string
 }
 type Analyse = {
     code: string,
     nom: string,
-    fichiers: File[],
-    remarques?: string
-}
-type Intervention = {
-    code: string,
-    nom: string,
-    date: Date,
-    protocole_operatoire?: string,
+    fichiers?: File[],
     remarques?: string
 }
 type Chambre = {
@@ -115,4 +118,10 @@ type Agent = {
     email: string,
     telephone: string
     addresse: string,
+}
+
+type Role = { 
+    id: string,
+    nom: string,
+    permissions: string[]
 }
