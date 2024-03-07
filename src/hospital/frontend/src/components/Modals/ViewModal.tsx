@@ -32,7 +32,7 @@ function ViewModal({children, onOpen, onCancel} : ViewModalProps) {
             </button>
             {
                 open &&
-                <Modal cancelText='Close' onCancel={cancel} icon="fa fa-user" color="bg-cyan-500" offColor="bg-cyan-100" iconColor="text-cyan-500">
+                <Modal cancelText='Close' onCancel={cancel} icon="fa fa-user" color="bg-cyan-500" offColor="bg-cyan-100" iconColor="text-cyan-500" size='sm:max-w-4xl'>
                         {children}
                 </Modal>
             }

@@ -1,5 +1,4 @@
 import Card from "../components/UI/Card"
-import profile from "../assets/profile.jpg"
 import Table from "../components/UI/Tables/Table"
 import TableRow from "../components/UI/Tables/TableRow"
 import TableCell from "../components/UI/Tables/TableCell"
@@ -63,7 +62,7 @@ function NewPatientPage() {
         </div>
 
         <div className="col-span-4">
-          <h6 className="mt-4 mb-1"> Informations d'addresse</h6>
+          <h6 className="mt-0 mb-1"> Informations d'addresse</h6>
           <div className="grid grid-cols-3 gap-x-2">
             <div className="col-span-3 mb-2">
               <label className="text-sm font-semibold">Addresse:</label>

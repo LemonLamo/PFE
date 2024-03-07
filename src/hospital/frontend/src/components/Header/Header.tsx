@@ -10,16 +10,11 @@ function Header({ setOpen } : HeaderProps) {
     return <nav className="pr-2 relative flex bg-white flex-wrap items-center justify-between py-2 transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start">
         <div className="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
             <div>
-                <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-                    <li className="leading-normal text-sm">
-                        <a className="opacity-50 text-slate-700">Pages</a>
-                    </li>
-                    <li className="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']">
-                        Dashboard
-                    </li>
-                </ol>
+                <div className="text-sm capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600">
+                    Welcome,
+                </div>
                 <h6 className="mb-0 font-bold capitalize">
-                    Dashboard
+                    Abderrazak
                 </h6>
             </div>
             <div className="flex justify-end  mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
