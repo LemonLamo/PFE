@@ -1,25 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-const events = [
-  {
-    title: "Rendez-Vous 1",
-    start: new Date("2024-03-05"),
-    end: new Date("2024-03-06"),
-  },
-  {
-    title: "Rendez-Vous 2",
-    start: new Date("2024-03-10"),
-    end: new Date("2024-03-11"),
-  },
-  {
-    title: "Rendez-Vous 2",
-    start: new Date("2024-04-10"),
-    end: new Date("2024-04-11"),
-  },
-];
-
-function Calendar() {
+function Calendar({ events }) {
   return (
     <div className="h-full w-full">
       <FullCalendar
@@ -42,4 +24,4 @@ function renderEventContent(eventInfo) {
   );
 }
 
-export default Calendar
+export default Calendar;
