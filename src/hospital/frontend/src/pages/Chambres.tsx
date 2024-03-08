@@ -12,51 +12,44 @@ import ViewModal from "../components/Modals/ViewModal";
 import EditModal from "../components/Modals/EditModal";
 import DeleteModal from "../components/Modals/DeleteModal";
 import Badge from "../components/UI/Badge";
-import RemplirModal from "../components/Modals/RemplirModal";
+
+const etageName = (etage) => {
+  if (etage == 0) return "RDC";
+  if (etage == 1) return "1er";
+  return etage + "éme";
+};
+
+const badgecolor = (taux) => {
+  if (taux < 50) {
+    return (
+      <Badge bgColor={"#dcfce7"} textColor={"#267142"}>
+        <CheckCircleIcon className="h-[1.7vh] mr-1" />
+        {taux}%
+      </Badge>
+    );
+  } else if (taux >= 50 && taux < 75) {
+    return (
+      <Badge bgColor={"#fdba74"} textColor={"#9a3412"}>
+        <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+        {taux}%
+      </Badge>
+    );
+  } else {
+    return (
+      <Badge bgColor={"#fee2e2"} textColor={"#991b1b"}>
+        <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+        {taux}%
+      </Badge>
+    );
+  }
+};
 
 function Chambres() {
-  const getEtage = (num_chambre, nbr_etage, nbr_chambre) => {
-    let floor = Math.ceil(num_chambre / nbr_chambre);
-    floor = Math.min(floor, nbr_etage);
-    switch (floor) {
-      case 1:
-        return "RDC";
-        break;
-      case 2:
-        return floor - 1 + " er";
-      default:
-        return floor - 1 + " eme";
-        break;
-    }
-    return floor;
-  };
-  const badgecolor = (taux) => {
-    if (taux < 50) {
-      return (
-        <Badge bgColor={"#dcfce7"} textColor={"#267142"}>
-          <CheckCircleIcon className="h-[1.7vh] mr-1" />
-          {taux}%
-        </Badge>
-      );
-    } else if (taux >= 50 && taux < 75) {
-      return (
-        <Badge bgColor={"#fdba74"} textColor={"#9a3412"}>
-          <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
-          {taux}%
-        </Badge>
-      );
-    } else {
-      return (
-        <Badge bgColor={"#fee2e2"} textColor={"#991b1b"}>
-          <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
-          {taux}%
-        </Badge>
-      );
-    }
-  };
+  
+
   const [selectedChambre, setSelectedChambre] = useState<Chambre>({
     num: "",
-    etage: "",
+    etage: 0,
     nombre_lits: 0,
     nombre_lits_occupe: 0,
   });
@@ -110,7 +103,7 @@ function Chambres() {
             onChange={(e) =>
               setSelectedChambre({
                 ...selectedChambre,
-                num: e.target.valueAsNumber,
+                num: e.target.value,
               })
             }
           />
@@ -135,7 +128,8 @@ function Chambres() {
   );
   const chambres = useMemo<Chambre[]>(() => {
     let data = [
-      { num: "123", etage: "", nombre_lits: 8, nombre_lits_occupe: 2 },
+      { num: "F1", etage: 0, nombre_lits: 8, nombre_lits_occupe: 2 },
+      { num: "F2", etage: 1, nombre_lits: 8, nombre_lits_occupe: 2 },
     ];
     return data;
   }, []);
@@ -147,11 +141,10 @@ function Chambres() {
           fields={["Num", "Etage", "Nombre de lits", "Taux d'occupation", ""]}
         >
           {chambres.map((a, i) => (
-            <TableRow>
+            <TableRow key={i}>
               <TableCell className="pe-3 py-2">{a.num} </TableCell>
               <TableCell className="pe-3 py-2">
-                {" "}
-                {getEtage(a.num, 3, 50)}{" "}
+                {etageName(a.etage)}
               </TableCell>
               <TableCell className="pe-3 py-2"> {a.nombre_lits} </TableCell>
               <TableCell className="pe-3 py-2">
