@@ -14,7 +14,7 @@ function RdvCard({ children }) {
               {item.title}
             </p>
             <p className="mb-0 truncate text-sm leading-5 text-gray-600">
-              {item.subtitle} - {item.date.toLocaleDateString()}
+              {item.subtitle} - {item.start.toLocaleDateString()}
             </p>
           </div>
         </li>

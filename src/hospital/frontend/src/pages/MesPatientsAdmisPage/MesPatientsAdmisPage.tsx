@@ -16,6 +16,7 @@ function MesAdmisPage() {
       nom: "",
       prenom: "",
       date_naissance: "",
+      lieu_naissance: "",
       email: "",
       telephone: "",
     });
@@ -68,6 +69,7 @@ function MesAdmisPage() {
         nom: "BRAHIM",
         prenom: "Abderrazak",
         date_naissance: new Date(),
+        lieu_naissance: "Tebessa",
         email: "brahim.abderrazak1307@gmail.com",
         telephone: "0799771062",
       },
@@ -76,6 +78,7 @@ function MesAdmisPage() {
         nom: "NADIL",
         prenom: "Marwa",
         date_naissance: new Date(),
+        lieu_naissance: "Kouba",
         email: "nadilmarwa02@gmail.com",
         telephone: "0799771062",
       },
@@ -87,6 +90,7 @@ function MesAdmisPage() {
     <Card
       title="Liste des  admis"
       subtitle="Une liste de tous les  admis"
+      action={createModal}
       className="w-full"
     >
       <Table
@@ -94,7 +98,7 @@ function MesAdmisPage() {
           "NIN",
           "Nom",
           "Prénom",
-          "Date de naissance",
+          "Date et lieu de naissance",
           "Téléphone",
           "Email",
           "",
@@ -108,6 +112,7 @@ function MesAdmisPage() {
             <TableCell className="pe-3 py-2">
               {" "}
               {moment(a.date_naissance).format("DD/MM/YYYY")},{" "}
+              {a.lieu_naissance}{" "}
             </TableCell>
             <TableCell className="pe-3 py-2"> {a.telephone} </TableCell>
             <TableCell className="pe-3 py-2"> {a.email} </TableCell>

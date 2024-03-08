@@ -1,4 +1,8 @@
 import { useMemo, useState } from "react";
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/outline";
 import Card from "../components/UI/Card";
 import CreateModal from "../components/Modals/CreateModal";
 import Table from "../components/UI/Tables/Table";
@@ -7,8 +11,49 @@ import TableCell from "../components/UI/Tables/TableCell";
 import ViewModal from "../components/Modals/ViewModal";
 import EditModal from "../components/Modals/EditModal";
 import DeleteModal from "../components/Modals/DeleteModal";
+import Badge from "../components/UI/Badge";
+import RemplirModal from "../components/Modals/RemplirModal";
 
 function Chambres() {
+  const getEtage = (num_chambre, nbr_etage, nbr_chambre) => {
+    let floor = Math.ceil(num_chambre / nbr_chambre);
+    floor = Math.min(floor, nbr_etage);
+    switch (floor) {
+      case 1:
+        return "RDC";
+        break;
+      case 2:
+        return floor - 1 + " er";
+      default:
+        return floor - 1 + " eme";
+        break;
+    }
+    return floor;
+  };
+  const badgecolor = (taux) => {
+    if (taux < 50) {
+      return (
+        <Badge bgColor={"#dcfce7"} textColor={"#267142"}>
+          <CheckCircleIcon className="h-[1.7vh] mr-1" />
+          {taux}%
+        </Badge>
+      );
+    } else if (taux >= 50 && taux < 75) {
+      return (
+        <Badge bgColor={"#fdba74"} textColor={"#9a3412"}>
+          <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+          {taux}%
+        </Badge>
+      );
+    } else {
+      return (
+        <Badge bgColor={"#fee2e2"} textColor={"#991b1b"}>
+          <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+          {taux}%
+        </Badge>
+      );
+    }
+  };
   const [selectedChambre, setSelectedChambre] = useState<Chambre>({
     num: "",
     etage: "",
@@ -18,7 +63,6 @@ function Chambres() {
 
   function create_chambre() {
     console.log("Creating new chambre");
-    // use state variable to submit agent data
   }
 
   function view_chambre(num: string) {
@@ -42,7 +86,7 @@ function Chambres() {
   }
 
   const createModal = (
-    <>
+    <div className="flex gap-2 min-h-min">
       <CreateModal
         onCreate={create_chambre}
         onCancel={() => console.log("Cancelled create")}
@@ -53,30 +97,65 @@ function Chambres() {
         >
           Create chambre
         </h3>
-        <p className="text-gray-600">Here is the form.</p>
+        <p className="text-gray-600">
+          Remplissez ce formulaire pour ajouter une nouvelle chambre
+        </p>
+        <div className="col-span-4 mb-2">
+          <label className="text-sm font-semibold">Numéro de chambre </label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="Num"
+            value={selectedChambre.num}
+            onChange={(e) =>
+              setSelectedChambre({
+                ...selectedChambre,
+                num: e.target.valueAsNumber,
+              })
+            }
+          />
+        </div>
+        <div className="col-span-4 mb-2">
+          <label className="text-sm font-semibold">Nombre de lits </label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="Nombre"
+            value={selectedChambre.nombre_lits}
+            onChange={(e) =>
+              setSelectedChambre({
+                ...selectedChambre,
+                nombre_lits: e.target.valueAsNumber,
+              })
+            }
+          />
+        </div>
       </CreateModal>
-    </>
+    </div>
   );
   const chambres = useMemo<Chambre[]>(() => {
     let data = [
-      { num: "13", etage: "123", nombre_lits: 8, nombre_lits_occupe: 2 },
+      { num: "123", etage: "", nombre_lits: 8, nombre_lits_occupe: 2 },
     ];
     return data;
   }, []);
 
   return (
     <>
-      <Card title="Chambres" className="w-full">
+      <Card title="Chambres" action={createModal} className="w-full">
         <Table
           fields={["Num", "Etage", "Nombre de lits", "Taux d'occupation", ""]}
         >
           {chambres.map((a, i) => (
             <TableRow>
               <TableCell className="pe-3 py-2">{a.num} </TableCell>
-              <TableCell className="pe-3 py-2"> {a.etage} </TableCell>
+              <TableCell className="pe-3 py-2">
+                {" "}
+                {getEtage(a.num, 3, 50)}{" "}
+              </TableCell>
               <TableCell className="pe-3 py-2"> {a.nombre_lits} </TableCell>
               <TableCell className="pe-3 py-2">
-                {a.nombre_lits_occupe}
+                {badgecolor((a.nombre_lits_occupe * 100) / a.nombre_lits)}
               </TableCell>
               <TableCell className="flex justify-end gap-2">
                 <ViewModal onOpen={() => view_chambre(a.num)}>
