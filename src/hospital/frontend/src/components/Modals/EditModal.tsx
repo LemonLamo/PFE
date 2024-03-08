@@ -36,7 +36,7 @@ function EditModal({ children, onOpen, onEdit, onCancel } : EditModalProps) {
             </button>
             {
                 open &&
-                <Modal actionText='Modifier' onAction={submit} cancelText='Cancel' onCancel={cancel} icon="fa fa-user" color="bg-yellow-500" offColor="bg-yellow-100" iconColor="text-yellow-500">
+                <Modal actionText='Modifier' onAction={submit} cancelText='Cancel' onCancel={cancel} icon="fa fa-user" color="bg-yellow-500" offColor="bg-yellow-100" iconColor="text-yellow-500" size='sm:max-w-2xl'>
                     {children}
                 </Modal>
             }

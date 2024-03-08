@@ -12,8 +12,8 @@ function Chambres() {
   const [selectedChambre, setSelectedChambre] = useState<Chambre>({
     num: "",
     etage: "",
-    nombre_lits: "",
-    nombre_lits_occupe: "",
+    nombre_lits: 0,
+    nombre_lits_occupe: 0,
   });
 
   function create_chambre() {

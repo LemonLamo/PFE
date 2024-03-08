@@ -29,7 +29,7 @@ function CreateModal({ children, onCreate, onCancel }: CreateModalProps) {
             </button>
             {
                 open &&
-                <Modal actionText='Créer' onAction={submit} cancelText='Cancel' onCancel={cancel} icon="fa fa-user" color="bg-cyan-500" offColor="bg-cyan-100" iconColor="text-cyan-500">
+                <Modal actionText='Créer' onAction={submit} cancelText='Cancel' onCancel={cancel} icon="fa fa-user" color="bg-cyan-500" offColor="bg-cyan-100" iconColor="text-cyan-500" size="sm:max-w-2xl">
                     {children}
                 </Modal>
             }
