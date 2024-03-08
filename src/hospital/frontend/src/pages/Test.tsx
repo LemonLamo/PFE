@@ -43,11 +43,11 @@ function Test() {
     { key: 'CM102', value: 'Cataract' },
     { key: 'CM103', value: 'Bypass' },
   ]
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   return (
     <>
       <Card title="testing new select" className="w-full">
-        <Select options={options} value={selectedOption} onChange={setSelectedOption} placeholder="herba derb"></Select>
+        <Select options={options} state={selectedOption} onChange={setSelectedOption} placeholder="herba derb"></Select>
       </Card>
       <Card title="New Patient dynamic" action={createModal} className="w-full">
         <Table fields={fields}>
