@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import login from '../assets/login.svg'
 import LoginForm from '../components/LoginForm'
 import TwoFactorForm from '../components/TwoFactorForm'
+import ResetPasswordForm from '../components/ResetPasswordForm';
 
 function Login() {
   const [form, setForm] = useState(0);
@@ -14,9 +15,9 @@ function Login() {
 
   // Select correct form
   function selectForm(){
-    if (form == 0) return <LoginForm formActions={formActions}></LoginForm>
-    else if (form == 1) return <TwoFactorForm formActions={formActions}></TwoFactorForm>
-    else return <LoginForm formActions={formActions}></LoginForm>
+    if (form == 0) return <LoginForm formActions={formActions} />
+    else if (form == 1) return <TwoFactorForm formActions={formActions} />
+    else return <ResetPasswordForm />
   }
   useEffect(() => {
     selectForm();

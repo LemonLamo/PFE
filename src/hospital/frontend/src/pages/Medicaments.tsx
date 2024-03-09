@@ -182,7 +182,7 @@ function Medicaments() {
         >
           {medicaments.map((m, i) => (
             <TableRow key={i}>
-              <TableCell className="pe-3 py-2"> {m.code} </TableCell>
+              <TableCell className="pe-3 py-2 font-bold"> {m.code} </TableCell>
               <TableCell className="pe-3 py-2"> {m.nom} </TableCell>
               <TableCell className="pe-3 py-2"> {m.quantite} Unités </TableCell>
               <TableCell className="pe-3 py-2">
@@ -266,17 +266,10 @@ function Medicaments() {
                   onDelete={() => delete_medicament(m.code)}
                   onCancel={() => console.log("Cancelled delete")}
                 >
-                  <h3
-                    className="text-lg font-semibold leading-6 text-gray-900 mb-3"
-                    id="modal-title"
-                  >
-                    Delete Agent
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">
+                    Supprimer le médicament "{m.nom} ({m.code})"
                   </h3>
-                  <p className="text-gray-600">
-                    Are you sure you want to delete this record? All of your
-                    data will be permanently removed. This action cannot be
-                    undone.
-                  </p>
+                  <p className="text-gray-600">Êtes-vous sûr de vouloir supprimer cet enregistrement? Toutes vos données seront définitivement supprimées. Cette action ne peut pas être annulée.</p>
                 </DeleteModal>
               </TableCell>
             </TableRow>

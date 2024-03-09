@@ -24,7 +24,7 @@ function PatientsSelect({ options, onChange, placeholder = '', className = '', s
     }, [selectedPatient])
 
     return (
-        <Combobox value={selectedPatient} onChange={setSelectedPatient}>
+        <Combobox value={selectedPatient} onChange={setSelectedPatient} nullable>
             <div className={`z-10 relative w-full ${className}`}>
                 <span className="text-sm top-3.5 left-2.5 absolute flex text-slate-500">
                     <i className="fas fa-user" aria-hidden="true"></i>

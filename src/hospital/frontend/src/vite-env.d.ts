@@ -82,6 +82,7 @@ type Analyse = {
 type Chambre = {
     num: string,
     etage: number,
+    description : string,
     nombre_lits: number,
     nombre_lits_occupe: number
 }

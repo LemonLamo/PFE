@@ -9,8 +9,8 @@ import MesPatientsPage from "./pages/MesPatientsPage/MesPatientsPage";
 import NouvelleHospitalisationPage from "./pages/NouvelleHospitalisationPage/NouvelleHospitalisationPage";
 import MesPatientsAdmisPage from "./pages/MesPatientsAdmisPage/MesPatientsAdmisPage";
 import Medicaments from "./pages/Medicaments";
-import Agents from "./pages/Agents";
-import Chambres from "./pages/Chambres";
+import AgentsPage from "./pages/AgentsPage";
+import ChambresPage from "./pages/ChambresPage";
 import RolesPage from "./pages/RolesPage";
 import ParemetresPage from "./pages/ParametresPage";
 import Test from "./pages/Test";
@@ -27,9 +27,9 @@ const router = createBrowserRouter([
   { path: "/mes_patients_admis", element: (<Scaffold> <MesPatientsAdmisPage /> </Scaffold>) },
 
   { path: "/medicaments", element: (<Scaffold> <Medicaments/> </Scaffold>) },
-  { path: "/chambres", element: (<Scaffold> <Chambres/> </Scaffold>) },
-  { path: "/agents", element: (<Scaffold> <Agents/> </Scaffold>) },
-  { path: "/roles", element: (<Scaffold> <RolesPage /> </Scaffold>) },
+  { path: "/chambres", element: (<Scaffold> <ChambresPage/> </Scaffold>) },
+  { path: "/agents", element: (<Scaffold> <AgentsPage/> </Scaffold>) },
+  { path: "/roles", element: (<Scaffold> <RolesPage/> </Scaffold>) },
   { path: "/parametres", element: (<Scaffold> <ParemetresPage /> </Scaffold>) },
   { path: "/test", element: (<Scaffold> <Test/> </Scaffold>) },
 ]);

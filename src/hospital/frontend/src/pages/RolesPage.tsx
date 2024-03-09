@@ -28,15 +28,10 @@ function RolesPage() {
     // use state variable to submit agent data
   }
 
-  function view_role(id: string) {
+  function select_role(index: number) {
     // use id to get the agent data into the state variable
-    console.log(`Viewing role ${id}`);
-    setSelectedRole((r) => ({ ...r, id: "Brahim" }));
-  }
-
-  function load_edit_role(id: string) {
-    console.log(`Loading information for edit modal ${id}`);
-    // use NIN to get the agent data into the state variable
+    console.log(`Viewing role ${roles[index]}`);
+    setSelectedRole(roles[index]);
   }
 
   function edit_role(id: string) {
@@ -44,15 +39,14 @@ function RolesPage() {
   }
 
   function delete_role(id: string) {
-    alert(`Deleting agent ${id}`);
-    // do actual delete
+    alert(`Deleting role ${id}`);
   }
 
   const createModal = (
     <>
       <CreateModal onCreate={create_role} onCancel={() => console.log("Cancelled create")} >
         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un nouveau rôle</h3>
-        <p className="text-gray-600">Remplissez ce formulaire pour ajouter une prescription à la consultation courante.</p>
+        <p className="text-gray-600">Remplissez ce formulaire pour ajouter un nouveau rôle.</p>
         <div className="grid grid-cols-8 gap-x-4">
           <div className="col-span-3 mb-2">
             <label className="text-sm font-semibold">ID:</label>
@@ -64,7 +58,7 @@ function RolesPage() {
           </div>
           <div className="col-span-8 mb-2">
             <label className="text-sm font-semibold">Permissions:</label>
-            <textarea rows={5} className="primary" placeholder="Qte" value={selectedRole?.permissions} />
+            <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} />
           </div>
         </div>
       </CreateModal>
@@ -77,15 +71,15 @@ function RolesPage() {
         <Table fields={["#", "Role", "Permissions", ""]}>
           {roles.map((r, i) => (
             <TableRow key={i}>
-              <TableCell> {r.id} </TableCell>
-              <TableCell> {r.nom} </TableCell>
-              <TableCell>
+              <TableCell className="pe-3 py-2 font-bold"> {r.id} </TableCell>
+              <TableCell className="pe-3 py-2"> {r.nom} </TableCell>
+              <TableCell className="pe-3 py-2">
                 {r.permissions.map((p, i) => (<Badge key={i} textColor="#0891b2" bgColor="#cffafe" className="me-2">{p}</Badge> ))}
               </TableCell>
-              <TableCell className="flex justify-end gap-2">
-                <ViewModal onOpen={() => view_role(r.id)}>
+              <TableCell className="flex py-2 justify-end gap-2">
+                <ViewModal onOpen={() => select_role(i)}>
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Détails sur "{r.nom} ({r.id})"</h3>
-                  <p className="text-gray-600">Remplissez ce formulaire pour ajouter une prescription à la consultation courante.</p>
+                  <p className="text-gray-600">Voici les informations concernant ce rôle.</p>
                   <div className="grid grid-cols-8 gap-x-4">
                     <div className="col-span-3 mb-2">
                       <label className="text-sm font-semibold">ID:</label>
@@ -97,14 +91,14 @@ function RolesPage() {
                     </div>
                     <div className="col-span-8 mb-2">
                       <label className="text-sm font-semibold">Permissions:</label>
-                      <textarea rows={5} className="primary" placeholder="Qte" value={selectedRole?.permissions} disabled />
+                      <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} disabled />
                     </div>
                   </div>
                 </ViewModal>
 
-                <EditModal onOpen={() => load_edit_role(r.id)} onEdit={() => edit_role(r.id)}>
+                <EditModal onOpen={() => select_role(i)} onEdit={() => edit_role(r.id)}>
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Modifier "{r.nom} ({r.id})"</h3>
-                  <p className="text-gray-600">Remplissez ce formulaire pour ajouter une prescription à la consultation courante.</p>
+                  <p className="text-gray-600">Remplissez ce formulaire pour modifier ce rôle.</p>
                   <div className="grid grid-cols-8 gap-x-4">
                     <div className="col-span-3 mb-2">
                       <label className="text-sm font-semibold">ID:</label>
@@ -116,14 +110,14 @@ function RolesPage() {
                     </div>
                     <div className="col-span-8 mb-2">
                       <label className="text-sm font-semibold">Permissions:</label>
-                      <textarea rows={5} className="primary" placeholder="Qte" value={selectedRole?.permissions} />
+                      <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} />
                     </div>
                   </div>
                 </EditModal>
 
                 <DeleteModal onDelete={() => delete_role(r.id)}>
-                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Rôle</h3>
-                  <p className="text-gray-600">Are you sure you want to delete this record? All of your data will be permanently removed. This action cannot be undone.</p>
+                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Supprimer le rôle "{r.nom}"</h3>
+                  <p className="text-gray-600">Êtes-vous sûr de vouloir supprimer cet enregistrement? Toutes vos données seront définitivement supprimées. Cette action ne peut pas être annulée.</p>
                 </DeleteModal>
               </TableCell>
             </TableRow>

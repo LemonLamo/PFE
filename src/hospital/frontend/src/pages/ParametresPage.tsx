@@ -3,7 +3,7 @@ import Card from "../components/UI/Card";
 function ParemetresPage() {
   return (
     <>
-      <Card title="Parametres" className="w-full">
+      <Card title="Paramètres" className="w-full">
         WIP
       </Card>
     </>
