@@ -57,7 +57,114 @@ function MesPatientsPage() {
         >
           Create patient
         </h3>
-        <p className="text-gray-600">Here is the form.</p>
+        <p className="text-gray-600">
+          Remplissez ce formulaire pour ajouter un nouveau patient
+        </p>
+        <div className="col-span-4 mb-2">
+          <label className="text-sm font-semibold">NIN </label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="NIN"
+            value={selectedPatient.NIN}
+            onChange={(e) =>
+              setSelectedPatient({
+                ...selectedPatient,
+                NIN: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="col-span-6 mb-2">
+          <label className="text-sm font-semibold">Nom </label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="Nom"
+            value={selectedPatient.nom}
+            onChange={(e) =>
+              setSelectedPatient({
+                ...selectedPatient,
+                nom: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="col-span-4 mb-2">
+          <label className="text-sm font-semibold">Prénom </label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="Prenom"
+            value={selectedPatient.prenom}
+            onChange={(e) =>
+              setSelectedPatient({
+                ...selectedPatient,
+                prenom: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="col-span-6 mb-2">
+          <label className="text-sm font-semibold">Date de naissance </label>
+          <input
+            type="date"
+            className="primary"
+            placeholder="Date"
+            value={selectedPatient.date_naissance}
+            onChange={(e) =>
+              setSelectedPatient({
+                ...selectedPatient,
+                date_naissance: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="col-span-6 mb-2">
+          <label className="text-sm font-semibold">Lieu de naissance </label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="Lieu"
+            value={selectedPatient.lieu_naissance}
+            onChange={(e) =>
+              setSelectedPatient({
+                ...selectedPatient,
+                lieu_naissance: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="col-span-6 mb-2">
+          <label className="text-sm font-semibold">Email</label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="Email"
+            value={selectedPatient.email}
+            onChange={(e) =>
+              setSelectedPatient({
+                ...selectedPatient,
+                email: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="col-span-6 mb-2">
+          <label className="text-sm font-semibold">Téléphone</label>
+          <input
+            type="text"
+            className="primary"
+            placeholder="Téléphone"
+            value={selectedPatient.telephone}
+            onChange={(e) =>
+              setSelectedPatient({
+                ...selectedPatient,
+                telephone: e.target.value,
+              })
+            }
+          />
+        </div>
       </CreateModal>
     </>
   );
@@ -90,7 +197,7 @@ function MesPatientsPage() {
       title="Liste des patients"
       subtitle="Une liste de tous les patients du service"
       className="w-full"
-      action={createModal}
+      // action={createModal}
     >
       <Table
         fields={[

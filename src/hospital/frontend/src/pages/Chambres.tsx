@@ -45,8 +45,6 @@ const badgecolor = (taux) => {
 };
 
 function Chambres() {
-  
-
   const [selectedChambre, setSelectedChambre] = useState<Chambre>({
     num: "",
     etage: 0,
@@ -58,15 +56,26 @@ function Chambres() {
     console.log("Creating new chambre");
   }
 
-  function view_chambre(num: string) {
+  function view_chambre(num: string, etage: number, nombre_lits: number) {
     // use NIN to get the agent data into the state variable
     console.log(`Viewing chambre ${num}`);
-    setSelectedChambre((v) => ({ ...v, num: num }));
+    setSelectedChambre((v) => ({
+      ...v,
+      num: num,
+      etage: etage,
+      nombre_lits: nombre_lits,
+    }));
   }
 
-  function load_edit_chambre(num: string) {
+  function load_edit_chambre(num: string, etage: number, nombre_lits: number) {
     console.log(`Loading information for edit modal ${num}`);
     // use NIN to get the agent data into the state variable
+    setSelectedChambre((v) => ({
+      ...v,
+      num: num,
+      etage: etage,
+      nombre_lits: nombre_lits,
+    }));
   }
 
   function edit_chambre(num: string) {
@@ -93,35 +102,52 @@ function Chambres() {
         <p className="text-gray-600">
           Remplissez ce formulaire pour ajouter une nouvelle chambre
         </p>
-        <div className="col-span-4 mb-2">
-          <label className="text-sm font-semibold">Numéro de chambre </label>
-          <input
-            type="text"
-            className="primary"
-            placeholder="Num"
-            value={selectedChambre.num}
-            onChange={(e) =>
-              setSelectedChambre({
-                ...selectedChambre,
-                num: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div className="col-span-4 mb-2">
-          <label className="text-sm font-semibold">Nombre de lits </label>
-          <input
-            type="text"
-            className="primary"
-            placeholder="Nombre"
-            value={selectedChambre.nombre_lits}
-            onChange={(e) =>
-              setSelectedChambre({
-                ...selectedChambre,
-                nombre_lits: e.target.valueAsNumber,
-              })
-            }
-          />
+        <div className="flex">
+          <div className="col-span-4 mb-2 w-[1/3] p-2">
+            <label className="text-sm font-semibold">Numéro de chambre </label>
+            <input
+              type="text"
+              className="primary"
+              placeholder="Num"
+              value={selectedChambre.num}
+              onChange={(e) =>
+                setSelectedChambre({
+                  ...selectedChambre,
+                  num: e.target.value,
+                })
+              }
+            />
+          </div>
+          <div className="col-span-4 mb-2 w-[1/3] p-2">
+            <label className="text-sm font-semibold">Etage </label>
+            <input
+              type="text"
+              className="primary"
+              placeholder="Etage"
+              value={selectedChambre.etage}
+              onChange={(e) =>
+                setSelectedChambre({
+                  ...selectedChambre,
+                  etage: e.target.valueAsNumber,
+                })
+              }
+            />
+          </div>
+          <div className="col-span-4 mb-2 w-[1/3] p-2">
+            <label className="text-sm font-semibold">Nombre de lits </label>
+            <input
+              type="text"
+              className="primary"
+              placeholder="Nombre"
+              value={selectedChambre.nombre_lits}
+              onChange={(e) =>
+                setSelectedChambre({
+                  ...selectedChambre,
+                  nombre_lits: e.target.valueAsNumber,
+                })
+              }
+            />
+          </div>
         </div>
       </CreateModal>
     </div>
@@ -143,28 +169,63 @@ function Chambres() {
           {chambres.map((a, i) => (
             <TableRow key={i}>
               <TableCell className="pe-3 py-2">{a.num} </TableCell>
-              <TableCell className="pe-3 py-2">
-                {etageName(a.etage)}
-              </TableCell>
+              <TableCell className="pe-3 py-2">{etageName(a.etage)}</TableCell>
               <TableCell className="pe-3 py-2"> {a.nombre_lits} </TableCell>
               <TableCell className="pe-3 py-2">
                 {badgecolor((a.nombre_lits_occupe * 100) / a.nombre_lits)}
               </TableCell>
               <TableCell className="flex justify-end gap-2">
-                <ViewModal onOpen={() => view_chambre(a.num)}>
+                <ViewModal
+                  onOpen={() => view_chambre(a.num, a.etage, a.nombre_lits)}
+                >
                   <h3
                     className="text-lg font-semibold leading-6 text-gray-900 mb-3"
                     id="modal-title"
                   >
-                    View chambre
+                    Détails sur chambre
                   </h3>
-                  <form>
-                    <input type="text" value={selectedChambre.num}></input>
-                  </form>
+                  <div className="flex">
+                    <div className="col-span-4 mb-2 w-[1/3] p-2">
+                      <label className="text-sm font-semibold">
+                        Numéro de chambre{" "}
+                      </label>
+                      <input
+                        type="text"
+                        className="primary"
+                        placeholder="Num"
+                        disabled
+                        value={selectedChambre.num}
+                      />
+                    </div>
+                    <div className="col-span-4 mb-2 w-[1/3] p-2">
+                      <label className="text-sm font-semibold">Etage </label>
+                      <input
+                        type="text"
+                        className="primary"
+                        placeholder="Etage"
+                        disabled
+                        value={selectedChambre.etage}
+                      />
+                    </div>
+                    <div className="col-span-4 mb-2 w-[1/3] p-2">
+                      <label className="text-sm font-semibold">
+                        Nombre de lits{" "}
+                      </label>
+                      <input
+                        type="text"
+                        className="primary"
+                        placeholder="Nombre"
+                        disabled
+                        value={selectedChambre.nombre_lits}
+                      />
+                    </div>
+                  </div>
                 </ViewModal>
 
                 <EditModal
-                  onOpen={() => load_edit_chambre(a.num)}
+                  onOpen={() =>
+                    load_edit_chambre(a.num, a.etage, a.nombre_lits)
+                  }
                   onEdit={() => edit_chambre(a.num)}
                   onCancel={() => console.log("Cancelled edit")}
                 >
@@ -172,9 +233,60 @@ function Chambres() {
                     className="text-lg font-semibold leading-6 text-gray-900 mb-3"
                     id="modal-title"
                   >
-                    Edit chambre
+                    Modifier chambre
                   </h3>
-                  <p className="text-gray-600">Here is some more more info.</p>
+                  <p className="text-gray-600">Here is some more info.</p>
+                  <div className="flex">
+                    <div className="col-span-4 mb-2 w-[1/3] p-2">
+                      <label className="text-sm font-semibold">
+                        Numéro de chambre{" "}
+                      </label>
+                      <input
+                        type="text"
+                        className="primary"
+                        placeholder="Num"
+                        value={selectedChambre.num}
+                        onChange={(e) =>
+                          setSelectedChambre({
+                            ...selectedChambre,
+                            num: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                    <div className="col-span-4 mb-2 w-[1/3] p-2">
+                      <label className="text-sm font-semibold">Etage </label>
+                      <input
+                        type="text"
+                        className="primary"
+                        placeholder="Etage"
+                        value={selectedChambre.etage}
+                        onChange={(e) =>
+                          setSelectedChambre({
+                            ...selectedChambre,
+                            etage: e.target.valueAsNumber,
+                          })
+                        }
+                      />
+                    </div>
+                    <div className="col-span-4 mb-2 w-[1/3] p-2">
+                      <label className="text-sm font-semibold">
+                        Nombre de lits{" "}
+                      </label>
+                      <input
+                        type="text"
+                        className="primary"
+                        placeholder="Nombre"
+                        value={selectedChambre.nombre_lits}
+                        onChange={(e) =>
+                          setSelectedChambre({
+                            ...selectedChambre,
+                            nombre_lits: e.target.valueAsNumber,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
                 </EditModal>
 
                 <DeleteModal

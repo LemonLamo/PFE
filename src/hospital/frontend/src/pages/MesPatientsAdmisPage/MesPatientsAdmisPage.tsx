@@ -90,7 +90,7 @@ function MesAdmisPage() {
     <Card
       title="Liste des  admis"
       subtitle="Une liste de tous les  admis"
-      action={createModal}
+      // action={createModal}
       className="w-full"
     >
       <Table
