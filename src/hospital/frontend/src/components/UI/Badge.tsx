@@ -9,7 +9,7 @@ type ColorsProps = {
 
 function Badge({ bgColor, textColor, children, className='' }: ColorsProps) {
   return (
-    <span className={`py-2.2 px-3.6 text-xs rounded-3xl inline-block whitespace-nowrap text-center align-baseline font-bold leading-none ${className}`} style={{ backgroundColor: bgColor, color: textColor }}>
+    <span className={`py-1.5 px-3.6 text-xs rounded-3xl inline-block whitespace-nowrap text-center font-bold leading-none ${className}`} style={{ backgroundColor: bgColor, color: textColor }}>
       {children}
     </span>
   );

@@ -14,8 +14,8 @@ import DepenserModal from "../components/Modals/DepenserModal";
 import ViewModal from "../components/Modals/ViewModal";
 import DeleteModal from "../components/Modals/DeleteModal";
 
-function Medicaments() {
-  const medicaments = useMemo<StockMedicament[]>(() => {
+function PharmacyPage() {
+  const medicaments = useMemo<Medicament[]>(() => {
     let data = [
       { code: "PC123", nom: "Paracétamol", quantite: 5 },
       { code: "PC124", nom: "Paracétamol", quantite: 10 },
@@ -27,7 +27,7 @@ function Medicaments() {
     key: f.code,
     value: f.nom,
   }));
-  const [selectedMedicament, setSelectedMedicament] = useState<StockMedicament>(
+  const [selectedMedicament, setSelectedMedicament] = useState<Medicament>(
     { code: "", nom: "", quantite: 0 }
   );
 
@@ -55,21 +55,21 @@ function Medicaments() {
     if (qte >= 10)
       return (
         <Badge bgColor="#dcfce7" textColor="#267142">
-          <CheckCircleIcon className="h-[2vh] mr-1" />
+          <CheckCircleIcon className="h-4 mr-1" />
           En stock
         </Badge>
       );
     else if (qte > 0)
       return (
         <Badge bgColor="#fdba74" textColor="#9a3412">
-          <ExclamationTriangleIcon className="h-[2vh] mr-1" />
+          <ExclamationTriangleIcon className="h-4 mr-1" />
           Près de repture
         </Badge>
       );
     else
       return (
         <Badge bgColor="#fee2e2" textColor="#991b1b">
-          <ExclamationTriangleIcon className="h-[2vh] mr-1" />
+          <ExclamationTriangleIcon className="h-4 mr-1" />
           Repture de stock
         </Badge>
       );
@@ -187,7 +187,7 @@ function Medicaments() {
               <TableCell className="pe-3 py-2"> {m.quantite} Unités </TableCell>
               <TableCell className="pe-3 py-2">
                 {" "}
-                {build_badge(m.quantite)}{" "}
+                {build_badge(m.quantite!)}{" "}
               </TableCell>
               <TableCell className="flex justify-end gap-2">
                 <ViewModal onOpen={() => view_medicament(m.code)}>
@@ -280,4 +280,4 @@ function Medicaments() {
   );
 }
 
-export default Medicaments;
+export default PharmacyPage;

@@ -175,7 +175,7 @@ function ChambresPage() {
               <TableCell className="pe-3 py-2"> {a.nombre_lits} </TableCell>
               <TableCell className="pe-3 py-2">
                 {a.nombre_lits_occupe} / {a.nombre_lits}
-                {build_badge((a.nombre_lits_occupe * 100) / a.nombre_lits)}
+                {build_badge((a.nombre_lits_occupe! * 100) / a.nombre_lits)}
               </TableCell>
               <TableCell className="flex justify-end gap-2">
                 <ViewModal onOpen={() => select_chambre(i)}>

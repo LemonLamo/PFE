@@ -34,7 +34,7 @@ function Sidebar({ setOpen }: SidebarProps) {
           <SidebarButton text="Mes patients admis" icon="user" route="/mes_patients_admis" />
 
           <SidebarHeader text="Pharmacie" />
-          <SidebarButton text="Gestion des médicaments" icon="user" route="/medicaments" />
+          <SidebarButton text="Gestion des médicaments" icon="user" route="/pharmacie" />
 
           <SidebarHeader text="Administration" />
           <SidebarButton text="Gestion du personnel" icon="user" route="/agents" />

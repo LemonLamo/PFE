@@ -14,15 +14,14 @@ function NouvelleHospitalisationPage() {
   const [hospitalisationData, setHospitalisationData] = useState<Hospitalisation>({
     code_hospitalisation: '',
     nom_hopital: '',
-    medecin: '',
-    patient: '',
+    medecin: {NIN: '', nom:'', prenom:''},
+    patient: {NIN: '', nom:'', prenom:''},
     date_entree: new Date(),
     mode_entree: '',
     motif_hospitalisation: '',
 
-    date_sortie: moment(new Date()).add(7, 'd').toDate(),
-    mode_sortie: '',
-
+    date_sortie_prevu: moment(new Date()).add(7, 'd').toDate(),
+    
     resume_hospitalisation: '',
   })
 

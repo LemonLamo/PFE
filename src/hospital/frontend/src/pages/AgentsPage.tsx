@@ -16,7 +16,7 @@ function AgentsPage() {
         NIN: "100010364027390000",
         nom: "BRAHIM",
         prenom: "Abderrazak",
-        date_naissance: new Date("12-05-2002"),
+        date_naissance: new Date("2002-05-12"),
         lieu_naissance: "Tebessa",
         sexe: "Female",
         addresse: "39 HAI MOUHOUS",
@@ -27,7 +27,7 @@ function AgentsPage() {
         NIN: "111111111111111111",
         nom: "NADIL",
         prenom: "Marwa",
-        date_naissance: new Date(),
+        date_naissance: new Date("2001-07-13"),
         lieu_naissance: "Blida",
         sexe: "Male",
         addresse: "39 HAI MOUHOUS",
@@ -41,9 +41,9 @@ function AgentsPage() {
     NIN: "",
     nom: "",
     prenom: "",
-    date_naissance: new Date(),
+    date_naissance: null,
     lieu_naissance: "",
-    sexe: "Male",
+    sexe: "",
     addresse: "",
     email: "",
     telephone: "",
@@ -115,7 +115,7 @@ function AgentsPage() {
           </div>
           <div className="col-span-6">
             <label className="text-sm font-semibold">Date de naissance </label>
-            <input type="date" className="primary" placeholder="Date de naissance" value={selectedAgent.nom} onChange={(e) => setSelectedAgent({ ...selectedAgent, date_naissance: e.target.valueAsDate! }) } />
+            <input type="date" className="primary" placeholder="Date de naissance" value={moment(selectedAgent.date_naissance).format("YYYY-MM-DD")} onChange={(e) => setSelectedAgent({ ...selectedAgent, date_naissance: e.target.valueAsDate! }) } />
           </div>
           <div className="col-span-6">
             <label className="text-sm font-semibold">Lieu de naissance </label>
@@ -144,19 +144,18 @@ function AgentsPage() {
   return (
     <>
       <Card title="Agents" action={createModal} className="w-full">
-        <Table fields={["NIN", "Nom", "Prénom", "Date de naissance", "Lieu de naissance", "Sexe", "Email", "Numero de téléphone", "" ]} >
+        <Table fields={["NIN", "Nom", "Prénom", "Date et lieu de naissance", "Sexe", "Email", "Numero de téléphone", "" ]} >
           {agents.map((a, i) => (
             <TableRow key={i}>
               <TableCell className="pe-3 py-2 font-bold"> {a.NIN} </TableCell>
               <TableCell className="pe-3 py-2"> {a.nom} </TableCell>
               <TableCell className="pe-3 py-2"> {a.prenom} </TableCell>
-              <TableCell className="pe-3 py-2"> {moment(a.date_naissance).format("DD/MM/YYYY")} </TableCell>
-              <TableCell className="pe-3 py-2"> {a.lieu_naissance} </TableCell>
+              <TableCell className="pe-3 py-2"> {moment(a.date_naissance).format("DD/MM/YYYY")}, {a.lieu_naissance} </TableCell>
               <TableCell className="pe-3 py-2"> {a.sexe} </TableCell>
               <TableCell className="pe-3 py-2"> {a.email} </TableCell>
               <TableCell className="pe-3 py-2"> {a.telephone} </TableCell>
               <TableCell className="flex justify-end gap-2">
-                <ViewModal onOpen={() => view_agent( a.NIN, a.nom, a.prenom, a.date_naissance, a.lieu_naissance, a.sexe, a.email, a.telephone) } >
+                <ViewModal onOpen={() => view_agent( a.NIN, a.nom, a.prenom, a.date_naissance!, a.lieu_naissance, a.sexe, a.email, a.telephone) } >
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title" >
                     View agent
                   </h3>
@@ -199,7 +198,7 @@ function AgentsPage() {
                   </div>
                 </ViewModal>
 
-                <EditModal onOpen={() => load_edit_agent(a.NIN, a.nom, a.prenom, a.date_naissance, a.lieu_naissance, a.sexe, a.email, a.telephone)} onEdit={() => edit_agent(a.NIN)} onCancel={() => console.log("Cancelled edit")}>
+                <EditModal onOpen={() => load_edit_agent(a.NIN, a.nom, a.prenom, a.date_naissance!, a.lieu_naissance, a.sexe, a.email, a.telephone)} onEdit={() => edit_agent(a.NIN)} onCancel={() => console.log("Cancelled edit")}>
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title" >
                     Modifier agent
                   </h3>
