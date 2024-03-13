@@ -15,7 +15,7 @@ type ModalProps = {
 
 function Modal({ icon, color, offColor, iconColor, children, actionText = 'Submit', cancelText = 'Cancel', onAction, onCancel, size ="sm:max-w-lg" } : ModalProps) {
   return (
-    <div className="z-10 fixed inset-0 bg-black/50 transition-opacity">
+    <div className="z-50 fixed inset-0 bg-black/50">
       <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         <div className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full ${size}`}>
           <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">

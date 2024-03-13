@@ -1,6 +1,8 @@
 /// <reference types="vite/client" />
 type LoginFormProps = {
     formActions: LoginFormActions
+    NIN?: string
+    setNIN?: React.Dispatch<React.SetStateAction<string>>
 }
 type LoginFormActions = {
     swapToLogin: () => void,
@@ -24,7 +26,7 @@ type Consultation = {
     radiologie: Radio[],
     analyses: Analyse[],
     interventions: Intervention[],
-    prochaine_consultation: Date,
+    prochaine_consultation: Date | null,
 }
 type Hospitalisation = {
     code_hospitalisation: string,
@@ -90,15 +92,15 @@ type Prescription = {
 type Medicament = {
     code: string,
     nom: string,
-    quantite?: number,
+    quantite?: number
 }
 type Transaction = {
     id: string,
-    type: string,
+    date: Date,
     medicament: Partial<Medicament>,
     avant: number,
-    apres: number
-    difference?: number
+    difference: number,
+    responsable?: string,
 }
 type Radio = {
     code: string,

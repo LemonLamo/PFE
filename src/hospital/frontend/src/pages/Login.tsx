@@ -6,6 +6,7 @@ import ResetPasswordForm from '../components/ResetPasswordForm';
 
 function Login() {
   const [form, setForm] = useState(0);
+  const [NIN, setNIN] = useState('')
 
   const formActions : LoginFormActions = {
     swapToLogin: () => setForm(0),
@@ -15,9 +16,9 @@ function Login() {
 
   // Select correct form
   function selectForm(){
-    if (form == 0) return <LoginForm formActions={formActions} />
-    else if (form == 1) return <TwoFactorForm formActions={formActions} />
-    else return <ResetPasswordForm />
+    if (form == 0) return <LoginForm formActions={formActions} NIN={NIN} setNIN={setNIN}/>
+    else if (form == 1) return <TwoFactorForm formActions={formActions} NIN={NIN} />
+    else return <ResetPasswordForm NIN={NIN}/>
   }
   useEffect(() => {
     selectForm();

@@ -1,6 +1,8 @@
 //import { useNavigate } from "react-router-dom";
-
-function ResetPasswordForm(){
+type Props = {
+    NIN: string
+}
+function ResetPasswordForm({NIN} : Props){
     //const navigate = useNavigate();
 
     function handleResetPassword(){

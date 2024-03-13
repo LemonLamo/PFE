@@ -15,26 +15,76 @@ import RolesPage from "./pages/RolesPage";
 import ParemetresPage from "./pages/ParametresPage";
 import Test from "./pages/Test";
 import PatientPage from "./pages/PatientPage";
+import { PublicOrPrivateRoute, PrivateRouteOnly } from "./hooks/useAuth";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> },
-  { path: "/dashboard", element: (<Scaffold> <Dashboard/> </Scaffold>) },
-  { path: "/nouvelle_consultation", element: (<Scaffold> <NouvelleConsultationPage /> </Scaffold>) },
-  { path: "/nouveau_patient", element: (<Scaffold> <NouveauPatientPage/> </Scaffold>) },
-  { path: "/mes_patients", element: (<Scaffold> <MesPatientsPage/> </Scaffold>) },
-  { path: "/mes_rendez_vous", element: (<Scaffold> <MesRendezVousPage/> </Scaffold> )},
+  { path: "/", element:(
+    <PublicOrPrivateRoute 
+      notLoggedIn = {(<Login />)}
+      loggedIn = {<Scaffold> <Dashboard /> </Scaffold>}
+    />)},
+    
+  { path: "/nouvelle_consultation", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <NouvelleConsultationPage /> </Scaffold>
+    </PrivateRouteOnly>)},
 
-  { path: "/nouvelle_hospitalisation", element: (<Scaffold> <NouvelleHospitalisationPage /> </Scaffold>) },
-  { path: "/mes_patients_admis", element: (<Scaffold> <MesPatientsAdmisPage /> </Scaffold>) },
+  { path: "/nouveau_patient", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <NouveauPatientPage/> </Scaffold>
+    </PrivateRouteOnly>)},
 
-  { path: "/patients/:NIN", element: (<Scaffold> <PatientPage /> </Scaffold>) },
+  { path: "/mes_patients", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <MesPatientsPage/> </Scaffold>
+    </PrivateRouteOnly>)},
 
-  { path: "/pharmacie", element: (<Scaffold> <PharmaciePage/> </Scaffold>) },
-  { path: "/chambres", element: (<Scaffold> <ChambresPage/> </Scaffold>) },
-  { path: "/agents", element: (<Scaffold> <AgentsPage/> </Scaffold>) },
-  { path: "/roles", element: (<Scaffold> <RolesPage/> </Scaffold>) },
-  { path: "/parametres", element: (<Scaffold> <ParemetresPage /> </Scaffold>) },
-  { path: "/test", element: (<Scaffold> <Test/> </Scaffold>) },
+  { path: "/mes_rendez_vous", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <MesRendezVousPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/nouvelle_hospitalisation", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <NouvelleHospitalisationPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/mes_patients_admis", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <MesPatientsAdmisPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/patients/:NIN", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <PatientPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/pharmacie", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <PharmaciePage/> </Scaffold>
+    </PrivateRouteOnly>)},
+    
+  { path: "/chambres", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <ChambresPage/> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/agents", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <AgentsPage/> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/roles", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <RolesPage/> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/parametres", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <ParemetresPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+    
+  { path: "/test", element:(<Scaffold> <Test/> </Scaffold>) },
 ]);
 
 export default router;

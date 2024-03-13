@@ -5,24 +5,13 @@ import TableCell from "../UI/Tables/TableCell";
 import TableRow from "../UI/Tables/TableRow";
 import AddModal from "../Modals/AddModal";
 import Select from "../Select";
+import dictionnaire_examens_clinique from "../../codifications/examens_cliniques.json"
 
 type TabProps = {
   consultationData: Consultation,
   setConsultationData: React.Dispatch<React.SetStateAction<Consultation>>,
 }
 
-const dictionnaire_examens_clinique = [
-  { key: 'CM101', value: 'Pression Artérielle',  },
-  { key: 'CM102', value: 'Fréquence Cardiaque' },
-  { key: 'CM103', value: 'Température'},
-  { key: 'CM103', value: 'Température' },
-  { key: 'CM103', value: 'Température' },
-  { key: 'CM103', value: 'Température' },
-  { key: 'CM103', value: 'Température' },
-  { key: 'CM103', value: 'Température' },
-  { key: 'CM103', value: 'Température' },
-  { key: 'CM103', value: 'Température' },
-]
 function TabExamenClinique({ consultationData, setConsultationData }: TabProps) {
   const [selectedExamenClinique, setSelectedExamenClinique] = useState<ExamenClinique>({ code: '', nom: '', resultat: '', remarques: '' })
 

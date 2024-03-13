@@ -6,6 +6,7 @@ import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
 import moment from "moment";
 import Select from "../../../components/Select";
+import dictionnaire_interventions from "../../../codifications/interventions.json"
 
 type SectionProps = {
     state: Record<string, boolean>,
@@ -14,15 +15,11 @@ type SectionProps = {
     updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
 }
 
-const dictionnaire_interventions = [
-    { key: 'M101', value: 'Appendictomie', },
-]
-
 function InterventionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
     const [selectedInterventions, setSelectedInterventions] = useState<Intervention>({
         nom_hopital: '',
-        medecin: '',
-        patient: '',
+        medecin: {},
+        patient: {},
         code_intervention: '',
         nom: '',
         date: new Date(),

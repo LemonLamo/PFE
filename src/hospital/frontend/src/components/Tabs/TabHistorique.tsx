@@ -16,8 +16,16 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       {
         code_consultation: "vis-0536518",
         nom_hopital: 'CHU Mustapha Bacha',
-        medecin: 'Rahim Abdelkader',
-        patient: '',
+        medecin: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
+        patient: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
         date_consultation: d1,
         type_consultation: "Evaluation de nouveau patient",
         motif_consultation: "Plainte",
@@ -38,8 +46,16 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       {
         code_consultation: "vis-0536518",
         nom_hopital: 'CHU Kolea',
-        medecin: 'Rahim Abdelkader',
-        patient: '',
+        medecin: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
+        patient: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
         date_consultation: d1,
         type_consultation: "Evaluation de nouveau patient",
         motif_consultation: "Plainte",
@@ -60,19 +76,36 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       {
         code_hospitalisation: 'hosp-1356415',
         nom_hopital: 'CHU Beni Messous',
-        medecin: 'BRAHIM Nadjette',
-        patient: '4551631',
+        medecin: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
+        patient: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
         date_entree: d3,
         mode_entree: 'Hospitalisation complète',
         motif_hospitalisation: 'Procédures de diagnostic',
+        date_sortie_prevu: new Date(),
         date_sortie: new Date(),
         mode_sortie: 'Transfert',
         resume_hospitalisation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id venenatis lacus. Duis rutrum eros lectus, eu malesuada elit sodales a. Cras placerat tincidunt odio vitae pellentesque.',
       },
       {
-        nom_hopital: 'CHU batata',
-        medecin: 'Lana del rey',
-        patient: '',
+        nom_hopital: 'CHU Ouergla',
+        medecin: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
+        patient: {
+          NIN: "100010364027390000",
+          nom: "BRAHIM",
+          prenom: "Abderrazak"
+        },
         code_intervention: 'CM101',
         nom: 'Appendicictomie',
         date: d3,
@@ -86,7 +119,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       let h = item as Hospitalisation;
       return (
         <TimelineItem icon="fa fa-bell text-red-400" title={`Hospitalisation`} date={h.date_entree}>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {h.medecin} ({h.nom_hopital})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {h.medecin.nom} {h.medecin.prenom} ({h.nom_hopital})</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Période: </span> {moment(h.date_entree).format('DD/MM/YYYY')} ({h.mode_entree}) - {moment(h.date_sortie).format('DD/MM/YYYY')} ({h.mode_sortie})</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Motif: </span> {h.motif_hospitalisation}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Résumé: </span> {h.resume_hospitalisation}</p>
@@ -98,7 +131,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       let c = item as Consultation;
       return (
         <TimelineItem icon="fa fa-bell text-yellow-400" title="Consultation" date={c.date_consultation}>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {c.medecin} ({c.nom_hopital})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {c.medecin.nom} {c.medecin.prenom} ({c.nom_hopital})</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Motif: </span> {c.motif_consultation}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Symptômes: </span> {c.symptomes}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Résumé: </span> {c.resume_consultation}</p>
@@ -112,7 +145,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       let i = item as Intervention;
       return (
         <TimelineItem icon="fa fa-bell text-green-400" title={`Intervention: ${i.nom} (${i.code_intervention})`} date={i.date}>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {i.medecin} ({i.nom_hopital})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {i.medecin.nom} {i.medecin.prenom} ({i.nom_hopital})</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Protocole Operatoire: </span> {i.protocole_operatoire}</p>
         </TimelineItem>
       );

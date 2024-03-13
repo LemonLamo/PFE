@@ -13,7 +13,7 @@ const COOKIES_OPTIONS = { httpOnly: true, maxAge: 3600000 }
 async function login (req, res){
     const {NIN , password} = req.body
     const user = await Model.selectByNIN(NIN)
-    const login_match = user && await bcrypt.compare(password, user.password)
+    const login_match = user.password && await bcrypt.compare(password, user.password)
 
     if (!login_match)
         return res.status(400).json({
@@ -23,9 +23,9 @@ async function login (req, res){
     
     // Check for two factor auth
     if (!user.two_factor_enabled){
-        const jwt = setUpJWT(user);
+        const [jwt, permissions] = setUpJWT(user);
         res.cookie('jwt', jwt, COOKIES_OPTIONS)
-        return res.status(200).json({jwt: jwt});
+        return res.status(200).json({ NIN: user.NIN, permissions});
     }else{
         const token = node2fa.generateToken(user.two_factor_secret).token;
         communication.sendEmail(user.email, 'TWO_FACTOR_TOKEN', { to: user.email, two_factor_token: token })
@@ -37,9 +37,9 @@ async function login (req, res){
     }
 }
 function setUpJWT(user) {
-    const permissions = [] // TODO: Add permissions fetch
+    const permissions = ['get', 'hello'] // TODO: Add permissions fetch
     const payload = { NIN: user.NIN, permissions: permissions }
-    return jwt.sign(payload, process.env.JWT_PRIVATE_KEY, { algorithm: process.env.JWT_ALGORITHM })
+    return [jwt.sign(payload, process.env.JWT_PRIVATE_KEY, { algorithm: process.env.JWT_ALGORITHM }), permissions]
 }
 
 async function logout (req, res){
@@ -128,21 +128,21 @@ async function verify_2fa (req, res){
     const { NIN, token } = req.body
     const user = await Model.selectByNIN(NIN)
     if(!user)
-        return res.status(200).json({
+        return res.status(400).json({
             errorCode: "unauthorized.no-user",
             errorMessage: "Wrong user credentials."
         });
 
     const two_factor_match = node2fa.verifyToken(user.two_factor_secret, token)
     if (two_factor_match?.delta != 0)
-        return res.status(200).json({
+        return res.status(400).json({
             errorCode: "unauthorized.2fa-expired",
             errorMessage: "This 2FA token is either invalid or has expired. Please try again"
         });
 
-    const jwt = setUpJWT(user);
-    res.cookie('jwt', jwt, COOKIES_OPTIONS);
-    return res.status(200).json({ jwt: jwt })
+    const [jwt, permissions] = setUpJWT(user);
+    res.cookie('jwt', jwt, COOKIES_OPTIONS)
+    return res.status(200).json({ NIN: user.NIN, permissions });
 }
 async function enable_2fa(req, res){
     const NIN = req.jwt.NIN;
@@ -152,7 +152,7 @@ async function enable_2fa(req, res){
     const login_match = user && await bcrypt.compare(password, user.password)
 
     if (!login_match)
-        return res.status(200).json({
+        return res.status(400).json({
             errorCode: "unauthorized.wrong-user",
             errorMessage: "Wrong user credentials."
         })
@@ -172,7 +172,7 @@ async function disable_2fa (req, res){
     const login_match = user && await bcrypt.compare(password, user.password)
 
     if (!login_match)
-        return res.status(200).json({
+        return res.status(400).json({
             errorCode: "unauthorized.wrong-user",
             errorMessage: "Wrong user credentials."
         })

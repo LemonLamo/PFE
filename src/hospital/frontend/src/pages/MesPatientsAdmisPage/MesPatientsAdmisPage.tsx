@@ -4,7 +4,6 @@ import Card from "../../components/UI/Card";
 import Table from "../../components/UI/Tables/Table";
 import TableRow from "../../components/UI/Tables/TableRow";
 import TableCell from "../../components/UI/Tables/TableCell";
-import ViewModal from "../../components/Modals/ViewModal";
 import EditModal from "../../components/Modals/EditModal";
 import { Link } from "react-router-dom";
 import DeleteModal from "../../components/Modals/DeleteModal";

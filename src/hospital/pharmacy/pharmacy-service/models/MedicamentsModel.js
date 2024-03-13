@@ -11,13 +11,28 @@ exports.select = async () => {
     return results
 }
 
-exports.insert = async (code, nom, quantity) => {
-    await db.execute('INSERT INTO `medicaments`(`code`, `nom`, `quantity`) VALUES (?, ?, ?)', [code, nom, quantity]);
+exports.selectOne = async (code) => {
+    const [results] = await db.query('SELECT * FROM `medicaments` WHERE `code`=?', [code]);
+    return results
 }
-exports.update = async (code, quantity) => {
-    await db.query('UPDATE `medicaments` SET `quantity`=? WHERE `code`=?', [quantity, code]);
 
+exports.selectTransactions = async (code) => {
+    const [results] = await db.query('SELECT * FROM `transactions` WHERE `code`=? ORDER BY `date` DESC', [code]);
+    return results
+}
+
+exports.insert = async (code, nom, quantite) => {
+    await db.execute('INSERT INTO `medicaments`(`code`, `nom`, `quantite`) VALUES (?, ?, ?)', [code, nom, quantite]);
+}
+exports.update = async (code, quantite) => {
+    let [avant] = await db.execute('SELECT quantite FROM `medicaments` WHERE `code`=?', [code])
+    let results = await db.query('UPDATE `medicaments` SET `quantite`=`quantite`+? WHERE `code`=?', [quantite, code]);
+    if (results[0].affectedRows < 1)
+        throw new Error({ code: "ER_UPDATE_FAIL" })
+    await db.execute('INSERT INTO `transactions`(`code`, `avant`, `difference`) VALUES (?, ?, ?)', [code, avant[0].quantite, quantite]);
 }
 exports.remove = async (code) => {
-    await db.query('DELETE FROM `medicaments` WHERE code=?', [code]);
+    let results = await db.query('DELETE FROM `medicaments` WHERE code=?', [code]);
+    if(results[0].affectedRows < 1)
+        throw new Error({ code: "ER_DELETE_FAIL" })
 }

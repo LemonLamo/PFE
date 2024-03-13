@@ -5,6 +5,7 @@ import Table from "../../../components/UI/Tables/Table";
 import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
 import Select from "../../../components/Select";
+import dcitionnaire_radiologie from "../../../codifications/radiologie.json"
 
 type SectionProps = {
     state: Record<string, boolean>,
@@ -12,10 +13,6 @@ type SectionProps = {
     consultationData: Consultation,
     updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
 }
-
-const dcitionnaire_radiologie = [
-    { key: 'M101', value: 'Scanner', },
-]
 
 function RadiologieSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
     const [selectedRadiologie, setSelectedRadiologie] = useState<Radio>({ code: '', nom: '', remarques: '' })

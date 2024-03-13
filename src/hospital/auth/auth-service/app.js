@@ -12,7 +12,11 @@ database.connect()
 
 // configure express app
 app.set('trust proxy', 1) // trust first proxy
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+}));
 app.use(helmet()); // add security measures
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

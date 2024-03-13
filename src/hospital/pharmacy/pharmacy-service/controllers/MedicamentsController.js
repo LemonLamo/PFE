@@ -6,20 +6,30 @@ async function getAll(req, res){
     const result = await Model.select();
     return res.status(200).json(result)
 }
+async function getOne(req, res) {
+    const { code } = req.params;
+    const result = await Model.selectOne(code);
+    return res.status(200).json(result)
+}
+async function getTransactions(req, res) {
+    const { code } = req.params;
+    const result = await Model.selectTransactions(code);
+    return res.status(200).json(result)
+}
 async function insert(req, res){
-    const {code, nom, quantity} = req.body;
+    const {code, nom, quantite} = req.body;
     
     try {
-        await Model.insert(code, nom, quantity);
+        await Model.insert(code, nom, quantite);
         return res.status(200).json({ success: true })
     } catch (err) {
         return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
 }
 async function update(req, res){
-    const { code, quantity } = req.body;
+    const { code, quantite } = req.body;
     try {
-        await Model.update(code, quantity);
+        await Model.update(code, quantite);
         return res.status(200).json({ success: true })
     } catch (err) {
         return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
@@ -27,7 +37,7 @@ async function update(req, res){
 
 }
 async function remove (req, res){
-    const { code } = req.body;
+    const { code } = req.params;
     try {
         await Model.remove(code);
         return res.status(200).json({ success: true })
@@ -39,6 +49,8 @@ async function remove (req, res){
 /******** EXPORTS ********/
 module.exports = {
     getAll,
+    getOne,
+    getTransactions,
     insert,
     update,
     remove

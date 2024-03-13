@@ -6,13 +6,13 @@ USE forza;
 
 -- --------------------------------------------------------
 --
--- Structure de la table `medicamenthopitals`
+-- Structure de la table `medicaments`
 --
 
 CREATE TABLE `medicaments` (
   `code` nvarchar(255) NOT NULL PRIMARY KEY,
   `nom` nvarchar(255) NOT NULL,
-  `quantity` int(11) DEFAULT 0,
+  `quantite` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -21,24 +21,27 @@ CREATE TABLE `medicaments` (
 -- Déchargement des données de la table `medicaments`
 --
 
-INSERT INTO `medicaments` (`nom`, `code`, `quantity`) VALUES
+INSERT INTO `medicaments` (`nom`, `code`, `quantite`) VALUES
 ('Paracétamol', 'N02BE01', 102),
 ('Amoxicilline', 'J01CA04', 211),
+('Ranitidine', 'A02BA02', 15),
 ('Omeprazole', 'A02BC01', 15),
 ('Diclofénac', 'M01AB05', 0),
 ('Furosémide', 'C03CA01', 9),
-('Métronidazole', 'P01AB01', 19),
-('Céfotaxime', 'J01DD01', 345),
-('Diazépam', 'N05BA01', 567),
-('Ranitidine', 'A02BA02', 189),
-('Insuline humaine', 'A10AB01', 0),
-('Héparine', 'B01AB01', 56),
-('Ciprofloxacine', 'J01MA02', 1863),
-('Morphine', 'N02AA01', 345),
-('Lévofloxacine', 'J01MA12', 457),
-('Méthylprednisolone', 'H02AB04', 78),
-('Rabeprazole', 'A02BC04', 745),
-('Propofol', 'N01AX10', 123),
-('Tramadol', 'N02AX02', 167),
-('Adrénaline', 'C01CA24', 169),
-('Midazolam', 'N05CD08', 170);
+('Métronidazole', 'P01AB01', 19);
+
+
+-- --------------------------------------------------------
+--
+-- Structure de la table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `code` nvarchar(255),
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `avant` int(11),
+  `difference` int(11)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `transactions` (`code`, `avant`, `difference`) VALUES
+('A02BA02', 20, -5)

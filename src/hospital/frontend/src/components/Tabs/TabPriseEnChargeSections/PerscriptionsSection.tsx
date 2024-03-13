@@ -5,6 +5,7 @@ import Table from "../../../components/UI/Tables/Table";
 import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
 import Select from "../../../components/Select";
+import dictionnaire_medicaments from "../../../codifications/medicaments.json"
 
 type SectionProps = {
   state: Record<string, boolean>,
@@ -13,13 +14,8 @@ type SectionProps = {
   updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
 }
 
-const dictionnaire_medicaments = [
-  { key: 'M101', value: 'Paracetamol', },
-  { key: 'M102', value: 'Melatonin' },
-  { key: 'M103', value: 'Aspirin' },
-]
 function PerscriptionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps){
-  const [selectedPrescription, setSelectedPrescription] = useState<Medicament>({ code: '', nom: '', posologie: 0, frequence:0, duree:0, remarques: '' })
+  const [selectedPrescription, setSelectedPrescription] = useState<Prescription>({ code: '', nom: '', posologie: 0, frequence:0, duree:0, remarques: '' })
 
   function select_prescription({ key, value }: { key: string, value: string }) {
     setSelectedPrescription({ ...selectedPrescription, code: key, nom: value })
