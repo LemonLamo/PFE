@@ -39,7 +39,7 @@ type Hospitalisation = {
     date_sortie_prevu: Date,
     date_sortie?: Date,
     mode_sortie?: string,
-    resume_hospitalisation: string,
+    resume_hospitalisation?: string,
 }
 type Intervention = {
     code_intervention: string,

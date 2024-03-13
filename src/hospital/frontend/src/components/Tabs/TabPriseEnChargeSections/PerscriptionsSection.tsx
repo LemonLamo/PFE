@@ -6,6 +6,8 @@ import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
 import Select from "../../../components/Select";
 import dictionnaire_medicaments from "../../../codifications/medicaments.json"
+import Button from "../../Buttons/Button";
+import DeleteButton from "../../Buttons/DeleteButton";
 
 type SectionProps = {
   state: Record<string, boolean>,
@@ -15,6 +17,7 @@ type SectionProps = {
 }
 
 function PerscriptionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps){
+  const [openModal, setOpenModal] = useState('')
   const [selectedPrescription, setSelectedPrescription] = useState<Prescription>({ code: '', nom: '', posologie: 0, frequence:0, duree:0, remarques: '' })
 
   function select_prescription({ key, value }: { key: string, value: string }) {
@@ -39,7 +42,12 @@ function PerscriptionsSection({ state, updateState, consultationData, updateCons
         <label htmlFor="checkbox-1" className="cursor-pointer select-none text-slate-700">Préscriptions</label>
       </label>
         {state.medicaments_active &&
-          <AddModal onAdd={add_prescription} onCancel={() => console.log("Cancelled create")}>
+          <>
+          <Button className="h-8" onClick={() => setOpenModal('add')} type="primary-alternate">
+            <i className="fa fa-plus" />
+            <span className="ms-2">Ajouter</span>
+          </Button>
+          <AddModal open={openModal === "add"} close={() => setOpenModal('')} action={() => { add_prescription(); setOpenModal('') }} >
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter une prescription</h3>
             <p className="text-gray-600">Remplissez ce formulaire pour ajouter une prescription à la consultation courante.</p>
             <div className="grid grid-cols-6 gap-2">
@@ -59,6 +67,7 @@ function PerscriptionsSection({ state, updateState, consultationData, updateCons
               <textarea className="col-span-4" rows={5}  placeholder="Remarques" value={selectedPrescription.remarques} onChange={(e) => setSelectedPrescription({ ...selectedPrescription, remarques: e.target.value })}></textarea>
             </div>
           </AddModal>
+          </>
         }
     </div>
     <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
@@ -73,7 +82,8 @@ function PerscriptionsSection({ state, updateState, consultationData, updateCons
             <TableCell> {p.duree} </TableCell>
             <TableCell> {p.remarques} </TableCell>
             <TableCell>
-              <DeleteModal onDelete={() => delete_prescription(i)} onCancel={() => console.log("Cancelled delete")}>
+              <DeleteButton onClick={() => setOpenModal("delete")} />
+              <DeleteModal open={openModal === "delete"} close={() => setOpenModal('')} action={() => delete_prescription(i)} >
                 <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Prescription {p.nom} ({p.code})</h3>
                 <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
               </DeleteModal>

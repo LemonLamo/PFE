@@ -76,6 +76,8 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
                 </thead>
                 <tbody className='text-gray-600'>
                 {
+                table.getRowModel().rows.length == 0 ?
+                <tr> <td colSpan={table.getHeaderGroups()[0].headers.length} className="py-2 text-center"> Pas de lignes à afficher </td> </tr> :
                 table.getRowModel().rows.map((row) => (
                     <tr key={row.id}>
                         {row.getVisibleCells().map(cell => (

@@ -7,6 +7,8 @@ import DeleteModal from "../../../components/Modals/DeleteModal";
 import moment from "moment";
 import Select from "../../../components/Select";
 import dictionnaire_interventions from "../../../codifications/interventions.json"
+import Button from "../../Buttons/Button";
+import DeleteButton from "../../Buttons/DeleteButton";
 
 type SectionProps = {
     state: Record<string, boolean>,
@@ -16,6 +18,7 @@ type SectionProps = {
 }
 
 function InterventionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+    const [openModal, setOpenModal] = useState('')
     const [selectedInterventions, setSelectedInterventions] = useState<Intervention>({
         nom_hopital: '',
         medecin: {},
@@ -48,20 +51,26 @@ function InterventionsSection({ state, updateState, consultationData, updateCons
                     <label htmlFor="checkbox-4" className="cursor-pointer select-none text-slate-700">Interventions</label>
                 </label>
                 {state.interventions_active &&
-                    <AddModal onAdd={add_interventions} onCancel={() => console.log("Cancelled create")}>
-                        <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter une intervention</h3>
-                        <p className="text-gray-600">Remplissez ce formulaire pour ajouter une intervention à la consultation courante.</p>
-                        <div className="grid grid-cols-6 gap-2">
-                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention: </label>
-                            <Select className="col-span-4" options={dictionnaire_interventions} placeholder="Intervention" onChange={select_intervention} state={{ key: selectedInterventions.code_intervention, value: selectedInterventions.nom! }} />
+                    <>
+                    <Button className="h-8" onClick={() => setOpenModal('add')} type="primary-alternate">
+                        <i className="fa fa-plus" />
+                        <span className="ms-2">Ajouter</span>
+                    </Button>
+                    <AddModal open={openModal === "add"} close={() => setOpenModal('')} action={() => { add_interventions(); setOpenModal('') }} >
+                    <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter une intervention</h3>
+                    <p className="text-gray-600">Remplissez ce formulaire pour ajouter une intervention à la consultation courante.</p>
+                    <div className="grid grid-cols-6 gap-2">
+                        <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention: </label>
+                        <Select className="col-span-4" options={dictionnaire_interventions} placeholder="Intervention" onChange={select_intervention} state={{ key: selectedInterventions.code_intervention, value: selectedInterventions.nom! }} />
 
-                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
-                            <input className="primary col-span-4" type="datetime-local" placeholder="Date" value={moment(selectedInterventions.date).format('YYYY-MM-DDTHH:mm')} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, date: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate() })}></input>
+                        <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
+                        <input className="primary col-span-4" type="datetime-local" placeholder="Date" value={moment(selectedInterventions.date).format('YYYY-MM-DDTHH:mm')} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, date: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate() })}></input>
 
-                            <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
-                            <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedInterventions.remarques} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, remarques:e.target.value})}></textarea>
-                        </div>
+                        <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
+                        <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedInterventions.remarques} onChange={(e) => setSelectedInterventions({ ...selectedInterventions, remarques:e.target.value})}></textarea>
+                    </div>
                     </AddModal>
+                    </>
                 }
             </div>
             <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
@@ -74,7 +83,8 @@ function InterventionsSection({ state, updateState, consultationData, updateCons
                                 <TableCell> {moment(a.date).format('DD/MM/YYYY HH:mm')} </TableCell>
                                 <TableCell> {a.remarques} </TableCell>
                                 <TableCell>
-                                    <DeleteModal onDelete={() => delete_interventions(i)} onCancel={() => console.log("Cancelled delete")}>
+                                    <DeleteButton onClick={() => setOpenModal("delete_examens_cliniques")} />
+                                    <DeleteModal open={openModal === "delete_examens_cliniques"} close={() => setOpenModal('')} action={() => delete_interventions(i)} >
                                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Intervention {a.nom} ({a.code_intervention})</h3>
                                         <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
                                     </DeleteModal>

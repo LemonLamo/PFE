@@ -4,8 +4,12 @@ import TableRow from "../components/UI/Tables/TableRow"
 import TableCell from "../components/UI/Tables/TableCell"
 import DeleteModal from "../components/Modals/DeleteModal"
 import AddModal from "../components/Modals/AddModal"
+import DeleteButton from "../components/Buttons/DeleteButton"
+import Button from "../components/Buttons/Button"
+import { useState } from "react"
 
 function NewPatientPage() {
+  const [openModal, setOpenModal] = useState('')
   return (
     <Card title="Nouveau patient" subtitle="Create a new medical record" className="w-full">
       <div className="grid grid-cols-12 gap-x-4">
@@ -124,9 +128,13 @@ function NewPatientPage() {
         <div className="col-span-4">
           <div className="mb-0 flex justify-between">
             <h6 className="mb-0">Antécédants Familiales</h6>
-            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
-              <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
-              <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
+            <Button className="h-8"  onClick={() => setOpenModal('antecedants_familiales')} type="primary-alternate">
+              <i className="fa fa-plus" />
+              <span className="ms-2">Ajouter</span>
+            </Button>
+            <AddModal open={openModal === "antecedants_familiales"} close={() => setOpenModal('')} action={() => console.log("")} >
+              <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Antécédants Familiales</h3>
+              <p className="text-gray-600">Remplissez ce formulaire pour ajouter un antécédants familiales à la consultation courante.</p>
               <div className="grid grid-cols-6 gap-2">
 
               </div>
@@ -138,7 +146,8 @@ function NewPatientPage() {
               <TableCell>Idk</TableCell>
               <TableCell>Idk</TableCell>
               <TableCell className="text-right">
-                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                <DeleteButton onClick={() => setOpenModal("delete_antecedants_familiales")} />
+                <DeleteModal open={openModal === "delete_antecedants_familiales"} close={() => setOpenModal('')} action={() => console.log("")} >
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
                   <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
                 </DeleteModal>
@@ -148,7 +157,11 @@ function NewPatientPage() {
 
           <div className="mb-0 flex justify-between">
             <h6 className="mb-1">Antécédants Médicales</h6>
-            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
+            <Button className="h-8"  onClick={() => setOpenModal('antecedants_medicales')} type="primary-alternate">
+              <i className="fa fa-plus" />
+              <span className="ms-2">Ajouter</span>
+            </Button>
+            <AddModal open={openModal === "antecedants_medicales"} close={() => setOpenModal('')} action={() => console.log("")} >
               <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
               <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
               <div className="grid grid-cols-6 gap-2">
@@ -162,7 +175,8 @@ function NewPatientPage() {
               <TableCell>Idk</TableCell>
               <TableCell>Idk</TableCell>
               <TableCell className="text-right">
-                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                <DeleteButton onClick={() => setOpenModal("delete_antecedants_medicales")} />
+                <DeleteModal open={openModal === "delete_antecedants_medicales"} close={() => setOpenModal('')} action={() => console.log("")} >
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
                   <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
                 </DeleteModal>
@@ -172,7 +186,11 @@ function NewPatientPage() {
 
           <div className="mb-0 flex justify-between">
             <h6 className="mb-1">Allergies</h6>
-            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
+            <Button className="h-8"  onClick={() => setOpenModal('allergies')} type="primary-alternate">
+              <i className="fa fa-plus" />
+              <span className="ms-2">Ajouter</span>
+            </Button>
+            <AddModal open={openModal === "allergies"} close={() => setOpenModal('')} action={() => console.log("")} >
               <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
               <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
               <div className="grid grid-cols-6 gap-2">
@@ -186,7 +204,8 @@ function NewPatientPage() {
               <TableCell>Idk</TableCell>
               <TableCell>Idk</TableCell>
               <TableCell className="text-right">
-                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                <DeleteButton onClick={() => setOpenModal("delete_allergies")} />
+                <DeleteModal open={openModal === "delete_allergies"} close={() => setOpenModal('')} action={() => console.log("")} >
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
                   <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
                 </DeleteModal>
@@ -196,7 +215,11 @@ function NewPatientPage() {
 
           <div className="mb-0 flex justify-between">
             <h6 className="mb-1">Vaccinations</h6>
-            <AddModal onAdd={() => console.log("")} onCancel={() => console.log("Cancelled create")}>
+            <Button className="h-8"  onClick={() => setOpenModal('vaccinations')} type="primary-alternate">
+              <i className="fa fa-plus" />
+              <span className="ms-2">Ajouter</span>
+            </Button>
+            <AddModal open={openModal === "vaccinations"} close={() => setOpenModal('')} action={() => console.log("")} >
               <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
               <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
               <div className="grid grid-cols-6 gap-2">
@@ -210,7 +233,8 @@ function NewPatientPage() {
               <TableCell>Idk</TableCell>
               <TableCell>Idk</TableCell>
               <TableCell className="text-right">
-                <DeleteModal onDelete={() => console.log("hi")} onCancel={() => console.log("Cancelled delete")}>
+                <DeleteButton onClick={() => setOpenModal("delete_vaccinations")} />
+                <DeleteModal open={openModal === "delete_vaccinations"} close={() => setOpenModal('')} action={() => console.log("")} >
                   <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Antécédant Familiale</h3>
                   <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
                 </DeleteModal>

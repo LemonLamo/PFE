@@ -6,6 +6,8 @@ import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
 import Select from "../../../components/Select";
 import dcitionnaire_radiologie from "../../../codifications/radiologie.json"
+import Button from "../../Buttons/Button";
+import DeleteButton from "../../Buttons/DeleteButton";
 
 type SectionProps = {
     state: Record<string, boolean>,
@@ -15,6 +17,7 @@ type SectionProps = {
 }
 
 function RadiologieSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+    const [openModal, setOpenModal] = useState('')
     const [selectedRadiologie, setSelectedRadiologie] = useState<Radio>({ code: '', nom: '', remarques: '' })
 
     function select_radiologie({ key, value }: { key: string, value: string }) {
@@ -39,17 +42,23 @@ function RadiologieSection({ state, updateState, consultationData, updateConsult
                     <label htmlFor="checkbox-2" className="cursor-pointer select-none text-slate-700">Radiologie</label>
                 </label>
                 {state.radiologie_active &&
-                    <AddModal onAdd={add_radiologie} onCancel={() => console.log("Cancelled create")}>
-                        <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
-                        <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
-                        <div className="grid grid-cols-6 gap-2">
-                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Radio: </label>
-                            <Select className="col-span-4" options={dcitionnaire_radiologie} placeholder="Radio" onChange={select_radiologie} state={{ key: selectedRadiologie.code, value: selectedRadiologie.nom! }} />
+                    <>
+                    <Button className="h-8" onClick={() => setOpenModal('add')} type="primary-alternate">
+                        <i className="fa fa-plus" />
+                        <span className="ms-2">Ajouter</span>
+                    </Button>
+                    <AddModal open={openModal === "add"} close={() => setOpenModal('')} action={() => { add_radiologie(); setOpenModal('') }} >
+                    <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un radio</h3>
+                    <p className="text-gray-600">Remplissez ce formulaire pour ajouter un radio à la consultation courante.</p>
+                    <div className="grid grid-cols-6 gap-2">
+                        <label className="font-semibold text-slate-700 text-sm col-span-2"> Radio: </label>
+                        <Select className="col-span-4" options={dcitionnaire_radiologie} placeholder="Radio" onChange={select_radiologie} state={{ key: selectedRadiologie.code, value: selectedRadiologie.nom! }} />
 
-                            <label className="font-semibold text-slate-700 text-sm col-span-2  self-start"> Remarques: </label>
-                            <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedRadiologie.remarques} onChange={(e) => setSelectedRadiologie({ ...selectedRadiologie, remarques: e.target.value })}></textarea>
-                        </div>
+                        <label className="font-semibold text-slate-700 text-sm col-span-2  self-start"> Remarques: </label>
+                        <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedRadiologie.remarques} onChange={(e) => setSelectedRadiologie({ ...selectedRadiologie, remarques: e.target.value })}></textarea>
+                    </div>
                     </AddModal>
+                    </>
                 }
             </div>
             <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
@@ -61,7 +70,8 @@ function RadiologieSection({ state, updateState, consultationData, updateConsult
                                 <TableCell> {r.nom} </TableCell>
                                 <TableCell> {r.remarques} </TableCell>
                                 <TableCell>
-                                    <DeleteModal onDelete={() => delete_radiologie(i)} onCancel={() => console.log("Cancelled delete")}>
+                                    <DeleteButton onClick={() => setOpenModal("delete")} />
+                                    <DeleteModal open={openModal === "delete"} close={() => setOpenModal('')} action={() => delete_radiologie(i)} >
                                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Radiologie {r.nom} ({r.code})</h3>
                                         <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
                                     </DeleteModal>

@@ -1,128 +1,134 @@
 import { useMemo, useState } from "react";
 import Card from "../components/UI/Card";
 import CreateModal from "../components/Modals/CreateModal";
-import Table from "../components/UI/Tables/Table";
-import TableRow from "../components/UI/Tables/TableRow";
-import TableCell from "../components/UI/Tables/TableCell";
 import ViewModal from "../components/Modals/ViewModal";
 import EditModal from "../components/Modals/EditModal";
 import DeleteModal from "../components/Modals/DeleteModal";
+import Button from "../components/Buttons/Button";
+import { useQuery } from "@tanstack/react-query";
+import ViewButton from "../components/Buttons/ViewButton";
+import EditButton from "../components/Buttons/EditButton";
+import DeleteButton from "../components/Buttons/DeleteButton";
+import { ColumnDef } from "@tanstack/react-table";
+import DataTable from "../components/UI/Tables/DataTable";
 import Badge from "../components/UI/Badge";
+import permissions_dictionnnaire from "../codifications/permissions.json"
 
 function RolesPage() {
-  const roles = useMemo<Role[]>(() => {
-    let data = [{ id: "1", nom: "Medecins", permissions: ['Gestion consultation', 'Gestion stock']}];
-    return data
-  }, []);
-
   const [selectedRole, setSelectedRole] = useState<Role>({id:'', nom:'', permissions:[]})
+  const [openModal, setOpenModal] = useState('');
+  const query = useQuery({
+    queryKey: ['agents'],
+    queryFn: () => {
+      let data = [{ id: "1", nom: "Medecins", permissions: ['Gestion consultation', 'Gestion stock'] }];
+      return data;
+    }
+  })
 
-  const permissions_dictionnaire = [
-    { key: "P1", value: "Permission 1" },
-    { key: "P2", value: "Permission 2" },
-    { key: "P3", value: "Permission 3" }
-  ]
-
-  function create_role() {
-    console.log("Creating new role");
-    // use state variable to submit agent data
-  }
-
-  function select_role(index: number) {
-    // use id to get the agent data into the state variable
-    console.log(`Viewing role ${roles[index]}`);
-    setSelectedRole(roles[index]);
-  }
-
-  function edit_role(id: string) {
-    alert(`Editing role ${id}`);
-  }
-
-  function delete_role(id: string) {
-    alert(`Deleting role ${id}`);
-  }
-
-  const createModal = (
-    <>
-      <CreateModal onCreate={create_role} onCancel={() => console.log("Cancelled create")} >
-        <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un nouveau rôle</h3>
-        <p className="text-gray-600">Remplissez ce formulaire pour ajouter un nouveau rôle.</p>
-        <div className="grid grid-cols-8 gap-x-4">
-          <div className="col-span-3 mb-2">
-            <label className="text-sm font-semibold">ID:</label>
-            <input type="text" className="primary" placeholder="Code" value={selectedRole?.id} />
+  const tableDefinition = useMemo(() => [
+    { header: "#", accessorKey: "id" },
+    { header: "Nom", accessorKey: "nom" },
+    { header: "Permissions", id: "actions", cell: (info) =>
+      info.row.original.permissions.map((p, i) => (<Badge key={i} textColor="#0891b2" bgColor="#cffafe" className="me-2">{p}</Badge>))
+    },
+    { header: "", id: "actions", cell: (info) => {
+        const r = info.row.original
+        return (
+          <div className="flex justify-end gap-2">
+            <ViewButton onClick={() => { setSelectedRole(r); setOpenModal('view'); }} />
+            <EditButton onClick={() => { setSelectedRole(r); setOpenModal('edit'); }} />
+            <DeleteButton onClick={() => { setSelectedRole(r); setOpenModal('delete'); }} />
           </div>
-          <div className="col-span-5 mb-2">
-            <label className="text-sm font-semibold">Nom:</label>
-            <input type="text" className="primary" placeholder="Nom" value={selectedRole?.nom} />
-          </div>
-          <div className="col-span-8 mb-2">
-            <label className="text-sm font-semibold">Permissions:</label>
-            <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} />
-          </div>
-        </div>
-      </CreateModal>
-    </>
+        )
+      }
+    },
+  ], []) as ColumnDef<Role>[];
+
+  async function createRole() {
+    console.log("Created " + selectedRole);
+  }
+
+  async function editRole() {
+    console.log("Edited " + selectedRole);
+  }
+
+  async function deleteRole() {
+    console.log("Deleted " + selectedRole);
+  }
+
+  const action = (
+    <Button onClick={() => setOpenModal('create')} type="primary">
+      <i className="fa fa-plus" />
+      <span className="ms-2">Ajouter</span>
+    </Button>
   );
 
   return (
     <>
-      <Card title="Roles" className="w-full" action={createModal}>
-        <Table fields={["#", "Role", "Permissions", ""]}>
-          {roles.map((r, i) => (
-            <TableRow key={i}>
-              <TableCell className="pe-3 py-2 font-bold"> {r.id} </TableCell>
-              <TableCell className="pe-3 py-2"> {r.nom} </TableCell>
-              <TableCell className="pe-3 py-2">
-                {r.permissions.map((p, i) => (<Badge key={i} textColor="#0891b2" bgColor="#cffafe" className="me-2">{p}</Badge> ))}
-              </TableCell>
-              <TableCell className="flex py-2 justify-end gap-2">
-                <ViewModal onOpen={() => select_role(i)}>
-                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Détails sur "{r.nom} ({r.id})"</h3>
-                  <p className="text-gray-600">Voici les informations concernant ce rôle.</p>
-                  <div className="grid grid-cols-8 gap-x-4">
-                    <div className="col-span-3 mb-2">
-                      <label className="text-sm font-semibold">ID:</label>
-                      <input type="text" className="primary" placeholder="Code" value={selectedRole?.id} disabled />
-                    </div>
-                    <div className="col-span-5 mb-2">
-                      <label className="text-sm font-semibold">Nom:</label>
-                      <input type="text" className="primary" placeholder="Nom" value={selectedRole?.nom} disabled />
-                    </div>
-                    <div className="col-span-8 mb-2">
-                      <label className="text-sm font-semibold">Permissions:</label>
-                      <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} disabled />
-                    </div>
-                  </div>
-                </ViewModal>
+      <Card title="Roles" className="w-full" action={action}>
+        <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
 
-                <EditModal onOpen={() => select_role(i)} onEdit={() => edit_role(r.id)}>
-                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Modifier "{r.nom} ({r.id})"</h3>
-                  <p className="text-gray-600">Remplissez ce formulaire pour modifier ce rôle.</p>
-                  <div className="grid grid-cols-8 gap-x-4">
-                    <div className="col-span-3 mb-2">
-                      <label className="text-sm font-semibold">ID:</label>
-                      <input type="text" className="primary" placeholder="Code" value={selectedRole?.id} disabled />
-                    </div>
-                    <div className="col-span-5 mb-2">
-                      <label className="text-sm font-semibold">Nom:</label>
-                      <input type="text" className="primary" placeholder="Nom" value={selectedRole?.nom} />
-                    </div>
-                    <div className="col-span-8 mb-2">
-                      <label className="text-sm font-semibold">Permissions:</label>
-                      <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} />
-                    </div>
-                  </div>
-                </EditModal>
+        <CreateModal open={openModal === 'create'} close={() => setOpenModal('')} action={createRole}>
+          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter un nouveau rôle</h3>
+          <p className="text-gray-600">Remplissez ce formulaire pour ajouter un nouveau rôle.</p>
+          <div className="grid grid-cols-8 gap-x-4">
+            <div className="col-span-3 mb-2">
+              <label className="text-sm font-semibold">ID:</label>
+              <input type="text" className="primary" placeholder="Code" value={selectedRole?.id} />
+            </div>
+            <div className="col-span-5 mb-2">
+              <label className="text-sm font-semibold">Nom:</label>
+              <input type="text" className="primary" placeholder="Nom" value={selectedRole?.nom} />
+            </div>
+            <div className="col-span-8 mb-2">
+              <label className="text-sm font-semibold">Permissions:</label>
+              <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} />
+            </div>
+          </div>
+        </CreateModal>
 
-                <DeleteModal onDelete={() => delete_role(r.id)}>
-                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Supprimer le rôle "{r.nom}"</h3>
-                  <p className="text-gray-600">Êtes-vous sûr de vouloir supprimer cet enregistrement? Toutes vos données seront définitivement supprimées. Cette action ne peut pas être annulée.</p>
-                </DeleteModal>
-              </TableCell>
-            </TableRow>
-          ))}
-        </Table>
+        <ViewModal open={openModal === 'view'} close={() => setOpenModal('')}>
+          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Détails sur "{selectedRole.nom} ({selectedRole.id})"</h3>
+          <p className="text-gray-600">Voici les informations concernant ce rôle.</p>
+          <div className="grid grid-cols-8 gap-x-4">
+            <div className="col-span-3 mb-2">
+              <label className="text-sm font-semibold">ID:</label>
+              <input type="text" className="primary" placeholder="Code" value={selectedRole?.id} disabled />
+            </div>
+            <div className="col-span-5 mb-2">
+              <label className="text-sm font-semibold">Nom:</label>
+              <input type="text" className="primary" placeholder="Nom" value={selectedRole?.nom} disabled />
+            </div>
+            <div className="col-span-8 mb-2">
+              <label className="text-sm font-semibold">Permissions:</label>
+              <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} disabled />
+            </div>
+          </div>
+        </ViewModal>
+
+        <EditModal open={openModal === 'edit'} close={() => setOpenModal('')} action={editRole}>
+          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Modifier "{selectedRole.nom} ({selectedRole.id})"</h3>
+          <p className="text-gray-600">Remplissez ce formulaire pour modifier ce rôle.</p>
+          <div className="grid grid-cols-8 gap-x-4">
+            <div className="col-span-3 mb-2">
+              <label className="text-sm font-semibold">ID:</label>
+              <input type="text" className="primary" placeholder="Code" value={selectedRole?.id} disabled />
+            </div>
+            <div className="col-span-5 mb-2">
+              <label className="text-sm font-semibold">Nom:</label>
+              <input type="text" className="primary" placeholder="Nom" value={selectedRole?.nom} />
+            </div>
+            <div className="col-span-8 mb-2">
+              <label className="text-sm font-semibold">Permissions:</label>
+              <textarea rows={5} className="primary" placeholder="Permissions" value={selectedRole?.permissions} />
+            </div>
+          </div>
+        </EditModal>
+
+        <DeleteModal open={openModal === 'delete'} close={() => setOpenModal('')} action={deleteRole}>
+          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Supprimer le rôle "{selectedRole.nom}"</h3>
+          <p className="text-gray-600">Êtes-vous sûr de vouloir supprimer cet enregistrement? Toutes vos données seront définitivement supprimées. Cette action ne peut pas être annulée.</p>
+        </DeleteModal>
       </Card>
     </>
   );

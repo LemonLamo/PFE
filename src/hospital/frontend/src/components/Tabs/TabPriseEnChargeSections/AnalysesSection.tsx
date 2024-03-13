@@ -6,6 +6,8 @@ import AddModal from "../../../components/Modals/AddModal";
 import DeleteModal from "../../../components/Modals/DeleteModal";
 import Select from "../../../components/Select";
 import dcitionnaire_analyses from "../../../codifications/bilans.json"
+import Button from "../../Buttons/Button";
+import DeleteButton from "../../Buttons/DeleteButton";
 
 type SectionProps = {
     state: Record<string, boolean>,
@@ -15,6 +17,7 @@ type SectionProps = {
 }
 
 function AnalysesSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+    const [openModal, setOpenModal] = useState('')
     const [selectedAnalyses, setSelectedAnalyses] = useState<Analyse>({ code: '', nom: '', remarques: '' })
 
     function select_analyses({ key, value }: { key: string, value: string }) {
@@ -38,17 +41,23 @@ function AnalysesSection({ state, updateState, consultationData, updateConsultat
                     <label htmlFor="checkbox-3" className="cursor-pointer select-none text-slate-700">Analyses</label>
                 </label>
                 {state.analyses_active &&
-                    <AddModal onAdd={add_analyses} onCancel={() => console.log("Cancelled create")}>
-                        <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter des analyses</h3>
-                        <p className="text-gray-600">Remplissez ce formulaire pour ajouter des analyses à la consultation courante.</p>
-                        <div className="grid grid-cols-6 gap-2">
-                            <label className="font-semibold text-slate-700 text-sm col-span-2"> Analyse: </label>
-                            <Select className="col-span-4" options={dcitionnaire_analyses} placeholder="Analyse" onChange={select_analyses} state={{ key: selectedAnalyses.code, value: selectedAnalyses.nom! }} />
+                    <>
+                    <Button className="h-8" onClick={() => setOpenModal('add')} type="primary-alternate">
+                        <i className="fa fa-plus" />
+                        <span className="ms-2">Ajouter</span>
+                    </Button>
+                    <AddModal open={openModal === "add"} close={() => setOpenModal('')} action={() => { add_analyses(); setOpenModal('') }} >
+                    <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Ajouter des analyses</h3>
+                    <p className="text-gray-600">Remplissez ce formulaire pour ajouter des analyses à la consultation courante.</p>
+                    <div className="grid grid-cols-6 gap-2">
+                        <label className="font-semibold text-slate-700 text-sm col-span-2"> Analyse: </label>
+                        <Select className="col-span-4" options={dcitionnaire_analyses} placeholder="Analyse" onChange={select_analyses} state={{ key: selectedAnalyses.code, value: selectedAnalyses.nom! }} />
 
-                            <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
-                            <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedAnalyses.remarques} onChange={(e) => setSelectedAnalyses({ ...selectedAnalyses, remarques: e.target.value })}></textarea>
-                        </div>
+                        <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
+                        <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedAnalyses.remarques} onChange={(e) => setSelectedAnalyses({ ...selectedAnalyses, remarques: e.target.value })}></textarea>
+                    </div>
                     </AddModal>
+                    </>
                 }
             </div>
             <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
@@ -60,7 +69,8 @@ function AnalysesSection({ state, updateState, consultationData, updateConsultat
                                 <TableCell> {a.nom} </TableCell>
                                 <TableCell> {a.remarques} </TableCell>
                                 <TableCell>
-                                    <DeleteModal onDelete={() => delete_analyses(i)} onCancel={() => console.log("Cancelled delete")}>
+                                    <DeleteButton onClick={() => setOpenModal("delete")} />
+                                    <DeleteModal open={openModal === "delete"} close={() => setOpenModal('')} action={() => delete_analyses(i)} >
                                         <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Analyses {a.nom} ({a.code})</h3>
                                         <p className="text-gray-600">Are you sure you want to delete this examen clinique? All of your data will be permanently removed. This action cannot be undone.</p>
                                     </DeleteModal>
