@@ -32,7 +32,6 @@ function NouvelleHospitalisationPage() {
   ]
   function select_patient(patient: any) {
     setSelectedPatient({ NIN: patient.NIN, nom: patient.nom, prenom: patient.prenom })
-    console.log(patient)
   }
 
   function choosePatient() {

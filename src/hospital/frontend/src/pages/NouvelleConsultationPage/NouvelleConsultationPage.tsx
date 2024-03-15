@@ -18,8 +18,8 @@ function NouvelleConsultationPage() {
   const [consultationData, setConsultationData] = useState<Consultation>({
     code_consultation: '',
     nom_hopital: '',
-    medecin: '',
-    patient: '',
+    medecin: { NIN: '', nom: '', prenom: '' },
+    patient: { NIN: '', nom: '', prenom: '' },
     date_consultation: new Date(),
     type_consultation: '',
     motif_consultation: '',

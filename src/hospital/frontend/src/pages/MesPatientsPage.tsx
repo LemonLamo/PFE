@@ -1,14 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import moment from "moment";
-import Card from "../../components/UI/Card";
-import Table from "../../components/UI/Tables/Table";
-import TableRow from "../../components/UI/Tables/TableRow";
-import TableCell from "../../components/UI/Tables/TableCell";
+import Card from "../components/UI/Card";
 import { Link } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
 import { useQuery } from "@tanstack/react-query";
-import ViewButton from "../../components/Buttons/ViewButton";
-import DataTable from "../../components/UI/Tables/DataTable";
+import ViewButton from "../components/Buttons/ViewButton";
+import DataTable from "../components/UI/Tables/DataTable";
+import axios from "axios";
 
 const createModal = (
   <>
@@ -20,45 +18,15 @@ const createModal = (
 );
 
 function MesPatientsPage() {
-  const [selectedPatient, setSelectedPatient] = useState<Partial<Patient>>({
-    NIN: "",
-    nom: "",
-    prenom: "",
-    date_naissance: new Date(),
-    lieu_naissance: "",
-    email: "",
-    telephone: "",
-  });
-  const [openModal, setOpenModal] = useState('');
   const query = useQuery({
-    queryKey: ['agents'],
-    queryFn: () => {
-      let data = [
-        {
-          NIN: "100010364027390000",
-          nom: "BRAHIM",
-          prenom: "Abderrazak",
-          date_naissance: new Date(),
-          lieu_naissance: "Tebessa",
-          email: "brahim.abderrazak1307@gmail.com",
-          telephone: "0799771062",
-        },
-        {
-          NIN: "111111111111111111",
-          nom: "NADIL",
-          prenom: "Marwa",
-          date_naissance: new Date(),
-          lieu_naissance: "Kouba",
-          email: "nadilmarwa02@gmail.com",
-          telephone: "0799771062",
-        },
-      ];
+    queryKey: ['patients'],
+    queryFn: async () => {
+      const data = (await axios.get(`http://localhost:8080/api/patients`)).data;
       return data;
     }
   });
   
   const tableDefinition = useMemo(() => [
-    { header: "NIN", accessorKey: "NIN" },
     { header: "Patient", id:"patient", cell: (info) => {
       const p = info.row.original;
       return <div className="py-2 flex w-68">

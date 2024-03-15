@@ -72,8 +72,14 @@ type Patient = {
     sexe: string,
     situation_familiale: string,
     email: string,
-    telephone: string
-    addresse: string,
+    telephone: string,
+    groupage: string,
+    taille: number,
+    poids: number
+    adresse: string,
+    code_postale: number,
+    commune: string,
+    wilaya: string
 }
 type ExamenClinique = {
     code: string,
@@ -125,6 +131,28 @@ type Role = {
     id: string,
     nom: string,
     permissions: string[]
+}
+
+type Vaccination = {
+    code_vaccin: string,
+    intitule_vaccin: string,
+    date: Date,
+    remarques?: string,
+    nombre_de_doses: number,
+    date_de_prochaine_dose: Date,
+}
+type Allergie = {
+    code_allergene: string,
+    date: Date,
+    remarques?: string
+}
+type AntecedentMedicale = {
+    description: string,
+    remarques: string
+}
+type AntecedentFamilial = {
+    description: string,
+    remarques: string
 }
 
 // placeholder
