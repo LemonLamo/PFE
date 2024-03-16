@@ -13,7 +13,6 @@ import RemplirModal from "../components/Modals/RemplirModal";
 import DepenserModal from "../components/Modals/DepenserModal";
 import ViewModal from "../components/Modals/ViewModal";
 import DeleteModal from "../components/Modals/DeleteModal";
-import useQueryData from "../hooks/useQueryData";
 import TableLoading from "../components/UI/Tables/TableLoading";
 import TableError from "../components/UI/Tables/TableError";
 import axios, { AxiosError } from "axios";
@@ -24,6 +23,7 @@ import ViewButton from "../components/Buttons/ViewButton";
 import DeleteButton from "../components/Buttons/DeleteButton";
 import dictionnaire_medicaments from "../codifications/medicaments.json";
 import Button from "../components/Buttons/Button";
+import { useQuery } from "@tanstack/react-query";
 
 const build_badge = (qte: number) => {
   if (qte >= 10)
@@ -50,6 +50,7 @@ const build_badge = (qte: number) => {
 };
 
 function PharmacyPage() {
+<<<<<<< HEAD
   const [selectedMedicament, setSelectedMedicament] = useState<Medicament>({
     code: "",
     nom: "",
@@ -66,6 +67,24 @@ function PharmacyPage() {
     "GET",
     `http://localhost:8080/api/medicaments/${selectedMedicament.code}/transactions`
   );
+=======
+  const [selectedMedicament, setSelectedMedicament] = useState<Medicament>({ code: "", nom: "", quantite: 0 });
+  const [openModal, setOpenModal] = useState('');
+  const query = useQuery<Medicament[]>({
+    queryKey: ['medicaments'],
+    queryFn: async () => {
+      let data = (await axios.get('http://localhost:8080/api/medicaments/')).data;
+      return data;
+    }
+  });
+  const query2 = useQuery<Transaction[]>({
+    queryKey: ['transactions', selectedMedicament.code],
+    queryFn: async () => {
+      let data = (await axios.get(`http://localhost:8080/api/medicaments/${selectedMedicament.code}/transactions`)).data;
+      return data;
+    }
+  });
+>>>>>>> b765e2942babddf70ddc85f0b80b7802a4e1200a
 
   const tableDefinition = useMemo(
     () => [
@@ -121,10 +140,16 @@ function PharmacyPage() {
       setOpenModal("");
     } catch (err: AxiosError | any) {
       if (err.response)
+<<<<<<< HEAD
         alert(
           err.response.data.errorCode + " - " + err.response.data.errorMessage
         );
       else alert("Network error!");
+=======
+        alert(err.response.data.errorCode + ' - ' + err.response.data.errorMessage)
+      else
+        alert('Network error!')
+>>>>>>> b765e2942babddf70ddc85f0b80b7802a4e1200a
     }
   }
 

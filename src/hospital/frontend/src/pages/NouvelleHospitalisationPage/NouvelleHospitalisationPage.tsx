@@ -25,14 +25,9 @@ function NouvelleHospitalisationPage() {
     resume_hospitalisation: '',
   })
 
-  const patients = [
-    { NIN: "100010364027390000", nom: "BRAHIM", prenom: "Abderrazak" },
-    { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa" },
-    { NIN: "101111111111111111", nom: "Kanye", prenom: "West" }
-  ]
   function select_patient(patient: any) {
-    setSelectedPatient({ NIN: patient.NIN, nom: patient.nom, prenom: patient.prenom })
-    console.log(patient)
+    if (patient)
+      setSelectedPatient({ NIN: patient.NIN, nom: patient.nom, prenom: patient.prenom })
   }
 
   function choosePatient() {
@@ -48,7 +43,7 @@ function NouvelleHospitalisationPage() {
       {!validPatient &&
         <Card title="Choisir un patient?" subtitle="Pick a patient, any patient" className="w-full max-w-[500px]">
           <div className="flex w-inherit">
-            <PatientsSelect options={patients} placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: selectedPatient.NIN, nom: selectedPatient.nom, prenom: selectedPatient.prenom }} />
+            <PatientsSelect placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: selectedPatient.NIN, nom: selectedPatient.nom, prenom: selectedPatient.prenom }} />
             <button className="primary ms-3" onClick={choosePatient}> Choisir </button>
           </div>
         </Card>

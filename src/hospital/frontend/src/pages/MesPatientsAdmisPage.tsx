@@ -1,30 +1,22 @@
 import { useMemo, useState } from "react";
 import moment from "moment";
-import Card from "../../components/UI/Card";
-import EditModal from "../../components/Modals/EditModal";
+import Card from "../components/UI/Card";
+import EditModal from "../components/Modals/EditModal";
 import { Link } from "react-router-dom";
-import DeleteModal from "../../components/Modals/DeleteModal";
-import Select from "../../components/Select";
+import DeleteModal from "../components/Modals/DeleteModal";
+import Select from "../components/Select";
 import { ColumnDef } from "@tanstack/react-table";
-import ViewButton from "../../components/Buttons/ViewButton";
+import ViewButton from "../components/Buttons/ViewButton";
 import { useQuery } from "@tanstack/react-query";
-import DataTable from "../../components/UI/Tables/DataTable";
-import dictionnaire_interventions from "../../codifications/interventions.json"
+import DataTable from "../components/UI/Tables/DataTable";
+import dictionnaire_interventions from "../codifications/interventions.json"
 
 function MesAdmisPage() {
   const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({ 
       code_hospitalisation: "",
       nom_hopital: "",
-      medecin: {
-        NIN: "",
-        nom: "",
-        prenom: ""
-      },
-      patient: {
-        NIN: "",
-        nom: "",
-        prenom: ""
-      },
+      medecin: { NIN: "", nom: "", prenom: "" },
+      patient: { NIN: "", nom: "", prenom: "" },
       date_entree: new Date(),
       mode_entree: "",
       motif_hospitalisation: "",
@@ -32,7 +24,7 @@ function MesAdmisPage() {
   })
   const [openModal, setOpenModal] = useState('');
   const query = useQuery({
-    queryKey: ['agents'],
+    queryKey: ['patients_admis'],
     queryFn: () => {
       let data = [
         {

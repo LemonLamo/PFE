@@ -19,8 +19,8 @@ function MesRendezVousPage() {
     {
       title: "Consultation",
       subtitle: "NADIL Marwa",
-      start: today,
-      end: setEndRdv(today, 0),
+      start: setEndRdv(today, 2),
+      end: setEndRdv(today, 2),
     },
   ];
   return (
@@ -29,7 +29,9 @@ function MesRendezVousPage() {
         <Calendar events={events}></Calendar>
       </Card>
       <Card className="col-span-3" title="Rendez-vous" subtitle="Liste of vos prochaines rendez-vous" >
-        <RdvCard children={events}></RdvCard>
+        <ul className="flex flex-col gap-y-4">
+          {events.map((item) => <RdvCard {...item}></RdvCard>)}
+        </ul>
       </Card>
     </div>
   );

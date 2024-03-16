@@ -18,7 +18,7 @@ function RolesPage() {
   const [selectedRole, setSelectedRole] = useState<Role>({id:'', nom:'', permissions:[]})
   const [openModal, setOpenModal] = useState('');
   const query = useQuery({
-    queryKey: ['agents'],
+    queryKey: ['roles'],
     queryFn: () => {
       let data = [{ id: "1", nom: "Medecins", permissions: ['Gestion consultation', 'Gestion stock'] }];
       return data;
