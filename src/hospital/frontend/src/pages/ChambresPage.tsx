@@ -16,6 +16,9 @@ import DeleteButton from "../components/Buttons/DeleteButton";
 import { useQuery } from "@tanstack/react-query";
 import Button from "../components/Buttons/Button";
 import DataTable from "../components/UI/Tables/DataTable";
+import Table from "../components/UI/Tables/Table";
+import TableRow from "../components/UI/Tables/TableRow";
+import TableCell from "../components/UI/Tables/TableCell";
 
 const etageName = (etage : number) => {
   if (etage == 0) return "RDC";
@@ -181,6 +184,33 @@ function ChambresPage() {
               <label className="text-sm font-semibold">Description </label>
               <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value, }) } disabled />
             </div>
+            <div className="col-span-12">
+              <label className="text-sm font-semibold">Lits </label>
+              <Table fields={['#', 'Type', 'Statut', 'Remarques']}>
+                <TableRow>
+                  <TableCell>1</TableCell>
+                  <TableCell>Broncale</TableCell>
+                  <TableCell>
+                    <Badge bgColor={"#fee2e2"} textColor={"#991b1b"} className="ms-2">
+                      <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+                      Occupé
+                    </Badge>
+                  </TableCell>
+                  <TableCell>Lorem ipsum Do loris sit amet</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>2</TableCell>
+                  <TableCell>Broncale</TableCell>
+                  <TableCell>
+                    <Badge bgColor={"#dcfce7"} textColor={"#267142"} className="ms-2">
+                      <CheckCircleIcon className="h-[1.7vh] mr-1" />
+                      Disponible
+                    </Badge>
+                  </TableCell>
+                  <TableCell>-</TableCell>
+                </TableRow>
+              </Table>
+            </div>
           </div>
         </ViewModal>
 
@@ -217,6 +247,28 @@ function ChambresPage() {
             <div className="col-span-12">
               <label className="text-sm font-semibold">Description </label>
               <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value, }) } />
+            </div>
+            <div className="col-span-12">
+              <label className="text-sm font-semibold">Lits </label>
+              <Table fields={['#', 'Type', 'Statut', 'Remarques']}>
+                <TableRow>
+                  <TableCell>1</TableCell>
+                  <TableCell>
+                    <select>
+                      <option>Broncale</option>
+                    </select>
+                  </TableCell>
+                  <TableCell>
+                    <Badge bgColor={"#fee2e2"} textColor={"#991b1b"} className="ms-2">
+                      <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+                      Occupé
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <input type="text" className="primary"  placeholder="Remarques"/>
+                  </TableCell>
+                </TableRow>
+              </Table>
             </div>
           </div>
         </EditModal>

@@ -79,7 +79,8 @@ type Patient = {
     adresse: string,
     code_postale: number,
     commune: string,
-    wilaya: string
+    wilaya: string,
+    donneur_organe: boolean
 }
 type ExamenClinique = {
     code: string,
