@@ -10,9 +10,9 @@ type Props = {
 function TabMedicaments({ NIN }: Props) {
     const medicaments = useQuery<Medicament[]>({
         queryKey: ['medicaments' + NIN],
-        queryFn: () => {
-            //const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/medicaments`)).data;
-            return [];
+        queryFn: async () => {
+            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/medicaments`)).data;
+            return data;
         }
     });
     const medicamentsTableDefinition = useMemo(() => [

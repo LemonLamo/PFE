@@ -27,7 +27,11 @@ const PatientsController = require('./controllers/PatientsController');
 
 app.get('/api/patients', auth.requireAuth, PatientsController.getAll);
 app.get('/api/patients/:NIN', auth.requireAuth, PatientsController.getOne);
+app.get('/api/patients/:NIN/maladies-chroniques', auth.requireAuth, PatientsController.getMaladiesChroniques);
 app.get('/api/patients/:NIN/allergies', auth.requireAuth, PatientsController.getAllergies);
+app.get('/api/patients/:NIN/antecedents-medicals', auth.requireAuth, PatientsController.getAntecedentsMedicals);
+app.get('/api/patients/:NIN/antecedents-familiaux', auth.requireAuth, PatientsController.getAntecedentsFamiliaux);
+app.get('/api/patients/:NIN/medicaments', auth.requireAuth, PatientsController.getMedicaments);
 app.get('/api/patients/:NIN/vaccinations', auth.requireAuth, PatientsController.getVaccinations);
 
 app.use((req, res) => res.sendStatus(404))

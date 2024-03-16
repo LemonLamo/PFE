@@ -48,8 +48,8 @@ function NouvelleConsultationPage() {
     { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa" },
   ]
   function select_patient(patient: any){
-    setSelectedPatient({ NIN: patient.NIN, nom: patient.nom, prenom:patient.prenom })
-    console.log(patient)
+    if(patient)
+      setSelectedPatient({ NIN: patient.NIN, nom: patient.nom, prenom:patient.prenom })
   }
 
   function choosePatient(){

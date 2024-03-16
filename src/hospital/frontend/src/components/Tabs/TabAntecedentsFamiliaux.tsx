@@ -10,14 +10,14 @@ type Props = {
 function TabAntecedentsFamiliaux({ NIN }: Props) {
     const antecedents_familiaux = useQuery<AntecedentFamilial[]>({
         queryKey: ['antecedents_familiaux' + NIN],
-        queryFn: () => {
-            //const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/antecedents-familiaux`)).data;
-            return [];
+        queryFn: async () => {
+            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/antecedents-familiaux`)).data;
+            return data;
         }
     });
     const antecedents_familiauxTableDefinition = useMemo(() => [
         { header: "#", id: "index", cell: (info) => info.row.index + 1 },
-        { header: "Description", accessorKey: "descripition" },
+        { header: "Description", accessorKey: "description" },
         { header: "Remarques", accessorKey: "remarques" },
     ], []) as ColumnDef<AntecedentFamilial>[];
     return (

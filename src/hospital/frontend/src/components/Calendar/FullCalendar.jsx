@@ -10,12 +10,14 @@ function Calendar({ events }) {
         weekends={true}
         events={events}
         eventContent={renderEventContent}
+        locale="fr"
       />
     </div>
   );
 }
 
 function renderEventContent(eventInfo) {
+  console.log(eventInfo)
   return (
     <>
       <b>{eventInfo.timeText}</b>

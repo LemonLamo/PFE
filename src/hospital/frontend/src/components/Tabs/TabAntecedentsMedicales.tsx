@@ -10,14 +10,14 @@ type Props = {
 function TabAntecedentsMedicales({NIN} : Props) {
     const antecedents_medicales = useQuery<AntecedentMedicale[]>({
         queryKey: ['antecedents_medicales' + NIN],
-        queryFn: () => {
-            //const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/antecedents-medicales`)).data;
-            return [];
+        queryFn: async () => {
+            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/antecedents-medicals`)).data;
+            return data;
         }
     });
     const antecedents_medicalesTableDefinition = useMemo(() => [
         { header: "#", id: "index", cell: (info) => info.row.index + 1 },
-        { header: "Description", accessorKey: "descripition" },
+        { header: "Description", accessorKey: "description" },
         { header: "Remarques", accessorKey: "remarques" },
     ], []) as ColumnDef<AntecedentMedicale>[];
     return (
