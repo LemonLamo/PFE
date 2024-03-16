@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
@@ -19,14 +19,20 @@ import DataTable from "../components/UI/Tables/DataTable";
 import Table from "../components/UI/Tables/Table";
 import TableRow from "../components/UI/Tables/TableRow";
 import TableCell from "../components/UI/Tables/TableCell";
+import {
+  deleteChambres,
+  getChambres,
+  postChambres,
+  putChambres,
+} from "../hooks/useChambre";
 
-const etageName = (etage : number) => {
+const etageName = (etage: number) => {
   if (etage == 0) return "RDC";
   if (etage == 1) return "1er";
   return etage + "éme";
 };
 
-const build_badge = (taux : number) => {
+const build_badge = (taux: number) => {
   if (taux < 50) {
     return (
       <Badge bgColor={"#dcfce7"} textColor={"#267142"} className="ms-2">
@@ -52,6 +58,10 @@ const build_badge = (taux : number) => {
 };
 
 function ChambresPage() {
+  const fetchData = async () => {
+    return await getChambres();
+  };
+
   const [selectedChambre, setSelectedChambre] = useState<Chambre>({
     num: "",
     etage: 0,
@@ -59,58 +69,105 @@ function ChambresPage() {
     nombre_lits: 0,
     nombre_lits_occupe: 0,
   });
-  const [openModal, setOpenModal] = useState('');
+  const [openModal, setOpenModal] = useState("");
   const query = useQuery({
-    queryKey: ['chambres'],
+    queryKey: ["chambres"],
     queryFn: () => {
-      let data = [
-        { num: "F1", etage: 0, description: "Chambre pour les nouveau-nées", nombre_lits: 8, nombre_lits_occupe: 6 },
-        { num: "F2", etage: 1, description: "Chambre pour les 1-3ans", nombre_lits: 8, nombre_lits_occupe: 2 },
-      ];
+      let data = fetchData();
       return data;
-    }
+    },
   });
 
-  const tableDefinition = useMemo(() => [
-    { header: "Num", accessorKey: "num" },
-    { header: "Etage", id: "etage", cell: (info) => etageName(info.row.original.etage) },
-    { header: "Description", accessorKey: "description" },
-    { header: "Nombre de lits", accessorKey: "nombre_lits" },
-    { header: "Taux d'occupation", cell: (info) =>{
-      const c = info.row.original
-      return (
-        <> { c.nombre_lits_occupe } / { c.nombre_lits }
-          { build_badge((c.nombre_lits_occupe! * 100) / c.nombre_lits) }
-        </>
-      )}
-    },
-    { header: "", id: "actions", cell: (info) => {
-        const c = info.row.original
-        return (
-          <div className="flex justify-end gap-2">
-            <ViewButton onClick={() => { setSelectedChambre(c); setOpenModal('view'); }} />
-            <EditButton onClick={() => { setSelectedChambre(c); setOpenModal('edit'); }} />
-            <DeleteButton onClick={() => { setSelectedChambre(c); setOpenModal('delete'); }} />
-          </div>
-        )
-      }
-    },
-  ], []) as ColumnDef<Chambre>[];
+  const tableDefinition = useMemo(
+    () => [
+      { header: "Num", accessorKey: "num" },
+      {
+        header: "Etage",
+        id: "etage",
+        cell: (info) => etageName(info.row.original.etage),
+      },
+      { header: "Description", accessorKey: "description" },
+      { header: "Nombre de lits", accessorKey: "nombre_lits" },
+      {
+        header: "Taux d'occupation",
+        cell: (info) => {
+          const c = info.row.original;
+          return (
+            <>
+              {" "}
+              {c.nombre_lits_occupe} / {c.nombre_lits}
+              {build_badge((c.nombre_lits_occupe! * 100) / c.nombre_lits)}
+            </>
+          );
+        },
+      },
+      {
+        header: "",
+        id: "actions",
+        cell: (info) => {
+          const c = info.row.original;
+          return (
+            <div className="flex justify-end gap-2">
+              <ViewButton
+                onClick={() => {
+                  setSelectedChambre(c);
+                  setOpenModal("view");
+                }}
+              />
+              <EditButton
+                onClick={() => {
+                  setSelectedChambre(c);
+                  setOpenModal("edit");
+                }}
+              />
+              <DeleteButton
+                onClick={() => {
+                  setSelectedChambre(c);
+                  setOpenModal("delete");
+                }}
+              />
+            </div>
+          );
+        },
+      },
+    ],
+    []
+  ) as ColumnDef<Chambre>[];
 
   async function createChambre() {
-    console.log("Created " + selectedChambre);
+    try {
+      await postChambres(selectedChambre);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function editChambre() {
-    console.log("Edited " + selectedChambre);
+    try {
+      const editData = {
+        num: selectedChambre.num,
+        nombre_lits: selectedChambre.nombre_lits,
+        nombre_lits_occupe: selectedChambre.nombre_lits_occupe,
+      };
+      await putChambres(editData);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function deleteChambre() {
-    console.log("Deleted " + selectedChambre);
+    try {
+      await deleteChambres(selectedChambre.num);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const action = (
-    <Button onClick={() => setOpenModal('create')} type="primary">
+    <Button onClick={() => setOpenModal("create")} type="primary">
       <i className="fa fa-plus" />
       <span className="ms-2">Ajouter</span>
     </Button>
@@ -118,23 +175,59 @@ function ChambresPage() {
   return (
     <>
       <Card title="Chambres" action={action} className="w-full">
-        <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
+        <DataTable
+          tableDefinition={tableDefinition}
+          query={query}
+          className="mt-2"
+        />
 
-        <CreateModal open={openModal === "create"} action={createChambre} close={() => setOpenModal('')}>
-          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">
-            Create chambre
+        <CreateModal
+          open={openModal === "create"}
+          action={createChambre}
+          close={() => {
+            setSelectedChambre({});
+            setOpenModal("");
+          }}
+        >
+          <h3
+            className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+            id="modal-title"
+          >
+            Créer une chambre
           </h3>
           <p className="text-gray-600">
             Remplissez ce formulaire pour ajouter une nouvelle chambre
           </p>
-          <div className="grid grid-cols-12 gap-2">
+          <div className="grid grid-cols-8 gap-2">
             <div className="col-span-4">
-              <label className="text-sm font-semibold">Numéro de chambre </label>
-              <input type="text" className="primary" placeholder="Num" value={selectedChambre.num} onChange={(e) => setSelectedChambre({ ...selectedChambre, num: e.target.value })} />
+              <label className="text-sm font-semibold">
+                Numéro de chambre{" "}
+              </label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="Num"
+                value={selectedChambre.num}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    num: e.target.value,
+                  })
+                }
+              />
             </div>
             <div className="col-span-4">
               <label className="text-sm font-semibold">Etage </label>
-              <select className="primary" value={selectedChambre.etage} onChange={(e) => setSelectedChambre({ ...selectedChambre, etage: Number(e.target.value), })} >
+              <select
+                className="primary"
+                value={selectedChambre.etage}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    etage: Number(e.target.value),
+                  })
+                }
+              >
                 <option value={0}>RDC</option>
                 <option value={1}>1er</option>
                 <option value={2}>2éme</option>
@@ -144,27 +237,92 @@ function ChambresPage() {
                 <option value={6}>6éme</option>
               </select>
             </div>
+          </div>
+          <div className="grid grid-cols-8 gap-2">
             <div className="col-span-4">
               <label className="text-sm font-semibold">Nombre de lits </label>
-              <input type="text" className="primary" placeholder="Nombre" value={selectedChambre.nombre_lits} onChange={(e) => setSelectedChambre({ ...selectedChambre, nombre_lits: e.target.valueAsNumber, })} />
+              <input
+                type="number"
+                min="0"
+                className="primary"
+                placeholder="Nombre"
+                value={selectedChambre.nombre_lits}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    nombre_lits: e.target.valueAsNumber,
+                  })
+                }
+              />
             </div>
+            <div className="col-span-4">
+              <label className="text-sm font-semibold">
+                Nombre de lits occupés
+              </label>
+              <input
+                type="number"
+                min="0"
+                className="primary"
+                placeholder="Nombre"
+                value={selectedChambre.nombre_lits_occupe}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    nombre_lits_occupe: e.target.valueAsNumber,
+                  })
+                }
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-8 gap-2">
             <div className="col-span-12">
               <label className="text-sm font-semibold">Description </label>
-              <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value })} />
+              <textarea
+                className="primary"
+                placeholder="Description"
+                value={selectedChambre.description}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    description: e.target.value,
+                  })
+                }
+              />
             </div>
           </div>
         </CreateModal>
 
-        <ViewModal open={openModal === "view"} close={() => setOpenModal('')}>
-          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title" > Détails sur chambre </h3>
-          <div className="grid grid-cols-12 gap-2">
+        <ViewModal open={openModal === "view"} close={() => setOpenModal("")}>
+          <h3
+            className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+            id="modal-title"
+          >
+            {" "}
+            Détails sur chambre{" "}
+          </h3>
+          <div className="grid grid-cols-8 gap-2">
             <div className="col-span-4">
-              <label className="text-sm font-semibold"> Numéro de chambre </label>
-              <input type="text" className="primary" placeholder="Num" disabled value={selectedChambre.num} />
+              <label className="text-sm font-semibold">Numéro de chambre</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="Num"
+                disabled
+                value={selectedChambre.num}
+              />
             </div>
             <div className="col-span-4">
               <label className="text-sm font-semibold">Etage </label>
-              <select className="primary" value={selectedChambre.etage} onChange={(e) => setSelectedChambre({ ...selectedChambre, etage: Number(e.target.value), }) }>
+              <select
+                className="primary"
+                value={selectedChambre.etage}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    etage: Number(e.target.value),
+                  })
+                }
+              >
                 <option value={0}>RDC</option>
                 <option value={1}>1er</option>
                 <option value={2}>2éme</option>
@@ -174,12 +332,32 @@ function ChambresPage() {
                 <option value={6}>6éme</option>
               </select>
             </div>
+          </div>
+          <div className="grid grid-cols-8 gap-2">
+            <div className="col-span-4">
+              <label className="text-sm font-semibold">Nombre de lits</label>
+              <input
+                type="number"
+                className="primary"
+                placeholder="Nombre"
+                disabled
+                value={selectedChambre.nombre_lits}
+              />
+            </div>
             <div className="col-span-4">
               <label className="text-sm font-semibold">
-                Nombre de lits
+                Nombre de lits occupés
               </label>
-              <input type="text" className="primary" placeholder="Nombre" disabled value={selectedChambre.nombre_lits} />
+              <input
+                type="number"
+                className="primary"
+                placeholder="Nombre"
+                disabled
+                value={selectedChambre.nombre_lits_occupe}
+              />
             </div>
+          </div>
+          <div className="grid grid-cols-8 gap-2">
             <div className="col-span-12">
               <label className="text-sm font-semibold">Description </label>
               <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value, }) } disabled />
@@ -214,33 +392,54 @@ function ChambresPage() {
           </div>
         </ViewModal>
 
-        <EditModal open={openModal === "edit"} action={editChambre} close={() => setOpenModal('')}>
-          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title" >
+        <EditModal
+          open={openModal === "edit"}
+          action={editChambre}
+          close={() => setOpenModal("")}
+        >
+          <h3
+            className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+            id="modal-title"
+          >
             Modifier chambre
           </h3>
           <p className="text-gray-600">Here is some more info.</p>
           <div className="grid grid-cols-12 gap-2">
             <div className="col-span-4">
-              <label className="text-sm font-semibold">
-                Numéro de chambre
-              </label>
-              <input type="text" className="primary" placeholder="Num" value={selectedChambre.num} onChange={(e) => setSelectedChambre({ ...selectedChambre, num: e.target.value, }) } disabled />
+              <label className="text-sm font-semibold">Numéro de chambre</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="Num"
+                value={selectedChambre.num}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    num: e.target.value,
+                  })
+                }
+                disabled
+              />
             </div>
             <div className="col-span-4">
-              <label className="text-sm font-semibold">Etage </label>
-              <select className="primary" value={selectedChambre.etage} onChange={(e) => setSelectedChambre({ ...selectedChambre, etage: Number(e.target.value), }) }>
-                <option value={0}>RDC</option>
-                <option value={1}>1er</option>
-                <option value={2}>2éme</option>
-                <option value={3}>3éme</option>
-                <option value={4}>4éme</option>
-                <option value={5}>5éme</option>
-                <option value={6}>6éme</option>
-              </select>
+              <label className="text-sm font-semibold">Nombre de lits</label>
+              <input
+                type="number"
+                min="0"
+                className="primary"
+                placeholder="Nombre"
+                value={selectedChambre.nombre_lits}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    nombre_lits: e.target.valueAsNumber,
+                  })
+                }
+              />
             </div>
             <div className="col-span-4">
               <label className="text-sm font-semibold">
-                Nombre de lits
+                Nombre de lits occupés
               </label>
               <input type="text" className="primary" placeholder="Nombre" value={selectedChambre.nombre_lits} onChange={(e) => setSelectedChambre({ ...selectedChambre, nombre_lits: e.target.valueAsNumber, }) } />
             </div>
@@ -273,11 +472,22 @@ function ChambresPage() {
           </div>
         </EditModal>
 
-        <DeleteModal open={openModal === "delete"} action={deleteChambre} close={() => setOpenModal('')}>
-          <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title" >
+        <DeleteModal
+          open={openModal === "delete"}
+          action={deleteChambre}
+          close={() => setOpenModal("")}
+        >
+          <h3
+            className="text-lg font-semibold leading-6 text-gray-900 mb-3"
+            id="modal-title"
+          >
             Supprimer la chambre "{selectedChambre.num}"
           </h3>
-          <p className="text-gray-600">Êtes-vous sûr de vouloir supprimer cet enregistrement? Toutes vos données seront définitivement supprimées. Cette action ne peut pas être annulée.</p>
+          <p className="text-gray-600">
+            Êtes-vous sûr de vouloir supprimer cet enregistrement? Toutes vos
+            données seront définitivement supprimées. Cette action ne peut pas
+            être annulée.
+          </p>
         </DeleteModal>
       </Card>
     </>

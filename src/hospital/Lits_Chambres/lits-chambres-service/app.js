@@ -25,36 +25,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // router
+const LitsRoute = require("./routes/LitsRoute");
+const ChambresRoute = require("./routes/ChambresRoute");
 const auth = require("./middlewares/auth");
-const MedicamentsController = require("./controllers/MedicamentsController");
 const logger = require("./utils/logger");
 
-app.get("/api/medicaments", auth.requireAuth, MedicamentsController.getAll);
-app.post("/api/medicaments", auth.requireAuth, MedicamentsController.insert);
-app.get(
-  "/api/medicaments/:code",
-  auth.requireAuth,
-  MedicamentsController.getOne
-);
-app.get(
-  "/api/medicaments/:code/transactions",
-  auth.requireAuth,
-  MedicamentsController.getTransactions
-);
-app.put(
-  "/api/medicaments/:code",
-  auth.requireAuth,
-  MedicamentsController.update
-);
-app.delete(
-  "/api/medicaments/:code",
-  auth.requireAuth,
-  MedicamentsController.remove
-);
+// app.use("/api/lits", LitsRoute);
+app.use("/api/chambres", ChambresRoute);
 
 app.use((req, res) => res.sendStatus(404));
 
 // start server
-app.listen(8080, () => logger.info(`[SERVER] Listening on port ${8080}`));
+app.listen(4000, () => logger.info(`[SERVER] Listening on port ${4000}`));
 
 module.exports = app;
