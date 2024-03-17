@@ -42,8 +42,8 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
         });
       else if (err.request)
         setError({
-          code: "Network error",
-          message: "Auth service cannot be contacted at this moment.",
+          code: "Échec Réseau",
+          message: "Service injoignable en ce moment.",
         });
     }
   }

@@ -11,9 +11,9 @@ type LoginFormActions = {
 }
 type Consultation = {
     code_consultation: string,
-    nom_hopital: string,
-    medecin: Partial<Medecin>,
     patient: Partial<Patient>,
+    medecin: Partial<Medecin>,
+    nom_hopital: string,
     date_consultation: Date,
     type_consultation: string,
     motif_consultation: string,
@@ -30,13 +30,13 @@ type Consultation = {
 }
 type Hospitalisation = {
     code_hospitalisation: string,
-    nom_hopital: string,
-    medecin: Partial<Medecin>,
     patient: Partial<Patient>,
+    medecin: Partial<Medecin>,
+    nom_hopital: string,
     date_entree: Date,
     mode_entree: string,
     motif_hospitalisation: string,
-    date_sortie_prevu: Date,
+    date_sortie_prevu?: Date,
     date_sortie?: Date,
     mode_sortie?: string,
     resume_hospitalisation?: string,
@@ -44,9 +44,9 @@ type Hospitalisation = {
 type Intervention = {
     code_intervention: string,
     nom: string,
-    nom_hopital: string,
-    medecin: Partial<Medecin>,
     patient: Partial<Patient>,
+    medecin: Partial<Medecin>,
+    nom_hopital: string,
     date?: Date,
     protocole_operatoire?: string,
     remarques?: string

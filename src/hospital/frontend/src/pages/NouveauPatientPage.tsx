@@ -17,7 +17,7 @@ function NewPatientPage() {
     <Card title="Nouveau patient" subtitle="Create a new medical record" className="w-full">
       <form className="grid grid-cols-12 gap-x-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-4">
-          <h6 className="mb-1"> Informations Civiles</h6>
+          <h6 className="mb-1"> Informations civiles</h6>
           <div className="mb-2">
             <label className="text-sm font-semibold">NIN:</label>
             <input type="text" className="primary" {...register('NIN')} placeholder="ex. 111111111111111111" />
@@ -69,10 +69,10 @@ function NewPatientPage() {
         </div>
 
         <div className="col-span-4">
-          <h6 className="mt-0 mb-1"> Informations d'addresse</h6>
+          <h6 className="mt-0 mb-1"> Informations d'adresse</h6>
           <div className="grid grid-cols-3 gap-x-2">
             <div className="col-span-3 mb-2">
-              <label className="text-sm font-semibold">Addresse:</label>
+              <label className="text-sm font-semibold">Adresse:</label>
               <input type="text" className="primary" {...register('adresse')}  placeholder="ex. 22 BD Laichi Abdellah" />
             </div>
             <div className="mb-2">

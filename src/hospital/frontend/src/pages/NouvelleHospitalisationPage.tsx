@@ -1,12 +1,12 @@
-import Card from "../../components/UI/Card"
+import Card from "../components/UI/Card"
 import { useState } from "react"
 import moment from "moment"
-import PatientsSelect from "../../components/PatientsSelect"
-import Tabs from "../../components/UI/Tabs/Tabs"
-import TabContent from "../../components/UI/Tabs/TabContent"
-import TabInfoPersonelles from "../../components/Tabs/TabInfoPersonelles"
-import TabHistorique from "../../components/Tabs/TabHistorique"
-import TabHospitalisation from "../../components/Tabs/TabHospitalisation"
+import PatientsSelect from "../components/PatientsSelect"
+import Tabs from "../components/UI/Tabs/Tabs"
+import TabContent from "../components/UI/Tabs/TabContent"
+import TabInfoPersonelles from "../components/Tabs/TabInfoPersonelles"
+import TabHistorique from "../components/Tabs/TabHistorique"
+import TabHospitalisation from "../components/Tabs/TabHospitalisation"
 
 function NouvelleHospitalisationPage() {
   const [selectedPatient, setSelectedPatient] = useState({ NIN: "", nom: "", prenom: "" })
