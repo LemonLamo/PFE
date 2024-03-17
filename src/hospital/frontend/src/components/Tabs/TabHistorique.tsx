@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import Timeline from "../UI/Timeline/Timeline";
 import TimelineItem from "../UI/Timeline/TimelineItem";
 import moment from "moment";

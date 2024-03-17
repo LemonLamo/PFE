@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: patients-service
+  name: patients-service
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: patients-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: patients-service
+  name: patients-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patients-service
+  template:
+    metadata:
+      labels:
+        app: patients-service
+    spec:
+      containers:
+        - image: abdou1307/patients-service:latest
+          name: patients-service
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always
