@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
 import secureLocalStorage from "react-secure-storage";
+import { baseURL } from "../hooks";
 
 type UserError = {
   code: string;
@@ -19,7 +20,7 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
     const body = { NIN: NIN, password: password };
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        `${baseURL}/api/auth/login`,
         body
       );
       const data = response.data;

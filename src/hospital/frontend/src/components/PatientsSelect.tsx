@@ -2,6 +2,7 @@ import { Combobox, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import axios from 'axios'
 import { Fragment, useEffect, useState } from 'react'
+import { baseURL } from '../hooks'
 
 type SelectProps = {
     state: {NIN: string, nom: string, prenom:string},
@@ -16,7 +17,7 @@ function PatientsSelect({ onChange, placeholder = '', className = '', state }: S
     const [query, setQuery] = useState('')
     useEffect(() => {
         if (query.length >= 3)
-            axios.get('http://localhost:8080/api/patients').then((response) => setOptions(response.data));
+            axios.get(`${baseURL}/api/patients`).then((response) => setOptions(response.data));
         else
             setOptions([])
     }, [query])

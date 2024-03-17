@@ -125,8 +125,8 @@ type Chambre = {
     num: string,
     etage: number,
     description: string,
-    nombre_lits: number,
-    nombre_lits_occupe?: number
+    nombre_lits: number | '',
+    nombre_lits_occupe?: number | ''
 }
 type Role = { 
     id: string,
@@ -166,5 +166,11 @@ type Agent = {
     sexe: string,
     email: string,
     telephone: string
-    addresse: string,
+    fonction: string,
+    specialite: string,
+    grade: string,
+    adresse: string,
+    code_postale: number | '',
+    commune: string,
+    wilaya: string,
 }

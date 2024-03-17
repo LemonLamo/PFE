@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import ViewButton from "../components/Buttons/ViewButton";
 import DataTable from "../components/UI/Tables/DataTable";
 import axios from "axios";
+import { baseURL } from "../hooks";
 
 const createModal = (
   <>
@@ -21,7 +22,7 @@ function MesPatientsPage() {
   const query = useQuery({
     queryKey: ['patients'],
     queryFn: async () => {
-      const data = (await axios.get(`http://localhost:8080/api/patients`)).data;
+      const data = (await axios.get(`${baseURL}/api/patients`)).data;
       return data;
     }
   });

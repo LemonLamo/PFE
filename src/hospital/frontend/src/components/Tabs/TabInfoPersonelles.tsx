@@ -3,6 +3,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import TableError from "../UI/Tables/TableError";
 import TableLoading from "../UI/Tables/TableLoading";
+import { baseURL } from "../../hooks";
 
 type Props = {
   NIN: string
@@ -12,16 +13,16 @@ function TabInfoPersonelles({ NIN }: Props) {
   const profile = useQuery<Patient>({
     queryKey: ['patient' + NIN],
     queryFn: async () => {
-      const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}`)).data;
+      const data = (await axios.get(`${baseURL}/api/patients/${NIN}`)).data;
       return data;
     }
   });
 
   return (
     <>
-      <h3 className="text-lg font-bold text-gray-900 mb-3">Informations personnelles</h3>
+      <h3 className="text-lg mb-0">Informations personnelles</h3>
       <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
-      <div className="flex flex-row gap-x-4 w-full mb-3">
+      <div className="flex flex-row gap-x-8 w-full mb-3">
         {
           profile.isError ? <TableError /> :
             profile.isLoading ? <TableLoading /> :
@@ -41,7 +42,7 @@ function TabInfoPersonelles({ NIN }: Props) {
                     <p className="">{moment(profile.data!.date_naissance).format('DD/MM/YYYY')}, {profile.data!.lieu_naissance}</p>
 
                   </div>
-                  <div className="col-span-2">
+                  <div className="col-span-3">
                     <strong className="text-slate-700">Age:</strong>
                     <p className="">{moment(new Date()).diff(moment(profile.data!.date_naissance), 'years')} ans</p>
 
@@ -62,7 +63,7 @@ function TabInfoPersonelles({ NIN }: Props) {
                     <strong className="text-slate-700">Addresse:</strong>
                     <p className="">{profile.data!.adresse}, {profile.data!.commune}, {profile.data!.code_postale}, {profile.data!.wilaya}</p>
                   </div>
-                  <div className="col-span-3">
+                  <div className="col-span-2">
                     <strong className="text-slate-700">Groupage:</strong>
                     <p className="">{profile.data!.groupage}</p>
 

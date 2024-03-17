@@ -14,7 +14,7 @@ function Header({ setOpen } : HeaderProps) {
         <div className="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
             <div>
                 <div className="text-sm capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600">
-                    Bounjour,
+                    Bonjour,
                 </div>
                 <h6 className="mb-0 font-bold capitalize">
                     Abderrazak

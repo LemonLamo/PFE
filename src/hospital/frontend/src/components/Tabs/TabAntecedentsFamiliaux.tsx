@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import axios from 'axios';
 import { useMemo } from 'react'
 import DataTable from '../UI/Tables/DataTable';
+import { baseURL } from '../../hooks';
 type Props = {
     NIN: string
 }
@@ -11,7 +12,7 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
     const antecedents_familiaux = useQuery<AntecedentFamilial[]>({
         queryKey: ['antecedents_familiaux' + NIN],
         queryFn: async () => {
-            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/antecedents-familiaux`)).data;
+            const data = (await axios.get(`${baseURL}/api/patients/${NIN}/antecedents-familiaux`)).data;
             return data;
         }
     });

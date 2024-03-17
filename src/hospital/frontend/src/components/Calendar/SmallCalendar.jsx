@@ -7,7 +7,7 @@ function SmallCalendar() {
 
   return (
     <div>
-      <Calendar onChange={onChange} value={value} />
+      <Calendar onChange={onChange} value={value} locale="FR" />
     </div>
   );
 }

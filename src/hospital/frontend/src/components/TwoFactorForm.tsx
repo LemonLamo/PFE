@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
 import secureLocalStorage from "react-secure-storage";
+import { baseURL } from "../hooks";
 
 type UserError = {code: string, message: string}
 
@@ -36,7 +37,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
         const body = { NIN: NIN, token: OTP.join('') }
         try {
 
-            const response = await axios.post('http://localhost:8080/api/auth/verify-2fa', body)
+            const response = await axios.post(`${baseURL}/api/auth/verify-2fa`, body)
             const data = response.data
             // if 2fa enabled, swap
             if (data.successCode == "login.2fa-code")

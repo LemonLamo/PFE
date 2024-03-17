@@ -8,7 +8,7 @@ type ScaffoldProps = {
   children : ReactNode
 }
 
-function Scaffold({ size ="max-w-7xl", children } : ScaffoldProps) {
+function Scaffold({ size ="max-w-8xl", children } : ScaffoldProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
   useEffect(()=>{

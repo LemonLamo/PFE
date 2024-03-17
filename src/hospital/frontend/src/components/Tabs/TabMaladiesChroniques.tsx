@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useMemo } from 'react'
 import DataTable from '../UI/Tables/DataTable';
 import moment from 'moment';
+import { baseURL } from '../../hooks';
 type Props = {
     NIN: string
 }
@@ -12,7 +13,7 @@ function TabMaladiesChroniques({ NIN }: Props) {
     const maladies_chroniques = useQuery<MaladieChronique>({
         queryKey: ['maladies_chroniques' + NIN],
         queryFn: async () => {
-            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/maladies-chroniques`)).data;
+            const data = (await axios.get(`${baseURL}/api/patients/${NIN}/maladies-chroniques`)).data;
             return data;
         }
     });

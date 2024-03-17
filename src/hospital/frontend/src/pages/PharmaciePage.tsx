@@ -24,6 +24,7 @@ import DeleteButton from "../components/Buttons/DeleteButton";
 import dictionnaire_medicaments from "../codifications/medicaments.json";
 import Button from "../components/Buttons/Button";
 import { useQuery } from "@tanstack/react-query";
+import { baseURL } from "../hooks";
 
 const build_badge = (qte: number) => {
   if (qte >= 10)
@@ -55,14 +56,14 @@ function PharmacyPage() {
   const query = useQuery<Medicament[]>({
     queryKey: ['medicaments'],
     queryFn: async () => {
-      let data = (await axios.get('http://localhost:8080/api/medicaments/')).data;
+      let data = (await axios.get(`${baseURL}/api/medicaments/`)).data;
       return data;
     }
   });
   const query2 = useQuery<Transaction[]>({
     queryKey: ['transactions', selectedMedicament.code],
     queryFn: async () => {
-      let data = (await axios.get(`http://localhost:8080/api/medicaments/${selectedMedicament.code}/transactions`)).data;
+      let data = (await axios.get(`${baseURL}/api/medicaments/${selectedMedicament.code}/transactions`)).data;
       return data;
     }
   });
@@ -112,7 +113,7 @@ function PharmacyPage() {
     const code = selectedMedicament.code;
     const quantite = AddOrSubstract * selectedMedicament.quantite!;
     try {
-      await axios.put(`http://localhost:8080/api/medicaments/${code}`, {
+      await axios.put(`${baseURL}/api/medicaments/${code}`, {
         code: code,
         quantite: quantite,
       });
@@ -129,7 +130,7 @@ function PharmacyPage() {
   async function deleteMedicament() {
     try {
       await axios.delete(
-        `http://localhost:8080/api/medicaments/${selectedMedicament.code}`
+        `${baseURL}/api/medicaments/${selectedMedicament.code}`
       );
       query.refetch();
       setOpenModal("");

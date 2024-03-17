@@ -1,1 +1,1 @@
-export let hostUrl = "http://localhost:4000";
+export let baseURL = "http://localhost:8080";

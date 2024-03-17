@@ -9,7 +9,7 @@ import MesPatientsPage from "./pages/MesPatientsPage";
 import NouvelleHospitalisationPage from "./pages/NouvelleHospitalisationPage/NouvelleHospitalisationPage";
 import MesPatientsAdmisPage from "./pages/MesPatientsAdmisPage";
 import PharmaciePage from "./pages/PharmaciePage";
-import AgentsPage from "./pages/AgentsPage";
+import PersonnelPage from "./pages/PersonnelPage";
 import ChambresPage from "./pages/ChambresPage";
 import RolesPage from "./pages/RolesPage";
 import ParemetresPage from "./pages/ParametresPage";
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
 
   { path: "/agents", element:(
     <PrivateRouteOnly>
-      <Scaffold> <AgentsPage/> </Scaffold>
+      <Scaffold> <PersonnelPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
   { path: "/roles", element:(
