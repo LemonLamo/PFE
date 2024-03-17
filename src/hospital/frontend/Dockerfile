@@ -1,10 +1,15 @@
 FROM node:20.11.1-slim as build
 WORKDIR /app
-COPY package*.json ./
+
+# Install dependencies
+COPY package.json /app
 RUN npm install
-COPY . .
+
+# Copy source code & build
+COPY . /app
 RUN npm run build
 
+# Deploy through nginx
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
