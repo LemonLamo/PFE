@@ -8,7 +8,7 @@ type CardProps = {
     className?: string,
 }
 
-function Card({ title, subtitle, children, action, className }: CardProps) {
+function Card({ title, subtitle, children, action, className='' }: CardProps) {
   return (
       <div className={`relative flex flex-col rounded-lg bg-white break-words shadow-soft-xl p-6 mb-3 ${className}`}>
           {(title || subtitle) &&

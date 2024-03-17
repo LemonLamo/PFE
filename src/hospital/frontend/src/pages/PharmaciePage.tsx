@@ -13,7 +13,7 @@ import RemplirModal from "../components/Modals/RemplirModal";
 import DepenserModal from "../components/Modals/DepenserModal";
 import ViewModal from "../components/Modals/ViewModal";
 import DeleteModal from "../components/Modals/DeleteModal";
-import TableLoading from "../components/UI/Tables/TableLoading";
+import TableLoading from "../components/UI/Loading";
 import TableError from "../components/UI/Tables/TableError";
 import axios, { AxiosError } from "axios";
 import moment from "moment";

@@ -10,7 +10,7 @@ function TabDiagnostique({ consultationData, setConsultationData } : TabProps) {
 
   return (
     <>
-      <h3 className="text-lg font-bold text-gray-900 mb-0">Diagnostique</h3>
+      <h3 className="text-lg mb-0">Diagnostique</h3>
       <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
       <div className="grid grid-cols-6 gap-x-2 gap-y-3 items-center">
         <label className="font-semibold text-slate-700 text-sm col-span-1"> Diagnostique: </label>

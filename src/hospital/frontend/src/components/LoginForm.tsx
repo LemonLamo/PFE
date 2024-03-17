@@ -48,6 +48,11 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
     }
   }
 
+  function swapToResetPassword(e: any){
+    e.preventDefault();
+    formActions.swapToResetPassword()
+  }
+
   return (
     <div>
       <div className="alert alert-danger"></div>
@@ -79,6 +84,7 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <button className="w-full text-right text-cyan-600 mt-2 text-sm" onClick={(e) => swapToResetPassword(e)}> Vous avez oublié votre mot de passe? </button>
         <button
           onClick={handleLogin}
           className="mt-5 tracking-wide font-semibold bg-cyan-500 text-white w-full py-4 rounded-lg hover:bg-cyan-600 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

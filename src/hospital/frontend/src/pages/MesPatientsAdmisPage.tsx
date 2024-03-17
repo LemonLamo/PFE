@@ -12,7 +12,7 @@ import DataTable from "../components/UI/Tables/DataTable";
 import dictionnaire_interventions from "../codifications/interventions.json"
 
 function MesAdmisPage() {
-  const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({ 
+  const [selectedHospitalisation, ] = useState<Hospitalisation>({ 
       code_hospitalisation: "",
       nom_hopital: "",
       medecin: { NIN: "", nom: "", prenom: "" },

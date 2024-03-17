@@ -21,7 +21,7 @@ function TabPriseEnCharge({ consultationData, setConsultationData, state, setSta
 
   return (
     <>
-      <h3 className="text-lg font-bold text-gray-900 mb-0">Prise en charge</h3>
+      <h3 className="text-lg mb-0">Prise en charge</h3>
       <p className="mb-2">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
       <div className="">
         <PerscriptionsSection state={state} updateState={updateState} consultationData={consultationData} updateConsultationData={updateConsultationData} />

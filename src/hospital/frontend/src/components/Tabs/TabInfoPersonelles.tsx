@@ -2,7 +2,7 @@ import moment from "moment";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import TableError from "../UI/Tables/TableError";
-import TableLoading from "../UI/Tables/TableLoading";
+import TableLoading from "../UI/Loading";
 import { baseURL } from "../../hooks";
 
 type Props = {

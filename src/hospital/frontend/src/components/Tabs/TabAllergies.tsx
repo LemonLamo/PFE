@@ -26,7 +26,7 @@ function TabAllergies({NIN} : Props) {
     ], []) as ColumnDef<Allergie>[];
     return (
         <>
-            <h3 className="text-lg font-bold text-gray-900 mb-0">Allergies</h3>
+            <h3 className="text-lg mb-0">Allergies</h3>
             <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
             <DataTable query={allergies} tableDefinition={allergiesTableDefinition} />
         </>

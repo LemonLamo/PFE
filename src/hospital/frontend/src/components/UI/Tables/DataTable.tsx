@@ -2,7 +2,7 @@ import { UseQueryResult } from '@tanstack/react-query'
 import { PaginationState, SortingState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
 import { useState } from 'react'
 import TableError from './TableError';
-import TableLoading from './TableLoading';
+import TableLoading from '../Loading';
 
 type Props = {
     tableDefinition: any[]
@@ -76,9 +76,9 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
                 </thead>
                 <tbody className='text-gray-600'>
                 {
-                table.getRowModel().rows.length == 0 ?
+                table.getRowModel().rows?.length == 0 ?
                 <tr> <td colSpan={table.getHeaderGroups()[0].headers.length} className="py-2 text-center"> Pas de lignes à afficher </td> </tr> :
-                table.getRowModel().rows.map((row) => (
+                table.getRowModel().rows?.map((row) => (
                     <tr key={row.id}>
                         {row.getVisibleCells().map(cell => (
                             <td key={cell.id} className='py-1'>
