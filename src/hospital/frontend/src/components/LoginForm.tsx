@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
 import secureLocalStorage from "react-secure-storage";
 import { baseURL } from "../hooks";
@@ -19,10 +19,7 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
     // submit login
     const body = { NIN: NIN, password: password };
     try {
-      const response = await axios.post(
-        `${baseURL}/api/auth/login`,
-        body
-      );
+      const response = await axios.post(`${baseURL}/api/auth/login`, body);
       const data = response.data;
       // if 2fa enabled, swap
       if (data.successCode == "login.2fa-code") formActions.swapTo2FA();
@@ -46,11 +43,6 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
           message: "Service injoignable en ce moment.",
         });
     }
-  }
-
-  function swapToResetPassword(e: any){
-    e.preventDefault();
-    formActions.swapToResetPassword()
   }
 
   return (
@@ -84,7 +76,7 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="w-full text-right text-cyan-600 mt-2 text-sm" onClick={(e) => swapToResetPassword(e)}> Vous avez oublié votre mot de passe? </button>
+        <Link className="w-full text-right text-cyan-600 mt-2 text-sm" to="/forgot-password" state={NIN}> Vous avez oublié votre mot de passe?</Link>
         <button
           onClick={handleLogin}
           className="mt-5 tracking-wide font-semibold bg-cyan-500 text-white w-full py-4 rounded-lg hover:bg-cyan-600 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

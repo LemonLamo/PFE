@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "./pages/Login";
+import LoginPage from "./pages/LoginPage";
 import Scaffold from "./pages/Scaffold";
 import Dashboard from "./pages/Dashboard";
 import NouveauPatientPage from "./pages/NouveauPatientPage";
@@ -16,13 +16,16 @@ import ParemetresPage from "./pages/ParametresPage";
 import Test from "./pages/Test";
 import PatientPage from "./pages/PatientPage";
 import { PublicOrPrivateRoute, PrivateRouteOnly } from "./hooks/useAuth";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 const router = createBrowserRouter([
   { path: "/", element:(
     <PublicOrPrivateRoute 
-      notLoggedIn = {(<Login />)}
+      notLoggedIn={(<LoginPage />)}
       loggedIn = {<Scaffold> <Dashboard /> </Scaffold>}
     />)},
+
+  { path: "/forgot-password", element:(<ForgotPasswordPage />)},
     
   { path: "/nouvelle_consultation", element:(
     <PrivateRouteOnly>

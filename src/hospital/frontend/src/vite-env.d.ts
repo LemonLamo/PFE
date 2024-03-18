@@ -7,7 +7,6 @@ type LoginFormProps = {
 type LoginFormActions = {
     swapToLogin: () => void,
     swapTo2FA: () => void,
-    swapToResetPassword: () => void,
 }
 type Consultation = {
     code_consultation: string,
