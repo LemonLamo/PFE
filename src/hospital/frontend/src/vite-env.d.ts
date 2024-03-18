@@ -123,8 +123,16 @@ type Chambre = {
     num: string,
     etage: number,
     description: string,
+    lits?: Lit[],
     nombre_lits: number | '',
     nombre_lits_occupe?: number | ''
+}
+type Lit = {
+    numChambre: string,
+    num: number,
+    type: string,
+    occupe: boolean
+    remarques: string,
 }
 type Role = { 
     id: string,

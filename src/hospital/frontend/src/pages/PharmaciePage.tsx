@@ -298,21 +298,17 @@ function PharmacyPage() {
           </div>
 
           <h6 className="mt-4 mb-1"> Liste des transactions </h6>
-          {query2.isError ? (
+          {
+            query2.isError ? (
             <div className="block w-full ">
-              {" "}
-              <TableError />{" "}
-            </div>
-          ) : query2.isLoading ? (
+              <TableError />
+            </div>) :
+
+            query2.isLoading ? (
             <div className="block w-full ">
-              {" "}
-              <TableLoading />{" "}
-            </div>
-          ) : (
-            <Table
-              fields={["#", "Date", "Avant", "Après", "Différence"]}
-              className="mb-4 col-span-12 max-h-72"
-            >
+              <TableLoading />
+            </div>) : (
+            <Table fields={["#", "Date", "Avant", "Après", "Différence"]} className="mb-4 col-span-12 max-h-72">
               {query2.data?.map((t, i) => (
                 <TableRow key={i}>
                   <TableCell className="font-bold">{i + 1}</TableCell>
