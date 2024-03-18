@@ -10,6 +10,8 @@ SERVICES=(
     "notification/notification-service"
     "patients/patients-db"
     "patients/patients-service"
+    "ehr/ehr-db"
+    "ehr/ehr-service"
     "pharmacy/pharmacy-db"
     "pharmacy/pharmacy-service"
     "chambres-lits/chambres-lits-db"

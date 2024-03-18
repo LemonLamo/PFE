@@ -1,5 +1,5 @@
 {
-  "name": "pharmacy-service",
+  "name": "ehr-service",
   "version": "1.0.0",
   "description": "Projet Fin Etudes M2",
   "main": "app.js",
@@ -9,7 +9,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
