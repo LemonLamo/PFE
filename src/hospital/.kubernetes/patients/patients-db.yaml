@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: patients-db
+  name: patients-db
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: patients-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: patients-db
+  name: patients-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patients-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: patients-db
+    spec:
+      containers:
+        - image: abdou1307/patients-db:latest
+          name: patients-db
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/patients
+              name: patients-data
+      restartPolicy: Always
+      volumes:
+        - name: patients-data
+          persistentVolumeClaim:
+            claimName: patients-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: patients-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

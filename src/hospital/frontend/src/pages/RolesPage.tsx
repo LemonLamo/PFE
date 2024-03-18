@@ -12,7 +12,6 @@ import DeleteButton from "../components/Buttons/DeleteButton";
 import { ColumnDef } from "@tanstack/react-table";
 import DataTable from "../components/UI/Tables/DataTable";
 import Badge from "../components/UI/Badge";
-import permissions_dictionnnaire from "../codifications/permissions.json"
 
 function RolesPage() {
   const [selectedRole, setSelectedRole] = useState<Role>({id:'', nom:'', permissions:[]})

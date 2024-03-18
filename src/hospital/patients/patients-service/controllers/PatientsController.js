@@ -41,6 +41,13 @@ async function getVaccinations(req, res) {
     const result = await Model.selectVaccinations(NIN);
     return res.status(200).json(result)
 }
+async function getHistorique(req, res) {
+    const { NIN } = req.params;
+    const result1 = await Model.selectConsultations(NIN);
+    const result2 = await Model.selectHospitalisations(NIN);
+    const result3 = await Model.selectInterventions(NIN);
+    return res.status(200).json([...result1, ...result2, ...result3].sort((a, b) => new Date(a.date_consultation ?? a.date_entree ?? a.date) - new Date(b.date_consultation ?? b.date_entree ?? b.date)))
+}
 
 /******** EXPORTS ********/
 module.exports = {
@@ -52,4 +59,5 @@ module.exports = {
     getAntecedentsFamiliaux,
     getMedicaments,
     getVaccinations,
+    getHistorique,
 }

@@ -1,6 +1,8 @@
-import React from 'react'
+type Props = {
+    onClick: () => void
+}
 
-function ViewButton({ onClick }) {
+function ViewButton({ onClick } : Props) {
   return (
       <button onClick={onClick} className="w-4 text-green-500 hover:text-green-700 hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

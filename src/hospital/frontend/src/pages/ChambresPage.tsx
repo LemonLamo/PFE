@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
@@ -16,12 +16,11 @@ import DeleteButton from "../components/Buttons/DeleteButton";
 import { useQuery } from "@tanstack/react-query";
 import Button from "../components/Buttons/Button";
 import DataTable from "../components/UI/Tables/DataTable";
-import {
-  deleteChambres,
-  getChambres,
-  postChambres,
-  putChambres,
-} from "../hooks/useChambre";
+import Table from "../components/UI/Tables/Table";
+import TableRow from "../components/UI/Tables/TableRow";
+import TableCell from "../components/UI/Tables/TableCell";
+import axios from "axios";
+import { baseURL } from "../hooks";
 
 const etageName = (etage: number) => {
   if (etage == 0) return "RDC";
@@ -34,43 +33,39 @@ const build_badge = (taux: number) => {
     return (
       <Badge bgColor={"#dcfce7"} textColor={"#267142"} className="ms-2">
         <CheckCircleIcon className="h-[1.7vh] mr-1" />
-        {taux}%
+        {taux.toFixed(2)}%
       </Badge>
     );
   } else if (taux >= 50 && taux < 75) {
     return (
       <Badge bgColor={"#fdba74"} textColor={"#9a3412"} className="ms-2">
         <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
-        {taux}%
+        {taux.toFixed(2)}%
       </Badge>
     );
   } else {
     return (
       <Badge bgColor={"#fee2e2"} textColor={"#991b1b"} className="ms-2">
         <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
-        {taux}%
+        {taux.toFixed(2)}%
       </Badge>
     );
   }
 };
 
 function ChambresPage() {
-  const fetchData = async () => {
-    return await getChambres();
-  };
-
   const [selectedChambre, setSelectedChambre] = useState<Chambre>({
     num: "",
     etage: 0,
     description: "",
-    nombre_lits: 0,
-    nombre_lits_occupe: 0,
+    nombre_lits: '',
+    nombre_lits_occupe: '',
   });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery({
     queryKey: ["chambres"],
-    queryFn: () => {
-      let data = fetchData();
+    queryFn: async () => {
+      let data = (await axios.get(`${baseURL}/api/chambres`)).data;
       return data;
     },
   });
@@ -93,7 +88,7 @@ function ChambresPage() {
             <>
               {" "}
               {c.nombre_lits_occupe} / {c.nombre_lits}
-              {build_badge((c.nombre_lits_occupe! * 100) / c.nombre_lits)}
+              {build_badge((Number(c.nombre_lits_occupe!) * 100) / Number(c.nombre_lits))}
             </>
           );
         },
@@ -133,7 +128,7 @@ function ChambresPage() {
 
   async function createChambre() {
     try {
-      await postChambres(selectedChambre);
+      await axios.post(`${baseURL}/api/chambres`, selectedChambre);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -142,12 +137,14 @@ function ChambresPage() {
 
   async function editChambre() {
     try {
-      const editData = {
+      const data = {
         num: selectedChambre.num,
+        etage: selectedChambre.etage,
+        description: selectedChambre.description,
         nombre_lits: selectedChambre.nombre_lits,
         nombre_lits_occupe: selectedChambre.nombre_lits_occupe,
       };
-      await putChambres(editData);
+      await axios.put(`${baseURL}/api/chambres`, data);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -156,7 +153,7 @@ function ChambresPage() {
 
   async function deleteChambre() {
     try {
-      await deleteChambres(selectedChambre.num);
+      await axios.delete(`${baseURL}/api/chambres/${selectedChambre.num}`);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -164,7 +161,10 @@ function ChambresPage() {
   }
 
   const action = (
-    <Button onClick={() => setOpenModal("create")} type="primary">
+    <Button onClick={() => {
+      setSelectedChambre({ num: '', etage: 0, nombre_lits: '', nombre_lits_occupe: '', description: '' });
+      setOpenModal("create")
+      }} type="primary">
       <i className="fa fa-plus" />
       <span className="ms-2">Ajouter</span>
     </Button>
@@ -182,7 +182,7 @@ function ChambresPage() {
           open={openModal === "create"}
           action={createChambre}
           close={() => {
-            setSelectedChambre({});
+            setSelectedChambre({num:'', etage:0, nombre_lits: '', nombre_lits_occupe: '', description:''});
             setOpenModal("");
           }}
         >
@@ -319,7 +319,7 @@ function ChambresPage() {
                     etage: Number(e.target.value),
                   })
                 }
-              >
+                disabled>
                 <option value={0}>RDC</option>
                 <option value={1}>1er</option>
                 <option value={2}>2éme</option>
@@ -357,18 +357,34 @@ function ChambresPage() {
           <div className="grid grid-cols-8 gap-2">
             <div className="col-span-12">
               <label className="text-sm font-semibold">Description </label>
-              <textarea
-                className="primary"
-                placeholder="Description"
-                value={selectedChambre.description}
-                onChange={(e) =>
-                  setSelectedChambre({
-                    ...selectedChambre,
-                    description: e.target.value,
-                  })
-                }
-                disabled
-              />
+              <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value, }) } disabled />
+            </div>
+            <div className="col-span-12">
+              <label className="text-sm font-semibold">Lits </label>
+              <Table fields={['#', 'Type', 'Statut', 'Remarques']}>
+                <TableRow>
+                  <TableCell>1</TableCell>
+                  <TableCell>Broncale</TableCell>
+                  <TableCell>
+                    <Badge bgColor={"#fee2e2"} textColor={"#991b1b"} className="ms-2">
+                      <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+                      Occupé
+                    </Badge>
+                  </TableCell>
+                  <TableCell>Lorem ipsum Do loris sit amet</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>2</TableCell>
+                  <TableCell>Broncale</TableCell>
+                  <TableCell>
+                    <Badge bgColor={"#dcfce7"} textColor={"#267142"} className="ms-2">
+                      <CheckCircleIcon className="h-[1.7vh] mr-1" />
+                      Disponible
+                    </Badge>
+                  </TableCell>
+                  <TableCell>-</TableCell>
+                </TableRow>
+              </Table>
             </div>
           </div>
         </ViewModal>
@@ -422,19 +438,33 @@ function ChambresPage() {
               <label className="text-sm font-semibold">
                 Nombre de lits occupés
               </label>
-              <input
-                type="number"
-                min="0"
-                className="primary"
-                placeholder="Nombre"
-                value={selectedChambre.nombre_lits_occupe}
-                onChange={(e) =>
-                  setSelectedChambre({
-                    ...selectedChambre,
-                    nombre_lits_occupe: e.target.valueAsNumber,
-                  })
-                }
-              />
+              <input type="text" className="primary" placeholder="Nombre" value={selectedChambre.nombre_lits_occupe} onChange={(e) => setSelectedChambre({ ...selectedChambre, nombre_lits_occupe: e.target.valueAsNumber, }) } />
+            </div>
+            <div className="col-span-12">
+              <label className="text-sm font-semibold">Description </label>
+              <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value, }) } />
+            </div>
+            <div className="col-span-12">
+              <label className="text-sm font-semibold">Lits </label>
+              <Table fields={['#', 'Type', 'Statut', 'Remarques']}>
+                <TableRow>
+                  <TableCell>1</TableCell>
+                  <TableCell>
+                    <select>
+                      <option>Broncale</option>
+                    </select>
+                  </TableCell>
+                  <TableCell>
+                    <Badge bgColor={"#fee2e2"} textColor={"#991b1b"} className="ms-2">
+                      <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />
+                      Occupé
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <input type="text" className="primary"  placeholder="Remarques"/>
+                  </TableCell>
+                </TableRow>
+              </Table>
             </div>
           </div>
         </EditModal>

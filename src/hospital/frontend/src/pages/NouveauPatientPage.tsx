@@ -7,45 +7,48 @@ import AddModal from "../components/Modals/AddModal"
 import DeleteButton from "../components/Buttons/DeleteButton"
 import Button from "../components/Buttons/Button"
 import { useState } from "react"
+import { useForm, SubmitHandler } from "react-hook-form"
 
 function NewPatientPage() {
   const [openModal, setOpenModal] = useState('')
+  const { register, handleSubmit } = useForm<Patient>()
+  const onSubmit: SubmitHandler<Patient> = (data) => console.log(data)
   return (
     <Card title="Nouveau patient" subtitle="Create a new medical record" className="w-full">
-      <div className="grid grid-cols-12 gap-x-4">
+      <form className="grid grid-cols-12 gap-x-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-4">
-          <h6 className="mb-1"> Informations Civiles</h6>
+          <h6 className="mb-1"> Informations civiles</h6>
           <div className="mb-2">
             <label className="text-sm font-semibold">NIN:</label>
-            <input type="text" className="primary" placeholder="ex. 111111111111111111" />
+            <input type="text" className="primary" {...register('NIN')} placeholder="ex. 111111111111111111" />
           </div>
           <div className="grid grid-cols-12 gap-x-2">
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">Nom:</label>
-              <input type="text" className="primary" placeholder="ex. Bouguerra" />
+              <input type="text" className="primary" {...register('nom')} placeholder="ex. Bouguerra" />
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">Prénom:</label>
-              <input type="text" className="primary" placeholder="ex. Mohammed" />
+              <input type="text" className="primary" {...register('prenom')} placeholder="ex. Mohammed" />
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">Date de naissance:</label>
-              <input type="date" className="primary" placeholder="Date" />
+              <input type="date" className="primary" {...register('date_naissance')} placeholder="Date" />
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">Lieu de naissance:</label>
-              <input type="text" className="primary" placeholder="ex. Alger" />
+              <input type="text" className="primary" {...register('lieu_naissance')} placeholder="ex. Alger" />
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">Sexe:</label>
-              <select>
+              <select {...register('sexe')}>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">Situation Familiale:</label>
-              <select>
+              <select {...register('situation_familiale')}>
                 <option value="Célébataire">Célébataire</option>
                 <option value="Marrié(e)">Marrié(e)</option>
                 <option value="Divorcé(e)">Divorcé(e)</option>
@@ -55,40 +58,40 @@ function NewPatientPage() {
           </div>
 
           <h6 className="mt-4 mb-1"> Information de contact</h6>
-          <div className="mb-2">
+          <div className="mb-2" {...register('email')}>
             <label className="text-sm font-semibold">Email:</label>
             <input type="text" className="primary" placeholder="ex. bouguera.med@gmail.com" />
           </div>
-          <div className="mb-2">
+          <div className="mb-2" {...register('telephone')}>
             <label className="text-sm font-semibold">Numéro de téléphone:</label>
             <input type="text" className="primary" placeholder="+213 549297666" />
           </div>
         </div>
 
         <div className="col-span-4">
-          <h6 className="mt-0 mb-1"> Informations d'addresse</h6>
+          <h6 className="mt-0 mb-1"> Informations d'adresse</h6>
           <div className="grid grid-cols-3 gap-x-2">
             <div className="col-span-3 mb-2">
-              <label className="text-sm font-semibold">Addresse:</label>
-              <input type="text" className="primary" placeholder="ex. 22 BD Laichi Abdellah" />
+              <label className="text-sm font-semibold">Adresse:</label>
+              <input type="text" className="primary" {...register('adresse')}  placeholder="ex. 22 BD Laichi Abdellah" />
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Commune:</label>
-              <input type="text" className="primary" placeholder="ex. Bouarfa" />
+              <input type="text" className="primary" {...register('commune')} placeholder="ex. Bouarfa" />
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Code postale:</label>
-              <input type="number" className="primary" placeholder="ex. 09000" />
+              <input type="number" className="primary" {...register('code_postale')}  placeholder="ex. 09000" />
             </div>
             <div className="mb-6">
               <label className="text-sm font-semibold">Wilaya:</label>
-              <input type="text" className="primary" placeholder="ex. Blida" />
+              <input type="text" className="primary" {...register('wilaya')} placeholder="ex. Blida" />
             </div>
           </div>
           <h6 className="mb-1"> Informations Medicales</h6>
           <div className="mb-2">
             <label className="text-sm font-semibold">Groupe Sanguin:</label>
-            <select>
+            <select {...register('groupage')}>
               <option>A+</option>
               <option>A-</option>
               <option>B+</option>
@@ -103,24 +106,20 @@ function NewPatientPage() {
             <div className="mb-2">
               <label className="text-sm font-semibold">Taille:</label>
               <div className="flex items-center">
-                <input className="primary mb-2" placeholder="170" type="number"/>
+                <input className="primary mb-2" {...register('taille')} placeholder="170" type="number"/>
                 <span className="w-6 ms-2 text-right"> cm</span>
               </div>
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Poids:</label>
               <div className="flex items-center">
-                <input className="primary mb-2" placeholder="72.8" type="number"/>
+                <input className="primary mb-2" {...register('poids')} placeholder="72.8" type="number"/>
                 <span className="w-6 ms-2 text-right"> kg</span>
               </div>
             </div>
             <div className="mb-2 pl-7 col-span-2">
-              <input id="chk" type="checkbox" className="checkbox"></input>
+              <input id="chk" type="checkbox" {...register('donneur_organe')}  className="checkbox"></input>
               <label htmlFor="chk" className="select-none text-slate-700">Donneur d'organes?</label>
-            </div>
-            <div className="mb-2 pl-7 col-span-2">
-              <input id="chk" type="checkbox" className="checkbox"></input>
-              <label htmlFor="chk" className="select-none text-slate-700">Checkbox 2</label>
             </div>
           </div>
         </div>
@@ -242,13 +241,10 @@ function NewPatientPage() {
             </TableRow>
           </Table>
         </div>
+      <div className="col-span-12 w-full flex justify-end">
+        <input type="submit" value="Ajouter" className="flex items-center justify-center py-2 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"/>
       </div>
-
-      <div className="w-full flex justify-end">
-        <button className="flex items-center justify-center py-2 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" onClick={() => console.log("hi")}>
-          Submit
-        </button>
-      </div>
+      </form>
     </Card>
   )
 }

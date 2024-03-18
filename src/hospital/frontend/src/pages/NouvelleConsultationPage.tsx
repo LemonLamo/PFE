@@ -1,15 +1,15 @@
-import Card from "../../components/UI/Card"
-import Tabs from "../../components/UI/Tabs/Tabs"
-import TabInfoPersonelles from "../../components/Tabs/TabInfoPersonelles"
-import TabHistorique from "../../components/Tabs/TabHistorique"
-import TabMotif from "../../components/Tabs/TabMotif"
-import TabExamenClinique from "../../components/Tabs/TabExamenClinique"
-import TabDiagnostique from "../../components/Tabs/TabDiagnostique"
-import TabPriseEnCharge from "../../components/Tabs/TabPriseEnCharge"
+import Card from "../components/UI/Card"
+import Tabs from "../components/UI/Tabs/Tabs"
+import TabInfoPersonelles from "../components/Tabs/TabInfoPersonelles"
+import TabHistorique from "../components/Tabs/TabHistorique"
+import TabMotif from "../components/Tabs/TabMotif"
+import TabExamenClinique from "../components/Tabs/TabExamenClinique"
+import TabDiagnostique from "../components/Tabs/TabDiagnostique"
+import TabPriseEnCharge from "../components/Tabs/TabPriseEnCharge"
 import { useState } from "react"
 import moment from "moment"
-import TabContent from "../../components/UI/Tabs/TabContent"
-import PatientsSelect from "../../components/PatientsSelect"
+import TabContent from "../components/UI/Tabs/TabContent"
+import PatientsSelect from "../components/PatientsSelect"
 
 function NouvelleConsultationPage() {
   const [selectedPatient, setSelectedPatient] = useState({NIN: "", nom: "", prenom: ""})
@@ -38,15 +38,6 @@ function NouvelleConsultationPage() {
     prochaine_consultation: moment(new Date()).add(7).toDate()
   })
   
-  const patients = [
-    { NIN: "100010364027390000", nom: "BRAHIM", prenom: "Abderrazak" },
-    { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa" },
-    { NIN: "101111111111111111", nom: "Kanye", prenom: "West" },
-    { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa" },
-    { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa" },
-    { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa" },
-    { NIN: "111111111111111111", nom: "NADIL", prenom: "Marwa" },
-  ]
   function select_patient(patient: any){
     if(patient)
       setSelectedPatient({ NIN: patient.NIN, nom: patient.nom, prenom:patient.prenom })
@@ -65,7 +56,7 @@ function NouvelleConsultationPage() {
       {!validPatient &&
       <Card title="Choisir un patient?" subtitle="Pick a patient, any patient" className="w-full max-w-[500px]">
         <div className="flex w-inherit">
-          <PatientsSelect options={patients} placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: selectedPatient.NIN, nom: selectedPatient.nom, prenom: selectedPatient.prenom }} />
+          <PatientsSelect placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: selectedPatient.NIN, nom: selectedPatient.nom, prenom: selectedPatient.prenom }} />
           <button className="primary ms-3" onClick={choosePatient}> Choisir </button>
         </div>
       </Card>

@@ -8,11 +8,11 @@ type TableProps = {
 function Table({ fields, children, className=''}: TableProps) {
   return (
     <div className={`block w-full overflow-auto scrolling-touch ${className}`}>
-      <table className="w-full max-w-full mb-4 bg-transparent">
-        <thead className="text-gray-700">
+        <table className="w-full max-w-full mb-4">
+          <thead className="text-center">
           <tr>
             {fields.map((item, i) => (
-              <th key={i} className="pe-4 py-1 text-left">{item} </th>
+              <th key={i} className='text-md px-2 py-2 text-sm uppercase'>{item} </th>
             ))}
           </tr>
         </thead>

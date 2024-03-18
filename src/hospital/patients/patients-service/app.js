@@ -33,6 +33,7 @@ app.get('/api/patients/:NIN/antecedents-medicals', auth.requireAuth, PatientsCon
 app.get('/api/patients/:NIN/antecedents-familiaux', auth.requireAuth, PatientsController.getAntecedentsFamiliaux);
 app.get('/api/patients/:NIN/medicaments', auth.requireAuth, PatientsController.getMedicaments);
 app.get('/api/patients/:NIN/vaccinations', auth.requireAuth, PatientsController.getVaccinations);
+app.get('/api/patients/:NIN/historique', auth.requireAuth, PatientsController.getHistorique);
 
 app.use((req, res) => res.sendStatus(404))
 

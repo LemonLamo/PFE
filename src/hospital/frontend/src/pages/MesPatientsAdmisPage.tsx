@@ -12,7 +12,7 @@ import DataTable from "../components/UI/Tables/DataTable";
 import dictionnaire_interventions from "../codifications/interventions.json"
 
 function MesAdmisPage() {
-  const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({ 
+  const [selectedHospitalisation, ] = useState<Hospitalisation>({ 
       code_hospitalisation: "",
       nom_hopital: "",
       medecin: { NIN: "", nom: "", prenom: "" },
@@ -20,7 +20,6 @@ function MesAdmisPage() {
       date_entree: new Date(),
       mode_entree: "",
       motif_hospitalisation: "",
-      date_sortie_prevu: new Date(),
   })
   const [openModal, setOpenModal] = useState('');
   const query = useQuery({
@@ -43,8 +42,7 @@ function MesAdmisPage() {
           date_entree: new Date(),
           mode_entree: "Hospitalisation complète",
           motif_hospitalisation: "Idk, I haven't thought about it just yet",
-          date_sortie_prevu: new Date(),
-          resume_hospitalisation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          resume_hospitalisation: "Lorem ipsum dolor sit amet.",
         }
       ];
       return data;
@@ -52,10 +50,9 @@ function MesAdmisPage() {
   })
 
   const tableDefinition = useMemo(() => [
-    { header: "#", accessorKey: "id" },
     { header: "Patient", id: "patient", cell: (info) => {
         const p = info.row.original;
-        return <div className="py-2 flex w-68">
+        return <div className="flex w-68">
           <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
           <div>
             <h6 className="mb-0">{p.patient.nom} {p.patient.prenom}</h6>
@@ -64,14 +61,12 @@ function MesAdmisPage() {
         </div>
       }
     },
-    { header: "Date entrée", id: "date_entree", cell: (info) =>
+    { header: "Date d'entrée", id: "date_entree", cell: (info) =>
         moment(info.row.original.date_entree).format('DD/MM/YYYY')
     },
     { header: "Mode entrée", accessorKey: "mode_entree" },
     { header: "Motif d'hospitalisation", accessorKey: "motif_hospitalisation" },
-    { header: "Date sortie prévu", id:"date_sortie_prevu", accessorKey: "date_sortie_prevu", cell: (info) =>
-        moment(info.row.original.date_sortie_prevu).format('DD/MM/YYYY')
-    },
+    { header: "Résumé d'hospitalisation", accessorKey: "resume_hospitalisation" },
     { header: "", id: "actions", cell: (info) => {
         const a = info.row.original
         return (
@@ -90,14 +85,14 @@ function MesAdmisPage() {
   const [selectedInterventions, setSelectedInterventions] = useState<Intervention>({
     nom_hopital: '',
     medecin: {
-      NIN: "100010364027390000",
-      nom: "BRAHIM",
-      prenom: "Abderrazak"
+      NIN: "",
+      nom: "",
+      prenom: ""
     },
     patient: {
-      NIN: "100010364027390000",
-      nom: "BRAHIM",
-      prenom: "Abderrazak"
+      NIN: "",
+      nom: "",
+      prenom: ""
     },
     code_intervention: '',
     nom: '',

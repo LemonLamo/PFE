@@ -2,6 +2,7 @@ import axios from "axios";
 import { ReactNode } from "react";
 import { Navigate, NavigateFunction } from 'react-router-dom'
 import secureLocalStorage from "react-secure-storage";
+import { baseURL } from ".";
 type Props = {
     children: ReactNode
 }
@@ -11,7 +12,7 @@ export function isAuthenticated(){
 }
 
 export async function logout(navigate : NavigateFunction){
-    await axios.post('http://localhost:8080/api/auth/logout');
+    await axios.post(`${baseURL}/api/auth/logout`);
     secureLocalStorage.clear();
     navigate(0)
 }

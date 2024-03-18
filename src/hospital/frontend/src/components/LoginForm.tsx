@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
 import secureLocalStorage from "react-secure-storage";
+import { baseURL } from "../hooks";
 
 type UserError = {
   code: string;
@@ -19,7 +20,7 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
     const body = { NIN: NIN, password: password };
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        `${baseURL}/api/auth/login`,
         body
       );
       const data = response.data;
@@ -41,10 +42,15 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
         });
       else if (err.request)
         setError({
-          code: "Network error",
-          message: "Auth service cannot be contacted at this moment.",
+          code: "Échec Réseau",
+          message: "Service injoignable en ce moment.",
         });
     }
+  }
+
+  function swapToResetPassword(e: any){
+    e.preventDefault();
+    formActions.swapToResetPassword()
   }
 
   return (
@@ -78,6 +84,7 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <button className="w-full text-right text-cyan-600 mt-2 text-sm" onClick={(e) => swapToResetPassword(e)}> Vous avez oublié votre mot de passe? </button>
         <button
           onClick={handleLogin}
           className="mt-5 tracking-wide font-semibold bg-cyan-500 text-white w-full py-4 rounded-lg hover:bg-cyan-600 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

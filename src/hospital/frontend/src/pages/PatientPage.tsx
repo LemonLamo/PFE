@@ -15,7 +15,7 @@ function PatientPage() {
     const { NIN } = useParams();
     
     return (
-        <Card title={`Dossier médicale de ${NIN}`} subtitle="Une liste de tous les patients du service" className="w-full">
+        <Card title={`Dossier médicale N°${NIN}`} className="w-full">
             <TabInfoPersonelles NIN={NIN!} />
             <Tabs type="horizontal">
                 <TabContent icon="fa fa-user" text="Maladies chroniques">

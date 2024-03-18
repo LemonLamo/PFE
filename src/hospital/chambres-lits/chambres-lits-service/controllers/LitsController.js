@@ -1,4 +1,5 @@
 const Model = require("../models/LitsModel");
+const logger = require("../utils/logger");
 
 class LitsController {
   async getAll(req, res) {

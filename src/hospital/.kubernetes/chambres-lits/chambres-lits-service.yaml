@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: chambres-lits-service
+  name: chambres-lits-service
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: chambres-lits-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: chambres-lits-service
+  name: chambres-lits-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chambres-lits-service
+  template:
+    metadata:
+      labels:
+        app: chambres-lits-service
+    spec:
+      containers:
+        - image: abdou1307/chambres-lits-service:latest
+          name: chambres-lits-service
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

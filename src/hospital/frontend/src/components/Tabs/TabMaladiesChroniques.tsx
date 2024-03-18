@@ -4,15 +4,16 @@ import axios from 'axios';
 import { useMemo } from 'react'
 import DataTable from '../UI/Tables/DataTable';
 import moment from 'moment';
+import { baseURL } from '../../hooks';
 type Props = {
     NIN: string
 }
 
 function TabMaladiesChroniques({ NIN }: Props) {
-    const maladies_chroniques = useQuery<MaladieChronique>({
+    const maladies_chroniques = useQuery<any>({
         queryKey: ['maladies_chroniques' + NIN],
         queryFn: async () => {
-            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/maladies-chroniques`)).data;
+            const data = (await axios.get(`${baseURL}/api/patients/${NIN}/maladies-chroniques`)).data;
             return data;
         }
     });
@@ -22,10 +23,10 @@ function TabMaladiesChroniques({ NIN }: Props) {
         { header: "Intitulé", accessorKey: "nom_maladie" },
         { header: "Date de diagnostic", id: "date_diagonstic", cell: (info) => moment(info.row.original.date_diagnostic).format('DD/MM/YYYY') },
         { header: "Remarques", accessorKey: "remarques" },
-    ], []) as ColumnDef<MaladieChronique>[];
+    ], []) as ColumnDef<any>[];
     return (
         <>
-            <h3 className="text-lg font-bold text-gray-900 mb-0">Maladies chroniques</h3>
+            <h3 className="text-lg mb-0">Maladies chroniques</h3>
             <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
             <DataTable query={maladies_chroniques} tableDefinition={maladies_chroniquesTableDefinition} />
         </>

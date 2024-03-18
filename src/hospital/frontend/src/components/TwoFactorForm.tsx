@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
 import secureLocalStorage from "react-secure-storage";
+import { baseURL } from "../hooks";
 
 type UserError = {code: string, message: string}
 
@@ -10,7 +11,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
     const navigate = useNavigate();
 
     const [OTP, setOTP] = useState(['', '', '', '', '', '']);
-    const OTPBoxReference = useRef([]);
+    const OTPBoxReference = useRef<HTMLElement[]>([]);
     const [error, setError] = useState<UserError>()
     
     function handleChange(index: number, value: string) {
@@ -22,7 +23,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
             OTPBoxReference.current[index + 1].focus()
     }
 
-    function handleBackspaceAndEnter(index: number, e) {
+    function handleBackspaceAndEnter(index: number, e: any) {
         if (e.key === "Backspace" && !e.target.value && index > 0)
             OTPBoxReference.current[index - 1].focus()
 
@@ -36,7 +37,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
         const body = { NIN: NIN, token: OTP.join('') }
         try {
 
-            const response = await axios.post('http://localhost:8080/api/auth/verify-2fa', body)
+            const response = await axios.post(`${baseURL}/api/auth/verify-2fa`, body)
             const data = response.data
             // if 2fa enabled, swap
             if (data.successCode == "login.2fa-code")
@@ -76,7 +77,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
                            value={digit}
                            onChange={(e) => handleChange(index, e.target.value)}
                            onKeyDown={(e) => handleBackspaceAndEnter(index, e)}
-                           ref={(reference) => (OTPBoxReference.current[index] = reference)}/>
+                           ref={(reference) => (OTPBoxReference.current[index] = reference!)}/>
                 ))}
             </div>
 

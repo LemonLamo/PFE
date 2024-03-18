@@ -6,10 +6,6 @@ import TabContent from "../components/UI/Tabs/TabContent"
 import Alert from "../components/UI/Alert"
 import ProgressBar from "../components/UI/ProgressBar"
 import Table from "../components/UI/Tables/Table"
-import CreateModal from "../components/Modals/CreateModal"
-import ViewModal from "../components/Modals/ViewModal"
-import EditModal from "../components/Modals/EditModal"
-import DeleteModal from "../components/Modals/DeleteModal"
 import TableRow from "../components/UI/Tables/TableRow"
 import TableCell from "../components/UI/Tables/TableCell"
 import SmallCalendar from "../components/Calendar/SmallCalendar"
@@ -32,10 +28,10 @@ function Test() {
   ]
 
   const createModal = <>
-    <CreateModal onCreate={() => alert("Created")} onCancel={() => console.log("Cancelled create")}>
-      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Create agent</h3>
-      <p className="text-gray-600">Here is the form.</p>
-    </CreateModal>
+    <button className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0">
+      <i className="fa fa-plus" />
+      <span className="ms-2">Nouvelle hospitalisation</span>
+    </button>
   </>
 
   const options  = [
@@ -60,22 +56,6 @@ function Test() {
               <TableCell> {a.data1} </TableCell>
               <TableCell> {a.data2} </TableCell>
               <TableCell> {a.data3} </TableCell>
-
-              <TableCell className="flex justify-end gap-2">
-                <ViewModal onOpen={() => console.log("Viewing "+a.id)}>
-                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">View agent</h3>
-                </ViewModal>
-
-                <EditModal onOpen={() => console.log("Editing " + a.id)} onEdit={() => console.log("Edited " + a.id)}>
-                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Edit agent</h3>
-                  <p className="text-gray-600">Here is some more more info.</p>
-                </EditModal>
-
-                <DeleteModal onOpen={() => console.log("Deleting "+ a.id)} onDelete={() => console.log("Deleted " + a.id)}>
-                  <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Delete Agent</h3>
-                  <p className="text-gray-600">Are you sure you want to delete this record? All of your data will be permanently removed. This action cannot be undone.</p>
-                </DeleteModal>
-              </TableCell>
             </TableRow>
           ))}
         </Table>

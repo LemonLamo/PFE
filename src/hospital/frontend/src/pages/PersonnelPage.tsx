@@ -13,7 +13,7 @@ import DataTable from "../components/UI/Tables/DataTable";
 import { useQuery } from "@tanstack/react-query";
 import Button from "../components/Buttons/Button";
 
-function AgentsPage() {
+function PersonnelPage() {
   const [selectedAgent, setSelectedAgent] = useState<Agent>({
     NIN: "",
     nom: "",
@@ -21,9 +21,15 @@ function AgentsPage() {
     date_naissance: null,
     lieu_naissance: "",
     sexe: "",
-    addresse: "",
     email: "",
     telephone: "",
+    fonction: "",
+    grade: "",
+    specialite: "",
+    adresse: "",
+    commune: "",
+    code_postale: '',
+    wilaya: "",
   });
   const [openModal, setOpenModal] = useState('');
   const query = useQuery({
@@ -37,9 +43,16 @@ function AgentsPage() {
           date_naissance: new Date("2002-05-12"),
           lieu_naissance: "Tebessa",
           sexe: "Female",
-          addresse: "39 HAI MOUHOUS",
+          fonction: "Medécin",
+          specialite: "Cardiologie",
+          grade: "Chef de service",
+          adresse: "39 HAI MOUHOUS",
+          commune: "Bordj el kiffane",
+          code_postale: 16001,
+          wilaya: "Alger",
           email: "brahim.abderrazak1307@gmail.com",
           telephone: "0799771062",
+          username: "abderrazak1307"
         },
         {
           NIN: "111111111111111111",
@@ -48,9 +61,16 @@ function AgentsPage() {
           date_naissance: new Date("2001-07-13"),
           lieu_naissance: "Blida",
           sexe: "Male",
-          addresse: "39 HAI MOUHOUS",
+          fonction: "Medécin",
+          specialite: "Cardiologie",
+          grade: "Chef de service",
+          adresse: "39 HAI MOUHOUS",
+          commune: "Bordj el kiffane",
+          code_postale: 16001,
+          wilaya: "Alger",
           email: "nadilmarwa02@gmail.com",
           telephone: "0799771062",
+          username: "marwa02"
         },
       ];
       return data;
@@ -58,11 +78,21 @@ function AgentsPage() {
   })
 
   const tableDefinition = useMemo(() => [
-    { header: "NIN", accessorKey: "NIN" },
-    { header: "Nom", accessorKey: "nom" },
-    { header: "Prénom", accessorKey: "prenom" },
-    { header: "Date et lieu de naissance", id: "date_lieu_naissance", cell: (info) => <> {moment(info.row.original.date_naissance).format('DD/MM/YYYY')}, {info.row.original.lieu_naissance}</> },
-    { header: "Sexe", accessorKey: "sexe" },
+    { header: "Profile", id: "profile", cell: (info) => {
+        const p = info.row.original;
+        return <div className="flex w-68">
+          <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
+          <div>
+            <h6 className="mb-0">{p.nom} {p.prenom}</h6>
+            <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.NIN}</p>
+          </div>
+        </div>
+      }
+    },
+    { header: "Nom d'utilisateur", accessorKey: "username" },
+    { header: "Fonction", accessorKey: "fonction" },
+    { header: "Spécialité", accessorKey: "specialite" },
+    { header: "Grade", accessorKey: "grade" },
     { header: "Email", accessorKey: "email" },
     { header: "Telephone", accessorKey: "telephone" },
     { header: "", id: "actions", cell: (info) => {
@@ -99,7 +129,7 @@ function AgentsPage() {
 
   return (
     <>
-      <Card title="Agents" action={action} className="w-full">
+      <Card title="Personnel" action={action} className="w-full">
         <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
 
         <CreateModal open={openModal === "create"} action={createAgent} close={() => setOpenModal('')}>
@@ -248,4 +278,4 @@ function AgentsPage() {
   );
 }
 
-export default AgentsPage;
+export default PersonnelPage;

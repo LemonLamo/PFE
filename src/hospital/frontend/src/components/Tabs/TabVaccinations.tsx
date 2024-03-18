@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useMemo } from 'react'
 import DataTable from '../UI/Tables/DataTable';
 import moment from 'moment';
+import { baseURL } from '../../hooks';
 type Props = {
     NIN: string
 }
@@ -12,7 +13,7 @@ function TabVaccinations({NIN} : Props) {
     const vaccinations = useQuery<Vaccination[]>({
         queryKey: ['vaccinations' + NIN],
         queryFn: async () => {
-            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/vaccinations`)).data;
+            const data = (await axios.get(`${baseURL}/api/patients/${NIN}/vaccinations`)).data;
             return data;
         }
     });
@@ -27,7 +28,7 @@ function TabVaccinations({NIN} : Props) {
     ], []) as ColumnDef<Vaccination>[];
     return (
         <>
-            <h3 className="text-lg font-bold text-gray-900 mb-0">Vaccinations</h3>
+            <h3 className="text-lg mb-0">Vaccinations</h3>
             <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
             <DataTable query={vaccinations} tableDefinition={vaccinationsTableDefinition} />
         </>

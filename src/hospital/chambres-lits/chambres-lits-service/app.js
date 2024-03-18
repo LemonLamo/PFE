@@ -24,18 +24,20 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// router
-const LitsRoute = require("./routes/LitsRoute");
-const ChambresRoute = require("./routes/ChambresRoute");
+// controllers
+const ChambresController = require("./controllers/ChambresController");
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 
-// app.use("/api/lits", LitsRoute);
-app.use("/api/chambres", ChambresRoute);
+app.get("/api/chambres", auth.requireAuth, ChambresController.getAll);
+app.post("/api/chambres", auth.requireAuth, ChambresController.insert);
+app.put("/api/chambres", auth.requireAuth, ChambresController.update);
+app.get("/api/chambres/:num", auth.requireAuth, ChambresController.getOne);
+app.delete("/api/chambres/:num", auth.requireAuth, ChambresController.remove);
 
 app.use((req, res) => res.sendStatus(404));
 
 // start server
-app.listen(4000, () => logger.info(`[SERVER] Listening on port ${4000}`));
+app.listen(8080, () => logger.info(`[SERVER] Listening on port ${8080}`));
 
 module.exports = app;

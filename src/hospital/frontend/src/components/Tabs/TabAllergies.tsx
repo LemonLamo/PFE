@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useMemo } from 'react'
 import DataTable from '../UI/Tables/DataTable';
 import moment from 'moment';
+import { baseURL } from '../../hooks';
 type Props = {
     NIN: string
 }
@@ -12,7 +13,7 @@ function TabAllergies({NIN} : Props) {
     const allergies = useQuery<Allergie[]>({
         queryKey: ['allergies' + NIN],
         queryFn: async () => {
-            const data = (await axios.get(`http://localhost:8080/api/patients/${NIN}/allergies`)).data;
+            const data = (await axios.get(`${baseURL}/api/patients/${NIN}/allergies`)).data;
             return data;
         }
     });
@@ -25,7 +26,7 @@ function TabAllergies({NIN} : Props) {
     ], []) as ColumnDef<Allergie>[];
     return (
         <>
-            <h3 className="text-lg font-bold text-gray-900 mb-0">Allergies</h3>
+            <h3 className="text-lg mb-0">Allergies</h3>
             <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
             <DataTable query={allergies} tableDefinition={allergiesTableDefinition} />
         </>

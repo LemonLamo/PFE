@@ -1,12 +1,15 @@
 FROM node:20.11.1-slim
 WORKDIR /app
-COPY . .
+
+# Expose the port 8080
+EXPOSE 8080
+
+# Set default command
+CMD ["npm", "start"]
+
+# Install dependencies
+COPY package.json /app
 RUN npm install
 
-ENV DB_HOST=codification-db
-ENV DB_USER=root
-ENV DB_PASSWORD=root
-ENV DB_DATABASE=forza
-
-EXPOSE 8080
-CMD ["npm", "start"]
+# Copy source code
+COPY . /app

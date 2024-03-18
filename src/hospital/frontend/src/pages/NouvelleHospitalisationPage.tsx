@@ -1,12 +1,11 @@
-import Card from "../../components/UI/Card"
+import Card from "../components/UI/Card"
 import { useState } from "react"
-import moment from "moment"
-import PatientsSelect from "../../components/PatientsSelect"
-import Tabs from "../../components/UI/Tabs/Tabs"
-import TabContent from "../../components/UI/Tabs/TabContent"
-import TabInfoPersonelles from "../../components/Tabs/TabInfoPersonelles"
-import TabHistorique from "../../components/Tabs/TabHistorique"
-import TabHospitalisation from "../../components/Tabs/TabHospitalisation"
+import PatientsSelect from "../components/PatientsSelect"
+import Tabs from "../components/UI/Tabs/Tabs"
+import TabContent from "../components/UI/Tabs/TabContent"
+import TabInfoPersonelles from "../components/Tabs/TabInfoPersonelles"
+import TabHistorique from "../components/Tabs/TabHistorique"
+import TabHospitalisation from "../components/Tabs/TabHospitalisation"
 
 function NouvelleHospitalisationPage() {
   const [selectedPatient, setSelectedPatient] = useState({ NIN: "", nom: "", prenom: "" })
@@ -18,10 +17,7 @@ function NouvelleHospitalisationPage() {
     patient: {NIN: '', nom:'', prenom:''},
     date_entree: new Date(),
     mode_entree: '',
-    motif_hospitalisation: '',
-
-    date_sortie_prevu: moment(new Date()).add(7, 'd').toDate(),
-    
+    motif_hospitalisation: '',    
     resume_hospitalisation: '',
   })
 

@@ -11,9 +11,9 @@ type LoginFormActions = {
 }
 type Consultation = {
     code_consultation: string,
-    nom_hopital: string,
-    medecin: Partial<Medecin>,
     patient: Partial<Patient>,
+    medecin: Partial<Medecin>,
+    nom_hopital: string,
     date_consultation: Date,
     type_consultation: string,
     motif_consultation: string,
@@ -30,13 +30,12 @@ type Consultation = {
 }
 type Hospitalisation = {
     code_hospitalisation: string,
-    nom_hopital: string,
-    medecin: Partial<Medecin>,
     patient: Partial<Patient>,
+    medecin: Partial<Medecin>,
+    nom_hopital: string,
     date_entree: Date,
     mode_entree: string,
     motif_hospitalisation: string,
-    date_sortie_prevu: Date,
     date_sortie?: Date,
     mode_sortie?: string,
     resume_hospitalisation?: string,
@@ -44,9 +43,9 @@ type Hospitalisation = {
 type Intervention = {
     code_intervention: string,
     nom: string,
-    nom_hopital: string,
-    medecin: Partial<Medecin>,
     patient: Partial<Patient>,
+    medecin: Partial<Medecin>,
+    nom_hopital: string,
     date?: Date,
     protocole_operatoire?: string,
     remarques?: string
@@ -79,7 +78,8 @@ type Patient = {
     adresse: string,
     code_postale: number,
     commune: string,
-    wilaya: string
+    wilaya: string,
+    donneur_organe: boolean
 }
 type ExamenClinique = {
     code: string,
@@ -124,8 +124,8 @@ type Chambre = {
     num: string,
     etage: number,
     description: string,
-    nombre_lits: number,
-    nombre_lits_occupe?: number
+    nombre_lits: number | '',
+    nombre_lits_occupe?: number | ''
 }
 type Role = { 
     id: string,
@@ -165,5 +165,11 @@ type Agent = {
     sexe: string,
     email: string,
     telephone: string
-    addresse: string,
+    fonction: string,
+    specialite: string,
+    grade: string,
+    adresse: string,
+    code_postale: number | '',
+    commune: string,
+    wilaya: string,
 }

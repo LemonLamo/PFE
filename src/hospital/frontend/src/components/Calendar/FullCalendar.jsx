@@ -20,8 +20,10 @@ function renderEventContent(eventInfo) {
   console.log(eventInfo)
   return (
     <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
+      <span>
+        <span className="me-1 font-bold"> {eventInfo.timeText} </span> {eventInfo.event.title}
+      </span>
+      
     </>
   );
 }

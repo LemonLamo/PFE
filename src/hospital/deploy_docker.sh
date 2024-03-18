@@ -8,6 +8,12 @@ SERVICES=(
     "frontend"
     "notification/notification-db"
     "notification/notification-service"
+    "patients/patients-db"
+    "patients/patients-service"
+    "pharmacy/pharmacy-db"
+    "pharmacy/pharmacy-service"
+    "chambres-lits/chambres-lits-db"
+    "chambres-lits/chambres-lits-service"
 )
 
 trap "exit 130" SIGINT
