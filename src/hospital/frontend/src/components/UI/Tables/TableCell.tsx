@@ -6,7 +6,7 @@ type TableCellProps = {
 };
 
 function TableCell({ children, className }: TableCellProps) {
-  return <td className={`text-left ${className}`}>{children}</td>;
+  return <td className={`py-2 px-2 text-left ${className}`}>{children}</td>;
 }
 
 export default TableCell;

@@ -142,7 +142,6 @@ CREATE TABLE `hospitalisations` (
   `date_entree` date NOT NULL,
   `mode_entree` varchar(255) NOT NULL,
   `motif_hospitalisation` varchar(255) NOT NULL,
-  `date_sortie_prevu` date DEFAULT NULL,
   `date_sortie` date DEFAULT NULL,
   `mode_sortie` varchar(255) DEFAULT NULL,
   `resume_hospitalisation` varchar(255) DEFAULT NULL,
@@ -150,8 +149,8 @@ CREATE TABLE `hospitalisations` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `hospitalisations` (`code_hospitalisation`, `patient`, `medecin`, `nom_hopital`, `date_entree`, `mode_entree`, `motif_hospitalisation`, `date_sortie_prevu`, `date_sortie`, `mode_sortie`, `resume_hospitalisation`) VALUES
-('hos-25831', '100010364027390000', '111111111111111111', 'CHU Beni Messous', '2023-02-18', 'Hospitalisation complète', 'H1N1 - Influenza A', '2023-02-20', '2023-02-21', "Transfert", '-');
+INSERT INTO `hospitalisations` (`code_hospitalisation`, `patient`, `medecin`, `nom_hopital`, `date_entree`, `mode_entree`, `motif_hospitalisation`, `date_sortie`, `mode_sortie`, `resume_hospitalisation`) VALUES
+('hos-25831', '100010364027390000', '100010364027390000', 'CHU Beni Messous', '2023-02-18', 'Hospitalisation complète', 'H1N1 - Influenza A', '2023-02-21', "Transfert", '-');
 
 
 -- --------------------------------------------------------

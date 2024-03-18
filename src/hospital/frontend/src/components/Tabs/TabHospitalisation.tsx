@@ -28,9 +28,6 @@ function TabHospitalisation({ hospitalisationData, setHospitalisationData } : Ta
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Motif d'hospitalisation: </label>
         <input className="primary col-span-7" type="text" placeholder="Motif" value={hospitalisationData.motif_hospitalisation} onChange={(e) => updateHospitalisationData('motif_hospitalisation', e.target.value)}></input>
 
-        <label className="font-semibold text-slate-700 text-sm col-span-2"> Date de sortie prévue: </label>
-        <input className="primary col-span-7" type="datetime-local" value={moment(hospitalisationData.date_sortie).format('YYYY-MM-DDTHH:mm')} onChange={(e) => updateHospitalisationData('date_sortie', moment(e.target.value).format('YYYY-MM-DDTHH:mm'))}></input>
-
         <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Résumé d'hospitalisation: </label>
         <textarea rows={2} placeholder="Résumé" className="col-span-7" value={hospitalisationData.resume_hospitalisation} onChange={(e) => updateHospitalisationData('resume_hospitalisation', e.target.value)}></textarea>
       </div>

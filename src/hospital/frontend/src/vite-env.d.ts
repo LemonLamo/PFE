@@ -36,7 +36,6 @@ type Hospitalisation = {
     date_entree: Date,
     mode_entree: string,
     motif_hospitalisation: string,
-    date_sortie_prevu?: Date,
     date_sortie?: Date,
     mode_sortie?: string,
     resume_hospitalisation?: string,
