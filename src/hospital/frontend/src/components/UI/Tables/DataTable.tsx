@@ -35,7 +35,7 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
     if(query.isLoading)
         return <TableLoading />
     
-    if(query.isError)
+    if(query.isError || !query.data)
         return <TableError />
 
     return(
