@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
-import secureLocalStorage from "react-secure-storage";
+import { login } from '../hooks/useAuth'
 import { baseURL } from "../hooks";
 
 type UserError = {
@@ -24,11 +24,7 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
       // if 2fa enabled, swap
       if (data.successCode == "login.2fa-code") formActions.swapTo2FA();
       else {
-        secureLocalStorage.setItem("NIN", data.NIN);
-        secureLocalStorage.setItem(
-          "permissions",
-          JSON.stringify(data.permissions)
-        );
+        login(data)
         navigate(0);
       }
     } catch (err: AxiosError | any) {

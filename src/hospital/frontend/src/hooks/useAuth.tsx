@@ -1,14 +1,20 @@
 import axios from "axios";
 import { ReactNode } from "react";
 import { Navigate, NavigateFunction } from 'react-router-dom'
-import secureLocalStorage from "react-secure-storage";
 import { baseURL } from ".";
+import secureLocalStorage from "react-secure-storage";
+
 type Props = {
     children: ReactNode
 }
 
 export function isAuthenticated(){
     return secureLocalStorage.getItem("NIN") !== null
+}
+export async function login(data : any){
+    secureLocalStorage.setItem("NIN", data.NIN);
+    secureLocalStorage.setItem("prenom", data.prenom);
+    secureLocalStorage.setItem("permissions", JSON.stringify(data.permissions));
 }
 
 export async function logout(navigate : NavigateFunction){

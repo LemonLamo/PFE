@@ -2,8 +2,8 @@ import axios, { AxiosError } from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
-import secureLocalStorage from "react-secure-storage";
 import { baseURL } from "../hooks";
+import { login } from "../hooks/useAuth";
 
 type UserError = {code: string, message: string}
 
@@ -44,8 +44,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
                 formActions.swapTo2FA();
 
             else{
-                secureLocalStorage.setItem('NIN', data.NIN)
-                secureLocalStorage.setItem('permissions', data.permissions)
+                login(data)
                 navigate("/dashboard", { replace: false })
             }
         } catch (err: AxiosError | any) {
