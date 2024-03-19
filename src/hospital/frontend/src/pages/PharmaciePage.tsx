@@ -310,13 +310,11 @@ function PharmacyPage() {
           <h6 className="mt-4 mb-1"> Liste des transactions </h6>
           {query2.isError ? (
             <div className="block w-full ">
-              {" "}
-              <TableError />{" "}
+              <TableError />
             </div>
           ) : query2.isLoading ? (
             <div className="block w-full ">
-              {" "}
-              <TableLoading />{" "}
+              <TableLoading />
             </div>
           ) : (
             <Table

@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 const Model = require('../models/PatientsModel');
 //const validator = require('../middlewares/validation');
 
@@ -43,10 +44,10 @@ async function getVaccinations(req, res) {
 }
 async function getHistorique(req, res) {
     const { NIN } = req.params;
-    const result1 = await Model.selectConsultations(NIN);
-    const result2 = await Model.selectHospitalisations(NIN);
-    const result3 = await Model.selectInterventions(NIN);
-    return res.status(200).json([...result1, ...result2, ...result3].sort((a, b) => new Date(a.date_consultation ?? a.date_entree ?? a.date) - new Date(b.date_consultation ?? b.date_entree ?? b.date)))
+    const consultations = (await axios.get(`http://ehr-service:8080/api/consultations?patient=${NIN}`, {headers:{Cookie: req.headers.cookie}})).data;
+    const hospitalisations = (await axios.get(`http://ehr-service:8080/api/hospitalisations?patient=${NIN}`, {headers:{Cookie: req.headers.cookie}})).data;
+    const interventions = (await axios.get(`http://ehr-service:8080/api/interventions?patient=${NIN}`, {headers:{Cookie: req.headers.cookie}})).data;
+    return res.status(200).json([...consultations, ...hospitalisations, ...interventions].sort((a, b) => new Date(b.date_consultation ?? b.date_entree ?? b.date) - new Date(a.date_consultation ?? a.date_entree ?? a.date)))
 }
 
 /******** EXPORTS ********/

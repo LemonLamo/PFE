@@ -5,10 +5,16 @@ type LoginFormProps = {
   setNIN?: React.Dispatch<React.SetStateAction<string>>;
 };
 type LoginFormActions = {
+<<<<<<< HEAD
   swapToLogin: () => void;
   swapTo2FA: () => void;
   swapToResetPassword: () => void;
 };
+=======
+    swapToLogin: () => void,
+    swapTo2FA: () => void,
+}
+>>>>>>> 2636c578a94d4a21af9445e962c8b1e175f200cf
 type Consultation = {
   code_consultation: string;
   patient: Partial<Patient>;
@@ -121,17 +127,25 @@ type Analyse = {
   remarques?: string;
 };
 type Chambre = {
-  num: string;
-  etage: number;
-  description: string;
-  nombre_lits: number | "";
-  nombre_lits_occupe?: number | "";
-};
-type Role = {
-  id: string;
-  nom: string;
-  permissions: string[];
-};
+    num: string,
+    etage: number,
+    description: string,
+    lits?: Lit[],
+    nombre_lits: number | '',
+    nombre_lits_occupe?: number | ''
+}
+type Lit = {
+    numChambre: string,
+    num: number,
+    type: string,
+    occupe: boolean
+    remarques: string,
+}
+type Role = { 
+    id: string,
+    nom: string,
+    permissions: string[]
+}
 
 type Vaccination = {
   code_vaccin: string;

@@ -26,19 +26,20 @@ app.use(bodyParser.json());
 const auth = require('./middlewares/auth')
 const AuthController = require('./controllers/AuthController');
 
+// public
 app.post('/api/auth/login', AuthController.login);
-app.post('/api/auth/verify-2fa', AuthController.verify_2fa);
 app.post('/api/auth/logout', AuthController.logout);
-app.post('/api/auth/signup', AuthController.signup);
-
 app.post('/api/auth/verify-email-request', AuthController.verify_email_request);
 app.get('/api/auth/verify-email', AuthController.verify_email);
+app.post('/api/auth/enable-2fa', auth.requireAuth, AuthController.enable_2fa);
+app.post('/api/auth/disable-2fa', auth.requireAuth, AuthController.disable_2fa);
+app.post('/api/auth/verify-2fa', AuthController.verify_2fa);
 
+// private
+app.post('/api/auth/signup', AuthController.signup);
 app.post('/api/auth/forgot-password', AuthController.forgot_password);
 app.post('/api/auth/reset-password', AuthController.reset_password);
 
-app.post('/api/auth/enable-2fa', auth.requireAuth, AuthController.enable_2fa);
-app.post('/api/auth/disable-2fa', auth.requireAuth, AuthController.disable_2fa);
 app.use((req, res) => res.sendStatus(404))
 
 // start server

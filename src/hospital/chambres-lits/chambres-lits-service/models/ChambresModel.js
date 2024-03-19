@@ -14,10 +14,17 @@ class ChambresService {
   }
   async selectOne(num) {
     try {
-      const [results] = await db.query(
-        "SELECT * FROM `chambres` WHERE `num`=?",
-        [num]
-      );
+      const [results] = await db.query("SELECT * FROM `chambres` WHERE `num`=?", [num]);
+      return results;
+    } catch (error) {
+      logger.error("Error selecting chambres: " + error.message);
+      throw new Error("Error selecting chambres: " + error.message);
+    }
+  }
+
+  async selectLits(num) {
+    try {
+      const [results] = await db.query("SELECT * FROM `lits` WHERE `numChambre`=?", [num]);
       return results;
     } catch (error) {
       logger.error("Error selecting chambres: " + error.message);

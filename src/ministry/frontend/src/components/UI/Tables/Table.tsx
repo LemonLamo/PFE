@@ -1,0 +1,27 @@
+import { ReactNode } from "react";
+
+type TableProps = {
+  fields: string[];
+  children: ReactNode;
+  className?: string;
+};
+function Table({ fields, children, className=''}: TableProps) {
+  return (
+    <div className={`block w-full overflow-auto scrolling-touch ${className}`}>
+        <table className="w-full max-w-full mb-4">
+          <thead className="text-center">
+          <tr>
+            {fields.map((item, i) => (
+              <th key={i} className='text-md px-2 py-2 text-sm uppercase'>{item} </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="text-gray-600">
+          {children}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default Table;

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ehr-service
+  name: ehr-service
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: ehr-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ehr-service
+  name: ehr-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ehr-service
+  template:
+    metadata:
+      labels:
+        app: ehr-service
+    spec:
+      containers:
+        - image: abdou1307/ehr-service:latest
+          name: ehr-service
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

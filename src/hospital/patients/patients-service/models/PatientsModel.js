@@ -38,18 +38,3 @@ exports.selectVaccinations = async (NIN) => {
     const [results] = await db.query('SELECT * FROM `vaccinations` WHERE `patient`=? ORDER BY `date` DESC', [NIN]);
     return results
 }
-
-exports.selectConsultations = async (NIN) => {
-    const [results] = await db.query('SELECT * FROM `consultations` WHERE `patient`=? ORDER BY `date_consultation` DESC', [NIN]);
-    return results
-}
-
-exports.selectHospitalisations = async (NIN) => {
-    const [results] = await db.query('SELECT * FROM `hospitalisations` WHERE `patient`=? ORDER BY `date_entree` DESC', [NIN]);
-    return results
-}
-
-exports.selectInterventions = async (NIN) => {
-    const [results] = await db.query('SELECT * FROM `interventions` WHERE `patient`=? ORDER BY `date` DESC', [NIN]);
-    return results
-}
