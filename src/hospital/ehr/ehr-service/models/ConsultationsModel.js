@@ -6,12 +6,9 @@ class ConsultationsModel {
     const [results] = await db.query('SELECT * FROM `consultations`');
     return results
   }
+
   async getByPatient(NIN){
     const [results] = await db.query('SELECT * FROM `consultations` WHERE `patient`=? ORDER BY `date_consultation` DESC', [NIN]);
-    return results
-  }
-  async getByMedecin(NIN){
-    const [results] = await db.query('SELECT * FROM `consultations` WHERE `medecin`=? ORDER BY `date_consultation` DESC', [NIN]);
     return results
   }
 

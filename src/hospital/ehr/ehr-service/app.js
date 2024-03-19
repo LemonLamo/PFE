@@ -31,6 +31,8 @@ app.get('/api/consultations', auth.requireAuth, ConsultationsController.select);
 app.get('/api/hospitalisations', auth.requireAuth, HospitalisationsController.select);
 app.get('/api/interventions', auth.requireAuth, InterventionsController.select);
 
+app.get('/api/hospitalisations/mine', auth.requireAuth, HospitalisationsController.selectActiveByMedecin);
+
 app.use((req, res) => res.sendStatus(404))
 
 // start server

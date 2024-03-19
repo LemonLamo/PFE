@@ -10,6 +10,8 @@ import ViewButton from "../components/Buttons/ViewButton";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "../components/UI/Tables/DataTable";
 import dictionnaire_interventions from "../codifications/interventions.json"
+import axios from "axios";
+import { baseURL } from "../hooks";
 
 function MesAdmisPage() {
   const [selectedHospitalisation, ] = useState<Hospitalisation>({ 
@@ -24,27 +26,8 @@ function MesAdmisPage() {
   const [openModal, setOpenModal] = useState('');
   const query = useQuery({
     queryKey: ['patients_admis'],
-    queryFn: () => {
-      let data = [
-        {
-          code_hospitalisation: "hos_2135131",
-          nom_hopital: "CHU Beni Messous",
-          medecin: {
-            NIN: "100010364027390000",
-            nom: "BRAHIM",
-            prenom: "Abderrazak"
-          },
-          patient: {
-            NIN: "100010364027390000",
-            nom: "BRAHIM",
-            prenom: "Abderrazak"
-          },
-          date_entree: new Date(),
-          mode_entree: "Hospitalisation complète",
-          motif_hospitalisation: "Idk, I haven't thought about it just yet",
-          resume_hospitalisation: "Lorem ipsum dolor sit amet.",
-        }
-      ];
+    queryFn: async () => {
+      const data = (await axios.get(`${baseURL}/api/hospitalisations/mine`)).data;
       return data;
     }
   })
@@ -61,9 +44,7 @@ function MesAdmisPage() {
         </div>
       }
     },
-    { header: "Date d'entrée", id: "date_entree", cell: (info) =>
-        moment(info.row.original.date_entree).format('DD/MM/YYYY')
-    },
+    { header: "Date d'entrée", id: "date_entree", cell: (info) => moment(info.row.original.date_entree).format('DD/MM/YYYY') },
     { header: "Mode entrée", accessorKey: "mode_entree" },
     { header: "Motif d'hospitalisation", accessorKey: "motif_hospitalisation" },
     { header: "Résumé d'hospitalisation", accessorKey: "resume_hospitalisation" },

@@ -2,34 +2,34 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: codification-service
-  name: codification-service
+    app: codifications-service
+  name: codifications-service
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: codification-service
+    app: codifications-service
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: codification-service
-  name: codification-service
+    app: codifications-service
+  name: codifications-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: codification-service
+      app: codifications-service
   template:
     metadata:
       labels:
-        app: codification-service
+        app: codifications-service
     spec:
       containers:
-        - image: abdou1307/codification-service:latest
-          name: codification-service
+        - image: abdou1307/codifications-service:latest
+          name: codifications-service
           ports:
             - containerPort: 8080
               protocol: TCP

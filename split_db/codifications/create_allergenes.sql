@@ -1,7 +1,6 @@
 USE forza;
 
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `allergenes`
 --

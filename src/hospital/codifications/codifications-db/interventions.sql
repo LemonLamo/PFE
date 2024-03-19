@@ -1,0 +1,13 @@
+START TRANSACTION;
+
+CREATE DATABASE IF NOT EXISTS forza;
+SET CHARACTER SET 'utf8';
+
+USE forza;
+
+CREATE TABLE `interventions` (
+  `code` varchar(255) NOT NULL PRIMARY KEY,
+  `nom` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+COMMIT;

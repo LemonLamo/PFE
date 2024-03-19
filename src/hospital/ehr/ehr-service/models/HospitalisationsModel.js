@@ -6,12 +6,15 @@ class ConsultationsModel {
     const [results] = await db.query('SELECT * FROM `hospitalisations`');
     return results
   }
+
   async getByPatient(NIN){
     const [results] = await db.query('SELECT * FROM `hospitalisations` WHERE `patient`=? ORDER BY `date_entree` DESC', [NIN]);
     return results
   }
-  async getByMedecin(NIN){
-    const [results] = await db.query('SELECT * FROM `hospitalisations` WHERE `medecin`=? and `date_sortie`=NULL ORDER BY `date_entree` DESC', [NIN]);
+
+  async getActiveByMedecin(NIN){
+    const [results] = await db.query('SELECT * FROM `hospitalisations` WHERE `medecin`=? and `date_sortie` IS NULL ORDER BY `date_entree` DESC', [NIN]);
+    console.log('SELECT * FROM `hospitalisations` WHERE `medecin`='+NIN+' and `date_sortie` IS NULL ORDER BY `date_entree` DESC')
     return results
   }
 }

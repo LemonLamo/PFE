@@ -7,8 +7,8 @@ CREATE TABLE `medicaments` (
   `marque` varchar(255) NOT NULL,
   `DCI` varchar(255) NOT NULL,
   `forme` varchar(255) NOT NULL,
-  `dosage` varchar(255) NOT NULL
-  `nom_complet` varchar(255) NOT NULL,
+  `dosage` varchar(255) NOT NULL,
+  `nom_complet` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -315,7 +315,7 @@ INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dos
 ('04 B 007  -  DICLOGESIC RETARD -  COMP. PELLI. LP  -  100MG', '04 B 007', 'DICLOGESIC RETARD', 'Diclofenac sodique', 'COMP. PELLI. LP', '100MG'),
 ('04 B 007  -  ROFENAC LP  -  CP PELL LP  -  100MG', '04 B 007', 'ROFENAC LP ', 'Diclofenac sodique', 'CP PELL LP', '100MG'),
 ('04 B 007  -  FLOVENAC LP -  MICROGRANULES LP en GLES  -  100MG', '04 B 007', 'FLOVENAC LP', 'Diclofenac sodique', 'MICROGRANULES LP en GLES', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('04 B 008  -  CLOFENAL ENFANT -  SUPPO.  -  25MG', '04 B 008', 'CLOFENAL ENFANT', 'Diclofenac sodique', 'SUPPO.', '25MG'),
 ('04 B 008  -  DICLOFAR -  SUPPO  -  25MG', '04 B 008', 'DICLOFAR', 'Diclofenac sodique', 'SUPPO', '25MG'),
 ('04 B 009  -  CLOFENAL -  SUPPO.  -  100MG', '04 B 009', 'CLOFENAL', 'Diclofenac sodique', 'SUPPO.', '100MG'),
@@ -641,7 +641,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('05 G 089  -  OXALIPLATINE MYLAN -  PDRE. P. SOL. P. PERF.  -  50MG/FL. DE PDRE. (5MG/ML DE SOL. RECONSTITUEE)', '05 G 089', 'OXALIPLATINE MYLAN', 'OXALIPLATINE', 'PDRE. P. SOL. P. PERF.', '50MG/FL. DE PDRE. (5MG/ML DE SOL. RECONSTITUEE)'),
 ('05 G 090  -  OXIPLAT 100 -  CONC. A DILUER P. PERF. IV  -  100MG/FL. DE CONC. (5MG/ML OU 100MG/20ML)', '05 G 090', 'OXIPLAT 100', 'OXALIPLATINE', 'CONC. A DILUER P. PERF. IV', '100MG/FL. DE CONC. (5MG/ML OU 100MG/20ML)'),
 ('05 G 090  -  OXALIPLATINE MYLAN -  PDRE. P. SOL. P. PERF.  -  100MG/FL. DE PDRE. (5MG/ML DE SOL. RECONSTITUEE)', '05 G 090', 'OXALIPLATINE MYLAN', 'OXALIPLATINE', 'PDRE. P. SOL. P. PERF.', '100MG/FL. DE PDRE. (5MG/ML DE SOL. RECONSTITUEE)');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('05 G 100  -  PACLITAXEL-SAIDAL -  SOLUTION A DILUER POUR PERFUSION IV   -  6MG/ML', '05 G 100', 'PACLITAXEL-SAIDAL', 'PACLITAXEL', 'SOLUTION A DILUER POUR PERFUSION IV ', '6MG/ML'),
 ('05 G 100  -  PACLITAX -  SOL. A DILUER P. PERF.  -  6MG/ML (30MG/5ML - 100MG/16,5ML - 300MG/50ML)', '05 G 100', 'PACLITAX', 'PACLITAXEL', 'SOL. A DILUER P. PERF.', '6MG/ML (30MG/5ML - 100MG/16,5ML - 300MG/50ML)'),
 ('05 G 102  -  ALIMTA -  PDRE. LYOPH. P. SOL. A DILUER P. PERF.  -  500MG/FL. DE PDRE.', '05 G 102', 'ALIMTA', 'PEMETREXED DISODIQUE EXPRIME EN PEMETREXED', 'PDRE. LYOPH. P. SOL. A DILUER P. PERF.', '500MG/FL. DE PDRE.'),
@@ -953,7 +953,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 E 237  -  CO VALSARTAN IVAL -  COMPRIME PELLICULE   -  160MG/12,5MG', '06 E 237', 'CO VALSARTAN IVAL', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG/12,5MG'),
 ('06 E 237  -  CO-VALEX -  COMPRIME PELLICULE   -  160MG/12,5MG', '06 E 237', 'CO-VALEX', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG/12,5MG'),
 ('06 E 237  -  VALSARTAN/ HYDROCHLOROTHIAZIDE LDM -  COMPRIME PELLICULE   -  160MG/12,5MG ', '06 E 237', 'VALSARTAN/ HYDROCHLOROTHIAZIDE LDM', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG/12,5MG ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 E 237  -  THIA-VALSAN -  COMPRIME PELLICULE   -  160MG/12,5MG', '06 E 237', 'THIA-VALSAN', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG/12,5MG'),
 ('06 E 237  -  COSARTEG -  COMP. ENRO.  -  160MG/12,5MG', '06 E 237', 'COSARTEG', 'Valsartan / Hydrochlorothiazide', 'COMP. ENRO.', '160MG/12,5MG'),
 ('06 E 237  -  CO VALASTAN -  COMPRIME PELLICULE   -   160MG/12,5MG ', '06 E 237', 'CO VALASTAN', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', ' 160MG/12,5MG '),
@@ -1257,7 +1257,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 M 232  -  ATORVASTATINE IVAL -  COMPRIME PELLICULE   -  40MG ', '06 M 232', 'ATORVASTATINE IVAL', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '40MG '),
 ('06 M 232  -  VASTINE -  COMP. PELL.  -  40MG', '06 M 232', 'VASTINE', 'ATORVASTATINE', 'COMP. PELL.', '40MG'),
 ('06 M 232   -  TORVAST -  COMPRIME PELLICULE   -  40MG', '06 M 232 ', 'TORVAST', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '40MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 M 233  -  TORVAST -  COMPRIME PELLICULE   -  80MG', '06 M 233', 'TORVAST', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG'),
 ('06 M 233  -  TEOLAR -  COMPRIME PELLICULE   -  80MG', '06 M 233', 'TEOLAR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG'),
 ('06 M 233  -  NOVATHOR -  COMPRIME PELLICULE   -  80MG ', '06 M 233', 'NOVATHOR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG '),
@@ -1567,7 +1567,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('09 H 090  -  EPIZOLONE-DEPOT -  SUSPENSION AQUEUSE INJECTABLE   -  40MG/ML', '09 H 090', 'EPIZOLONE-DEPOT', 'Methylprednisolone acetate', 'SUSPENSION AQUEUSE INJECTABLE ', '40MG/ML'),
 ('09 H 091  -  LISATRIAM -  SUSP.INJ.  -  40MG/ML', '09 H 091', 'LISATRIAM', 'TRIAMCINOLONE ACETONIDE', 'SUSP.INJ.', '40MG/ML'),
 ('09 H 091  -  KENACORT RETARD -  SUSP.INJ.  -  40MG', '09 H 091', 'KENACORT RETARD', 'TRIAMCINOLONE ACETONIDE', 'SUSP.INJ.', '40MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('09 H 091  -  HUPPACORT RETARD -  SUSP. INJ. IM OU LOCALE  -  40MG/ML', '09 H 091', 'HUPPACORT RETARD', 'TRIAMCINOLONE ACETONIDE', 'SUSP. INJ. IM OU LOCALE', '40MG/ML'),
 ('09 H 091  -  THERACORT -  SUSP. INJ  -  40MG/ML', '09 H 091', 'THERACORT', 'TRIAMCINOLONE ACETONIDE', 'SUSP. INJ', '40MG/ML'),
 ('09 H 091   -  KENACORTYL RETARD -  SUSPENSION INJECTABLE  -  40MG/1ML', '09 H 091 ', 'KENACORTYL RETARD', 'TRIAMCINOLONE ACETONIDE', 'SUSPENSION INJECTABLE', '40MG/1ML'),
@@ -1865,7 +1865,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('10 L 191  -  PONCTUEL -  SOL. BUV.  -  0,75G/100ML', '10 L 191', 'PONCTUEL', 'PICOSULFATE DE SODIUM', 'SOL. BUV.', '0,75G/100ML'),
 ('10 L 203  -  PICOPREP -  POUDRE POUR SOLUTION BUVABLE EN SACHET   -  10MG/3,5MG/12G /SACHET', '10 L 203', 'PICOPREP', 'PICOSULFATE DE SODIUM/OXYDE DE MAGNeSIUM LeGER / ACIDE CITRIQUE ', 'POUDRE POUR SOLUTION BUVABLE EN SACHET ', '10MG/3,5MG/12G /SACHET'),
 ('10 L 208  -  COLOKIT -  COMPRIME  -  1102 MG / 398 MG', '10 L 208', 'COLOKIT', 'Phosphate monosodique monohydrate / phosphate disodique anhydre ', 'COMPRIME', '1102 MG / 398 MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('10 M 063  -  REGULAX -  GEL RECTAL  -  0,12G/10G', '10 M 063', 'REGULAX', 'DOCUSATE SODIQUE', 'GEL RECTAL', '0,12G/10G'),
 ('10 M 066  -  ISOFFINE -  SOL. BUV.  -  88,70G/100ML', '10 M 066', 'ISOFFINE', 'HUILE DE PARAFFINE LIQUIDE', 'SOL. BUV.', '88,70G/100ML'),
 ('10 M 066  -  LAXAFINE -  HUILE BUVABLE  -  100ML/100ML (100%)', '10 M 066', 'LAXAFINE', 'HUILE DE PARAFFINE LIQUIDE', 'HUILE BUVABLE', '100ML/100ML (100%)'),
@@ -2152,7 +2152,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 B 013  -  ZEPILEN -  PDRE.SOL.INJ. IM  -  1G/FL. DE PDRE.', '13 B 013', 'ZEPILEN', 'CEFAZOLINE', 'PDRE.SOL.INJ. IM', '1G/FL. DE PDRE.'),
 ('13 B 013   -  CEFAZOL -  PDRE. ET SOLV. SOL. INJ.IM  -  200MG/ML (OU 1G/5ML)', '13 B 013 ', 'CEFAZOL', 'CEFAZOLINE', 'PDRE. ET SOLV. SOL. INJ.IM', '200MG/ML (OU 1G/5ML)'),
 ('13 B 013   -  CEFAZAL -  PDRE. SOL. INJ. IM  -  1G', '13 B 013 ', 'CEFAZAL', 'CEFAZOLINE SODIQUE EXPRIME EN CEFAZOLINE', 'PDRE. SOL. INJ. IM', '1G');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 B 014  -  TRICEF -  PDRE.SOL.INJ.IV  -  1G/FL. DE PDRE.', '13 B 014', 'TRICEF', 'CEFOTAXIME SODIQUE EXPRIME EN CEFOTAXIME', 'PDRE.SOL.INJ.IV', '1G/FL. DE PDRE.'),
 ('13 B 014  -  CEFOTAL -  PDRE. SOL. INJ.  -  1G/FL. DE PDRE.', '13 B 014', 'CEFOTAL', 'CEFOTAXIME SODIQUE EXPRIME EN CEFOTAXIME', 'PDRE. SOL. INJ.', '1G/FL. DE PDRE.'),
 ('13 B 014  -  CEFODEX -  POUDRE ET SOLVANT POUR PREPARATION INJECTABLE IM ET IV   -  1GR/FLACON ', '13 B 014', 'CEFODEX', 'CEFOTAXIME SODIQUE EXPRIME EN CEFOTAXIME', 'POUDRE ET SOLVANT POUR PREPARATION INJECTABLE IM ET IV ', '1GR/FLACON '),
@@ -2429,7 +2429,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 K 254  -  QUINOX -  COMPRIME PELLICULE   -  750MG', '13 K 254', 'QUINOX', 'CIPROFLOXACINE CHLORHYRATE MONOHYDRATE EXPRIME EN CIPROFLOXACINE', 'COMPRIME PELLICULE ', '750MG'),
 ('13 K 254  -  CIPROFLOXACINE BEKER  -  COMPRIME PELLICULE   -  750MG', '13 K 254', 'CIPROFLOXACINE BEKER ', 'CIPROFLOXACINE CHLORHYDRATE EXPRIME EN CIPROFLOXACINE', 'COMPRIME PELLICULE ', '750MG'),
 ('13 K 334  -  FACTIVE -  COMPRIME  -  320MG', '13 K 334', 'FACTIVE', 'GEMIFLOXACINE MESYLATE EXPRIME EN GEMIFLOXACINE', 'COMPRIME', '320MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 K 334  -  GEMIXINE -  COMPRIME PELLICULE   -  320MG', '13 K 334', 'GEMIXINE', 'GEMIFLOXACINE MESYLATE EXPRIME EN GEMIFLOXACINE', 'COMPRIME PELLICULE ', '320MG'),
 ('13 K 467  -  QUINOX LP -  COMPRIME A LIBERATION PROLONGEE  -  1G', '13 K 467', 'QUINOX LP', 'CIPROFLOXACINE CHLORHYRATE MONOHYDRATE EXPRIME EN CIPROFLOXACINE', 'COMPRIME A LIBERATION PROLONGEE', '1G'),
 ('13 K 468  -  MATADOR 750 -  COMPRIME PELLICULE   -  750MG', '13 K 468', 'MATADOR 750', 'Levofloxacine hemihydrate exprime en Levofloxacine', 'COMPRIME PELLICULE ', '750MG'),
@@ -2748,7 +2748,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 G 029  -  CALCIUM HYSA 500 -  PDRE. P. SUSP. BUV. EN SACH.  -  500MG DE CALCIUM (1250MG DE CALCIUM CARBONATE)', '14 G 029', 'CALCIUM HYSA 500', 'CALCIUM CARBONATE EXPRIME EN CALCIUM ELEMENT', 'PDRE. P. SUSP. BUV. EN SACH.', '500MG DE CALCIUM (1250MG DE CALCIUM CARBONATE)'),
 ('14 G 029   -  CALCIDOSE -  PDRE. SUSP. BUV.EN SACHET DOSE  -  500MG/SACHET DOSE (1250MG/SACHET DOSE DE CARBONATE DE CALCIUM )', '14 G 029 ', 'CALCIDOSE', 'CALCIUM CARBONATE EXPRIME EN CALCIUM ELEMENT', 'PDRE. SUSP. BUV.EN SACHET DOSE', '500MG/SACHET DOSE (1250MG/SACHET DOSE DE CARBONATE DE CALCIUM )'),
 ('14 G 037  -  NEOCALCIGENOL -  SUSP.BUV.  -  125MG/0,5MG/8µG/22,50MG/5ML', '14 G 037', 'NEOCALCIGENOL', 'PHOSPHATE TRICALCIQUE / FLUORURE DE SODIUM / VITAMINE D3 / ASCORBATE DE SODIUM', 'SUSP.BUV.', '125MG/0,5MG/8µG/22,50MG/5ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 G 042  -  EPPI INPHA-MEDIS -  SOLUTION POUR PREPARATION INJECTABLE EN IV/IM  -  500 ML ', '14 G 042', 'EPPI INPHA-MEDIS', 'EAU POUR PREPARATION INJECTABLE ', 'SOLUTION POUR PREPARATION INJECTABLE EN IV/IM', '500 ML '),
 ('14 G 042  -  EAU POUR PREPARATIONS INJECTABLES RAZES -  ---  -  ---', '14 G 042', 'EAU POUR PREPARATIONS INJECTABLES RAZES', 'EAU POUR PREPARATIONS INJECTABLES IM/IV', '---', '---'),
 ('14 G 042   -  WI PACK -    -  FL/500ML', '14 G 042 ', 'WI PACK', 'EAU POUR PREPARATIONS INJECTABLES IM/IV', '', 'FL/500ML'),
@@ -3054,7 +3054,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('15 B 059  -  CALMIG -  COMPRIME  -  50MG', '15 B 059', 'CALMIG', 'SUMATRIPTAN SUCCINATE', 'COMPRIME', '50MG'),
 ('15 B 059  -  MIGREX -  COMPRIME PELLICULE   -  50MG', '15 B 059', 'MIGREX', 'SUMATRIPTAN SUCCINATE (SUMATRIPAN)', 'COMPRIME PELLICULE ', '50MG'),
 ('15 B 070  -  RELPAX -  COMPRIME PELLICULE   -  20MG', '15 B 070', 'RELPAX', 'ELETRIPTAN HYDROBROMURE EXPRIME EN ELETRIPTAN', 'COMPRIME PELLICULE ', '20MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('15 B 071  -  RELPAX -  COMPRIME PELLICULE   -  40MG', '15 B 071', 'RELPAX', 'ELETRIPTAN HYDROBROMURE EXPRIME EN ELETRIPTAN', 'COMPRIME PELLICULE ', '40MG'),
 ('15 B 118  -  ZOMIPTAN -  COMPRIME ORODISPERSIBLE   -  2,5 MG', '15 B 118', 'ZOMIPTAN', 'ZOLMITRIPTAN', 'COMPRIME ORODISPERSIBLE ', '2,5 MG'),
 ('15 B 119  -  ZOMIPTAN -  COMP. ORO.  -  5 MG', '15 B 119', 'ZOMIPTAN', 'Zolmitriptan', 'COMP. ORO.', '5 MG'),
@@ -3385,7 +3385,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('16 D 100  -  DEPOLAN 10 -  COMP PELL  -  10MG', '16 D 100', 'DEPOLAN 10', 'OLANZAPINE', 'COMP PELL', '10MG'),
 ('16 D 100   -  OLANZA -  COMP.PELLI.  -  10MG', '16 D 100 ', 'OLANZA', 'OLANZAPINE', 'COMP.PELLI.', '10MG'),
 ('16 D 101  -  SCHIZOPIN -  COMPRIME ORODISPERSIBLE  -  10MG', '16 D 101', 'SCHIZOPIN', 'OLANZAPINE', 'COMPRIME ORODISPERSIBLE', '10MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('16 D 101  -  OLPREXA  -  COMP. ORODISPERS.  -  10MG', '16 D 101', 'OLPREXA ', 'OLANZAPINE', 'COMP. ORODISPERS.', '10MG'),
 ('16 D 101  -  NOVAPREXA  -  COMP . ORODISPERS.  -  10mg', '16 D 101', 'NOVAPREXA ', 'OLANZAPINE', 'COMP . ORODISPERS.', '10mg'),
 ('16 D 101  -  OLANZOMAX  -  COMP.ORODISPER.  -  10MG', '16 D 101', 'OLANZOMAX ', 'OLANZAPINE', 'COMP.ORODISPER.', '10MG'),
@@ -3708,7 +3708,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('20 A 017  -  VENTMAX -  AEROSOL  -  100µG/DOSE', '20 A 017', 'VENTMAX', 'SALBUTAMOL', 'AEROSOL', '100µG/DOSE'),
 ('20 A 017  -  ASTHALIN -  SOL.INHAL.BUCCAL.  -  100µG/BOUFFEE', '20 A 017', 'ASTHALIN', 'SALBUTAMOL', 'SOL.INHAL.BUCCAL.', '100µG/BOUFFEE'),
 ('20 A 017  -  VENTOLINE -  AEROSOL  -  100µG/DOSE', '20 A 017', 'VENTOLINE', 'SALBUTAMOL', 'AEROSOL', '100µG/DOSE');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('20 A 017  -  AEROL -  SUSP POUR INHA  -  100µG/BOUFFEE', '20 A 017', 'AEROL', 'SALBUTAMOL SULFATE EXPERIME EN SALBUTAMOL', 'SUSP POUR INHA', '100µG/BOUFFEE'),
 ('20 A 018  -  ASTHALIN -  SOL.INHAL.PAR NEBULISEUR  -  5MG/ML**', '20 A 018', 'ASTHALIN', 'SALBUTAMOL SULFATE EXPRIME EN SALBUTAMOL', 'SOL.INHAL.PAR NEBULISEUR', '5MG/ML**'),
 ('20 A 018  -  VENTOLINE -  SOL.NEB.  -  5MG/ML', '20 A 018', 'VENTOLINE', 'SALBUTAMOL', 'SOL.NEB.', '5MG/ML'),
@@ -4009,7 +4009,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('21 J 063  -  ENBREL -  SOL. INJ. SC EN SERING. PREREMPL  -  25MG/SERING', '21 J 063', 'ENBREL', 'ETANERCEPT', 'SOL. INJ. SC EN SERING. PREREMPL', '25MG/SERING'),
 ('21 J 063  -  ERELZI -  SOL. INJ. S/C EN SERINGUE PRE-REMPLIE  -  25MG/SERINGUE', '21 J 063', 'ERELZI', 'ETANERCEPT', 'SOL. INJ. S/C EN SERINGUE PRE-REMPLIE', '25MG/SERINGUE'),
 ('21 J 068  -  ACTEMRA -  CONCENTRE POUR SOLUTION A DILUER POUR PERFUSION IV   -  20MG/ML/FLACON ', '21 J 068', 'ACTEMRA', 'TOCILIZUMAB ', 'CONCENTRE POUR SOLUTION A DILUER POUR PERFUSION IV ', '20MG/ML/FLACON ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('22 A 001  -  RHUMAFED -  COMPRIME  -  2,5MG/50MG/300MG', '22 A 001', 'RHUMAFED', 'TRIPROLIDINE CHLORHYDRATE / PSEUDOEPHEDRINE CHLORHYDRATE / PARACETAMOL', 'COMPRIME', '2,5MG/50MG/300MG'),
 ('22 A 001  -  RHINAFED -  COMPRIME SECABLE   -  2,5MG/50MG/300MG', '22 A 001', 'RHINAFED', 'TRIPROLIDINE CHLORHYDRATE / PSEUDOEPHEDRINE CHLORHYDRATE / PARACETAMOL', 'COMPRIME SECABLE ', '2,5MG/50MG/300MG'),
 ('22 A 001  -  SOMIFED -  COMPRIME  -  2,5MG/50MG/300MG', '22 A 001', 'SOMIFED', 'TRIPROLIDINE CHLORHYDRATE / PSEUDOEPHEDRINE CHLORHYDRATE / PARACETAMOL', 'COMPRIME', '2,5MG/50MG/300MG'),
@@ -4302,7 +4302,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('03 B 007  -  PAROL  -  SUPPO,  -  100MG', '03 B 007', 'PAROL ', 'PARACETAMOL', 'SUPPO,', '100MG'),
 ('03 B 007  -  SUPPFADOL 100 -  SUPPO.  -  100MG', '03 B 007', 'SUPPFADOL 100', 'PARACETAMOL ', 'SUPPO.', '100MG'),
 ('03 B 007   -  DOLYMEX -  SUPPO,  -  100MG', '03 B 007 ', 'DOLYMEX', 'PARACETAMOL ', 'SUPPO,', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('03 B 026  -  COPARALGAN -  COMPRIME SECABLE   -  400MG/20MG', '03 B 026', 'COPARALGAN', 'Paracetamol / Codeine phosphate hemihydrate', 'COMPRIME SECABLE ', '400MG/20MG'),
 ('03 B 026  -  CODOL -  COMP  -  400MG/ 20 MG', '03 B 026', 'CODOL', 'PARACeTAMOL/ CODeINE PHOSPHATE HeMIHYDRATe', 'COMP', '400MG/ 20 MG'),
 ('03 B 026  -  PARAC-CO -  COMPRIME  -  400MG/20MG', '03 B 026', 'PARAC-CO', 'PARACETAMOL /PHOSPHATE DE CODEINE HEMIHYDRATE', 'COMPRIME', '400MG/20MG'),
@@ -4638,7 +4638,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('05 C 146  -  ELPIX -  Comprime pellicule  -  70MG', '05 C 146', 'ELPIX', 'Dasatinib monohydrate exprime en Dasatinib', 'Comprime pellicule', '70MG'),
 ('05 C 148  -  TASIGNA -  GLES.  -  200MG', '05 C 148', 'TASIGNA', 'NILOTINIB CHLORHYDRATE MONOHYDRATE EXPRIME EN NILOTINIB', 'GLES.', '200MG'),
 ('05 C 163  -  IRESSA -  COMPRIME PELLICULE   -  250MG', '05 C 163', 'IRESSA', 'GEFITINIB', 'COMPRIME PELLICULE ', '250MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('05 C 166  -  VOTRIENT -  COMPRIME PELLICULE   -  200MG', '05 C 166', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '200MG'),
 ('05 C 167  -  VOTRIENT -  COMPRIME PELLICULE   -  400MG ', '05 C 167', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '400MG '),
 ('05 C 174  -  MIRATA -  Comprime pellicule  -  100MG', '05 C 174', 'MIRATA', '   Erlotinib Chlorhydrate exprime en Erlotinib', 'Comprime pellicule', '100MG'),
@@ -4933,7 +4933,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 E 147  -  VALEX 80 -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALEX 80', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  HUREG HUP -  COMP.PELLI.  -  80MG', '06 E 147', 'HUREG HUP', 'VALSARTAN', 'COMP.PELLI.', '80MG'),
 ('06 E 147  -  VIASART -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'VIASART', 'VALSARTAN', 'COMPRIME PELLICULE ', '80MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 E 147  -  VALSARTAN LDM -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALSARTAN LDM', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  RETA 80 -  COMP PELL SEC  -  80MG ', '06 E 147', 'RETA 80', 'Valsartan ', 'COMP PELL SEC', '80MG '),
 ('06 E 147  -  SARTEG -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'SARTEG', 'Valsartan ', 'COMPRIME PELLICULE ', '80MG'),
@@ -5245,7 +5245,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 F 273  -  TEMERIVOL -  COMP QUADRISECABLES  -  5MG', '06 F 273', 'TEMERIVOL', 'NEBIVOLOL', 'COMP QUADRISECABLES', '5MG'),
 ('06 F 299  -  CO BIPROTENS -  COMPRIME PELLICULE   -  5MG/6,25MG', '06 F 299', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '5MG/6,25MG'),
 ('06 F 299  -  CO-BISOPROLOL BEKER -  COMP PELL  -  5MG/6,25MG', '06 F 299', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '5MG/6,25MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 F 302  -  CO BIPROTENS -  COMPRIME PELLICULE   -  10MG/6,25MG', '06 F 302', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '10MG/6,25MG'),
 ('06 F 302  -  CO-BISOPROLOL BEKER -  COMP PELL  -  10MG/6,25MG', '06 F 302', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '10MG/6,25MG'),
 ('06 F 309  -  METOPRESS -  GLES. LP.  -  100MG', '06 F 309', 'METOPRESS', 'METOPROLOL SUCCINATE EXPRIME EN METOPROLOL', 'GLES. LP.', '100MG'),
@@ -5558,7 +5558,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('07 H 176  -  CLOTASOL -  PDE.DERM.  -  0,0005', '07 H 176', 'CLOTASOL', 'CLOBETASOL PROPIONATE', 'PDE.DERM.', '0.05%'),
 ('07 H 176  -  CLOBENAT -  PMDE.DERM.   -  0,05G/100G PDE', '07 H 176', 'CLOBENAT', 'CLOBETASOL', 'PMDE.DERM. ', '0,05G/100G PDE'),
 ('07 H 176  -  CLOBECORT -  POMMADE DERMIQUE   -  0,0005', '07 H 176', 'CLOBECORT', 'CLOBETASOL PROPIONATE', 'POMMADE DERMIQUE ', '0.05%');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('07 H 176  -  PROCLO JAM -  PDE. DERM.  -  0,0005', '07 H 176', 'PROCLO JAM', 'CLOBETASOL PROPIONATE', 'PDE. DERM.', '0.05%'),
 ('07 H 183  -  PEITEL  -  CREME .DERM.  -  0,0025', '07 H 183', 'PEITEL ', 'PREDNICARBATE ', 'CREME .DERM.', '0.25%'),
 ('07 L 058  -  CURACNE 10MG   -  CAPSULE MOLLE  -  10MG', '07 L 058', 'CURACNE 10MG  ', 'ISOTRETINOINE', 'CAPSULE MOLLE', '10MG'),
@@ -5848,7 +5848,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('10 E 104  -  DICETEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'DICETEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINAVERIUM NOVAGENERICS -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINAVERIUM NOVAGENERICS', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINATEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINATEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('10 E 108  -  EUFOR -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
 ('10 E 108  -  EUFOR -  COMPRIME PELLICULE   -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMPRIME PELLICULE ', '80MG'),
 ('10 E 108  -  SPASLAM -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'SPASLAM', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
@@ -6144,7 +6144,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('12 E 199  -  FERINJECT -  SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR  -  50 MG/ML', '12 E 199', 'FERINJECT', 'Carboxymaltose ferrique exprime en fer', 'SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR', '50 MG/ML'),
 ('12 F 129   -  ELAXIM -  PDRE. ET SOLV. INJ. IV  -  1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)', '12 F 129 ', 'ELAXIM', 'Tenecteplase GENNOVA', 'PDRE. ET SOLV. INJ. IV', '1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)'),
 ('12 F 159  -  INHIXA -  COMP PELL  -  10MG', '12 F 159', 'INHIXA', 'RIVAROXABAN', 'COMP PELL', '10MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('12 F 159  -  TROMBIX -  COMPRIME PELLICULE   -  10MG', '12 F 159', 'TROMBIX', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 159   -  XARELTO -  COMPRIME PELLICULE   -  10MG', '12 F 159 ', 'XARELTO', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 167  -  RYVOL -  COMPRIME PELLICULE   -  15MG', '12 F 167', 'RYVOL', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '15MG'),
@@ -6445,7 +6445,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 G 047  -  AMOXAL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXAL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  HIMOXYL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'HIMOXYL', 'AMOXICILLINE ', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  BIOPAMOX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'BIOPAMOX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 G 047  -  CLAMOXYL -  PDRE. P. SUSP.BUV.  -  250MG/5ML', '13 G 047', 'CLAMOXYL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP.BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXICILLINE EG -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXICILLINE EG', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXIMEX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXIMEX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
@@ -6728,7 +6728,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 A 187  -  AMAREL -  COMP.  -  1 MG', '14 A 187', 'AMAREL', 'GLIMEPIRIDE', 'COMP.', '1 MG'),
 ('14 A 187  -  GLIMEPIRIDE BEKER -  COMPRIME SECABLE   -  1MG', '14 A 187', 'GLIMEPIRIDE BEKER', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187  -  GLODEC  -  COMPRIME  -  1MG', '14 A 187', 'GLODEC ', 'GLIMEPIRIDE', 'COMPRIME', '1MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 A 187   -  GLIMICARE  -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'GLIMICARE ', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187   -  PIRAMYL -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'PIRAMYL', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 188  -  GLORION -  COMPRIME SECABLE   -  2MG', '14 A 188', 'GLORION', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '2MG'),
@@ -7013,7 +7013,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 N 388  -  ORPHACOL -  GELLULE  -  50 MG', '14 N 388', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '50 MG'),
 ('14 N 389  -  ORPHACOL -  GELLULE  -  250 MG', '14 N 389', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '250 MG'),
 ('14 N 390  -  ABCERTIN -  PDRE.PERF.  -  200U ', '14 N 390', 'ABCERTIN', 'IMIGLUCERASE', 'PDRE.PERF.', '200U ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 P 346  -  VICTOZA -  SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE   -  6MG/ML ', '14 P 346', 'VICTOZA', 'LIRAGLUTIDE', 'SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE ', '6MG/ML '),
 ('15 A 001  -  DEPAKINE -  COMP. GASTRORESIST.  -  200MG', '15 A 001', 'DEPAKINE', 'VALPROATE DE SODIUM', 'COMP. GASTRORESIST.', '200MG'),
 ('15 A 001  -  ENCORATE  -  COMPRIME  -  200MG', '15 A 001', 'ENCORATE ', 'VALPROATE DE SODIUM', 'COMPRIME', '200MG'),
@@ -7348,7 +7348,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('16 A 159  -  SERVAL -  GLES   -  25MG ', '16 A 159', 'SERVAL', 'SERTRALINE CHLORHYDRATE (EXPRIME EN SERTRALINE)', 'GLES ', '25MG '),
 ('16 A 165  -  CELOPRAM -  SOLUTION BUVABLE EN GOUTTES  -  20MG/ML ', '16 A 165', 'CELOPRAM', 'ESCITALOPRAM OXALATE EXPRIME EN ESCITALOPRAM', 'SOLUTION BUVABLE EN GOUTTES', '20MG/ML '),
 ('16 B 021  -  TRANXENE -  LYOPHILISAT  -  20MG/2ML', '16 B 021', 'TRANXENE', 'CLORAZEPATE DIPOTASSIQUE', 'LYOPHILISAT', '20MG/2ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('16 B 022  -  TRANXENE -  LYOPHILISAT  -  50MG /2,5 ML', '16 B 022', 'TRANXENE', 'CLORAZEPATE DIPOTASSIQUE', 'LYOPHILISAT', '50MG /2,5 ML'),
 ('16 B 023  -  CLORAXENE -  GLES.  -  5MG', '16 B 023', 'CLORAXENE', 'CLORAZEPATE DIPOTASSIQUE', 'GLES.', '5MG'),
 ('16 B 023  -  NOXENE -  GLES  -  5MG', '16 B 023', 'NOXENE', 'CLORAZEPATE DIPOTASSIQUE', 'GLES', '5MG'),
@@ -7684,7 +7684,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('17 D 157  -  OFLOTEK -  COLLYRE EN SOLUTION  -  0,3% ( 3mg/ml) ', '17 D 157', 'OFLOTEK', 'Ofloxacine', 'COLLYRE EN SOLUTION', '0,3% ( 3mg/ml) '),
 ('17 D 159  -  TAUBRIGENE -  COLLYRE   -  0,3% / 0,1%', '17 D 159', 'TAUBRIGENE', 'TOBRAMYCINE / DEXAMETHASONE', 'COLLYRE ', '0,3% / 0,1%'),
 ('17 D 159  -  TOBRAMIDEX -  COLLY.SOL.  -  15MG/5ML(0,3%) et 5MG/5ML (0,1%)', '17 D 159', 'TOBRAMIDEX', 'TOBRAMYCINE/ DEXAMETHASONE', 'COLLY.SOL.', '15MG/5ML(0,3%) et 5MG/5ML (0,1%)');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('17 D 159  -  OPTIDEX-T -  COLLYRE EN SUSPENSION   -  0,3% / 0,1%', '17 D 159', 'OPTIDEX-T', 'TOBRAMYCINE / DEXAMETHASONE', 'COLLYRE EN SUSPENSION ', '0,3% / 0,1%'),
 ('17 D 159  -  DEXATEK -  COLLYRE EN SOL  -  3MG/ 1MG', '17 D 159', 'DEXATEK', 'TOBRAMYCINE/ DEXAMETHASONE', 'COLLYRE EN SOL', '3MG/ 1MG'),
 ('17 D 164  -  AZYTER -  COLLYRE EN SOLUTION EN RECIPIENT UNIDOSE  -  15 MG/G', '17 D 164', 'AZYTER', 'Azithromycine Dihydratee Exprimee En Azithromycine', 'COLLYRE EN SOLUTION EN RECIPIENT UNIDOSE', '15 MG/G'),
@@ -7988,7 +7988,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('20 F 106  -  BREQUAL -  CAPSULES CONTENANT DE LA PDRE P.INHALATION  -  500µG / 50µG', '20 F 106', 'BREQUAL', 'FLUTOCASONE PROPIONATE / SALMeTEROL XINAFOATE EXPRIMe EN SALMeTEROL', 'CAPSULES CONTENANT DE LA PDRE P.INHALATION', '500µG / 50µG'),
 ('20 F 106  -  SALFLUZON -  CAPSULES CONTENANT PDRE.PR INHAL.  -  500µG**/50µG*', '20 F 106', 'SALFLUZON', 'FLUTICASONE (SOUS FORME DE PROPIONATE)/ SALMETEROL(SOUS FORME DE XINAFOATE)', 'CAPSULES CONTENANT PDRE.PR INHAL.', '500µG**/50µG*'),
 ('20 F 228  -  SYMBICORT TURBUHALER -  PDRE. P. INHAL.  -  100µG/6µG/DOSE', '20 F 228', 'SYMBICORT TURBUHALER', 'BUDESONIDE / FORMOTEROL', 'PDRE. P. INHAL.', '100µG/6µG/DOSE');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('20 F 228  -  FORACORT -  PDRE. INHAL. EN GLES. + INHALATEUR  -  100µG/6µG/GLE.**', '20 F 228', 'FORACORT', 'BUDESONIDE / FORMOTEROL (SOUS FORME DE FUMARATE)**', 'PDRE. INHAL. EN GLES. + INHALATEUR', '100µG/6µG/GLE.**'),
 ('20 F 229  -  SYMBICORT TURBUHALER -  PDRE. P. INHAL.  -  200µG/6µG/DOSE', '20 F 229', 'SYMBICORT TURBUHALER', 'BUDESONIDE / FORMOTEROL', 'PDRE. P. INHAL.', '200µG/6µG/DOSE'),
 ('20 F 229  -  FORACORT -  PDRE. INHAL. EN GLES. + INHALATEUR  -  200µG/6µG/GLE.**', '20 F 229', 'FORACORT', 'BUDESONIDE / FORMOTEROL (SOUS FORME DE FUMARATE)**', 'PDRE. INHAL. EN GLES. + INHALATEUR', '200µG/6µG/GLE.**'),
@@ -8279,7 +8279,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('25 G 056  -  RENACID A13 -  SOL. P. HEMODIALYSE  -  ', '25 G 056', 'RENACID A13', 'CONCENTRE ACIDE POUR HEMODIALYSE AU BICARBONATE  POUDRE', 'SOL. P. HEMODIALYSE', ''),
 ('25 G 062  -  DPCA FORMULE 91 -  SOL. P. DIALYSE CONTINUE AMBULATOIRE PERITONEALE  -  5,670G/0,257G/ 0,152G/ 6,537G (3,922g/l de lactate de sodium pur)/ 25G  (correspondant a 22,7g/l ou 2,27% de glucose anhydre) / 1000mL SOIT : 132mmol/l en SODIUM, 1,75mmo', '25 G 062', 'DPCA FORMULE 91', 'CHLORURE DE SODIUM / CHLORURE DE CALCIUM DIHYDRATE / CHLORURE DE MAGNESIUM HEXAHYDRATE / SOLUTION DE LACTATE DE SODIUM A 60% / GLUCOSE MONOHYDRATE ', 'SOL. P. DIALYSE CONTINUE AMBULATOIRE PERITONEALE', '5,670G/0,257G/ 0,152G/ 6,537G (3,922g/l de lactate de sodium pur)/ 25G  (correspondant a 22,7g/l ou 2,27% de glucose anhydre) / 1000mL SOIT : 132mmol/l en SODIUM, 1,75mmol/l en CALCIUM, 0,75mmol/l en MAGNESIUM, 35mmol/l en LACTATE , 102mmol/l en chlorure,'),
 ('25 G 063  -  DIANEAL PDA 1,36% -  SOL. P. DIALYSE PERITONEALE  -  13,6G/L (1,36%) DE GLUCOSE ANHYDRE , 15G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de', '25 G 063', 'DIANEAL PDA 1,36%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE / SODIUM LACTATE', 'SOL. P. DIALYSE PERITONEALE', '13,6G/L (1,36%) DE GLUCOSE ANHYDRE , 15G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40mm');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('25 G 064  -  DIANEAL PDA 2,27% -  SOL. P. DIALYSE PERITONEALE  -  22,70G/L (2,27%) DE GLUCOSE ANHYDRE , 25G/L SOUS FORME  MONONHYDRATE/ (5,38G/4,48G/0,184G/0,051G)/L SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de ', '25 G 064', 'DIANEAL PDA 2,27%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / SODIUM LACTATE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE', 'SOL. P. DIALYSE PERITONEALE', '22,70G/L (2,27%) DE GLUCOSE ANHYDRE , 25G/L SOUS FORME  MONONHYDRATE/ (5,38G/4,48G/0,184G/0,051G)/L SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40mmole de lactate )/L '),
 ('25 G 065  -  DIANEAL PDA 3,86% -  SOL. P. DIALYSE PERITONEALE  -  38,6G/L (3,86%) DE GLUCOSE ANHYDRE , 42,5G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole ', '25 G 065', 'DIANEAL PDA 3,86%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE / SODIUM LACTATE', 'SOL. P. DIALYSE PERITONEALE', '38,6G/L (3,86%) DE GLUCOSE ANHYDRE , 42,5G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40'),
 ('25 G 066  -  EXTRANEAL 7,5% -  SOL. P. DIALYSE PERITONEALE  -  75G/L (7,5%) D\'ICODEXTRINE (5,4G/4,5G/0,257G/0,051G)/L                                                  SOIT PAR LITRE 133MMOL DE SODIUM, 1,75MMOL DE CALCIUM, 0,25MMOL DE MAGNESIUM, 96MMOL DE ', '25 G 066', 'EXTRANEAL 7,5%', 'ICODEXTRINE (DCI)/SODIUM CHLORURE/SODIUM LACTATE / CALCIUM CHLORURE / MAGNESIUM CHLORURE ', 'SOL. P. DIALYSE PERITONEALE', '75G/L (7,5%) D\'ICODEXTRINE (5,4G/4,5G/0,257G/0,051G)/L                                                  SOIT PAR LITRE 133MMOL DE SODIUM, 1,75MMOL DE CALCIUM, 0,25MMOL DE MAGNESIUM, 96MMOL DE CHLORURE , 40MMOL DE LACTATE'),
@@ -8567,7 +8567,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('03 B 006  -  EXPANDOL -  PDRE. P. SOL. BUV. EN SACH.-DOSE  -  100MG', '03 B 006', 'EXPANDOL', 'PARACETAMOL', 'PDRE. P. SOL. BUV. EN SACH.-DOSE', '100MG'),
 ('03 B 006  -  PARACETAMOL PHYSIOPHARM -  PDRE. P. SOL. BUV. EN SACH.-DOSE  -  100MG', '03 B 006', 'PARACETAMOL PHYSIOPHARM', 'PARACETAMOL ', 'PDRE. P. SOL. BUV. EN SACH.-DOSE', '100MG'),
 ('03 B 007  -  PAROL  -  SUPPO,  -  100MG', '03 B 007', 'PAROL ', 'PARACETAMOL', 'SUPPO,', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('03 B 007  -  SUPPFADOL 100 -  SUPPO.  -  100MG', '03 B 007', 'SUPPFADOL 100', 'PARACETAMOL ', 'SUPPO.', '100MG'),
 ('03 B 007   -  DOLYMEX -  SUPPO,  -  100MG', '03 B 007 ', 'DOLYMEX', 'PARACETAMOL ', 'SUPPO,', '100MG'),
 ('03 B 026  -  COPARALGAN -  COMPRIME SECABLE   -  400MG/20MG', '03 B 026', 'COPARALGAN', 'Paracetamol / Codeine phosphate hemihydrate', 'COMPRIME SECABLE ', '400MG/20MG'),
@@ -8904,7 +8904,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('05 C 145  -  ELPIX -  Comprime pellicule  -  50MG', '05 C 145', 'ELPIX', 'Dasatinib monohydrate exprime en Dasatinib', 'Comprime pellicule', '50MG'),
 ('05 C 146  -  ELPIX -  Comprime pellicule  -  70MG', '05 C 146', 'ELPIX', 'Dasatinib monohydrate exprime en Dasatinib', 'Comprime pellicule', '70MG'),
 ('05 C 148  -  TASIGNA -  GLES.  -  200MG', '05 C 148', 'TASIGNA', 'NILOTINIB CHLORHYDRATE MONOHYDRATE EXPRIME EN NILOTINIB', 'GLES.', '200MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('05 C 163  -  IRESSA -  COMPRIME PELLICULE   -  250MG', '05 C 163', 'IRESSA', 'GEFITINIB', 'COMPRIME PELLICULE ', '250MG'),
 ('05 C 166  -  VOTRIENT -  COMPRIME PELLICULE   -  200MG', '05 C 166', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '200MG'),
 ('05 C 167  -  VOTRIENT -  COMPRIME PELLICULE   -  400MG ', '05 C 167', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '400MG '),
@@ -9199,7 +9199,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 E 147  -  TAREG -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'TAREG', 'Valsartan ', 'COMPRIME PELLICULE ', '80MG'),
 ('06 E 147  -  VALEX 80 -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALEX 80', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  HUREG HUP -  COMP.PELLI.  -  80MG', '06 E 147', 'HUREG HUP', 'VALSARTAN', 'COMP.PELLI.', '80MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 E 147  -  VIASART -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'VIASART', 'VALSARTAN', 'COMPRIME PELLICULE ', '80MG'),
 ('06 E 147  -  VALSARTAN LDM -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALSARTAN LDM', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  RETA 80 -  COMP PELL SEC  -  80MG ', '06 E 147', 'RETA 80', 'Valsartan ', 'COMP PELL SEC', '80MG '),
@@ -9512,7 +9512,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 F 273  -  TEMERIVOL -  COMP QUADRISECABLES  -  5MG', '06 F 273', 'TEMERIVOL', 'NEBIVOLOL', 'COMP QUADRISECABLES', '5MG'),
 ('06 F 299  -  CO BIPROTENS -  COMPRIME PELLICULE   -  5MG/6,25MG', '06 F 299', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '5MG/6,25MG'),
 ('06 F 299  -  CO-BISOPROLOL BEKER -  COMP PELL  -  5MG/6,25MG', '06 F 299', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '5MG/6,25MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 F 302  -  CO BIPROTENS -  COMPRIME PELLICULE   -  10MG/6,25MG', '06 F 302', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '10MG/6,25MG'),
 ('06 F 302  -  CO-BISOPROLOL BEKER -  COMP PELL  -  10MG/6,25MG', '06 F 302', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '10MG/6,25MG'),
 ('06 F 309  -  METOPRESS -  GLES. LP.  -  100MG', '06 F 309', 'METOPRESS', 'METOPROLOL SUCCINATE EXPRIME EN METOPROLOL', 'GLES. LP.', '100MG'),
@@ -9825,7 +9825,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('07 H 176  -  CLOTASOL -  PDE.DERM.  -  0,0005', '07 H 176', 'CLOTASOL', 'CLOBETASOL PROPIONATE', 'PDE.DERM.', '0.05%'),
 ('07 H 176  -  CLOBENAT -  PMDE.DERM.   -  0,05G/100G PDE', '07 H 176', 'CLOBENAT', 'CLOBETASOL', 'PMDE.DERM. ', '0,05G/100G PDE'),
 ('07 H 176  -  CLOBECORT -  POMMADE DERMIQUE   -  0,0005', '07 H 176', 'CLOBECORT', 'CLOBETASOL PROPIONATE', 'POMMADE DERMIQUE ', '0.05%');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('07 H 176  -  PROCLO JAM -  PDE. DERM.  -  0,0005', '07 H 176', 'PROCLO JAM', 'CLOBETASOL PROPIONATE', 'PDE. DERM.', '0.05%'),
 ('07 H 183  -  PEITEL  -  CREME .DERM.  -  0,0025', '07 H 183', 'PEITEL ', 'PREDNICARBATE ', 'CREME .DERM.', '0.25%'),
 ('07 L 058  -  CURACNE 10MG   -  CAPSULE MOLLE  -  10MG', '07 L 058', 'CURACNE 10MG  ', 'ISOTRETINOINE', 'CAPSULE MOLLE', '10MG'),
@@ -10115,7 +10115,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('10 E 104  -  DICETEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'DICETEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINAVERIUM NOVAGENERICS -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINAVERIUM NOVAGENERICS', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINATEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINATEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('10 E 108  -  EUFOR -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
 ('10 E 108  -  EUFOR -  COMPRIME PELLICULE   -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMPRIME PELLICULE ', '80MG'),
 ('10 E 108  -  SPASLAM -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'SPASLAM', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
@@ -10411,7 +10411,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('12 E 199  -  FERINJECT -  SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR  -  50 MG/ML', '12 E 199', 'FERINJECT', 'Carboxymaltose ferrique exprime en fer', 'SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR', '50 MG/ML'),
 ('12 F 129   -  ELAXIM -  PDRE. ET SOLV. INJ. IV  -  1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)', '12 F 129 ', 'ELAXIM', 'Tenecteplase GENNOVA', 'PDRE. ET SOLV. INJ. IV', '1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)'),
 ('12 F 159  -  INHIXA -  COMP PELL  -  10MG', '12 F 159', 'INHIXA', 'RIVAROXABAN', 'COMP PELL', '10MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('12 F 159  -  TROMBIX -  COMPRIME PELLICULE   -  10MG', '12 F 159', 'TROMBIX', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 159   -  XARELTO -  COMPRIME PELLICULE   -  10MG', '12 F 159 ', 'XARELTO', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 167  -  RYVOL -  COMPRIME PELLICULE   -  15MG', '12 F 167', 'RYVOL', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '15MG'),
@@ -10712,7 +10712,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 G 047  -  AMOXAL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXAL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  HIMOXYL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'HIMOXYL', 'AMOXICILLINE ', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  BIOPAMOX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'BIOPAMOX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 G 047  -  CLAMOXYL -  PDRE. P. SUSP.BUV.  -  250MG/5ML', '13 G 047', 'CLAMOXYL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP.BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXICILLINE EG -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXICILLINE EG', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXIMEX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXIMEX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
@@ -10995,7 +10995,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 A 187  -  AMAREL -  COMP.  -  1 MG', '14 A 187', 'AMAREL', 'GLIMEPIRIDE', 'COMP.', '1 MG'),
 ('14 A 187  -  GLIMEPIRIDE BEKER -  COMPRIME SECABLE   -  1MG', '14 A 187', 'GLIMEPIRIDE BEKER', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187  -  GLODEC  -  COMPRIME  -  1MG', '14 A 187', 'GLODEC ', 'GLIMEPIRIDE', 'COMPRIME', '1MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 A 187   -  GLIMICARE  -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'GLIMICARE ', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187   -  PIRAMYL -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'PIRAMYL', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 188  -  GLORION -  COMPRIME SECABLE   -  2MG', '14 A 188', 'GLORION', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '2MG'),
@@ -11280,7 +11280,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 N 388  -  ORPHACOL -  GELLULE  -  50 MG', '14 N 388', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '50 MG'),
 ('14 N 389  -  ORPHACOL -  GELLULE  -  250 MG', '14 N 389', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '250 MG'),
 ('14 N 390  -  ABCERTIN -  PDRE.PERF.  -  200U ', '14 N 390', 'ABCERTIN', 'IMIGLUCERASE', 'PDRE.PERF.', '200U ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 P 346  -  VICTOZA -  SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE   -  6MG/ML ', '14 P 346', 'VICTOZA', 'LIRAGLUTIDE', 'SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE ', '6MG/ML '),
 ('15 A 001  -  DEPAKINE -  COMP. GASTRORESIST.  -  200MG', '15 A 001', 'DEPAKINE', 'VALPROATE DE SODIUM', 'COMP. GASTRORESIST.', '200MG'),
 ('15 A 001  -  ENCORATE  -  COMPRIME  -  200MG', '15 A 001', 'ENCORATE ', 'VALPROATE DE SODIUM', 'COMPRIME', '200MG'),
@@ -11615,7 +11615,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('16 A 159  -  SERVAL -  GLES   -  25MG ', '16 A 159', 'SERVAL', 'SERTRALINE CHLORHYDRATE (EXPRIME EN SERTRALINE)', 'GLES ', '25MG '),
 ('16 A 165  -  CELOPRAM -  SOLUTION BUVABLE EN GOUTTES  -  20MG/ML ', '16 A 165', 'CELOPRAM', 'ESCITALOPRAM OXALATE EXPRIME EN ESCITALOPRAM', 'SOLUTION BUVABLE EN GOUTTES', '20MG/ML '),
 ('16 B 021  -  TRANXENE -  LYOPHILISAT  -  20MG/2ML', '16 B 021', 'TRANXENE', 'CLORAZEPATE DIPOTASSIQUE', 'LYOPHILISAT', '20MG/2ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('16 B 022  -  TRANXENE -  LYOPHILISAT  -  50MG /2,5 ML', '16 B 022', 'TRANXENE', 'CLORAZEPATE DIPOTASSIQUE', 'LYOPHILISAT', '50MG /2,5 ML'),
 ('16 B 023  -  CLORAXENE -  GLES.  -  5MG', '16 B 023', 'CLORAXENE', 'CLORAZEPATE DIPOTASSIQUE', 'GLES.', '5MG'),
 ('16 B 023  -  NOXENE -  GLES  -  5MG', '16 B 023', 'NOXENE', 'CLORAZEPATE DIPOTASSIQUE', 'GLES', '5MG'),
@@ -11951,7 +11951,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('17 D 157  -  OFLOTEK -  COLLYRE EN SOLUTION  -  0,3% ( 3mg/ml) ', '17 D 157', 'OFLOTEK', 'Ofloxacine', 'COLLYRE EN SOLUTION', '0,3% ( 3mg/ml) '),
 ('17 D 159  -  TAUBRIGENE -  COLLYRE   -  0,3% / 0,1%', '17 D 159', 'TAUBRIGENE', 'TOBRAMYCINE / DEXAMETHASONE', 'COLLYRE ', '0,3% / 0,1%'),
 ('17 D 159  -  TOBRAMIDEX -  COLLY.SOL.  -  15MG/5ML(0,3%) et 5MG/5ML (0,1%)', '17 D 159', 'TOBRAMIDEX', 'TOBRAMYCINE/ DEXAMETHASONE', 'COLLY.SOL.', '15MG/5ML(0,3%) et 5MG/5ML (0,1%)');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('17 D 159  -  OPTIDEX-T -  COLLYRE EN SUSPENSION   -  0,3% / 0,1%', '17 D 159', 'OPTIDEX-T', 'TOBRAMYCINE / DEXAMETHASONE', 'COLLYRE EN SUSPENSION ', '0,3% / 0,1%'),
 ('17 D 159  -  DEXATEK -  COLLYRE EN SOL  -  3MG/ 1MG', '17 D 159', 'DEXATEK', 'TOBRAMYCINE/ DEXAMETHASONE', 'COLLYRE EN SOL', '3MG/ 1MG'),
 ('17 D 164  -  AZYTER -  COLLYRE EN SOLUTION EN RECIPIENT UNIDOSE  -  15 MG/G', '17 D 164', 'AZYTER', 'Azithromycine Dihydratee Exprimee En Azithromycine', 'COLLYRE EN SOLUTION EN RECIPIENT UNIDOSE', '15 MG/G'),
@@ -12255,7 +12255,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('20 F 106  -  BREQUAL -  CAPSULES CONTENANT DE LA PDRE P.INHALATION  -  500µG / 50µG', '20 F 106', 'BREQUAL', 'FLUTOCASONE PROPIONATE / SALMeTEROL XINAFOATE EXPRIMe EN SALMeTEROL', 'CAPSULES CONTENANT DE LA PDRE P.INHALATION', '500µG / 50µG'),
 ('20 F 106  -  SALFLUZON -  CAPSULES CONTENANT PDRE.PR INHAL.  -  500µG**/50µG*', '20 F 106', 'SALFLUZON', 'FLUTICASONE (SOUS FORME DE PROPIONATE)/ SALMETEROL(SOUS FORME DE XINAFOATE)', 'CAPSULES CONTENANT PDRE.PR INHAL.', '500µG**/50µG*'),
 ('20 F 228  -  SYMBICORT TURBUHALER -  PDRE. P. INHAL.  -  100µG/6µG/DOSE', '20 F 228', 'SYMBICORT TURBUHALER', 'BUDESONIDE / FORMOTEROL', 'PDRE. P. INHAL.', '100µG/6µG/DOSE');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('20 F 228  -  FORACORT -  PDRE. INHAL. EN GLES. + INHALATEUR  -  100µG/6µG/GLE.**', '20 F 228', 'FORACORT', 'BUDESONIDE / FORMOTEROL (SOUS FORME DE FUMARATE)**', 'PDRE. INHAL. EN GLES. + INHALATEUR', '100µG/6µG/GLE.**'),
 ('20 F 229  -  SYMBICORT TURBUHALER -  PDRE. P. INHAL.  -  200µG/6µG/DOSE', '20 F 229', 'SYMBICORT TURBUHALER', 'BUDESONIDE / FORMOTEROL', 'PDRE. P. INHAL.', '200µG/6µG/DOSE'),
 ('20 F 229  -  FORACORT -  PDRE. INHAL. EN GLES. + INHALATEUR  -  200µG/6µG/GLE.**', '20 F 229', 'FORACORT', 'BUDESONIDE / FORMOTEROL (SOUS FORME DE FUMARATE)**', 'PDRE. INHAL. EN GLES. + INHALATEUR', '200µG/6µG/GLE.**'),
@@ -12546,7 +12546,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('25 G 056  -  RENACID A13 -  SOL. P. HEMODIALYSE  -  ', '25 G 056', 'RENACID A13', 'CONCENTRE ACIDE POUR HEMODIALYSE AU BICARBONATE  POUDRE', 'SOL. P. HEMODIALYSE', ''),
 ('25 G 062  -  DPCA FORMULE 91 -  SOL. P. DIALYSE CONTINUE AMBULATOIRE PERITONEALE  -  5,670G/0,257G/ 0,152G/ 6,537G (3,922g/l de lactate de sodium pur)/ 25G  (correspondant a 22,7g/l ou 2,27% de glucose anhydre) / 1000mL SOIT : 132mmol/l en SODIUM, 1,75mmo', '25 G 062', 'DPCA FORMULE 91', 'CHLORURE DE SODIUM / CHLORURE DE CALCIUM DIHYDRATE / CHLORURE DE MAGNESIUM HEXAHYDRATE / SOLUTION DE LACTATE DE SODIUM A 60% / GLUCOSE MONOHYDRATE ', 'SOL. P. DIALYSE CONTINUE AMBULATOIRE PERITONEALE', '5,670G/0,257G/ 0,152G/ 6,537G (3,922g/l de lactate de sodium pur)/ 25G  (correspondant a 22,7g/l ou 2,27% de glucose anhydre) / 1000mL SOIT : 132mmol/l en SODIUM, 1,75mmol/l en CALCIUM, 0,75mmol/l en MAGNESIUM, 35mmol/l en LACTATE , 102mmol/l en chlorure,'),
 ('25 G 063  -  DIANEAL PDA 1,36% -  SOL. P. DIALYSE PERITONEALE  -  13,6G/L (1,36%) DE GLUCOSE ANHYDRE , 15G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de', '25 G 063', 'DIANEAL PDA 1,36%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE / SODIUM LACTATE', 'SOL. P. DIALYSE PERITONEALE', '13,6G/L (1,36%) DE GLUCOSE ANHYDRE , 15G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40mm');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('25 G 064  -  DIANEAL PDA 2,27% -  SOL. P. DIALYSE PERITONEALE  -  22,70G/L (2,27%) DE GLUCOSE ANHYDRE , 25G/L SOUS FORME  MONONHYDRATE/ (5,38G/4,48G/0,184G/0,051G)/L SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de ', '25 G 064', 'DIANEAL PDA 2,27%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / SODIUM LACTATE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE', 'SOL. P. DIALYSE PERITONEALE', '22,70G/L (2,27%) DE GLUCOSE ANHYDRE , 25G/L SOUS FORME  MONONHYDRATE/ (5,38G/4,48G/0,184G/0,051G)/L SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40mmole de lactate )/L '),
 ('25 G 065  -  DIANEAL PDA 3,86% -  SOL. P. DIALYSE PERITONEALE  -  38,6G/L (3,86%) DE GLUCOSE ANHYDRE , 42,5G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole ', '25 G 065', 'DIANEAL PDA 3,86%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE / SODIUM LACTATE', 'SOL. P. DIALYSE PERITONEALE', '38,6G/L (3,86%) DE GLUCOSE ANHYDRE , 42,5G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40'),
 ('25 G 066  -  EXTRANEAL 7,5% -  SOL. P. DIALYSE PERITONEALE  -  75G/L (7,5%) D\'ICODEXTRINE (5,4G/4,5G/0,257G/0,051G)/L                                                  SOIT PAR LITRE 133MMOL DE SODIUM, 1,75MMOL DE CALCIUM, 0,25MMOL DE MAGNESIUM, 96MMOL DE ', '25 G 066', 'EXTRANEAL 7,5%', 'ICODEXTRINE (DCI)/SODIUM CHLORURE/SODIUM LACTATE / CALCIUM CHLORURE / MAGNESIUM CHLORURE ', 'SOL. P. DIALYSE PERITONEALE', '75G/L (7,5%) D\'ICODEXTRINE (5,4G/4,5G/0,257G/0,051G)/L                                                  SOIT PAR LITRE 133MMOL DE SODIUM, 1,75MMOL DE CALCIUM, 0,25MMOL DE MAGNESIUM, 96MMOL DE CHLORURE , 40MMOL DE LACTATE'),
@@ -12834,7 +12834,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('03 B 006  -  EXPANDOL -  PDRE. P. SOL. BUV. EN SACH.-DOSE  -  100MG', '03 B 006', 'EXPANDOL', 'PARACETAMOL', 'PDRE. P. SOL. BUV. EN SACH.-DOSE', '100MG'),
 ('03 B 006  -  PARACETAMOL PHYSIOPHARM -  PDRE. P. SOL. BUV. EN SACH.-DOSE  -  100MG', '03 B 006', 'PARACETAMOL PHYSIOPHARM', 'PARACETAMOL ', 'PDRE. P. SOL. BUV. EN SACH.-DOSE', '100MG'),
 ('03 B 007  -  PAROL  -  SUPPO,  -  100MG', '03 B 007', 'PAROL ', 'PARACETAMOL', 'SUPPO,', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('03 B 007  -  SUPPFADOL 100 -  SUPPO.  -  100MG', '03 B 007', 'SUPPFADOL 100', 'PARACETAMOL ', 'SUPPO.', '100MG'),
 ('03 B 007   -  DOLYMEX -  SUPPO,  -  100MG', '03 B 007 ', 'DOLYMEX', 'PARACETAMOL ', 'SUPPO,', '100MG'),
 ('03 B 026  -  COPARALGAN -  COMPRIME SECABLE   -  400MG/20MG', '03 B 026', 'COPARALGAN', 'Paracetamol / Codeine phosphate hemihydrate', 'COMPRIME SECABLE ', '400MG/20MG'),
@@ -13171,7 +13171,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('05 C 145  -  ELPIX -  Comprime pellicule  -  50MG', '05 C 145', 'ELPIX', 'Dasatinib monohydrate exprime en Dasatinib', 'Comprime pellicule', '50MG'),
 ('05 C 146  -  ELPIX -  Comprime pellicule  -  70MG', '05 C 146', 'ELPIX', 'Dasatinib monohydrate exprime en Dasatinib', 'Comprime pellicule', '70MG'),
 ('05 C 148  -  TASIGNA -  GLES.  -  200MG', '05 C 148', 'TASIGNA', 'NILOTINIB CHLORHYDRATE MONOHYDRATE EXPRIME EN NILOTINIB', 'GLES.', '200MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('05 C 163  -  IRESSA -  COMPRIME PELLICULE   -  250MG', '05 C 163', 'IRESSA', 'GEFITINIB', 'COMPRIME PELLICULE ', '250MG'),
 ('05 C 166  -  VOTRIENT -  COMPRIME PELLICULE   -  200MG', '05 C 166', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '200MG'),
 ('05 C 167  -  VOTRIENT -  COMPRIME PELLICULE   -  400MG ', '05 C 167', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '400MG '),
@@ -13466,7 +13466,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 E 147  -  TAREG -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'TAREG', 'Valsartan ', 'COMPRIME PELLICULE ', '80MG'),
 ('06 E 147  -  VALEX 80 -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALEX 80', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  HUREG HUP -  COMP.PELLI.  -  80MG', '06 E 147', 'HUREG HUP', 'VALSARTAN', 'COMP.PELLI.', '80MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 E 147  -  VIASART -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'VIASART', 'VALSARTAN', 'COMPRIME PELLICULE ', '80MG'),
 ('06 E 147  -  VALSARTAN LDM -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALSARTAN LDM', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  RETA 80 -  COMP PELL SEC  -  80MG ', '06 E 147', 'RETA 80', 'Valsartan ', 'COMP PELL SEC', '80MG '),
@@ -13779,7 +13779,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 F 273  -  TEMERIVOL -  COMP QUADRISECABLES  -  5MG', '06 F 273', 'TEMERIVOL', 'NEBIVOLOL', 'COMP QUADRISECABLES', '5MG'),
 ('06 F 299  -  CO BIPROTENS -  COMPRIME PELLICULE   -  5MG/6,25MG', '06 F 299', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '5MG/6,25MG'),
 ('06 F 299  -  CO-BISOPROLOL BEKER -  COMP PELL  -  5MG/6,25MG', '06 F 299', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '5MG/6,25MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 F 302  -  CO BIPROTENS -  COMPRIME PELLICULE   -  10MG/6,25MG', '06 F 302', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '10MG/6,25MG'),
 ('06 F 302  -  CO-BISOPROLOL BEKER -  COMP PELL  -  10MG/6,25MG', '06 F 302', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '10MG/6,25MG'),
 ('06 F 309  -  METOPRESS -  GLES. LP.  -  100MG', '06 F 309', 'METOPRESS', 'METOPROLOL SUCCINATE EXPRIME EN METOPROLOL', 'GLES. LP.', '100MG'),
@@ -14092,7 +14092,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('07 H 176  -  CLOTASOL -  PDE.DERM.  -  0,0005', '07 H 176', 'CLOTASOL', 'CLOBETASOL PROPIONATE', 'PDE.DERM.', '0.05%'),
 ('07 H 176  -  CLOBENAT -  PMDE.DERM.   -  0,05G/100G PDE', '07 H 176', 'CLOBENAT', 'CLOBETASOL', 'PMDE.DERM. ', '0,05G/100G PDE'),
 ('07 H 176  -  CLOBECORT -  POMMADE DERMIQUE   -  0,0005', '07 H 176', 'CLOBECORT', 'CLOBETASOL PROPIONATE', 'POMMADE DERMIQUE ', '0.05%');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('07 H 176  -  PROCLO JAM -  PDE. DERM.  -  0,0005', '07 H 176', 'PROCLO JAM', 'CLOBETASOL PROPIONATE', 'PDE. DERM.', '0.05%'),
 ('07 H 183  -  PEITEL  -  CREME .DERM.  -  0,0025', '07 H 183', 'PEITEL ', 'PREDNICARBATE ', 'CREME .DERM.', '0.25%'),
 ('07 L 058  -  CURACNE 10MG   -  CAPSULE MOLLE  -  10MG', '07 L 058', 'CURACNE 10MG  ', 'ISOTRETINOINE', 'CAPSULE MOLLE', '10MG'),
@@ -14382,7 +14382,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('10 E 104  -  DICETEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'DICETEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINAVERIUM NOVAGENERICS -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINAVERIUM NOVAGENERICS', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINATEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINATEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('10 E 108  -  EUFOR -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
 ('10 E 108  -  EUFOR -  COMPRIME PELLICULE   -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMPRIME PELLICULE ', '80MG'),
 ('10 E 108  -  SPASLAM -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'SPASLAM', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
@@ -14678,7 +14678,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('12 E 199  -  FERINJECT -  SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR  -  50 MG/ML', '12 E 199', 'FERINJECT', 'Carboxymaltose ferrique exprime en fer', 'SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR', '50 MG/ML'),
 ('12 F 129   -  ELAXIM -  PDRE. ET SOLV. INJ. IV  -  1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)', '12 F 129 ', 'ELAXIM', 'Tenecteplase GENNOVA', 'PDRE. ET SOLV. INJ. IV', '1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)'),
 ('12 F 159  -  INHIXA -  COMP PELL  -  10MG', '12 F 159', 'INHIXA', 'RIVAROXABAN', 'COMP PELL', '10MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('12 F 159  -  TROMBIX -  COMPRIME PELLICULE   -  10MG', '12 F 159', 'TROMBIX', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 159   -  XARELTO -  COMPRIME PELLICULE   -  10MG', '12 F 159 ', 'XARELTO', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 167  -  RYVOL -  COMPRIME PELLICULE   -  15MG', '12 F 167', 'RYVOL', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '15MG'),
@@ -14979,7 +14979,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 G 047  -  AMOXAL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXAL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  HIMOXYL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'HIMOXYL', 'AMOXICILLINE ', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  BIOPAMOX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'BIOPAMOX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 G 047  -  CLAMOXYL -  PDRE. P. SUSP.BUV.  -  250MG/5ML', '13 G 047', 'CLAMOXYL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP.BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXICILLINE EG -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXICILLINE EG', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXIMEX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXIMEX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
@@ -15262,7 +15262,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 A 187  -  AMAREL -  COMP.  -  1 MG', '14 A 187', 'AMAREL', 'GLIMEPIRIDE', 'COMP.', '1 MG'),
 ('14 A 187  -  GLIMEPIRIDE BEKER -  COMPRIME SECABLE   -  1MG', '14 A 187', 'GLIMEPIRIDE BEKER', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187  -  GLODEC  -  COMPRIME  -  1MG', '14 A 187', 'GLODEC ', 'GLIMEPIRIDE', 'COMPRIME', '1MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 A 187   -  GLIMICARE  -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'GLIMICARE ', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187   -  PIRAMYL -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'PIRAMYL', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 188  -  GLORION -  COMPRIME SECABLE   -  2MG', '14 A 188', 'GLORION', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '2MG'),
@@ -15547,7 +15547,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 N 388  -  ORPHACOL -  GELLULE  -  50 MG', '14 N 388', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '50 MG'),
 ('14 N 389  -  ORPHACOL -  GELLULE  -  250 MG', '14 N 389', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '250 MG'),
 ('14 N 390  -  ABCERTIN -  PDRE.PERF.  -  200U ', '14 N 390', 'ABCERTIN', 'IMIGLUCERASE', 'PDRE.PERF.', '200U ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 P 346  -  VICTOZA -  SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE   -  6MG/ML ', '14 P 346', 'VICTOZA', 'LIRAGLUTIDE', 'SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE ', '6MG/ML '),
 ('15 A 001  -  DEPAKINE -  COMP. GASTRORESIST.  -  200MG', '15 A 001', 'DEPAKINE', 'VALPROATE DE SODIUM', 'COMP. GASTRORESIST.', '200MG'),
 ('15 A 001  -  ENCORATE  -  COMPRIME  -  200MG', '15 A 001', 'ENCORATE ', 'VALPROATE DE SODIUM', 'COMPRIME', '200MG'),
@@ -15882,7 +15882,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('16 A 159  -  SERVAL -  GLES   -  25MG ', '16 A 159', 'SERVAL', 'SERTRALINE CHLORHYDRATE (EXPRIME EN SERTRALINE)', 'GLES ', '25MG '),
 ('16 A 165  -  CELOPRAM -  SOLUTION BUVABLE EN GOUTTES  -  20MG/ML ', '16 A 165', 'CELOPRAM', 'ESCITALOPRAM OXALATE EXPRIME EN ESCITALOPRAM', 'SOLUTION BUVABLE EN GOUTTES', '20MG/ML '),
 ('16 B 021  -  TRANXENE -  LYOPHILISAT  -  20MG/2ML', '16 B 021', 'TRANXENE', 'CLORAZEPATE DIPOTASSIQUE', 'LYOPHILISAT', '20MG/2ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('16 B 022  -  TRANXENE -  LYOPHILISAT  -  50MG /2,5 ML', '16 B 022', 'TRANXENE', 'CLORAZEPATE DIPOTASSIQUE', 'LYOPHILISAT', '50MG /2,5 ML'),
 ('16 B 023  -  CLORAXENE -  GLES.  -  5MG', '16 B 023', 'CLORAXENE', 'CLORAZEPATE DIPOTASSIQUE', 'GLES.', '5MG'),
 ('16 B 023  -  NOXENE -  GLES  -  5MG', '16 B 023', 'NOXENE', 'CLORAZEPATE DIPOTASSIQUE', 'GLES', '5MG'),
@@ -16218,7 +16218,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('17 D 157  -  OFLOTEK -  COLLYRE EN SOLUTION  -  0,3% ( 3mg/ml) ', '17 D 157', 'OFLOTEK', 'Ofloxacine', 'COLLYRE EN SOLUTION', '0,3% ( 3mg/ml) '),
 ('17 D 159  -  TAUBRIGENE -  COLLYRE   -  0,3% / 0,1%', '17 D 159', 'TAUBRIGENE', 'TOBRAMYCINE / DEXAMETHASONE', 'COLLYRE ', '0,3% / 0,1%'),
 ('17 D 159  -  TOBRAMIDEX -  COLLY.SOL.  -  15MG/5ML(0,3%) et 5MG/5ML (0,1%)', '17 D 159', 'TOBRAMIDEX', 'TOBRAMYCINE/ DEXAMETHASONE', 'COLLY.SOL.', '15MG/5ML(0,3%) et 5MG/5ML (0,1%)');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('17 D 159  -  OPTIDEX-T -  COLLYRE EN SUSPENSION   -  0,3% / 0,1%', '17 D 159', 'OPTIDEX-T', 'TOBRAMYCINE / DEXAMETHASONE', 'COLLYRE EN SUSPENSION ', '0,3% / 0,1%'),
 ('17 D 159  -  DEXATEK -  COLLYRE EN SOL  -  3MG/ 1MG', '17 D 159', 'DEXATEK', 'TOBRAMYCINE/ DEXAMETHASONE', 'COLLYRE EN SOL', '3MG/ 1MG'),
 ('17 D 164  -  AZYTER -  COLLYRE EN SOLUTION EN RECIPIENT UNIDOSE  -  15 MG/G', '17 D 164', 'AZYTER', 'Azithromycine Dihydratee Exprimee En Azithromycine', 'COLLYRE EN SOLUTION EN RECIPIENT UNIDOSE', '15 MG/G'),
@@ -16522,7 +16522,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('20 F 106  -  BREQUAL -  CAPSULES CONTENANT DE LA PDRE P.INHALATION  -  500µG / 50µG', '20 F 106', 'BREQUAL', 'FLUTOCASONE PROPIONATE / SALMeTEROL XINAFOATE EXPRIMe EN SALMeTEROL', 'CAPSULES CONTENANT DE LA PDRE P.INHALATION', '500µG / 50µG'),
 ('20 F 106  -  SALFLUZON -  CAPSULES CONTENANT PDRE.PR INHAL.  -  500µG**/50µG*', '20 F 106', 'SALFLUZON', 'FLUTICASONE (SOUS FORME DE PROPIONATE)/ SALMETEROL(SOUS FORME DE XINAFOATE)', 'CAPSULES CONTENANT PDRE.PR INHAL.', '500µG**/50µG*'),
 ('20 F 228  -  SYMBICORT TURBUHALER -  PDRE. P. INHAL.  -  100µG/6µG/DOSE', '20 F 228', 'SYMBICORT TURBUHALER', 'BUDESONIDE / FORMOTEROL', 'PDRE. P. INHAL.', '100µG/6µG/DOSE');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('20 F 228  -  FORACORT -  PDRE. INHAL. EN GLES. + INHALATEUR  -  100µG/6µG/GLE.**', '20 F 228', 'FORACORT', 'BUDESONIDE / FORMOTEROL (SOUS FORME DE FUMARATE)**', 'PDRE. INHAL. EN GLES. + INHALATEUR', '100µG/6µG/GLE.**'),
 ('20 F 229  -  SYMBICORT TURBUHALER -  PDRE. P. INHAL.  -  200µG/6µG/DOSE', '20 F 229', 'SYMBICORT TURBUHALER', 'BUDESONIDE / FORMOTEROL', 'PDRE. P. INHAL.', '200µG/6µG/DOSE'),
 ('20 F 229  -  FORACORT -  PDRE. INHAL. EN GLES. + INHALATEUR  -  200µG/6µG/GLE.**', '20 F 229', 'FORACORT', 'BUDESONIDE / FORMOTEROL (SOUS FORME DE FUMARATE)**', 'PDRE. INHAL. EN GLES. + INHALATEUR', '200µG/6µG/GLE.**'),
@@ -16813,7 +16813,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('25 G 056  -  RENACID A13 -  SOL. P. HEMODIALYSE  -  ', '25 G 056', 'RENACID A13', 'CONCENTRE ACIDE POUR HEMODIALYSE AU BICARBONATE  POUDRE', 'SOL. P. HEMODIALYSE', ''),
 ('25 G 062  -  DPCA FORMULE 91 -  SOL. P. DIALYSE CONTINUE AMBULATOIRE PERITONEALE  -  5,670G/0,257G/ 0,152G/ 6,537G (3,922g/l de lactate de sodium pur)/ 25G  (correspondant a 22,7g/l ou 2,27% de glucose anhydre) / 1000mL SOIT : 132mmol/l en SODIUM, 1,75mmo', '25 G 062', 'DPCA FORMULE 91', 'CHLORURE DE SODIUM / CHLORURE DE CALCIUM DIHYDRATE / CHLORURE DE MAGNESIUM HEXAHYDRATE / SOLUTION DE LACTATE DE SODIUM A 60% / GLUCOSE MONOHYDRATE ', 'SOL. P. DIALYSE CONTINUE AMBULATOIRE PERITONEALE', '5,670G/0,257G/ 0,152G/ 6,537G (3,922g/l de lactate de sodium pur)/ 25G  (correspondant a 22,7g/l ou 2,27% de glucose anhydre) / 1000mL SOIT : 132mmol/l en SODIUM, 1,75mmol/l en CALCIUM, 0,75mmol/l en MAGNESIUM, 35mmol/l en LACTATE , 102mmol/l en chlorure,'),
 ('25 G 063  -  DIANEAL PDA 1,36% -  SOL. P. DIALYSE PERITONEALE  -  13,6G/L (1,36%) DE GLUCOSE ANHYDRE , 15G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de', '25 G 063', 'DIANEAL PDA 1,36%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE / SODIUM LACTATE', 'SOL. P. DIALYSE PERITONEALE', '13,6G/L (1,36%) DE GLUCOSE ANHYDRE , 15G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40mm');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('25 G 064  -  DIANEAL PDA 2,27% -  SOL. P. DIALYSE PERITONEALE  -  22,70G/L (2,27%) DE GLUCOSE ANHYDRE , 25G/L SOUS FORME  MONONHYDRATE/ (5,38G/4,48G/0,184G/0,051G)/L SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de ', '25 G 064', 'DIANEAL PDA 2,27%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / SODIUM LACTATE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE', 'SOL. P. DIALYSE PERITONEALE', '22,70G/L (2,27%) DE GLUCOSE ANHYDRE , 25G/L SOUS FORME  MONONHYDRATE/ (5,38G/4,48G/0,184G/0,051G)/L SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40mmole de lactate )/L '),
 ('25 G 065  -  DIANEAL PDA 3,86% -  SOL. P. DIALYSE PERITONEALE  -  38,6G/L (3,86%) DE GLUCOSE ANHYDRE , 42,5G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole ', '25 G 065', 'DIANEAL PDA 3,86%', 'GLUCOSE ANHYDRE (SOUS FORME MONOHYDRATEE) / SODIUM CHLORURE / CALCIUM CHLORURE DIHYDRATE / MAGNESIUM CHLORURE HEXAHYDRATE / SODIUM LACTATE', 'SOL. P. DIALYSE PERITONEALE', '38,6G/L (3,86%) DE GLUCOSE ANHYDRE , 42,5G/L DE GLUCOSE MONONHYDRATE/ (5,38G / 0,184/G / 0,051G / 4,480G)/L                                              SOIT 132mmole de sodium / 1,25mmole de calcium / 0,25mmole de magnesium  / 95,00 mole de chlorure / 40'),
 ('25 G 066  -  EXTRANEAL 7,5% -  SOL. P. DIALYSE PERITONEALE  -  75G/L (7,5%) D\'ICODEXTRINE (5,4G/4,5G/0,257G/0,051G)/L                                                  SOIT PAR LITRE 133MMOL DE SODIUM, 1,75MMOL DE CALCIUM, 0,25MMOL DE MAGNESIUM, 96MMOL DE ', '25 G 066', 'EXTRANEAL 7,5%', 'ICODEXTRINE (DCI)/SODIUM CHLORURE/SODIUM LACTATE / CALCIUM CHLORURE / MAGNESIUM CHLORURE ', 'SOL. P. DIALYSE PERITONEALE', '75G/L (7,5%) D\'ICODEXTRINE (5,4G/4,5G/0,257G/0,051G)/L                                                  SOIT PAR LITRE 133MMOL DE SODIUM, 1,75MMOL DE CALCIUM, 0,25MMOL DE MAGNESIUM, 96MMOL DE CHLORURE , 40MMOL DE LACTATE'),
@@ -17101,7 +17101,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('03 B 006  -  EXPANDOL -  PDRE. P. SOL. BUV. EN SACH.-DOSE  -  100MG', '03 B 006', 'EXPANDOL', 'PARACETAMOL', 'PDRE. P. SOL. BUV. EN SACH.-DOSE', '100MG'),
 ('03 B 006  -  PARACETAMOL PHYSIOPHARM -  PDRE. P. SOL. BUV. EN SACH.-DOSE  -  100MG', '03 B 006', 'PARACETAMOL PHYSIOPHARM', 'PARACETAMOL ', 'PDRE. P. SOL. BUV. EN SACH.-DOSE', '100MG'),
 ('03 B 007  -  PAROL  -  SUPPO,  -  100MG', '03 B 007', 'PAROL ', 'PARACETAMOL', 'SUPPO,', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('03 B 007  -  SUPPFADOL 100 -  SUPPO.  -  100MG', '03 B 007', 'SUPPFADOL 100', 'PARACETAMOL ', 'SUPPO.', '100MG'),
 ('03 B 007   -  DOLYMEX -  SUPPO,  -  100MG', '03 B 007 ', 'DOLYMEX', 'PARACETAMOL ', 'SUPPO,', '100MG'),
 ('03 B 026  -  COPARALGAN -  COMPRIME SECABLE   -  400MG/20MG', '03 B 026', 'COPARALGAN', 'Paracetamol / Codeine phosphate hemihydrate', 'COMPRIME SECABLE ', '400MG/20MG'),
@@ -17438,7 +17438,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('05 C 145  -  ELPIX -  Comprime pellicule  -  50MG', '05 C 145', 'ELPIX', 'Dasatinib monohydrate exprime en Dasatinib', 'Comprime pellicule', '50MG'),
 ('05 C 146  -  ELPIX -  Comprime pellicule  -  70MG', '05 C 146', 'ELPIX', 'Dasatinib monohydrate exprime en Dasatinib', 'Comprime pellicule', '70MG'),
 ('05 C 148  -  TASIGNA -  GLES.  -  200MG', '05 C 148', 'TASIGNA', 'NILOTINIB CHLORHYDRATE MONOHYDRATE EXPRIME EN NILOTINIB', 'GLES.', '200MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('05 C 163  -  IRESSA -  COMPRIME PELLICULE   -  250MG', '05 C 163', 'IRESSA', 'GEFITINIB', 'COMPRIME PELLICULE ', '250MG'),
 ('05 C 166  -  VOTRIENT -  COMPRIME PELLICULE   -  200MG', '05 C 166', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '200MG'),
 ('05 C 167  -  VOTRIENT -  COMPRIME PELLICULE   -  400MG ', '05 C 167', 'VOTRIENT', 'PAZOPANIB CHLORHYDRATE EXPRIME EN PAZOPANIB', 'COMPRIME PELLICULE ', '400MG '),
@@ -17733,7 +17733,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 E 147  -  TAREG -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'TAREG', 'Valsartan ', 'COMPRIME PELLICULE ', '80MG'),
 ('06 E 147  -  VALEX 80 -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALEX 80', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  HUREG HUP -  COMP.PELLI.  -  80MG', '06 E 147', 'HUREG HUP', 'VALSARTAN', 'COMP.PELLI.', '80MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 E 147  -  VIASART -  COMPRIME PELLICULE   -  80MG', '06 E 147', 'VIASART', 'VALSARTAN', 'COMPRIME PELLICULE ', '80MG'),
 ('06 E 147  -  VALSARTAN LDM -  COMP. PELLI. SEC.  -  80MG', '06 E 147', 'VALSARTAN LDM', 'Valsartan ', 'COMP. PELLI. SEC.', '80MG'),
 ('06 E 147  -  RETA 80 -  COMP PELL SEC  -  80MG ', '06 E 147', 'RETA 80', 'Valsartan ', 'COMP PELL SEC', '80MG '),
@@ -18046,7 +18046,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 F 273  -  TEMERIVOL -  COMP QUADRISECABLES  -  5MG', '06 F 273', 'TEMERIVOL', 'NEBIVOLOL', 'COMP QUADRISECABLES', '5MG'),
 ('06 F 299  -  CO BIPROTENS -  COMPRIME PELLICULE   -  5MG/6,25MG', '06 F 299', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '5MG/6,25MG'),
 ('06 F 299  -  CO-BISOPROLOL BEKER -  COMP PELL  -  5MG/6,25MG', '06 F 299', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '5MG/6,25MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 F 302  -  CO BIPROTENS -  COMPRIME PELLICULE   -  10MG/6,25MG', '06 F 302', 'CO BIPROTENS', 'BISOPROLOL FUMARATE / HYDROCHLOROTHIAZIDE', 'COMPRIME PELLICULE ', '10MG/6,25MG'),
 ('06 F 302  -  CO-BISOPROLOL BEKER -  COMP PELL  -  10MG/6,25MG', '06 F 302', 'CO-BISOPROLOL BEKER', 'BISOPROLOL FUMARATE/HYDROCHLOROTHIAZIDE', 'COMP PELL', '10MG/6,25MG'),
 ('06 F 309  -  METOPRESS -  GLES. LP.  -  100MG', '06 F 309', 'METOPRESS', 'METOPROLOL SUCCINATE EXPRIME EN METOPROLOL', 'GLES. LP.', '100MG'),
@@ -18359,7 +18359,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('07 H 176  -  CLOTASOL -  PDE.DERM.  -  0,0005', '07 H 176', 'CLOTASOL', 'CLOBETASOL PROPIONATE', 'PDE.DERM.', '0.05%'),
 ('07 H 176  -  CLOBENAT -  PMDE.DERM.   -  0,05G/100G PDE', '07 H 176', 'CLOBENAT', 'CLOBETASOL', 'PMDE.DERM. ', '0,05G/100G PDE'),
 ('07 H 176  -  CLOBECORT -  POMMADE DERMIQUE   -  0,0005', '07 H 176', 'CLOBECORT', 'CLOBETASOL PROPIONATE', 'POMMADE DERMIQUE ', '0.05%');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('07 H 176  -  PROCLO JAM -  PDE. DERM.  -  0,0005', '07 H 176', 'PROCLO JAM', 'CLOBETASOL PROPIONATE', 'PDE. DERM.', '0.05%'),
 ('07 H 183  -  PEITEL  -  CREME .DERM.  -  0,0025', '07 H 183', 'PEITEL ', 'PREDNICARBATE ', 'CREME .DERM.', '0.25%'),
 ('07 L 058  -  CURACNE 10MG   -  CAPSULE MOLLE  -  10MG', '07 L 058', 'CURACNE 10MG  ', 'ISOTRETINOINE', 'CAPSULE MOLLE', '10MG'),
@@ -18649,7 +18649,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('10 E 104  -  DICETEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'DICETEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINAVERIUM NOVAGENERICS -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINAVERIUM NOVAGENERICS', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG'),
 ('10 E 104  -  PINATEL -  COMPRIME PELLICULE   -  100MG', '10 E 104', 'PINATEL', 'PINAVERIUM BROMURE', 'COMPRIME PELLICULE ', '100MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('10 E 108  -  EUFOR -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
 ('10 E 108  -  EUFOR -  COMPRIME PELLICULE   -  80MG', '10 E 108', 'EUFOR', 'Phloroglucinol dihydrate', 'COMPRIME PELLICULE ', '80MG'),
 ('10 E 108  -  SPASLAM -  COMP. ORODISPERS.  -  80MG', '10 E 108', 'SPASLAM', 'Phloroglucinol dihydrate', 'COMP. ORODISPERS.', '80MG'),
@@ -18945,7 +18945,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('12 E 199  -  FERINJECT -  SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR  -  50 MG/ML', '12 E 199', 'FERINJECT', 'Carboxymaltose ferrique exprime en fer', 'SOL INJ P/PERF IV OU P/INJ DS DIALYSEUR', '50 MG/ML'),
 ('12 F 129   -  ELAXIM -  PDRE. ET SOLV. INJ. IV  -  1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)', '12 F 129 ', 'ELAXIM', 'Tenecteplase GENNOVA', 'PDRE. ET SOLV. INJ. IV', '1000 U/ML OU 5MG/ML (10 000U/10ML OU 50MG/10ML)'),
 ('12 F 159  -  INHIXA -  COMP PELL  -  10MG', '12 F 159', 'INHIXA', 'RIVAROXABAN', 'COMP PELL', '10MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('12 F 159  -  TROMBIX -  COMPRIME PELLICULE   -  10MG', '12 F 159', 'TROMBIX', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 159   -  XARELTO -  COMPRIME PELLICULE   -  10MG', '12 F 159 ', 'XARELTO', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '10MG'),
 ('12 F 167  -  RYVOL -  COMPRIME PELLICULE   -  15MG', '12 F 167', 'RYVOL', 'RIVAROXABAN', 'COMPRIME PELLICULE ', '15MG'),
@@ -19246,7 +19246,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 G 047  -  AMOXAL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXAL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  HIMOXYL -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'HIMOXYL', 'AMOXICILLINE ', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  BIOPAMOX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'BIOPAMOX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 G 047  -  CLAMOXYL -  PDRE. P. SUSP.BUV.  -  250MG/5ML', '13 G 047', 'CLAMOXYL', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP.BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXICILLINE EG -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXICILLINE EG', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
 ('13 G 047  -  AMOXIMEX -  PDRE. P. SUSP. BUV.  -  250MG/5ML', '13 G 047', 'AMOXIMEX', 'AMOXICILLINE TRIHYDRATE EXPRIME EN AMOXICILLINE', 'PDRE. P. SUSP. BUV.', '250MG/5ML'),
@@ -19529,7 +19529,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 A 187  -  AMAREL -  COMP.  -  1 MG', '14 A 187', 'AMAREL', 'GLIMEPIRIDE', 'COMP.', '1 MG'),
 ('14 A 187  -  GLIMEPIRIDE BEKER -  COMPRIME SECABLE   -  1MG', '14 A 187', 'GLIMEPIRIDE BEKER', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187  -  GLODEC  -  COMPRIME  -  1MG', '14 A 187', 'GLODEC ', 'GLIMEPIRIDE', 'COMPRIME', '1MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 A 187   -  GLIMICARE  -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'GLIMICARE ', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 187   -  PIRAMYL -  COMPRIME SECABLE   -  1MG', '14 A 187 ', 'PIRAMYL', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '1MG'),
 ('14 A 188  -  GLORION -  COMPRIME SECABLE   -  2MG', '14 A 188', 'GLORION', 'GLIMEPIRIDE', 'COMPRIME SECABLE ', '2MG'),
@@ -19814,7 +19814,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 N 388  -  ORPHACOL -  GELLULE  -  50 MG', '14 N 388', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '50 MG'),
 ('14 N 389  -  ORPHACOL -  GELLULE  -  250 MG', '14 N 389', 'ORPHACOL', 'ACIDE CHOLIQUE ', 'GELLULE', '250 MG'),
 ('14 N 390  -  ABCERTIN -  PDRE.PERF.  -  200U ', '14 N 390', 'ABCERTIN', 'IMIGLUCERASE', 'PDRE.PERF.', '200U ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 P 346  -  VICTOZA -  SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE   -  6MG/ML ', '14 P 346', 'VICTOZA', 'LIRAGLUTIDE', 'SOL INJ S/C EN STYLO PREREMPLIE MULTIDOSE ', '6MG/ML '),
 ('15 A 001  -  DEPAKINE -  COMP. GASTRORESIST.  -  200MG', '15 A 001', 'DEPAKINE', 'VALPROATE DE SODIUM', 'COMP. GASTRORESIST.', '200MG'),
 ('15 A 001  -  ENCORATE  -  COMPRIME  -  200MG', '15 A 001', 'ENCORATE ', 'VALPROATE DE SODIUM', 'COMPRIME', '200MG'),
@@ -20149,7 +20149,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('01 A 003  -  HISTARIZINE -  COMPRIME SECABLE   -  10MG', '01 A 003', 'HISTARIZINE', 'CETIRIZINE DICHLORHYDRATE', 'COMPRIME SECABLE ', '10MG'),
 ('01 A 003  -  ARTIZ -  COMPRIME PELLICULE   -  10MG', '01 A 003', 'ARTIZ', 'CETIRIZINE DICHLORHYDRATE', 'COMPRIME PELLICULE ', '10MG'),
 ('01 A 003  -  ZYRTIRIZINE -  COMP. PELLI. SEC  -  10MG', '01 A 003', 'ZYRTIRIZINE', 'CETIRIZINE DICHLORHYDRATE', 'COMP. PELLI. SEC', '10MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('01 A 003  -  CETIRIZINE MYLAN -  COMP. PELLI.SEC.  -  10MG', '01 A 003', 'CETIRIZINE MYLAN', 'CETIRIZINE DICHLORHYDRATE', 'COMP. PELLI.SEC.', '10MG'),
 ('01 A 003  -  CETIRIZINE PHYSIOPHARM -  COMP. PELLI. SEC.  -  10MG', '01 A 003', 'CETIRIZINE PHYSIOPHARM', 'CETIRIZINE DICHLORHYDRATE', 'COMP. PELLI. SEC.', '10MG'),
 ('01 A 003  -  NADEC -  COMP. PELLI. SEC  -  10MG', '01 A 003', 'NADEC', 'CETIRIZINE DICHLORHYDRATE', 'COMP. PELLI. SEC', '10MG'),
@@ -20450,7 +20450,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('04 B 009  -  BIOFENAC -  SUPPOSITOIRE  -  100MG', '04 B 009', 'BIOFENAC', 'DICLOFENAC SODIQUE', 'SUPPOSITOIRE', '100MG'),
 ('04 B 009  -  VOLTAMEX -  SUPPO.  -  100MG', '04 B 009', 'VOLTAMEX', 'Diclofenac sodique', 'SUPPO.', '100MG'),
 ('04 B 010  -  IBUPROFAL -  COMPRIME PELLICULE   -  400MG', '04 B 010', 'IBUPROFAL', 'IBUPROFENE', 'COMPRIME PELLICULE ', '400MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('04 B 010  -  SAPOFEN -  COMPRIME  -  400MG', '04 B 010', 'SAPOFEN', 'IBUPROFENE', 'COMPRIME', '400MG'),
 ('04 B 010  -  XYDOL 400 -  COMPRIME PELLICULE   -  400MG', '04 B 010', 'XYDOL 400', 'IBUPROFENE', 'COMPRIME PELLICULE ', '400MG'),
 ('04 B 010  -  CALMOFEN -  COMPRIME PELLICULE   -  400MG', '04 B 010', 'CALMOFEN', 'IBUPROFENE', 'COMPRIME PELLICULE ', '400MG'),
@@ -20773,7 +20773,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('05 G 100  -  PACLITAXEL-SAIDAL -  SOLUTION A DILUER POUR PERFUSION IV   -  6MG/ML', '05 G 100', 'PACLITAXEL-SAIDAL', 'PACLITAXEL', 'SOLUTION A DILUER POUR PERFUSION IV ', '6MG/ML'),
 ('05 G 100  -  PACLITAX -  SOL. A DILUER P. PERF.  -  6MG/ML (30MG/5ML - 100MG/16,5ML - 300MG/50ML)', '05 G 100', 'PACLITAX', 'PACLITAXEL', 'SOL. A DILUER P. PERF.', '6MG/ML (30MG/5ML - 100MG/16,5ML - 300MG/50ML)'),
 ('05 G 102  -  ALIMTA -  PDRE. LYOPH. P. SOL. A DILUER P. PERF.  -  500MG/FL. DE PDRE.', '05 G 102', 'ALIMTA', 'PEMETREXED DISODIQUE EXPRIME EN PEMETREXED', 'PDRE. LYOPH. P. SOL. A DILUER P. PERF.', '500MG/FL. DE PDRE.');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('05 G 102  -  PEMETREXED-SAIDAL -  POUDRE LYOPHILISEE POUR SOLUTION A DILUER POUR PERFUSION IV  -  500MG', '05 G 102', 'PEMETREXED-SAIDAL', 'PEMETREXED sous forme de PEMETREXED DISODIUM HEMIPENTAHYDRATE', 'POUDRE LYOPHILISEE POUR SOLUTION A DILUER POUR PERFUSION IV', '500MG'),
 ('05 G 102  -  PREXET -  PDRE. LYOPH. P. SOL. A DILUER P. PERF. IV.  -  500MG/FL. DE PDRE.', '05 G 102', 'PREXET', 'PEMETREXED DISODIQUE HEMIPENTAHYDRATE EXPRIME EN PEMETREXED', 'PDRE. LYOPH. P. SOL. A DILUER P. PERF. IV.', '500MG/FL. DE PDRE.'),
 ('05 G 102  -  PEMETREXED INTAS -  PDRE LYOPHILISEE P/ISOL A DILUER P/PERF IVNJ  -  500MG', '05 G 102', 'PEMETREXED INTAS', 'PEMETREXED DISODIUM', 'PDRE LYOPHILISEE P/ISOL A DILUER P/PERF IVNJ', '500MG'),
@@ -21086,7 +21086,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 E 237  -  COSARTEG -  COMP. ENRO.  -  160MG/12,5MG', '06 E 237', 'COSARTEG', 'Valsartan / Hydrochlorothiazide', 'COMP. ENRO.', '160MG/12,5MG'),
 ('06 E 237  -  CO VALASTAN -  COMPRIME PELLICULE   -   160MG/12,5MG ', '06 E 237', 'CO VALASTAN', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', ' 160MG/12,5MG '),
 ('06 E 237  -  COVESTAG -  COMPRIME PELLICULE   -  160MG/12,5MG', '06 E 237', 'COVESTAG', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG/12,5MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 E 237  -  DIVALAN PLUS -  COMPRIME PELLICULE   -  160MG / 12,5MG', '06 E 237', 'DIVALAN PLUS', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG / 12,5MG'),
 ('06 E 238  -  CO-ARBITAN -  COMPRIME PELLICULE   -  160MG/25MG ', '06 E 238', 'CO-ARBITAN', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG/25MG '),
 ('06 E 238  -  VALACLOR PLUS -  COMPRIME PELLICULE   -  160MG/25MG', '06 E 238', 'VALACLOR PLUS', 'Valsartan / Hydrochlorothiazide', 'COMPRIME PELLICULE ', '160MG/25MG'),
@@ -21390,7 +21390,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 M 233  -  TEOLAR -  COMPRIME PELLICULE   -  80MG', '06 M 233', 'TEOLAR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG'),
 ('06 M 233  -  NOVATHOR -  COMPRIME PELLICULE   -  80MG ', '06 M 233', 'NOVATHOR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG '),
 ('06 M 233  -  LIPICARE -  COMPRIME PELLICULE   -  80MG', '06 M 233', 'LIPICARE', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 M 233  -  ATORVASTATINE LDM -  COMPRIME PELLICULE   -  80MG', '06 M 233', 'ATORVASTATINE LDM', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG'),
 ('06 M 233  -  ATOR -  COMPRIME PELLICULE   -  80MG', '06 M 233', 'ATOR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG'),
 ('06 M 233  -  TORVASTATINE -  COMPRIME PELLICULE   -  80MG', '06 M 233', 'TORVASTATINE', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '80MG'),
@@ -21701,7 +21701,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('09 H 091   -  KENACORTYL RETARD -  SUSPENSION INJECTABLE  -  40MG/1ML', '09 H 091 ', 'KENACORTYL RETARD', 'TRIAMCINOLONE ACETONIDE', 'SUSPENSION INJECTABLE', '40MG/1ML'),
 ('09 H 092  -  TERAPRED -  COMPRIME PELLICULE   -  16MG', '09 H 092', 'TERAPRED', 'METHYLPREDNISOLONE', 'COMPRIME PELLICULE ', '16MG'),
 ('09 H 092  -  MP 16 -  COMPRIME SECABLE   -  16MG', '09 H 092', 'MP 16', 'METHYLPREDNISOLONE', 'COMPRIME SECABLE ', '16MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('09 H 092  -  HUPPOMEDROL -  COMPRIME SECABLE   -  16MG', '09 H 092', 'HUPPOMEDROL', 'METHYLPREDNISOLONE', 'COMPRIME SECABLE ', '16MG'),
 ('09 H 133  -  BETAMETHASONE NOVAGENERICS -  COMPRIME DISPERSIBLE SECABLE  -  2MG', '09 H 133', 'BETAMETHASONE NOVAGENERICS', 'BETAMETHASONE', 'COMPRIME DISPERSIBLE SECABLE', '2MG'),
 ('09 H 133  -  BETABIO -  COMPRIME DISPERSIBLE SECABLE  -  2MG', '09 H 133', 'BETABIO', 'BETAMETHASONE', 'COMPRIME DISPERSIBLE SECABLE', '2MG'),
@@ -21999,7 +21999,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('10 M 066  -  LAXAFINE -  HUILE BUVABLE  -  100ML/100ML (100%)', '10 M 066', 'LAXAFINE', 'HUILE DE PARAFFINE LIQUIDE', 'HUILE BUVABLE', '100ML/100ML (100%)'),
 ('10 M 069  -  GLYCERINE LS ENFANT -  SUPPOS   -  1,20G ', '10 M 069', 'GLYCERINE LS ENFANT', 'GLYCEROL', 'SUPPOS ', '1,20G '),
 ('10 M 070  -  GLYCERINE LS ADULTE -  SUPPOS ADULTE   -  1,8G ', '10 M 070', 'GLYCERINE LS ADULTE', 'GLYCEROL', 'SUPPOS ADULTE ', '1,8G ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('10 M 124  -  GLYCERINE LS BEBE -  SUPPO.BEBE  -  0,72G ', '10 M 124', 'GLYCERINE LS BEBE', 'GLYCEROL', 'SUPPO.BEBE', '0,72G '),
 ('10 M 199  -  GLYCERINE BEBES -  SUPPO.  -  0,642G', '10 M 199', 'GLYCERINE BEBES', 'GLYCEROL', 'SUPPO.', '0,642G'),
 ('10 M 200  -  GLYCERINE ENFANTS -  SUPPO.  -  1,23G', '10 M 200', 'GLYCERINE ENFANTS', 'GLYCEROL', 'SUPPO.', '1,23G'),
@@ -22284,7 +22284,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 B 014  -  TRICEF -  PDRE.SOL.INJ.IV  -  1G/FL. DE PDRE.', '13 B 014', 'TRICEF', 'CEFOTAXIME SODIQUE EXPRIME EN CEFOTAXIME', 'PDRE.SOL.INJ.IV', '1G/FL. DE PDRE.'),
 ('13 B 014  -  CEFOTAL -  PDRE. SOL. INJ.  -  1G/FL. DE PDRE.', '13 B 014', 'CEFOTAL', 'CEFOTAXIME SODIQUE EXPRIME EN CEFOTAXIME', 'PDRE. SOL. INJ.', '1G/FL. DE PDRE.'),
 ('13 B 014  -  CEFODEX -  POUDRE ET SOLVANT POUR PREPARATION INJECTABLE IM ET IV   -  1GR/FLACON ', '13 B 014', 'CEFODEX', 'CEFOTAXIME SODIQUE EXPRIME EN CEFOTAXIME', 'POUDRE ET SOLVANT POUR PREPARATION INJECTABLE IM ET IV ', '1GR/FLACON ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 B 014  -  CEFOTAX HUP -  POUDRE P.SOL INJ IM/IV  -  1G', '13 B 014', 'CEFOTAX HUP', 'CEFOTAXIME SODIQUE ', 'POUDRE P.SOL INJ IM/IV', '1G'),
 ('13 B 019  -  CEFTRIAXONA HIKMA -  PDRE. ET SOLV. P. SOL. INJ. IV  -  1G/FL. DE PDRE.', '13 B 019', 'CEFTRIAXONA HIKMA', 'CEFTRIAXONE SODIQUE EXPRIME EN CEFTRIAXONE', 'PDRE. ET SOLV. P. SOL. INJ. IV', '1G/FL. DE PDRE.'),
 ('13 B 019  -  CETRIAL -  PDRE P.PREPARATION INJ IV  -  1G/FL', '13 B 019', 'CETRIAL', 'CEFTRIAXONE SODIQUE', 'PDRE P.PREPARATION INJ IV', '1G/FL'),
@@ -22562,7 +22562,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 K 467  -  QUINOX LP -  COMPRIME A LIBERATION PROLONGEE  -  1G', '13 K 467', 'QUINOX LP', 'CIPROFLOXACINE CHLORHYRATE MONOHYDRATE EXPRIME EN CIPROFLOXACINE', 'COMPRIME A LIBERATION PROLONGEE', '1G'),
 ('13 K 468  -  MATADOR 750 -  COMPRIME PELLICULE   -  750MG', '13 K 468', 'MATADOR 750', 'Levofloxacine hemihydrate exprime en Levofloxacine', 'COMPRIME PELLICULE ', '750MG'),
 ('13 K 468  -  LOXAMOX -  COMPRIME PELLICULE  -  750MG', '13 K 468', 'LOXAMOX', 'LEVOFLOXACINE HEMIHYDRATE (LEVOFLOXACINE)', 'COMPRIME PELLICULE', '750MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 M 090  -  COTRIM -  SUSP.BUV.  -  200MG/40MG/5ML', '13 M 090', 'COTRIM', 'SULFAMETHOXAZOLE / TRIMETHOPRIME', 'SUSP.BUV.', '200MG/40MG/5ML'),
 ('13 M 090  -  BACTISOL  -  SUSPENSION BUVABLE  -  200MG/40MG/5ML', '13 M 090', 'BACTISOL ', 'SULFAMETHOXAZOLE / TRIMETHOPRIME', 'SUSPENSION BUVABLE', '200MG/40MG/5ML'),
 ('13 M 091  -  C-ZOLE -  SOL INJ POUR PERF IV   -  80 MG/400MG     ( 16MG/ML /80 MG/ML)', '13 M 091', 'C-ZOLE', 'SULFAMETHOXAZOLE / TRIMETHOPRIME', 'SOL INJ POUR PERF IV ', '80 MG/400MG     ( 16MG/ML /80 MG/ML)'),
@@ -22881,7 +22881,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 G 042  -  EAU POUR PREPARATIONS INJECTABLES RAZES -  ---  -  ---', '14 G 042', 'EAU POUR PREPARATIONS INJECTABLES RAZES', 'EAU POUR PREPARATIONS INJECTABLES IM/IV', '---', '---'),
 ('14 G 042   -  WI PACK -    -  FL/500ML', '14 G 042 ', 'WI PACK', 'EAU POUR PREPARATIONS INJECTABLES IM/IV', '', 'FL/500ML'),
 ('14 G 044  -  GLUCOSE 5% -  SOLUTION INJECTABLE/PERFUSION  -  5% FL. 500ML', '14 G 044', 'GLUCOSE 5%', 'GLUCOSE', 'SOLUTION INJECTABLE/PERFUSION', '5% FL. 500ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 G 044  -  GLUCOSE 5% -  SOLUTE MASSIF P. PERF.  -  0,05', '14 G 044', 'GLUCOSE 5%', 'GLUCOSE', 'SOLUTE MASSIF P. PERF.', '5%'),
 ('14 G 044  -  DEXTROSE INPHA-MEDIS -  SOLUTION STERILE INJECTABLE POUR PERFUSION  -  0,05', '14 G 044', 'DEXTROSE INPHA-MEDIS', 'GLUCOSE MONOHYDRATE EXPRIME EN GLUCOSE ANHYDRE', 'SOLUTION STERILE INJECTABLE POUR PERFUSION', '5%'),
 ('14 G 046  -  GLUCOPACK -  SO. INJ. P. PERF. IV  -  0,1', '14 G 046', 'GLUCOPACK', 'GLUCOSE MONOHYDRATEE EXPRIME EN GLUCOSE ANHYDRE', 'SO. INJ. P. PERF. IV', '10%'),
@@ -23188,7 +23188,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('15 B 119  -  ZOMIPTAN -  COMP. ORO.  -  5 MG', '15 B 119', 'ZOMIPTAN', 'Zolmitriptan', 'COMP. ORO.', '5 MG'),
 ('15 C 024  -  NEOSTIGMINE RAZES -  Solution injectable IM,IV,S/C  -  0,5MG/ML', '15 C 024', 'NEOSTIGMINE RAZES', 'Methylsulfate de Neostigmine', 'Solution injectable IM,IV,S/C', '0,5MG/ML'),
 ('15 C 026  -  MESTINON -  DRG.  -  60MG', '15 C 026', 'MESTINON', 'PYRIDOSTIGMINE BROMURE', 'DRG.', '60MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('15 D 031  -  LEVOMED -  COMPRIME  -  100MG/10MG', '15 D 031', 'LEVOMED', 'LEVODOPA / CARBIDOPA', 'COMPRIME', '100MG/10MG'),
 ('15 D 031  -  LVOCARB -  COMP  -  100MG/10MG', '15 D 031', 'LVOCARB', 'LEVODOPA/CARBIDOPA', 'COMP', '100MG/10MG'),
 ('15 D 032  -  LEVODOZ -  Comprime secable  -  250MG/25MG**', '15 D 032', 'LEVODOZ', 'Levodopa / Carbidopa monohydrate exprime en Carbidopa anhydre ', 'Comprime secable', '250MG/25MG**'),
@@ -23490,7 +23490,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('03 G 130  -  OXYNORM -  SOL POUR  INJ OU  PERFUSION   ( IV/SC)  -  10 MG /ML                                                                     20MG/2ML', '03 G 130', 'OXYNORM', 'Oxycodone chlorhydrate', 'SOL POUR  INJ OU  PERFUSION   ( IV/SC)', '10 MG /ML                                                                     20MG/2ML'),
 ('03 H 112  -  AN TAPAM -  SOLUTION INJECTABLE IM/IV  -  20MG/2ML', '03 H 112', 'AN TAPAM', 'CHLORHYDRATE DE NEFOPAM', 'SOLUTION INJECTABLE IM/IV', '20MG/2ML'),
 ('03 H 124  -  ENANTUM -  COMPRIME PELLICULE   -  25 MG', '03 H 124', 'ENANTUM', 'DEXKeTOPROFeNE(TROMeTAMOL)', 'COMPRIME PELLICULE ', '25 MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('035/13 E 215/19  -  RITOCINE -  COMPRIME PELLICULE   -  500MG', '035/13 E 215/19', 'RITOCINE', 'CLARITHROMYCINE', 'COMPRIME PELLICULE ', '500MG'),
 ('04 B 004  -  CLOFENAL -  SOL.INJ.IM   -  25MG/ML (75MG/3ML)', '04 B 004', 'CLOFENAL', 'Diclofenac sodique', 'SOL.INJ.IM ', '25MG/ML (75MG/3ML)'),
 ('04 B 004  -  GEOFENAC -  Solution injectable  -  25MG/ML (75MG/3ML)', '04 B 004', 'GEOFENAC', 'Diclofenac sodique', 'Solution injectable', '25MG/ML (75MG/3ML)'),
@@ -23819,7 +23819,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('05 G 072  -  TAXADOC -  CONCENTRE ET SOLVANT P/ SOL A DILUER P/ PERF IV  -  40MG/ML', '05 G 072', 'TAXADOC', 'DOCETAXEL ANHYDRE', 'CONCENTRE ET SOLVANT P/ SOL A DILUER P/ PERF IV', '40MG/ML'),
 ('05 G 072  -  TAXOTERE -  SOL. A DILUER P. PERF IV  -  80MG/FL. DE 4ML', '05 G 072', 'TAXOTERE', 'DOCETAXEL TRIHYDRATE', 'SOL. A DILUER P. PERF IV', '80MG/FL. DE 4ML'),
 ('05 G 072  -  DOCEFREZ 80 -  LYOPH. ET SOLV. P. PERF. IV  -  80MG/FL. DE LYOPH.', '05 G 072', 'DOCEFREZ 80', 'DOCETAXEL ANHYDRE', 'LYOPH. ET SOLV. P. PERF. IV', '80MG/FL. DE LYOPH.');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('05 G 075  -  FLUDARA -  LYOPH. P. SOL. INJ. P. PERF. IV  -  50MG/FL. DE PDRE', '05 G 075', 'FLUDARA', 'FLUDARABINE PHOSPHATE', 'LYOPH. P. SOL. INJ. P. PERF. IV', '50MG/FL. DE PDRE'),
 ('05 G 076  -  COLONTECANE -  SOL. CONCENTReE.P. PERF. IV  -  500MG', '05 G 076', 'COLONTECANE', 'Chlorhydrate d\'Irinotecan trihydrate', 'SOL. CONCENTReE.P. PERF. IV', '500MG'),
 ('05 G 076  -  TEKAMEN -  SOL. P. PERF. IV  -  20MG/ML (40MG/2ML) (100MG/5ML)', '05 G 076', 'TEKAMEN', 'IRINOTECAN CHLORHYDRATE TRIHYDRATE', 'SOL. P. PERF. IV', '20MG/ML (40MG/2ML) (100MG/5ML)'),
@@ -24128,7 +24128,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 E 231  -  HYTACAND -  COMPRIME  -  16MG**/12,5MG', '06 E 231', 'HYTACAND', 'CANDESARTAN  (SOUS FORME DE CILEXETIL)**/ HYDROCHLOROTHIAZIDE', 'COMPRIME', '16MG**/12,5MG'),
 ('06 E 231  -  CO SARCAND -  COMPRIME  -  16MG/12,5MG', '06 E 231', 'CO SARCAND', 'CANDESARTAN CILEXETIL/ HYDROCHLOROTHIAZIDE', 'COMPRIME', '16MG/12,5MG'),
 ('06 E 231  -  CO-ATABEK -  COMPRIME SECABLE   -  16MG/12,5MG', '06 E 231', 'CO-ATABEK', 'CANDESARTAN CILEXETIL/ HYDROCHLOROTHIAZIDE', 'COMPRIME SECABLE ', '16MG/12,5MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 E 234  -  CANDERAX -  COMPRIME SECABLE   -  16MG', '06 E 234', 'CANDERAX', 'CANDESARTAN CILEXETIL', 'COMPRIME SECABLE ', '16MG'),
 ('06 E 234  -  CARDAXEL BGL -  COMPRIME SECABLE   -  16MG', '06 E 234', 'CARDAXEL BGL', 'CANDESARTAN CILEXETIL', 'COMPRIME SECABLE ', '16MG'),
 ('06 E 234  -  ATACAND -  COMPRIME SECABLE   -  16MG', '06 E 234', 'ATACAND', 'CANDESARTAN  (SOUS FORME DE CILEXETIL)**', 'COMPRIME SECABLE ', '16MG'),
@@ -24433,7 +24433,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('06 M 225  -  VASTINE -  COMP. PELL.  -  20MG', '06 M 225', 'VASTINE', 'ATORVASTATINE', 'COMP. PELL.', '20MG'),
 ('06 M 225   -  LIPODAR 20 -  COMPRIME PELLICULE   -  20MG', '06 M 225 ', 'LIPODAR 20', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '20MG'),
 ('06 M 232  -  TEOLAR -  COMPRIME PELLICULE   -  40MG', '06 M 232', 'TEOLAR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '40MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('06 M 232  -  TAHOR -  COMPRIME PELLICULE   -  40MG', '06 M 232', 'TAHOR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '40MG'),
 ('06 M 232  -  TULIP -  COMP OPELL  -  40MG', '06 M 232', 'TULIP', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMP OPELL', '40MG'),
 ('06 M 232  -  NOVATHOR -  COMPRIME PELLICULE   -  40MG ', '06 M 232', 'NOVATHOR', 'ATORVASTATINE CALCIQUE TRIHYDRATE EXPRIME EN ATORVASTATINE', 'COMPRIME PELLICULE ', '40MG '),
@@ -24741,7 +24741,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('09 H 030  -  LEMOD-SOLU -  LYOPHI. P. SOL. INJ. IM/IV  -  40MG/FL. DE LYOPH. ', '09 H 030', 'LEMOD-SOLU', 'METHYLPREDNISOLONE SUCCINATE SODIQUE EXPRIME EN METHYLPREDNISOLONE', 'LYOPHI. P. SOL. INJ. IM/IV', '40MG/FL. DE LYOPH. '),
 ('09 H 030  -  INPREDNI 40 -  PDRE. P. SOL. INJ. IM/IV  -  40MG/FL. DE PDRE.', '09 H 030', 'INPREDNI 40', 'METHYLPREDNISOLONE SUCCINATE SODIQUE EXPRIME EN METHYLPREDNISOLONE', 'PDRE. P. SOL. INJ. IM/IV', '40MG/FL. DE PDRE.'),
 ('09 H 030  -  LEMOD-SOLU -  LYOPHILAT EN SOLUTION INJECTABLE IM/IV  -  40MG/FL. DE LYOPH. ', '09 H 030', 'LEMOD-SOLU', 'METHYLPREDNISOLONE SUCCINATE DE SODIUM (METHYLPREDNISOLONE)', 'LYOPHILAT EN SOLUTION INJECTABLE IM/IV', '40MG/FL. DE LYOPH. ');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('09 H 030  -  METHYLPREDNISOLONE MYLAN -  PDRE. P. SOL. INJ. IM/IV  -  40MG/FL. DE PDRE.', '09 H 030', 'METHYLPREDNISOLONE MYLAN', 'METHYLPREDNISOLONE HEMISUCCINATE EXPRIME EN METHYLPREDNISOLONE', 'PDRE. P. SOL. INJ. IM/IV', '40MG/FL. DE PDRE.'),
 ('09 H 031  -  LISAMETHYLE -  PDRE. ET SOLV. P. SOL. INJ. IM/IV  -  120MG/FL. DE PDRE.**', '09 H 031', 'LISAMETHYLE', 'METHYLPREDNISOLONE (SOUS FORME DE SUCCINATE SODIQUE)', 'PDRE. ET SOLV. P. SOL. INJ. IM/IV', '120MG/FL. DE PDRE.**'),
 ('09 H 031  -  METHYLPREDNISONE MYLAN -  PDRE. P. SOL. INJ. IM/IV  -  120MG/FL. DE PDRE.', '09 H 031', 'METHYLPREDNISONE MYLAN', 'METHYLPREDNISOLONE HEMISUCCINATE EXPRIME EN METHYLPREDNISOLONE', 'PDRE. P. SOL. INJ. IM/IV', '120MG/FL. DE PDRE.'),
@@ -25040,7 +25040,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('10 L 062  -  INPHALAC -  SIROP  -  0,606', '10 L 062', 'INPHALAC', 'LACTULOSE', 'SIROP', '60.60%'),
 ('10 L 062  -  LACTUMEX -  SOLUTION BUVABLE  -  66.5%', '10 L 062', 'LACTUMEX', 'LACTULOSE', 'SOLUTION BUVABLE', '66.5%'),
 ('10 L 062  -  EASYLACT -  SOL BUV  -  66,5% ( 66,5 g/100ml)', '10 L 062', 'EASYLACT', 'LACTULOSE', 'SOL BUV', '66,5% ( 66,5 g/100ml)');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('10 L 086  -  FORTRANS -  PDRE. P. SOL. BUV. EN SACHET-DOSE  -  64G/5,7G/1,68G/1,46G/0,75G/SACHET', '10 L 086', 'FORTRANS', 'POLYETHYLENE GLYCOL 4000 / SULFATE DE SODIUM ANHYDRE / BICARBONATE DE SODIUM / CHLORURE DE SODIUM / CHLORURE DE POTASSIUM', 'PDRE. P. SOL. BUV. EN SACHET-DOSE', '64G/5,7G/1,68G/1,46G/0,75G/SACHET'),
 ('10 L 097  -  DUPHALAC -  SOL.BUV.SACHET  -  10G/15ML', '10 L 097', 'DUPHALAC', 'LACTULOSE', 'SOL.BUV.SACHET', '10G/15ML'),
 ('10 L 097  -  ISOLACT -  SOL BUV  -  0,665', '10 L 097', 'ISOLACT', 'LACTULOSE', 'SOL BUV', '66.50%'),
@@ -25324,7 +25324,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 B 010  -  LEXIN -  GLES.  -  500MG', '13 B 010', 'LEXIN', 'CEFALEXINE', 'GLES.', '500MG'),
 ('13 B 010  -  ANCEFAL -  COMP PELL  -  500MG', '13 B 010', 'ANCEFAL', 'CEFALEXINE MONOHYDRATE EXPRIME EN CEFALEXINE ANHYDRE', 'COMP PELL', '500MG'),
 ('13 B 010  -  CEPHADAR FORTE -  GLES.  -  500MG', '13 B 010', 'CEPHADAR FORTE', 'CEFALEXINE', 'GLES.', '500MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 B 010  -  RAMOXIN -  GLES  -  500MG', '13 B 010', 'RAMOXIN', 'CEFALEXINE', 'GLES', '500MG'),
 ('13 B 010  -  CEPHALEX -  GLES.  -  500MG', '13 B 010', 'CEPHALEX', 'CEFALEXINE', 'GLES.', '500MG'),
 ('13 B 010  -  UNILEXIN -  GLES.  -  500MG', '13 B 010', 'UNILEXIN', 'CEFALEXINE', 'GLES.', '500MG'),
@@ -25604,7 +25604,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('13 K 251  -  CIFLOXACINE -  SOL INJ P.PERF IV  -  2MG/ML', '13 K 251', 'CIFLOXACINE', 'CIOROFLOXACINE SOUS FORME HYDROCHLORIDE', 'SOL INJ P.PERF IV', '2MG/ML'),
 ('13 K 251  -  CIPROFLOXACINE RAZES -  SOL INJ P/ PERF IV   -  2MG/ML (200MG/100ML) (400MG/200ML) ', '13 K 251', 'CIPROFLOXACINE RAZES', 'CIPROFLOXACINE', 'SOL INJ P/ PERF IV ', '2MG/ML (200MG/100ML) (400MG/200ML) '),
 ('13 K 252  -  CIPROFLOXAL -  COMPRIME PELLICULE   -  250MG', '13 K 252', 'CIPROFLOXAL', 'CIPROFLOXACINE CHLORHYDRATE (CIPROFLOXACINE)', 'COMPRIME PELLICULE ', '250MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('13 K 252  -  FLOCINE -  COMPRIME PELLICULE   -  250MG', '13 K 252', 'FLOCINE', 'CIPROFLOXACINE CHLORHYDRATE EXPRIME EN CIPROFLOXACINE', 'COMPRIME PELLICULE ', '250MG'),
 ('13 K 252  -  CIPROTEK -  COMPRIME PELLICULE   -  250MG', '13 K 252', 'CIPROTEK', 'CIPROFLOXACINE CHLORHYDRATE EXPRIME EN CIPROFLOXACINE', 'COMPRIME PELLICULE ', '250MG'),
 ('13 K 252  -  LOXANAD -  COMPRIME PELLICULE   -  250MG ', '13 K 252', 'LOXANAD', 'CIPROFLOXACINE CHLORHYDRATE EXPRIME EN CIPROFLOXACINE', 'COMPRIME PELLICULE ', '250MG '),
@@ -25924,7 +25924,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('14 B 371  -  TRESIBA FLEXTOUCH -  SOL INJ S/C EN STYLO PRE REMPLI  -  100UI/1ML', '14 B 371', 'TRESIBA FLEXTOUCH', 'INSULINE DEGLUDEC', 'SOL INJ S/C EN STYLO PRE REMPLI', '100UI/1ML'),
 ('14 B 384  -  TOUJEO SOLOSTAR -  SOL. INJ. EN STYLO PREREMPLI  -  300UI/ML', '14 B 384', 'TOUJEO SOLOSTAR', 'INSULINE GLARGINE', 'SOL. INJ. EN STYLO PREREMPLI', '300UI/ML'),
 ('14 C 139  -  GLUCAGEN HYPOKIT -  PDRE ET SOLVANT PR SOL INJ  -  1MG/ML', '14 C 139', 'GLUCAGEN HYPOKIT', 'Glucagon chlorhydrate exprime en glucagon  ', 'PDRE ET SOLVANT PR SOL INJ', '1MG/ML');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('14 D 022  -  KAYEXALATE -  PDRE.SUSP.OR. et REC.  -  15G/MESURETTE', '14 D 022', 'KAYEXALATE', 'POLYSTIRENE SULFONATE DE SODIUM', 'PDRE.SUSP.OR. et REC.', '15G/MESURETTE'),
 ('14 F 024  -  ISOCTINE -  SOL.BUV.  -  2MG/5ML', '14 F 024', 'ISOCTINE', 'CYPROHEPTADINE CHLORHYDRATE EXPRIME EN CYPROHEPTADINE', 'SOL.BUV.', '2MG/5ML'),
 ('14 F 024  -  HEPTAL -  SIROP  -  2MG/5ML', '14 F 024', 'HEPTAL', 'CYPROHEPTADINE CHLORHYDRATE EXPRIME EN CYPROHEPTADINE', 'SIROP', '2MG/5ML'),
@@ -26224,7 +26224,7 @@ INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, 
 ('15 A 101  -  PREGABALINE BEKER  -  GELLULE   -  75MG', '15 A 101', 'PREGABALINE BEKER ', 'PREGABALINE', 'GELLULE ', '75MG'),
 ('15 A 102  -  VETRAM -  COMP. PELL. SEC  -  750MG', '15 A 102', 'VETRAM', 'LEVETIRACETAM', 'COMP. PELL. SEC', '750MG'),
 ('15 A 102  -  EPIXX -  COMP. PELL  -  750MG', '15 A 102', 'EPIXX', 'LEVETIRACETAM', 'COMP. PELL', '750MG');
-INSERT INTO `nom_en_clatures` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`, `created_at`, `updated_at`) VALUES
+INSERT INTO `medicaments` (`nom_complet`, `code`, `marque`, `DCI`, `forme`, `dosage`) VALUES
 ('15 A 102  -  BIOCETAM -  COMP. PELL. SEC  -  750MG', '15 A 102', 'BIOCETAM', 'LEVETIRACETAM', 'COMP. PELL. SEC', '750MG'),
 ('15 A 102  -  KEPAM -  COMPRIME PELLICULE   -  750MG', '15 A 102', 'KEPAM', 'LEVETIRACETAM', 'COMPRIME PELLICULE ', '750MG'),
 ('15 A 105  -  VETRAM -  COMPRIME PELLICULE  -  1000MG', '15 A 105', 'VETRAM', 'LEVETIRACETAM', 'COMPRIME PELLICULE', '1000MG'),
