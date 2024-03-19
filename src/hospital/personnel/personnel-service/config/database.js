@@ -1,4 +1,5 @@
 const mysql = require("mysql2/promise");
+const logger = require("../utils/logger");
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -9,6 +10,6 @@ const pool = mysql.createPool({
   supportBigNumbers: true,
 });
 exports.connect = async () => {
-  console.log("[SERVER] Database connection established...");
+  logger.info("[SERVER] Database connection established...");
 };
 exports.db = pool;
