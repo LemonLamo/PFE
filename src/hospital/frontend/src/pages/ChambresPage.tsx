@@ -60,8 +60,8 @@ function ChambresPage() {
     num: "",
     etage: 0,
     description: "",
-    nombre_lits: '',
-    nombre_lits_occupe: '',
+    nombre_lits: "",
+    nombre_lits_occupe: "",
   });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery<Chambre[]>({
@@ -72,11 +72,13 @@ function ChambresPage() {
     },
   });
   const query2 = useQuery<Lit[]>({
-    queryKey: ['lits', selectedChambre.num],
+    queryKey: ["lits", selectedChambre.num],
     queryFn: async () => {
-      let data = (await axios.get(`${baseURL}/api/chambres/${selectedChambre.num}/lits`)).data;
+      let data = (
+        await axios.get(`${baseURL}/api/chambres/${selectedChambre.num}/lits`)
+      ).data;
       return data;
-    }
+    },
   });
 
   const tableDefinition = useMemo(
@@ -97,7 +99,9 @@ function ChambresPage() {
             <>
               {" "}
               {c.nombre_lits_occupe} / {c.nombre_lits}
-              {build_badge((Number(c.nombre_lits_occupe!) * 100) / Number(c.nombre_lits))}
+              {build_badge(
+                (Number(c.nombre_lits_occupe!) * 100) / Number(c.nombre_lits)
+              )}
             </>
           );
         },
@@ -170,10 +174,19 @@ function ChambresPage() {
   }
 
   const action = (
-    <Button onClick={() => {
-      setSelectedChambre({ num: '', etage: 0, nombre_lits: '', nombre_lits_occupe: '', description: '' });
-      setOpenModal("create")
-      }} type="primary">
+    <Button
+      onClick={() => {
+        setSelectedChambre({
+          num: "",
+          etage: 0,
+          nombre_lits: "",
+          nombre_lits_occupe: "",
+          description: "",
+        });
+        setOpenModal("create");
+      }}
+      type="primary"
+    >
       <i className="fa fa-plus" />
       <span className="ms-2">Ajouter</span>
     </Button>
@@ -191,7 +204,13 @@ function ChambresPage() {
           open={openModal === "create"}
           action={createChambre}
           close={() => {
-            setSelectedChambre({num:'', etage:0, nombre_lits: '', nombre_lits_occupe: '', description:''});
+            setSelectedChambre({
+              num: "",
+              etage: 0,
+              nombre_lits: "",
+              nombre_lits_occupe: "",
+              description: "",
+            });
             setOpenModal("");
           }}
         >
@@ -308,7 +327,8 @@ function ChambresPage() {
                     etage: Number(e.target.value),
                   })
                 }
-                disabled>
+                disabled
+              >
                 <option value={0}>RDC</option>
                 <option value={1}>1er</option>
                 <option value={2}>2éme</option>
@@ -346,41 +366,64 @@ function ChambresPage() {
           <div className="grid grid-cols-8 gap-2">
             <div className="col-span-12">
               <label className="text-sm font-semibold">Description </label>
-              <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value, }) } disabled />
+              <textarea
+                className="primary"
+                placeholder="Description"
+                value={selectedChambre.description}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    description: e.target.value,
+                  })
+                }
+                disabled
+              />
             </div>
             <div className="col-span-12">
               <label className="text-sm font-semibold">Lits </label>
-              {
-                query2.isError ? (
-                  <div className="block w-full ">
-                    <TableError />
-                  </div>) :
-
-                query2.isLoading ? (
-                  <div className="block w-full ">
-                    <TableLoading />
-                  </div>) : (
-                    <Table fields={["#", "Type", "Status", "Remarques"]} className="mb-4 col-span-12 max-h-72">
-                    {query2.data!.map((t, i) => (
-                      <TableRow key={i}>
-                        <TableCell className="font-bold">{t.num}</TableCell>
-                        <TableCell> {t.type} </TableCell>
-                        <TableCell>
-                          {t.occupe?
-                          <Badge bgColor={"#fee2e2"} textColor={"#991b1b"} className="ms-2">
-                            <ExclamationTriangleIcon className="h-[1.7vh] mr-1" /> Occupé
-                          </Badge> :
-                          <Badge bgColor={"#dcfce7"} textColor={"#267142"} className="ms-2">
+              {query2.isError ? (
+                <div className="block w-full ">
+                  <TableError />
+                </div>
+              ) : query2.isLoading ? (
+                <div className="block w-full ">
+                  <TableLoading />
+                </div>
+              ) : (
+                <Table
+                  fields={["#", "Type", "Status", "Remarques"]}
+                  className="mb-4 col-span-12 max-h-72"
+                >
+                  {query2.data!.map((t, i) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-bold">{t.num}</TableCell>
+                      <TableCell> {t.type} </TableCell>
+                      <TableCell>
+                        {t.occupe ? (
+                          <Badge
+                            bgColor={"#fee2e2"}
+                            textColor={"#991b1b"}
+                            className="ms-2"
+                          >
+                            <ExclamationTriangleIcon className="h-[1.7vh] mr-1" />{" "}
+                            Occupé
+                          </Badge>
+                        ) : (
+                          <Badge
+                            bgColor={"#dcfce7"}
+                            textColor={"#267142"}
+                            className="ms-2"
+                          >
                             <CheckCircleIcon className="h-[1.7vh] mr-1" />
                             Disponible
                           </Badge>
-                          }
-                        </TableCell>
-                        <TableCell>{t.remarques}</TableCell>
-                      </TableRow>
-                    ))}
-                  </Table>
-                )}
+                        )}
+                      </TableCell>
+                      <TableCell>{t.remarques}</TableCell>
+                    </TableRow>
+                  ))}
+                </Table>
+              )}
             </div>
           </div>
         </ViewModal>
@@ -434,11 +477,32 @@ function ChambresPage() {
               <label className="text-sm font-semibold">
                 Nombre de lits occupés
               </label>
-              <input type="text" className="primary" placeholder="Nombre" value={selectedChambre.nombre_lits_occupe} onChange={(e) => setSelectedChambre({ ...selectedChambre, nombre_lits_occupe: e.target.valueAsNumber, }) } />
+              <input
+                type="text"
+                className="primary"
+                placeholder="Nombre"
+                value={selectedChambre.nombre_lits_occupe}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    nombre_lits_occupe: e.target.valueAsNumber,
+                  })
+                }
+              />
             </div>
             <div className="col-span-12">
               <label className="text-sm font-semibold">Description </label>
-              <textarea className="primary" placeholder="Description" value={selectedChambre.description} onChange={(e) => setSelectedChambre({ ...selectedChambre, description: e.target.value, }) } />
+              <textarea
+                className="primary"
+                placeholder="Description"
+                value={selectedChambre.description}
+                onChange={(e) =>
+                  setSelectedChambre({
+                    ...selectedChambre,
+                    description: e.target.value,
+                  })
+                }
+              />
             </div>
           </div>
         </EditModal>

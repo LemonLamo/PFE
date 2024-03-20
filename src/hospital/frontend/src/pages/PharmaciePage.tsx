@@ -51,21 +51,29 @@ const build_badge = (qte: number) => {
 };
 
 function PharmacyPage() {
-  const [selectedMedicament, setSelectedMedicament] = useState<Medicament>({ code: "", nom: "", quantite: 0 });
-  const [openModal, setOpenModal] = useState('');
+  const [selectedMedicament, setSelectedMedicament] = useState<Medicament>({
+    code: "",
+    nom: "",
+    quantite: 0,
+  });
+  const [openModal, setOpenModal] = useState("");
   const query = useQuery<Medicament[]>({
-    queryKey: ['medicaments'],
+    queryKey: ["medicaments"],
     queryFn: async () => {
       let data = (await axios.get(`${baseURL}/api/medicaments/`)).data;
       return data;
-    }
+    },
   });
   const query2 = useQuery<Transaction[]>({
-    queryKey: ['transactions', selectedMedicament.code],
+    queryKey: ["transactions", selectedMedicament.code],
     queryFn: async () => {
-      let data = (await axios.get(`${baseURL}/api/medicaments/${selectedMedicament.code}/transactions`)).data;
+      let data = (
+        await axios.get(
+          `${baseURL}/api/medicaments/${selectedMedicament.code}/transactions`
+        )
+      ).data;
       return data;
-    }
+    },
   });
 
   const tableDefinition = useMemo(
@@ -122,7 +130,9 @@ function PharmacyPage() {
       setOpenModal("");
     } catch (err: AxiosError | any) {
       if (err.response)
-        alert(err.response.data.errorCode + " - " + err.response.data.errorMessage);
+        alert(
+          err.response.data.errorCode + " - " + err.response.data.errorMessage
+        );
       else alert("Network error!");
     }
   }
@@ -298,17 +308,19 @@ function PharmacyPage() {
           </div>
 
           <h6 className="mt-4 mb-1"> Liste des transactions </h6>
-          {
-            query2.isError ? (
+          {query2.isError ? (
             <div className="block w-full ">
               <TableError />
-            </div>) :
-
-            query2.isLoading ? (
+            </div>
+          ) : query2.isLoading ? (
             <div className="block w-full ">
               <TableLoading />
-            </div>) : (
-            <Table fields={["#", "Date", "Avant", "Après", "Différence"]} className="mb-4 col-span-12 max-h-72">
+            </div>
+          ) : (
+            <Table
+              fields={["#", "Date", "Avant", "Après", "Différence"]}
+              className="mb-4 col-span-12 max-h-72"
+            >
               {query2.data?.map((t, i) => (
                 <TableRow key={i}>
                   <TableCell className="font-bold">{i + 1}</TableCell>
