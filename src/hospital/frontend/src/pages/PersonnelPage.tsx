@@ -36,7 +36,7 @@ function PersonnelPage() {
   });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery({
-    queryKey: ["agents"],
+    queryKey: ["personnel"],
     queryFn: async () => {
       let data = (await axios.get(`${baseURL}api/personnel`)).data;
       return data;

@@ -21,10 +21,14 @@ function Sidebar({ setOpen }: SidebarProps) {
       </div>
       <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
       <div className="items-center block w-auto max-h-screen overflow-hidden grow basis-full">
-        <ul className="flex flex-col pl-0 mb-0 pt-4">
+        <ul className="flex flex-col pl-0 mb-3 pt-2">
           <SidebarButton text="Dashboard" icon="fa fa-bell" route="/" closeSidebar={setOpen}/>
 
           <SidebarButton text="Nouveau patient" icon="fa fa-user" route="/nouveau_patient" closeSidebar={setOpen}/>
+          
+          <SidebarHeader text="Consultation" />
+          <SidebarButton text="Dashboard Inf" icon="fa fa-bell" route="/dashboard_inf" closeSidebar={setOpen}/>
+
           <SidebarHeader text="Consultation" />
           <SidebarButton text="Nouvelle consultation" icon="fa fa-user" route="/nouvelle_consultation" closeSidebar={setOpen}/>
           <SidebarButton text="Mes patients" icon="fa fa-user" route="/mes_patients" closeSidebar={setOpen}/>
