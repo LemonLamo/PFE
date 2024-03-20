@@ -24,7 +24,7 @@ function Scaffold({ size ="max-w-8xl", children } : ScaffoldProps) {
       <Sidebar setOpen={() => setSidebarOpen(!sidebarOpen)}></Sidebar>
       <Header setOpen={() => setSidebarOpen(!sidebarOpen)}></Header>
       <main className='min-h-[91vh] flex flex-col justify-between'>
-        <div className={`w-full px-6 py-6 mx-auto ${size} flex justify-center flex-wrap`}>
+        <div className={`w-full px-2 sm:px-6 py-6 mx-auto ${size} flex justify-center flex-wrap`}>
           { children }
         </div>
         <Footer></Footer>

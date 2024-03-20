@@ -38,8 +38,8 @@ function MesAdmisPage() {
         return <div className="flex w-68">
           <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
           <div>
-            <h6 className="mb-0">{p.patient.nom} {p.patient.prenom}</h6>
-            <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.patient.NIN}</p>
+            <h6 className="mb-0">{p.patient?.nom} {p.patient?.prenom}</h6>
+            <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.patient?.NIN}</p>
           </div>
         </div>
       }

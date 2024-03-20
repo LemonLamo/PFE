@@ -60,15 +60,12 @@ function Dashboard(){
     ], []) as ColumnDef<Partial<Patient>>[];
 
     return <>
-        <div className="grid grid-cols-12 gap-4 w-full">
-            <Card className="col-span-3">
-                <div className="flex flex-row -mx-3">
-                    <div className="flex-none w-3/4 max-w-full px-3">
+        <div className="grid grid-cols-12 gap-x-4 gap-y-2 w-full">
+            <Card className="col-span-12 sm:col-span-6 md:col-span-3 px-3">
+                <div className="flex justify-between w-full">
+                    <div className="flex-none max-w-full px-3">
                         <p className="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Patients</p>
                         <h5 className="mb-2 font-bold dark:text-white">10</h5>
-                        <p className="mb-0 dark:text-white dark:opacity-60">
-                            <span className="font-bold leading-normal text-sm text-emerald-500">+55%</span> du mois passé
-                        </p>
                     </div>
                     <div className="px-3 text-right basis-1/3">
                         <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
@@ -76,58 +73,61 @@ function Dashboard(){
                         </div>
                     </div>
                 </div>
+                <p className="mb-0 px-3">
+                    <span className="font-bold leading-normal text-sm text-emerald-500">+55%</span> du mois passé
+                </p>
             </Card>
-            <Card className="col-span-3">
-                <div className="flex flex-row -mx-3">
-                    <div className="flex-none w-3/4 max-w-full px-3">
-                        <p className="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Patients hospitalisés</p>
-                        <h5 className="mb-2 font-bold dark:text-white">4</h5>
-                        <p className="mb-0 dark:text-white dark:opacity-60">
-                            <span className="font-bold leading-normal text-sm text-red-500">-12%</span> du mois passé
-                        </p>
-                    </div>
-                    <div className="px-3 text-right">
-                        <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
-                            <i className="fa fa-user text-2xl relative top-2 text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-            <Card className="col-span-3">
-                <div className="flex flex-row -mx-3">
-                    <div className="flex-none w-3/4 max-w-full px-3">
-                        <p className="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Interventions</p>
-                        <h5 className="mb-2 font-bold dark:text-white">56</h5>
-                        <p className="mb-0 dark:text-white dark:opacity-60">
-                            <span className="font-bold leading-normal text-sm text-emerald-500">+32%</span> du mois passé
-                        </p>
-                    </div>
-                    <div className="px-3 text-right">
-                        <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
-                            <i className="fa fa-user text-2xl relative top-2 text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-            <Card className="col-span-3">
-                <div className="flex flex-row -mx-3">
-                    <div className="flex-none w-3/4 max-w-full px-3">
-                        <p className="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Placeholder</p>
+            <Card className="col-span-12 sm:col-span-6 md:col-span-3 px-3">
+                <div className="flex justify-between w-full">
+                    <div className="flex-none max-w-full px-3">
+                        <p className="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Patients</p>
                         <h5 className="mb-2 font-bold dark:text-white">10</h5>
-                        <p className="mb-0 dark:text-white dark:opacity-60">
-                            <span className="font-bold leading-normal text-sm text-emerald-500">+55%</span> du mois passé
-                        </p>
                     </div>
-                    <div className="px-3 text-right">
+                    <div className="px-3 text-right basis-1/3">
                         <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
                             <i className="fa fa-user text-2xl relative top-2 text-white"></i>
                         </div>
                     </div>
                 </div>
+                <p className="mb-0 px-3">
+                    <span className="font-bold leading-normal text-sm text-emerald-500">+55%</span> du mois passé
+                </p>
+            </Card>
+            <Card className="col-span-12 sm:col-span-6 md:col-span-3 px-3">
+                <div className="flex justify-between w-full">
+                    <div className="flex-none max-w-full px-3">
+                        <p className="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Patients</p>
+                        <h5 className="mb-2 font-bold dark:text-white">10</h5>
+                    </div>
+                    <div className="px-3 text-right basis-1/3">
+                        <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
+                            <i className="fa fa-user text-2xl relative top-2 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <p className="mb-0 px-3">
+                    <span className="font-bold leading-normal text-sm text-emerald-500">+55%</span> du mois passé
+                </p>
+            </Card>
+            <Card className="col-span-12 sm:col-span-6 md:col-span-3 px-3">
+                <div className="flex justify-between w-full">
+                    <div className="flex-none max-w-full px-3">
+                        <p className="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Patients</p>
+                        <h5 className="mb-2 font-bold dark:text-white">10</h5>
+                    </div>
+                    <div className="px-3 text-right basis-1/3">
+                        <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
+                            <i className="fa fa-user text-2xl relative top-2 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <p className="mb-0 px-3">
+                    <span className="font-bold leading-normal text-sm text-emerald-500">+55%</span> du mois passé
+                </p>
             </Card>
         </div>
-        <div className="grid grid-cols-10 gap-4 w-full">
-            <Card title="Interventions d'aujourd'hui" className="col-span-4">
+        <div className="grid grid-cols-10 gap-x-4 gap-y-2 w-full">
+            <Card title="Interventions d'aujourd'hui" className="col-span-12 md:col-span-4">
                 <Table fields={["Patient", "Equipe", "Time"]}>
                     <TableRow>
                         <TableCell>
@@ -155,7 +155,7 @@ function Dashboard(){
                     </TableRow>
                 </Table>
             </Card>
-            <Card title="Patients d'aujourd'hui" className="col-span-3">
+            <Card title="Patients d'aujourd'hui" className="col-span-12 md:col-span-3">
                 <Table fields={["Patient", "Time"]}>
                     <TableRow>
                         <TableCell>
@@ -177,7 +177,7 @@ function Dashboard(){
                     </TableRow>
                 </Table>
             </Card>
-            <Card className="col-span-3">
+            <Card className="col-span-12 md:col-span-3 flex justify-center">
                 <SmallCalendar />
             </Card>
         </div>
