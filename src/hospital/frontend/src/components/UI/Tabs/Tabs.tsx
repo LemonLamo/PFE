@@ -13,13 +13,17 @@ function Tabs({type="vertical", children} : TabsProps) {
     const inactiveStyle = 'text-gray-600 hover:text-gray-600 hover:border-gray-300 hover:border-gray-500'
     return (
         <div className={`${type == "vertical"? "grid grid-cols-5" : ""} mb-3`}>
-            <ul className={`${type == "vertical" ? "col-span-1 space-y-2" : "flex items-center"} mb-3`}>
+            <ul className={`${type == "vertical" ? "col-span-1 space-y-2" : "flex items-center justify-start"} mb-3`}>
                 {
                     children.map((tab, i)=>{
                         return <li key={`tab${i}`}>
                             <button className={`${selected == i ? activeStyle : inactiveStyle} flex justify-start items-center text-left w-full ps-2 pe-6 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
-                                {tab.props.icon && <i className={`${tab.props.icon} me-2`} />}
-                                {tab.props.text}
+                                {tab.props.icon && <i className={`${tab.props.icon} sm:me-2`} />}
+                                {
+                                    type=="horizontal"?
+                                    <span className={`${(selected == i) ? "block" : "hidden lg:block"}`}>{tab.props.text}</span>:
+                                    <span className={`block`}>{tab.props.text}</span>
+                                }
                             </button>
                         </li>
                     })

@@ -16,7 +16,7 @@ function NewPatientPage() {
   return (
     <Card title="Nouveau patient" subtitle="Create a new medical record" className="w-full">
       <form className="grid grid-cols-12 gap-x-4" onSubmit={handleSubmit(onSubmit)}>
-        <div className="col-span-4">
+        <div className="col-span-12 md:col-span-4">
           <h6 className="mb-1"> Informations civiles</h6>
           <div className="mb-2">
             <label className="text-sm font-semibold">NIN:</label>
@@ -68,7 +68,7 @@ function NewPatientPage() {
           </div>
         </div>
 
-        <div className="col-span-4">
+        <div className="col-span-12 md:col-span-4">
           <h6 className="mt-0 mb-1"> Informations d'adresse</h6>
           <div className="grid grid-cols-3 gap-x-2">
             <div className="col-span-3 mb-2">
@@ -124,7 +124,7 @@ function NewPatientPage() {
           </div>
         </div>
 
-        <div className="col-span-4">
+        <div className="col-span-12 md:col-span-4">
           <div className="mb-0 flex justify-between">
             <h6 className="mb-0">Antécédants Familiales</h6>
             <Button className="h-8"  onClick={() => setOpenModal('antecedants_familiales')} type="primary-alternate">

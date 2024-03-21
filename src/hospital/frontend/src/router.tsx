@@ -17,6 +17,7 @@ import Test from "./pages/Test";
 import PatientPage from "./pages/PatientPage";
 import { PublicOrPrivateRoute, PrivateRouteOnly } from "./hooks/useAuth";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import DashboardInfirmier from "./pages/DashboardInfirmier";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -24,6 +25,8 @@ const router = createBrowserRouter([
       notLoggedIn={(<LoginPage />)}
       loggedIn = {<Scaffold> <Dashboard /> </Scaffold>}
     />)},
+
+  { path: "/dashboard_inf", element:(<Scaffold> <DashboardInfirmier /> </Scaffold>)},
 
   { path: "/forgot-password", element:(<ForgotPasswordPage />)},
     

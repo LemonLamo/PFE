@@ -22,7 +22,7 @@ function Select({ options, onChange, placeholder = '', className = '', state }: 
 
     return (
         <Combobox value={selectedOption} onChange={setSelectedOption} nullable>
-            <div className={`z-10 relative w-full ${className}`}>
+            <div className={`relative w-full ${className}`}>
                 <Combobox.Button className="w-full">
                     <Combobox.Input displayValue={(o: any) => o && o.key && `${o.key} - ${o.value}`} onChange={(event) => setQuery(event.target.value)} className="w-full select cursor-default" placeholder={placeholder} autoComplete="off" />
                     <ChevronDownIcon className="absolute right-3 top-[50%] bottom-[50%] mt-[-0.5rem] h-4 w-4 text-gray-600 curious-pointer" aria-hidden="true" />

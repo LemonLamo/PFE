@@ -25,10 +25,10 @@ function MesRendezVousPage() {
   ];
   return (
     <div className="grid grid-cols-12 w-full">
-      <Card className="col-span-9">
+      <Card className="col-span-12 md:col-span-9">
         <Calendar events={events}></Calendar>
       </Card>
-      <Card className="col-span-3" title="Rendez-vous" subtitle="Liste of vos prochaines rendez-vous" >
+      <Card className="col-span-12 md:col-span-3" title="Rendez-vous" subtitle="Liste of vos prochaines rendez-vous" >
         <ul className="flex flex-col gap-y-4">
           {events.map((item) => <RdvCard {...item}></RdvCard>)}
         </ul>
