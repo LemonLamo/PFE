@@ -186,4 +186,6 @@ type Personnel = {
   code_postale: number | "";
   commune: string;
   wilaya: string;
+  nom_hopital: string;
+  service: string;
 };

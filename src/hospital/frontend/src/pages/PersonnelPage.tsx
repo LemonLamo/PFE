@@ -33,6 +33,8 @@ function PersonnelPage() {
     code_postale: "",
     commune: "",
     wilaya: "",
+    nom_hopital: "",
+    service: "",
   });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery({

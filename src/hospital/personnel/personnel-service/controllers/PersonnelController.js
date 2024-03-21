@@ -43,6 +43,8 @@ class PersonnelController {
       code_postal,
       commune,
       wilaya,
+      nom_hopital,
+      service,
     } = req.body;
     const date = new Date(date_de_naissance);
 
@@ -68,7 +70,9 @@ class PersonnelController {
         adresse,
         code_postal,
         commune,
-        wilaya
+        wilaya,
+        nom_hopital,
+        service
       );
       return res.status(200).json({ success: true });
     } catch (err) {
@@ -91,6 +95,8 @@ class PersonnelController {
       code_postal,
       commune,
       wilaya,
+      nom_hopital,
+      service,
     } = req.body;
     try {
       await Model.update(
@@ -103,7 +109,9 @@ class PersonnelController {
         adresse,
         code_postal,
         commune,
-        wilaya
+        wilaya,
+        nom_hopital,
+        service
       );
       return res.status(200).json({ success: true });
     } catch (err) {
