@@ -183,7 +183,7 @@ type Personnel = {
   specialite: string;
   grade: string;
   adresse: string;
-  code_postale: number;
+  code_postale: number | "";
   commune: string;
   wilaya: string;
 };

@@ -30,7 +30,7 @@ function PersonnelPage() {
     specialite: "",
     grade: "",
     adresse: "",
-    code_postale: 0,
+    code_postale: "",
     commune: "",
     wilaya: "",
   });
