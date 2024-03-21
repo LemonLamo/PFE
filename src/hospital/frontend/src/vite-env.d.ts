@@ -173,8 +173,9 @@ type Personnel = {
   NIN: string;
   nom: string;
   prenom: string;
-  date_naissance: Date | null;
-  lieu_naissance: string;
+  nom_user: string;
+  date_de_naissance: Date | null;
+  lieu_de_naissance: string;
   sexe: string;
   email: string;
   telephone: string;
@@ -182,7 +183,7 @@ type Personnel = {
   specialite: string;
   grade: string;
   adresse: string;
-  code_postale: number | "";
+  code_postale: number;
   commune: string;
   wilaya: string;
 };
