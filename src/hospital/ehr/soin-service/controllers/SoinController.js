@@ -1,4 +1,4 @@
-const Model = require("../models/PersonnelModel");
+const Model = require("../models/SoinModel");
 const logger = require("../utils/logger");
 
 class SoinController {
