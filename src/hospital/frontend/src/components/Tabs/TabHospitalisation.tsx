@@ -1,4 +1,7 @@
+import axios from "axios";
 import moment from "moment";
+import { baseURL } from "../../hooks";
+import { useQuery } from "@tanstack/react-query";
 
 type TabProps = {
   hospitalisationData: Hospitalisation,
@@ -6,6 +9,20 @@ type TabProps = {
 }
 
 function TabHospitalisation({ hospitalisationData, setHospitalisationData } : TabProps) {
+  const chambres = useQuery<Chambre[]>({
+    queryKey: ["chambres"],
+    queryFn: async () => {
+      const result =(await axios.get(`${baseURL}/api/chambres/`)).data
+      return result;
+    },
+  });
+  const lits = useQuery<Chambre[]>({
+    queryKey: ["lits"+hospitalisationData.chambre],
+    queryFn: async () => {
+      const result =(await axios.get(`${baseURL}/api/chambres/${hospitalisationData.chambre}/lits`)).data
+      return result;
+    },
+  });
   function updateHospitalisationData(id: keyof Hospitalisation, value: Hospitalisation[typeof id]) {
     setHospitalisationData((hospitalisationData) => ({ ...hospitalisationData, [id]: value }))
   }
@@ -23,6 +40,22 @@ function TabHospitalisation({ hospitalisationData, setHospitalisationData } : Ta
           <option>Hospitalisation complète</option>
           <option>Hospitalisation partielle</option>
           <option>Hôpital du jour</option>
+        </select>
+
+        <label className="font-semibold text-slate-700 text-sm col-span-2"> Chambre: </label>
+        <select className="col-span-3" value={hospitalisationData.chambre} onChange={(e) => updateHospitalisationData('chambre', e.target.value)}>
+          {chambres.data?.map((c, i) => (
+            <option value={c?.num} key={i}> Chambre {c?.num}</option>
+          ))
+          }
+        </select>
+
+        <label className="font-semibold text-slate-700 text-sm col-span-1"> Lit: </label>
+        <select className="col-span-3" value={hospitalisationData.lit} onChange={(e) => updateHospitalisationData('lit', e.target.value)}>
+          {lits.data?.map((l, i) => (
+            <option value={l?.num} key={i}> Lit N°{l?.num}</option>
+          ))
+          }
         </select>
 
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Motif d'hospitalisation: </label>

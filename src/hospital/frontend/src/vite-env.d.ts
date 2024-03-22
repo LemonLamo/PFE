@@ -11,7 +11,7 @@ type LoginFormActions = {
 type Consultation = {
   code_consultation: string;
   patient: Partial<Patient>;
-  medecin: Partial<Medecin>;
+  medecin: Partial<Personnel>;
   nom_hopital: string;
   date_consultation: Date;
   type_consultation: string;
@@ -30,7 +30,7 @@ type Consultation = {
 type Hospitalisation = {
   code_hospitalisation: string;
   patient: Partial<Patient>;
-  medecin: Partial<Medecin>;
+  medecin: Partial<Personnel>;
   nom_hopital: string;
   date_entree: Date;
   mode_entree: string;
@@ -45,23 +45,11 @@ type Intervention = {
   code_intervention: string;
   nom: string;
   patient: Partial<Patient>;
-  medecin: Partial<Medecin>;
+  medecin: Partial<Personnel>;
   nom_hopital: string;
   date?: Date;
   protocole_operatoire?: string;
   remarques?: string;
-};
-type Medecin = {
-  NIN: string;
-  nom: string;
-  prenom: string;
-  date_naissance: Date;
-  lieu_naissance: string;
-  specialite: string;
-  sexe: string;
-  email: string;
-  telephone: string;
-  addresse: string;
 };
 type Patient = {
   NIN: string;
@@ -170,7 +158,6 @@ type MaladieChro = {
   date_diagnostic: string;
   remarque: string;
 };
-// placeholder
 type Personnel = {
   NIN: string;
   nom: string;
@@ -191,3 +178,14 @@ type Personnel = {
   nom_hopital: string;
   service: string;
 };
+type Soin = {
+  code_soin: string;
+  patient: Partial<Patient>;
+  medecin: Partial<Personnel>;
+  infirmier: Partial<Personnel>;
+  nom_hopital: string;
+  acte: string;
+  date: Date;
+  details: string;
+  status: boolean;
+}
