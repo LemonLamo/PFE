@@ -38,6 +38,6 @@ app.delete("/api/personnel/:NIN", PersonnelController.remove);
 app.use((req, res) => res.sendStatus(404));
 
 // start server
-app.listen(4444, () => logger.info(`[SERVER] Listening on port ${4444}`));
+app.listen(8080, () => logger.info(`[SERVER] Listening on port ${8080}`));
 
 module.exports = app;

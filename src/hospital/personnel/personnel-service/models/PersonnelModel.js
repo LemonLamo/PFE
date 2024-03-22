@@ -41,7 +41,9 @@ class PersonnelService {
     adresse,
     code_postal,
     commune,
-    wilaya
+    wilaya,
+    nom_hopital,
+    service
   ) {
     try {
       await db.execute(
@@ -63,6 +65,8 @@ class PersonnelService {
           code_postal,
           commune,
           wilaya,
+          nom_hopital,
+          service,
         ]
       );
     } catch (error) {
@@ -81,11 +85,13 @@ class PersonnelService {
     adresse,
     code_postal,
     commune,
-    wilaya
+    wilaya,
+    nom_hopital,
+    service
   ) {
     try {
       await db.query(
-        "UPDATE personnel SET email=?, telephone=? , fonction=?, specialite=?, grade=?, adresse=?, code_postal=?, commune=?, wilaya=? WHERE NIN=?",
+        "UPDATE personnel SET email=?, telephone=? , fonction=?, specialite=?, grade=?, adresse=?, code_postal=?, commune=?, wilaya=?, nom_hopital=?, service=? WHERE NIN=?",
         [
           email,
           telephone,
@@ -96,6 +102,8 @@ class PersonnelService {
           code_postal,
           commune,
           wilaya,
+          nom_hopital,
+          service,
           NIN,
         ]
       );

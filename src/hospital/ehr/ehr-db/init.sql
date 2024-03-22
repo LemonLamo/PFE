@@ -74,3 +74,66 @@ CREATE TABLE `interventions` (
 
 INSERT INTO `interventions` (`code_intervention`, `nom`, `patient`, `medecin`, `nom_hopital`, `date`, `remarques`, `protocole_operatoire`) VALUES
 ('interv-25831', 'Appendicectomie', '100010364027390000', '111111111111111111', 'CHU Beni Messous', '2023-02-18', '-', 'Idk');
+
+-- --------------------------------------------------------
+--
+-- Structure de la table `ExamenClinique`
+--
+CREATE TABLE `examenclinique` (
+  `code` varchar(255) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `resultat` varchar(20) NOT NULL,
+  `resultat` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `examenclinique` (`code`, `nom`, `resultat`, `remarques`,) VALUES
+('interv-25831', 'Appendicectomie', 'resultat', 'Idk');
+
+-- --------------------------------------------------------
+--
+-- Structure de la table `Prescription`
+--
+CREATE TABLE `prescription` (
+  `code` varchar(255) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `posologie` INT(20) NOT NULL,
+  `frequence` float(20) NOT NULL,
+  `duree` INT(20) NOT NULL,
+  `remarques` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `prescription` (`code`, `nom`, `posologie`, `frequence`, `duree`, `remarques`,) VALUES
+('interv-25831', 'Appendicectomie', 23 , 1.5, 7, 'Idk');
+
+-- --------------------------------------------------------
+--
+-- Structure de la table `Radio`
+--
+CREATE TABLE `radio` (
+  `code` varchar(255) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `remarques` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `radio` (`code`, `nom`, `remarques`,) VALUES
+('interv-25831', 'Appendicectomie', 'Idk');
+-- --------------------------------------------------------
+--
+-- Structure de la table `Analyse`
+--
+CREATE TABLE `analyse` (
+  `code` varchar(255) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `remarques` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `analyse` (`code`, `nom`, `remarques`,) VALUES
+('interv-25831', 'Appendicectomie', 'Idk');

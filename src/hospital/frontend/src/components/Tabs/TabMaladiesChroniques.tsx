@@ -45,14 +45,7 @@ function TabMaladiesChroniques({ NIN }: Props) {
     ],
     []
   ) as ColumnDef<any>[];
-  async function createMaladieChro() {
-    //     try {
-    //       await axios.post(`${baseURL}/api/patients`, selectedMaladieChro);
-    //       window.location.reload();
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-  }
+  async function createMaladieChro() {}
   const action = (
     <Button
       onClick={() => {

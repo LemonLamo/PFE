@@ -16,12 +16,12 @@ import axios from "axios";
 import { baseURL } from "../hooks";
 
 function PersonnelPage() {
-  const [selectedAgent, setSelectedAgent] = useState<Agent>({
+  const [selectedAgent, setSelectedAgent] = useState<Personnel>({
     NIN: "",
     nom: "",
     prenom: "",
     nom_user: "",
-    date_de_naissance: "",
+    date_de_naissance: new Date(),
     lieu_de_naissance: "",
     sexe: "",
     email: "",
@@ -30,9 +30,11 @@ function PersonnelPage() {
     specialite: "",
     grade: "",
     adresse: "",
-    code_postal: "",
+    code_postale: "",
     commune: "",
     wilaya: "",
+    nom_hopital: "",
+    service: "",
   });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery({
@@ -103,7 +105,7 @@ function PersonnelPage() {
       },
     ],
     []
-  ) as ColumnDef<Agent>[];
+  ) as ColumnDef<Personnel>[];
 
   async function createAgent() {
     try {
@@ -124,7 +126,7 @@ function PersonnelPage() {
         specialite: selectedAgent.specialite,
         grade: selectedAgent.grade,
         adresse: selectedAgent.adresse,
-        code_postal: selectedAgent.code_postal,
+        code_postale: selectedAgent.code_postale,
         commune: selectedAgent.commune,
         wilaya: selectedAgent.wilaya,
       };
@@ -394,14 +396,14 @@ function PersonnelPage() {
             <div className="col-span-4">
               <label className="text-sm font-semibold"> Code postal </label>
               <input
-                type="text"
+                type="number"
                 className="primary"
                 placeholder="Code postal"
-                value={selectedAgent.code_postal}
+                value={selectedAgent.code_postale}
                 onChange={(e) =>
                   setSelectedAgent({
                     ...selectedAgent,
-                    code_postal: e.target.value,
+                    code_postale: parseInt(e.target.value),
                   })
                 }
               />
@@ -587,7 +589,7 @@ function PersonnelPage() {
                 className="primary"
                 placeholder="code postal"
                 disabled
-                value={selectedAgent.code_postal}
+                value={selectedAgent.code_postale}
               />
             </div>
           </div>
@@ -740,14 +742,14 @@ function PersonnelPage() {
             <div className="col-span-4">
               <label className="text-sm font-semibold">Code postal</label>
               <input
-                type="text"
+                type="number"
                 className="primary"
                 placeholder="code postal"
-                value={selectedAgent.code_postal}
+                value={selectedAgent.code_postale}
                 onChange={(e) =>
                   setSelectedAgent({
                     ...selectedAgent,
-                    code_postal: e.target.value,
+                    code_postale: parseInt(e.target.value),
                   })
                 }
               />
