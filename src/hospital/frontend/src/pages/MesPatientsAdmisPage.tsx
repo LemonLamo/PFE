@@ -46,6 +46,7 @@ function MesAdmisPage() {
     },
     { header: "Date d'entrée", id: "date_entree", cell: (info) => moment(info.row.original.date_entree).format('DD/MM/YYYY') },
     { header: "Mode entrée", accessorKey: "mode_entree" },
+    { header: "Chambre et lit", id: "chambre_lit", cell: (info) => <>Chambre {info.row.original.chambre}, Lit N°{info.row.original.lit} </> },
     { header: "Motif d'hospitalisation", accessorKey: "motif_hospitalisation" },
     { header: "Résumé d'hospitalisation", accessorKey: "resume_hospitalisation" },
     { header: "", id: "actions", cell: (info) => {

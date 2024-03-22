@@ -122,7 +122,7 @@ function TabMaladiesChroniques({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedMaladieChro({
                     ...selectedMaladieChro,
-                    id: e.target.value,
+                    id: e.target.valueAsNumber,
                   })
                 }
               />

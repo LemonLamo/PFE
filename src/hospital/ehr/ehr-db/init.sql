@@ -41,6 +41,8 @@ CREATE TABLE `hospitalisations` (
   `nom_hopital` varchar(255) NOT NULL,
   `date_entree` date NOT NULL,
   `mode_entree` varchar(255) NOT NULL,
+  `chambre` varchar(255) NOT NULL,
+  `lit` int(11) NOT NULL,
   `motif_hospitalisation` varchar(255) NOT NULL,
   `date_sortie` date DEFAULT NULL,
   `mode_sortie` varchar(255) DEFAULT NULL,
@@ -49,8 +51,8 @@ CREATE TABLE `hospitalisations` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `hospitalisations` (`code_hospitalisation`, `patient`, `medecin`, `nom_hopital`, `date_entree`, `mode_entree`, `motif_hospitalisation`, `date_sortie`, `mode_sortie`, `resume_hospitalisation`) VALUES
-('hos-25831', '100010364027390000', '100010364027390000', 'CHU Beni Messous', '2023-02-18', 'Hospitalisation complète', 'Soupçon de COVID-19', NULL, NULL, "Le patient s'est présenté avec une fièvre extra-ordinaire, un mal de gorge, un nez qui coule.");
+INSERT INTO `hospitalisations` (`code_hospitalisation`, `patient`, `medecin`, `nom_hopital`, `date_entree`, `mode_entree`, `motif_hospitalisation`, `chambre`, `lit`, `date_sortie`, `mode_sortie`, `resume_hospitalisation`) VALUES
+('hos-25831', '100010364027390000', '100010364027390000', 'CHU Beni Messous', '2023-02-18', 'Hospitalisation complète', 'Soupçon de COVID-19', "F1", 1, NULL, NULL, "Le patient s'est présenté avec une fièvre extra-ordinaire, un mal de gorge, un nez qui coule.");
 
 
 -- --------------------------------------------------------
