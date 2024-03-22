@@ -89,8 +89,10 @@ type ExamenClinique = {
   remarques?: string;
 };
 type Prescription = {
+  id: number;
   code: string;
   nom: string;
+  date_debut: string;
   posologie: number;
   frequence: number;
   duree: number;
@@ -143,23 +145,27 @@ type Role = {
 };
 
 type Vaccination = {
+  id: number;
   code_vaccin: string;
   intitule_vaccin: string;
-  date: Date;
+  date: string;
   remarques?: string;
   nombre_de_doses: number;
-  date_de_prochaine_dose: Date;
+  date_de_prochaine_dose: string;
 };
 type Allergie = {
+  id: number;
   code_allergene: string;
-  date: Date;
+  date: string;
   remarques?: string;
 };
 type AntecedentMedicale = {
+  id: number;
   description: string;
   remarques: string;
 };
 type AntecedentFamilial = {
+  id: number;
   description: string;
   remarques: string;
 };

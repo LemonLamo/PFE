@@ -14,6 +14,7 @@ type Props = {
 
 function TabVaccinations({ NIN }: Props) {
   const [selectedVaccination, setSelectedVaccination] = useState<Vaccination>({
+    id: 0,
     code_vaccin: "",
     intitule_vaccin: "",
     date: "",
@@ -60,6 +61,7 @@ function TabVaccinations({ NIN }: Props) {
     <Button
       onClick={() => {
         setSelectedVaccination({
+          id: 0,
           code_vaccin: "",
           intitule_vaccin: "",
           date: "",
@@ -95,6 +97,7 @@ function TabVaccinations({ NIN }: Props) {
           action={createVaccination}
           close={() => {
             setSelectedVaccination({
+              id: 0,
               code_vaccin: "",
               intitule_vaccin: "",
               date: "",
@@ -126,7 +129,7 @@ function TabVaccinations({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedVaccination({
                     ...selectedVaccination,
-                    id: e.target.value,
+                    id: e.target.valueAsNumber,
                   })
                 }
               />
@@ -157,7 +160,7 @@ function TabVaccinations({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedVaccination({
                     ...selectedVaccination,
-                    nombre_de_doses: e.target.value,
+                    nombre_de_doses: e.target.valueAsNumber,
                   })
                 }
               />

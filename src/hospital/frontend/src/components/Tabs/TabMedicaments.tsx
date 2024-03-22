@@ -12,10 +12,15 @@ type Props = {
 };
 
 function TabMedicaments({ NIN }: Props) {
-  const [selectedMedicament, setSelectedMedicament] = useState<Medicament>({
+  const [selectedMedicament, setSelectedMedicament] = useState<Prescription>({
+    id: 0,
     code: "",
     nom: "",
-    quantite: 0,
+    date_debut: "",
+    posologie: 0,
+    frequence: 0,
+    duree: 0,
+    remarques: "",
   });
   const [openModal, setOpenModal] = useState("");
   const medicaments = useQuery<Medicament[]>({
@@ -39,15 +44,20 @@ function TabMedicaments({ NIN }: Props) {
       { header: "Remarques", accessorKey: "remarques" },
     ],
     []
-  ) as ColumnDef<Medicament>[];
+  ) as ColumnDef<Prescription>[];
   async function createMedicament() {}
   const action = (
     <Button
       onClick={() => {
         setSelectedMedicament({
+          id: 0,
           code: "",
           nom: "",
-          quantite: 0,
+          date_debut: "",
+          posologie: 0,
+          frequence: 0,
+          duree: 0,
+          remarques: "",
         });
         setOpenModal("create");
       }}
@@ -77,9 +87,14 @@ function TabMedicaments({ NIN }: Props) {
           action={createMedicament}
           close={() => {
             setSelectedMedicament({
+              id: 0,
               code: "",
               nom: "",
-              quantite: 0,
+              date_debut: "",
+              posologie: 0,
+              frequence: 0,
+              duree: 0,
+              remarques: "",
             });
             setOpenModal("");
           }}
@@ -105,7 +120,7 @@ function TabMedicaments({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedMedicament({
                     ...selectedMedicament,
-                    id: e.target.value,
+                    id: e.target.valueAsNumber,
                   })
                 }
               />
@@ -165,7 +180,7 @@ function TabMedicaments({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedMedicament({
                     ...selectedMedicament,
-                    posologie: e.target.value,
+                    posologie: e.target.valueAsNumber,
                   })
                 }
               />
@@ -181,7 +196,7 @@ function TabMedicaments({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedMedicament({
                     ...selectedMedicament,
-                    frequence: e.target.value,
+                    frequence: e.target.valueAsNumber,
                   })
                 }
               />
@@ -197,7 +212,7 @@ function TabMedicaments({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedMedicament({
                     ...selectedMedicament,
-                    duree: e.target.value,
+                    duree: e.target.valueAsNumber,
                   })
                 }
               />
