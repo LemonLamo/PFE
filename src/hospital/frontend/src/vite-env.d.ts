@@ -189,9 +189,10 @@ type Soin = {
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   infirmier: Partial<Personnel>;
+  hospitalisation: Partial<Hospitalisation>;
   nom_hopital: string;
   acte: string;
-  date: Date;
+  date_soin: Date;
   details: string;
-  status: boolean;
-}
+  fait: boolean;
+};
