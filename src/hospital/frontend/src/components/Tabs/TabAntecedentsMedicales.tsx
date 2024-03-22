@@ -100,7 +100,7 @@ function TabAntecedentsMedicales({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedAntecedentMedicale({
                     ...selectedAntecedentMedicale,
-                    id: e.target.value,
+                    id: e.target.valueAsNumber,
                   })
                 }
               />

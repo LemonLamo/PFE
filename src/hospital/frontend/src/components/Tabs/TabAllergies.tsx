@@ -14,9 +14,10 @@ type Props = {
 
 function TabAllergies({ NIN }: Props) {
   const [selectedAllergie, setSelectedAllergie] = useState<Allergie>({
+    id: 0,
     code_allergene: "",
     date: "",
-    remarque: "",
+    remarques: "",
   });
   const [openModal, setOpenModal] = useState("");
   const allergies = useQuery<Allergie[]>({
@@ -47,6 +48,7 @@ function TabAllergies({ NIN }: Props) {
     <Button
       onClick={() => {
         setSelectedAllergie({
+          id: 0,
           code_allergene: "",
           date: "",
           remarques: "",
@@ -79,6 +81,7 @@ function TabAllergies({ NIN }: Props) {
           action={createAllergie}
           close={() => {
             setSelectedAllergie({
+              id: 0,
               code_allergene: "",
               date: "",
               remarques: "",

@@ -100,7 +100,7 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
                 onChange={(e) =>
                   setSelectedAntecedentFamilial({
                     ...selectedAntecedentFamilial,
-                    id: e.target.value,
+                    id: e.target.valueAsNumber,
                   })
                 }
               />
