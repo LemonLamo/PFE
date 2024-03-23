@@ -67,19 +67,9 @@ function MesPatientsPage() {
       },
       { header: "Email", accessorKey: "email" },
       { header: "Telephone", accessorKey: "telephone" },
-      {
-        header: "Dernier rendez-vous",
-        id: "dernier_rdv",
-        cell: () => "16/03/2024",
-      },
-      {
-        header: "Prochain rendez-vous",
-        id: "prochain_rdv",
-        cell: () => "20/03/2024",
-      },
-      {
-        header: "",
-        id: "actions",
+      { header: "Dernier rendez-vous", id: "dernier_rdv",cell: () => "16/03/2024" },
+      { header: "Prochain rendez-vous", id: "prochain_rdv", cell: () => "20/03/2024",},
+      { header: "", id: "actions",
         cell: (info) => {
           const a = info.row.original;
           return (

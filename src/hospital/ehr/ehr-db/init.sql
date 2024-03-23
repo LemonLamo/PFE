@@ -77,25 +77,25 @@ INSERT INTO `interventions` (`code_intervention`, `nom`, `patient`, `medecin`, `
 
 -- --------------------------------------------------------
 --
--- Structure de la table `ExamenClinique`
+-- Structure de la table `examens_cliniques`
 --
-CREATE TABLE `examenclinique` (
+CREATE TABLE `examens_cliniques` (
   `code` varchar(255) NOT NULL,
   `nom` varchar(20) NOT NULL,
-  `resultat` varchar(20) NOT NULL,
   `resultat` varchar(255) NOT NULL,
+  `remarques` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `examenclinique` (`code`, `nom`, `resultat`, `remarques`,) VALUES
+INSERT INTO `examens_cliniques` (`code`, `nom`, `resultat`, `remarques`) VALUES
 ('interv-25831', 'Appendicectomie', 'resultat', 'Idk');
 
 -- --------------------------------------------------------
 --
--- Structure de la table `Prescription`
+-- Structure de la table `prescriptions`
 --
-CREATE TABLE `prescription` (
+CREATE TABLE `prescriptions` (
   `code` varchar(255) NOT NULL,
   `nom` varchar(20) NOT NULL,
   `posologie` INT(20) NOT NULL,
@@ -106,14 +106,14 @@ CREATE TABLE `prescription` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `prescription` (`code`, `nom`, `posologie`, `frequence`, `duree`, `remarques`,) VALUES
-('interv-25831', 'Appendicectomie', 23 , 1.5, 7, 'Idk');
+INSERT INTO `prescriptions` (`code`, `nom`, `posologie`, `frequence`, `duree`, `remarques`) VALUES
+('ordd-25831', 'Appendicectomie', 23 , 1.5, 7, 'Idk');
 
 -- --------------------------------------------------------
 --
--- Structure de la table `Radio`
+-- Structure de la table `radios`
 --
-CREATE TABLE `radio` (
+CREATE TABLE `radios` (
   `code` varchar(255) NOT NULL,
   `nom` varchar(20) NOT NULL,
   `remarques` varchar(255) NOT NULL,
@@ -121,13 +121,13 @@ CREATE TABLE `radio` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `radio` (`code`, `nom`, `remarques`,) VALUES
-('interv-25831', 'Appendicectomie', 'Idk');
+INSERT INTO `radios` (`code`, `nom`, `remarques`) VALUES
+('radio-25831', 'Appendicectomie', 'Idk');
 -- --------------------------------------------------------
 --
--- Structure de la table `Analyse`
+-- Structure de la table `analyses`
 --
-CREATE TABLE `analyse` (
+CREATE TABLE `analyses` (
   `code` varchar(255) NOT NULL,
   `nom` varchar(20) NOT NULL,
   `remarques` varchar(255) NOT NULL,
@@ -135,5 +135,32 @@ CREATE TABLE `analyse` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `analyse` (`code`, `nom`, `remarques`,) VALUES
-('interv-25831', 'Appendicectomie', 'Idk');
+INSERT INTO `analyses` (`code`, `nom`, `remarques`) VALUES
+('bilan-25831', 'Appendicectomie', 'Idk');
+
+-- --------------------------------------------------------
+--
+-- Structure de la table `Soins`
+--
+
+CREATE TABLE `soins` (
+  `code_soin` varchar(20) NOT NULL PRIMARY KEY,
+  `patient` varchar(20) NOT NULL,
+  `medecin` varchar(20) NOT NULL,
+  `infirmier` varchar(20) NOT NULL,
+  `hospitalisation` varchar(20),
+  `nom_hopital` varchar(255) NOT NULL,
+  `acte` varchar(255) NOT NULL,
+  `date_soin` date NOT NULL,
+  `details` varchar(255) NOT NULL,
+  `fait` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `soin`
+--
+
+INSERT INTO `soins` (`code_soin`, `patient`, `medecin`, `infirmier`, `hospitalisation`, `nom_hopital`, `acte`, `date_soin`, `details`) VALUES
+('soin-15831', '100010364027390000', '111111111111111111', '222222222222222222', '222222222222222222','CHU Mustapha Bacha' ,'operation', '2023-02-17', 'XXXXX-details-XXXXX' );

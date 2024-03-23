@@ -18,7 +18,7 @@ type SectionProps = {
 
 function PerscriptionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps){
   const [openModal, setOpenModal] = useState('')
-  const [selectedPrescription, setSelectedPrescription] = useState<Prescription>({ code: '', nom: '', posologie: 0, frequence:0, duree:0, remarques: '' })
+  const [selectedPrescription, setSelectedPrescription] = useState<Prescription>({ code: '', nom: '', posologie: 0, frequence:0, duree:0, remarques: '', date_debut: new Date() })
 
   function select_prescription({ key, value }: { key: string, value: string }) {
     setSelectedPrescription({ ...selectedPrescription, code: key, nom: value })

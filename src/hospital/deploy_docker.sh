@@ -16,6 +16,8 @@ SERVICES=(
     "pharmacy/pharmacy-service"
     "chambres-lits/chambres-lits-db"
     "chambres-lits/chambres-lits-service"
+    "personnel/personnel-db"
+    "personnel/personnel-service"
 )
 
 trap "exit 130" SIGINT

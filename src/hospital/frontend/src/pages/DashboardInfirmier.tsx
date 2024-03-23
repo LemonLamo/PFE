@@ -8,6 +8,8 @@ import DataTable from "../components/UI/Tables/DataTable";
 import moment from "moment";
 import Badge from "../components/UI/Badge";
 import { CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
+import { baseURL } from "../hooks";
 
 const build_badge = (done: boolean) => {
   return (
@@ -19,18 +21,16 @@ const build_badge = (done: boolean) => {
 
         <Badge bgColor="#fee2e2" textColor="#991b1b">
             <ExclamationTriangleIcon className="h-4 mr-1" />
-            Repture de stock
+            Pas encore
         </Badge>
     );
 };
 
 function DashboardInfirmier(){
-    const query = useQuery({
-        queryKey: ['patients'],
+    const query = useQuery<Soin[]>({
+        queryKey: ['soins'],
         queryFn: async () => {
-            const data = [
-                {NIN: "100010364027390000", nom: "Brahim", prenom:"Abderrazak", date_naissance:new Date("2001-07-13"), lieu_naissance:"Tebessa", date: new Date(),  }
-            ];
+            const data = (await axios.get(`${baseURL}/api/soins`)).data
             return data;
         }
     });
@@ -41,30 +41,29 @@ function DashboardInfirmier(){
                 return <div className="flex">
                     <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
                     <div>
-                        <h6 className="mb-0">{p.nom} {p.prenom}</h6>
-                        <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.NIN}</p>
+                        <h6 className="mb-0">{p.patient.nom} {p.patient.prenom}</h6>
+                        <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.patient.NIN}</p>
                     </div>
                 </div>
             }
         },
-        { header: "Chambre et lit", id: "chambre_lit", cell: () => "F1 - Lit N°1" },
-        { header: "Date", id: "date", cell: () => moment(new Date("2024-03-20 19:57")).format("DD/MM/YYYY HH:mm") },
-        { header: "Acte", id: "acte", cell: () => "Injection" },
-        { header: "Détails", id: "details", cell: () => "120mg - Penniciline V" },
-        { header: "Status", id: "date", cell: () => build_badge(true) },
-        {
-            header: "", id: "actions", cell: (info) => {
+        { header: "Chambre et lit", id: "chambre_lit", cell: (info) => `Chambre ${info.row.original} - Lit N°${info.row.original}` },
+        { header: "Date", id: "date", cell: (info) => moment(info.row.original.date_soin).format("DD/MM/YYYY HH:mm") },
+        { header: "Acte", accessorKey: "acte" },
+        { header: "Détails", accessorKey: "details" },
+        { header: "Status", id: "status", cell: (info) => build_badge(info.row.original.fait) },
+        { header: "", id: "actions", cell: (info) => {
                 const a = info.row.original
                 return (
                     <div className="flex justify-end gap-2">
-                        <Link to={`/patients/${a.NIN}`} className="w-4 transform text-green-500 hover:text-green-700 hover:scale-110">
+                        <Link to={`/patients/${a.patient.NIN}`} className="w-4 transform text-green-500 hover:text-green-700 hover:scale-110">
                             <ViewButton onClick={() => null} />
                         </Link>
                     </div>
                 )
             }
         },
-    ], []) as ColumnDef<Partial<Patient>>[];
+    ], []) as ColumnDef<Soin>[];
 
     return <>
         <div className="grid grid-cols-12 gap-x-4 gap-y-2 w-full">

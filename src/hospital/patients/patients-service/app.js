@@ -25,29 +25,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // router
-const auth = require("./middlewares/auth");
+//const auth = require("./middlewares/auth");
 const PatientsController = require("./controllers/PatientsController");
 
 app.get("/api/patients", PatientsController.getAll);
 app.get("/api/patients/:NIN", PatientsController.getOne);
-app.get(
-  "/api/patients/:NIN/maladies-chroniques",
-  PatientsController.getMaladiesChroniques
-);
+app.get("/api/patients/:NIN/maladies-chroniques", PatientsController.getMaladiesChroniques);
 app.get("/api/patients/:NIN/allergies", PatientsController.getAllergies);
-app.get(
-  "/api/patients/:NIN/antecedents-medicals",
-  PatientsController.getAntecedentsMedicals
-);
-app.get(
-  "/api/patients/:NIN/antecedents-familiaux",
-  PatientsController.getAntecedentsFamiliaux
-);
+app.get("/api/patients/:NIN/antecedents-medicals", PatientsController.getAntecedentsMedicals);
+app.get("/api/patients/:NIN/antecedents-familiaux", PatientsController.getAntecedentsFamiliaux);
 app.get("/api/patients/:NIN/medicaments", PatientsController.getMedicaments);
 app.get("/api/patients/:NIN/vaccinations", PatientsController.getVaccinations);
 app.get("/api/patients/:NIN/historique", PatientsController.getHistorique);
 
 app.use((req, res) => res.sendStatus(404));
+
+// graceful shutdown
+process.on('SIGTERM', () =>
+  app.close(() => {console.log('Server shutdown.'); database.db.end()})
+);
 
 // start server
 app.listen(8080, () => console.log(`[SERVER] Listening on port ${8080}`));

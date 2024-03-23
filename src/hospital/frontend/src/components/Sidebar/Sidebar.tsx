@@ -42,7 +42,7 @@ function Sidebar({ setOpen }: SidebarProps) {
           <SidebarButton text="Gestion des médicaments" icon="fa fa-user" route="/pharmacie" closeSidebar={setOpen}/>
 
           <SidebarHeader text="Administration" />
-          <SidebarButton text="Gestion du personnel" icon="fa fa-user" route="/agents" closeSidebar={setOpen}/>
+          <SidebarButton text="Gestion du personnel" icon="fa fa-user" route="/personnel" closeSidebar={setOpen}/>
           <SidebarButton text="Gestion des chambres" icon="fa fa-user" route="/chambres" closeSidebar={setOpen}/>
           <SidebarButton text="Rôles et permissions" icon="fa fa-user" route="/roles" closeSidebar={setOpen}/>
           {/*<SidebarButton text="Paramètres" icon="fa fa-user" route="/parametres" closeSidebar={setOpen}/>*/}

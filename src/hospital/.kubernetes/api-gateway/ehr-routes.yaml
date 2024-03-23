@@ -32,3 +32,11 @@ spec:
     - name: ehr-service
       kind: Service
       port: 8080
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/soins
+    backendRefs:
+    - name: ehr-service
+      kind: Service
+      port: 8080

@@ -7,6 +7,7 @@ import { baseURL } from "../../hooks";
 import Button from "../Buttons/Button";
 import CreateModal from "../Modals/CreateModal";
 import Card from "../UI/Card";
+import moment from "moment";
 type Props = {
   NIN: string;
 };
@@ -16,7 +17,7 @@ function TabMedicaments({ NIN }: Props) {
     id: 0,
     code: "",
     nom: "",
-    date_debut: "",
+    date_debut: new Date(),
     posologie: 0,
     frequence: 0,
     duree: 0,
@@ -53,7 +54,7 @@ function TabMedicaments({ NIN }: Props) {
           id: 0,
           code: "",
           nom: "",
-          date_debut: "",
+          date_debut: new Date(),
           posologie: 0,
           frequence: 0,
           duree: 0,
@@ -90,7 +91,7 @@ function TabMedicaments({ NIN }: Props) {
               id: 0,
               code: "",
               nom: "",
-              date_debut: "",
+              date_debut: new Date(),
               posologie: 0,
               frequence: 0,
               duree: 0,
@@ -161,11 +162,11 @@ function TabMedicaments({ NIN }: Props) {
                 type="Date"
                 className="primary"
                 placeholder="date"
-                value={selectedMedicament.date_debut}
+                value={moment(selectedMedicament.date_debut).format('YYYY-MM-DDTHH:mm')}
                 onChange={(e) =>
                   setSelectedMedicament({
                     ...selectedMedicament,
-                    date_debut: e.target.value,
+                    date_debut: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate(),
                   })
                 }
               />

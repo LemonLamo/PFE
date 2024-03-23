@@ -27,6 +27,11 @@ app.get ('/api/notifications/', auth.requireAuth, NotificationController.notific
 app.post('/api/notifications/:id/mark-as-read', auth.requireAuth, NotificationController.mark_as_read);
 app.use((req, res) => res.sendStatus(404))
 
+// graceful shutdown
+process.on('SIGTERM', () =>
+  app.close(() => {console.log('Server shutdown.'); database.db.end()})
+);
+
 // start server
 app.listen(8080, () => console.log(`[SERVER] Listening on port ${8080}`));
 

@@ -26,6 +26,7 @@ const auth = require('./middlewares/auth')
 const ConsultationsController = require('./controllers/ConsultationsController');
 const HospitalisationsController = require('./controllers/HospitalisationsController');
 const InterventionsController = require('./controllers/InterventionsController');
+const SoinsController = require('./controllers/SoinsController');
 
 app.get('/api/consultations', auth.requireAuth, ConsultationsController.select);
 app.get('/api/hospitalisations', auth.requireAuth, HospitalisationsController.select);
@@ -33,7 +34,17 @@ app.get('/api/interventions', auth.requireAuth, InterventionsController.select);
 
 app.get('/api/hospitalisations/mine', auth.requireAuth, HospitalisationsController.selectActiveByMedecin);
 
+app.get ("/api/soins", SoinsController.getAll);
+app.post("/api/soins", SoinsController.insert);
+app.get ("/api/soins/:code_soin", SoinsController.getOne);
+app.post("/api/soins/:code_soin/executer", SoinsController.executer);
+
 app.use((req, res) => res.sendStatus(404))
+
+// graceful shutdown
+process.on('SIGTERM', () =>
+  app.close(() => {console.log('Server shutdown.'); database.db.end()})
+);
 
 // start server
 app.listen(8080, () => console.log(`[SERVER] Listening on port ${8080}`));

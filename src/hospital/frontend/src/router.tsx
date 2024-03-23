@@ -75,7 +75,7 @@ const router = createBrowserRouter([
       <Scaffold> <ChambresPage/> </Scaffold>
     </PrivateRouteOnly>)},
 
-  { path: "/agents", element:(
+  { path: "/personnel", element:(
     <PrivateRouteOnly>
       <Scaffold> <PersonnelPage /> </Scaffold>
     </PrivateRouteOnly>)},

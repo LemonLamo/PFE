@@ -77,10 +77,10 @@ type ExamenClinique = {
   remarques?: string;
 };
 type Prescription = {
-  id: number;
+  id?: number;
   code: string;
   nom: string;
-  date_debut: string;
+  date_debut: Date;
   posologie: number;
   frequence: number;
   duree: number;

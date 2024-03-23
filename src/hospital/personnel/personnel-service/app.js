@@ -35,6 +35,11 @@ app.put("/api/personnel", PersonnelController.update);
 app.get("/api/personnel/:NIN", PersonnelController.getOne);
 app.delete("/api/personnel/:NIN", PersonnelController.remove);
 
+// graceful shutdown
+process.on('SIGTERM', () =>
+  app.close(() => {console.log('Server shutdown.'); database.db.end()})
+);
+
 app.use((req, res) => res.sendStatus(404));
 
 // start server

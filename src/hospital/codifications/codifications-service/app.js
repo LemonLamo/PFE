@@ -42,6 +42,11 @@ app.get('/api/codifications/interventions', auth.requireAuth, InterventionsContr
 
 app.use((req, res) => res.sendStatus(404))
 
+// graceful shutdown
+process.on('SIGTERM', () =>
+  app.close(() => {console.log('Server shutdown.'); database.db.end()})
+);
+
 // start server
 app.listen(8080, () => console.log(`[SERVER] Listening on port ${8080}`));
 
