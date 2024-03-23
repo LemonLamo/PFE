@@ -39,7 +39,7 @@ class PersonnelService {
     specialite,
     grade,
     adresse,
-    code_postal,
+    code_postale,
     commune,
     wilaya,
     nom_hopital,
@@ -47,7 +47,7 @@ class PersonnelService {
   ) {
     try {
       await db.execute(
-        "INSERT INTO personnel(NIN, nom, prenom, nom_user, date_de_naissance, lieu_de_naissance, sexe, email,telephone, fonction, specialite, grade, adresse, code_postal, commune, wilaya) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO personnel(NIN, nom, prenom, nom_user, date_de_naissance, lieu_de_naissance, sexe, email,telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           NIN,
           nom,
@@ -62,7 +62,7 @@ class PersonnelService {
           specialite,
           grade,
           adresse,
-          code_postal,
+          code_postale,
           commune,
           wilaya,
           nom_hopital,
@@ -83,7 +83,7 @@ class PersonnelService {
     specialite,
     grade,
     adresse,
-    code_postal,
+    code_postale,
     commune,
     wilaya,
     nom_hopital,
@@ -91,7 +91,7 @@ class PersonnelService {
   ) {
     try {
       await db.query(
-        "UPDATE personnel SET email=?, telephone=? , fonction=?, specialite=?, grade=?, adresse=?, code_postal=?, commune=?, wilaya=?, nom_hopital=?, service=? WHERE NIN=?",
+        "UPDATE personnel SET email=?, telephone=? , fonction=?, specialite=?, grade=?, adresse=?, code_postale=?, commune=?, wilaya=?, nom_hopital=?, service=? WHERE NIN=?",
         [
           email,
           telephone,
@@ -99,7 +99,7 @@ class PersonnelService {
           specialite,
           grade,
           adresse,
-          code_postal,
+          code_postale,
           commune,
           wilaya,
           nom_hopital,

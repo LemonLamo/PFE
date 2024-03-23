@@ -24,7 +24,7 @@ CREATE TABLE `personnel` (
   `specialite` varchar(255) NOT NULL,
   `grade` varchar(255) NOT NULL,
   `adresse` varchar(255) NOT NULL,
-  `code_postal` int(5) NOT NULL,
+  `code_postale` int(5) NOT NULL,
   `commune` varchar(255) NOT NULL,
   `wilaya` varchar(255) NOT NULL,
   `nom_hopital` varchar(255) NOT NULL,
@@ -38,7 +38,6 @@ CREATE TABLE `personnel` (
 --
 
 INSERT INTO `personnel` (`NIN`, `nom`, `prenom`, `nom_user`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `email`, 
-`telephone`, `fonction`, `specialite`, `grade`, `adresse`, `code_postal`, `commune`, `wilaya`, `nom_hopital`, `service`) VALUES
+`telephone`, `fonction`, `specialite`, `grade`, `adresse`, `code_postale`, `commune`, `wilaya`, `nom_hopital`, `service`) VALUES
 ('100010364027390000', 'BRAHIM', 'Abderrazak', 'abderrazak1307', '2001-07-13', 'Tebessa', 'Homme', 'brahim.abderrazak1307@gmail.com', 
 '+213549297666', 'Medécin	', 'Cardiologie', 'Chef de service', 'Cité 18 logements, de E.S.B', 16032, 'Bouzareah','Alger', 'CHU Mustapha', 'Radiologie');
-

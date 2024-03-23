@@ -30,7 +30,7 @@ function PersonnelPage() {
     specialite: "",
     grade: "",
     adresse: "",
-    code_postale: "",
+    code_postale: 0,
     commune: "",
     wilaya: "",
     nom_hopital: "",
@@ -54,7 +54,10 @@ function PersonnelPage() {
           const p = info.row.original;
           return (
             <div className="flex w-68">
-              <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" />
+              <img
+                className="rounded-full w-12 me-2"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              />
               <div>
                 <h6 className="mb-0">
                   {p.nom} {p.prenom}
@@ -106,7 +109,7 @@ function PersonnelPage() {
 
   async function createAgent() {
     try {
-      await axios.post(`${baseURL}api/personnel`, selectedAgent);
+      await axios.post(`${baseURL}/api/personnel`, selectedAgent);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -126,8 +129,10 @@ function PersonnelPage() {
         code_postale: selectedAgent.code_postale,
         commune: selectedAgent.commune,
         wilaya: selectedAgent.wilaya,
+        nom_hopital: selectedAgent.nom_hopital,
+        service: selectedAgent.service,
       };
-      await axios.put(`${baseURL}api/personnel`, data);
+      await axios.put(`${baseURL}/api/personnel`, data);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -136,7 +141,7 @@ function PersonnelPage() {
 
   async function deleteAgent() {
     try {
-      await axios.delete(`${baseURL}api/personnel/${selectedAgent.NIN}`);
+      await axios.delete(`${baseURL}/api/personnel/${selectedAgent.NIN}`);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -173,7 +178,7 @@ function PersonnelPage() {
           <p className="text-gray-600">
             Veuillez remplir les informations nécessaires
           </p>
-          <div className="grid grid-cols-12 gap-2">
+          <div className="grid grid-cols-12 gap-2 overflow-auto h-[70vh]">
             <div className="col-span-12">
               <label className="text-sm font-semibold">NIN</label>
               <input
@@ -270,7 +275,6 @@ function PersonnelPage() {
                 }
               />
             </div>
-
             <div className="col-span-12">
               <label className="text-sm font-semibold">Email </label>
               <input
@@ -345,6 +349,36 @@ function PersonnelPage() {
                 }
               />
             </div>
+            <div className="col-span-6">
+              <label className="text-sm font-semibold"> Nom hopital</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="Nom hopital"
+                value={selectedAgent.nom_hopital}
+                onChange={(e) =>
+                  setSelectedAgent({
+                    ...selectedAgent,
+                    nom_hopital: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="col-span-6">
+              <label className="text-sm font-semibold"> Service</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="service"
+                value={selectedAgent.service}
+                onChange={(e) =>
+                  setSelectedAgent({
+                    ...selectedAgent,
+                    service: e.target.value,
+                  })
+                }
+              />
+            </div>
             <div className="col-span-12">
               <label className="text-sm font-semibold"> Adresse</label>
               <input
@@ -391,11 +425,11 @@ function PersonnelPage() {
               />
             </div>
             <div className="col-span-4">
-              <label className="text-sm font-semibold"> Code postal </label>
+              <label className="text-sm font-semibold"> Code postale </label>
               <input
                 type="number"
                 className="primary"
-                placeholder="Code postal"
+                placeholder="Code postale"
                 value={selectedAgent.code_postale}
                 onChange={(e) =>
                   setSelectedAgent({
@@ -523,6 +557,26 @@ function PersonnelPage() {
                 value={selectedAgent.grade}
               />
             </div>
+            <div className="col-span-6">
+              <label className="text-sm font-semibold">Nom hopital</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="Nom hopital"
+                disabled
+                value={selectedAgent.nom_hopital}
+              />
+            </div>
+            <div className="col-span-6">
+              <label className="text-sm font-semibold">Service</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="Service"
+                disabled
+                value={selectedAgent.service}
+              />
+            </div>
           </div>
           <div className="grid grid-cols-12 gap-2">
             <div className="col-span-12">
@@ -580,11 +634,11 @@ function PersonnelPage() {
               />
             </div>
             <div className="col-span-4">
-              <label className="text-sm font-semibold">Code postal</label>
+              <label className="text-sm font-semibold">Code postale</label>
               <input
                 type="text"
                 className="primary"
-                placeholder="code postal"
+                placeholder="code postale"
                 disabled
                 value={selectedAgent.code_postale}
               />
@@ -691,6 +745,36 @@ function PersonnelPage() {
                 }
               />
             </div>
+            <div className="col-span-6">
+              <label className="text-sm font-semibold">Hopital</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="hopital"
+                value={selectedAgent.nom_hopital}
+                onChange={(e) =>
+                  setSelectedAgent({
+                    ...selectedAgent,
+                    nom_hopital: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="col-span-6">
+              <label className="text-sm font-semibold">Service</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="service"
+                value={selectedAgent.service}
+                onChange={(e) =>
+                  setSelectedAgent({
+                    ...selectedAgent,
+                    service: e.target.value,
+                  })
+                }
+              />
+            </div>
             <div className="col-span-12">
               <label className="text-sm font-semibold">Adresse</label>
               <input
@@ -737,11 +821,11 @@ function PersonnelPage() {
               />
             </div>
             <div className="col-span-4">
-              <label className="text-sm font-semibold">Code postal</label>
+              <label className="text-sm font-semibold">Code postale</label>
               <input
                 type="number"
                 className="primary"
-                placeholder="code postal"
+                placeholder="code postale"
                 value={selectedAgent.code_postale}
                 onChange={(e) =>
                   setSelectedAgent({
