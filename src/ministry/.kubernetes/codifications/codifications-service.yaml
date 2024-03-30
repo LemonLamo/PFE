@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: codifications-service
+  name: codifications-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: codifications-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: codifications-service
+  name: codifications-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: codifications-service
+  template:
+    metadata:
+      labels:
+        app: codifications-service
+    spec:
+      containers:
+        - image: medicalife/codifications-service:latest
+          name: codifications-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

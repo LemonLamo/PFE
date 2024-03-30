@@ -4,6 +4,8 @@ metadata:
   name: frontend-routes
   annotations:
     konghq.com/strip-path: 'false'
+    konghq.com/protocols: "https"
+    konghq.com/https-redirect-status-code: "301"
 spec:
   parentRefs:
   - name: kong

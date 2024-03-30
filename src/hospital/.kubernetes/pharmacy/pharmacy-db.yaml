@@ -30,7 +30,7 @@ spec:
         app: pharmacy-db
     spec:
       containers:
-        - image: abdou1307/pharmacy-db:latest
+        - image: hospital1307/pharmacy-db:latest
           name: pharmacy-db
           ports:
             - containerPort: 3306

@@ -6,8 +6,8 @@ metadata:
   name: pharmacy-service
 spec:
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 80
+      targetPort: 80
   selector:
     app: pharmacy-service
 ---
@@ -28,10 +28,10 @@ spec:
         app: pharmacy-service
     spec:
       containers:
-        - image: abdou1307/pharmacy-service:latest
+        - image: hospital1307/pharmacy-service:latest
           name: pharmacy-service
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
       dnsConfig:
         nameservers:

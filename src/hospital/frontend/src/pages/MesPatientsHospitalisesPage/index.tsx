@@ -1,0 +1,2 @@
+import MesPatientsHospitalisesPage from './MesPatientsHospitalisesPage'
+export default MesPatientsHospitalisesPage

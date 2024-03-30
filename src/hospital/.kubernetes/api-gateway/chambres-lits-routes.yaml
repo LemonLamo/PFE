@@ -4,6 +4,8 @@ metadata:
   name: chambres-lits-routes
   annotations:
     konghq.com/strip-path: 'false'
+    konghq.com/protocols: "https"
+    konghq.com/https-redirect-status-code: "301"
 spec:
   parentRefs:
   - name: kong
@@ -15,4 +17,4 @@ spec:
     backendRefs:
     - name: chambres-lits-service
       kind: Service
-      port: 8080
+      port: 80

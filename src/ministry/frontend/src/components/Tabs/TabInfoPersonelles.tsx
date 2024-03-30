@@ -3,7 +3,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import TableError from "../UI/Tables/TableError";
 import TableLoading from "../UI/Loading";
-import { baseURL } from "../../hooks";
+import { baseURL } from "../../config";
 
 type Props = {
   NIN: string
@@ -39,12 +39,12 @@ function TabInfoPersonelles({ NIN }: Props) {
                     <p className="">{profile.data!.prenom}</p>
 
                     <strong className="text-slate-700">Date et lieu de naissance:</strong>
-                    <p className="">{moment(profile.data!.date_naissance).format('DD/MM/YYYY')}, {profile.data!.lieu_naissance}</p>
+                    <p className="">{moment(profile.data!.date_de_naissance).format('DD/MM/YYYY')}, {profile.data!.lieu_de_naissance}</p>
 
                   </div>
                   <div className="col-span-3">
                     <strong className="text-slate-700">Age:</strong>
-                    <p className="">{moment(new Date()).diff(moment(profile.data!.date_naissance), 'years')} ans</p>
+                    <p className="">{moment(new Date()).diff(moment(profile.data!.date_de_naissance), 'years')} ans</p>
 
                     <strong className="text-slate-700">Sexe:</strong>
                     <p className="">{profile.data!.sexe}</p>

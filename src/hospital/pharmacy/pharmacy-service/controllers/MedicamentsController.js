@@ -7,20 +7,20 @@ async function getAll(req, res) {
   return res.status(200).json(result);
 }
 async function getOne(req, res) {
-  const { code } = req.params;
-  const result = await Model.selectOne(code);
+  const { code_medicament } = req.params;
+  const result = await Model.selectOne(code_medicament);
   return res.status(200).json(result);
 }
 async function getTransactions(req, res) {
-  const { code } = req.params;
-  const result = await Model.selectTransactions(code);
+  const { code_medicament } = req.params;
+  const result = await Model.selectTransactions(code_medicament);
   return res.status(200).json(result);
 }
 async function insert(req, res) {
-  const { code, nom, quantite } = req.body;
+  const { code_medicament, nom, quantite } = req.body;
 
   try {
-    await Model.insert(code, nom, quantite);
+    await Model.insert(code_medicament, nom, quantite);
     return res.status(200).json({ success: true });
   } catch (err) {
     return res
@@ -29,25 +29,22 @@ async function insert(req, res) {
   }
 }
 async function update(req, res) {
-  const { code, quantite } = req.body;
+  const { code_medicament, quantite } = req.body;
   try {
-    await Model.update(code, quantite);
+    await Model.update(code_medicament, quantite);
     return res.status(200).json({ success: true });
   } catch (err) {
-    return res
-      .status(400)
-      .json({ errorCode: "database-error", errorMessage: err.code });
+    console.error(err)
+    return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
   }
 }
 async function remove(req, res) {
-  const { code } = req.params;
+  const { code_medicament } = req.params;
   try {
-    await Model.remove(code);
+    await Model.remove(code_medicament);
     return res.status(200).json({ success: true });
   } catch (err) {
-    return res
-      .status(400)
-      .json({ errorCode: "database-error", errorMessage: err.code });
+    return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
   }
 }
 

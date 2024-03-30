@@ -6,8 +6,8 @@ metadata:
   name: chambres-lits-service
 spec:
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 80
+      targetPort: 80
   selector:
     app: chambres-lits-service
 ---
@@ -28,10 +28,10 @@ spec:
         app: chambres-lits-service
     spec:
       containers:
-        - image: abdou1307/chambres-lits-service:latest
+        - image: hospital1307/chambres-lits-service:latest
           name: chambres-lits-service
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
       dnsConfig:
         nameservers:

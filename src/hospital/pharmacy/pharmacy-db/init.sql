@@ -11,8 +11,8 @@ USE forza;
 --
 
 CREATE TABLE `medicaments` (
-  `code` nvarchar(255) NOT NULL PRIMARY KEY,
-  `nom` nvarchar(255) NOT NULL,
+  `code_medicament` nvarchar(255) NOT NULL PRIMARY KEY,
+  `DCI` nvarchar(255) NOT NULL,
   `quantite` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -22,14 +22,12 @@ CREATE TABLE `medicaments` (
 -- Déchargement des données de la table `medicaments`
 --
 
-INSERT INTO `medicaments` (`nom`, `code`, `quantite`) VALUES
-('Paracétamol', 'N02BE01', 102),
-('Amoxicilline', 'J01CA04', 211),
-('Ranitidine', 'A02BA02', 15),
-('Omeprazole', 'A02BC01', 15),
-('Diclofénac', 'M01AB05', 0),
-('Furosémide', 'C03CA01', 9),
-('Métronidazole', 'P01AB01', 19);
+ 
+INSERT INTO `medicaments` (`DCI`, `code_medicament`, `quantite`) VALUES
+('CETIRIZINE DICHLORHYDRATE', '01 A 003', 102),
+('DOXYLAMINE SUCCINATE', '01 A 008', 211),
+('MEQUITAZINE', '01 A 009', 0),
+('DEXCHLORPHENIRAMINE MALEATE', '01 A 007', 8);
 
 
 -- --------------------------------------------------------
@@ -38,11 +36,11 @@ INSERT INTO `medicaments` (`nom`, `code`, `quantite`) VALUES
 --
 
 CREATE TABLE `transactions` (
-  `code` nvarchar(255),
+  `code_medicament` nvarchar(255),
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `avant` int(11),
   `difference` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `transactions` (`code`, `avant`, `difference`) VALUES
-('A02BA02', 20, -5)
+INSERT INTO `transactions` (`code_medicament`, `avant`, `difference`) VALUES
+('01 A 003', 20, -5)

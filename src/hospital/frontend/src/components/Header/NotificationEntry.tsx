@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import user from '../../assets/user.svg'
 import moment from 'moment'
 
-type NotificationProps = {
+type Props = {
   text: string,
   timestamp: Date
 }
-function NotificationEntry({text, timestamp} : NotificationProps) {
+function NotificationEntry({text, timestamp} : Props) {
   const [time, setTime] = useState(Date.now());
   useEffect(()=>{
     setInterval(() => setTime(() => Date.now()), 1000);

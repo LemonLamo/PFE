@@ -1,68 +1,40 @@
 const { db } = require("../config/database");
-const logger = require("../utils/logger");
 
 class ChambresService {
   validationRules = {};
   async select() {
-    try {
-      const [results] = await db.query("SELECT * FROM chambres");
-      return results;
-    } catch (error) {
-      logger.error("Error selecting chambres: " + error.message);
-      throw new Error("Error selecting chambres: " + error.message);
-    }
+    const [results] = await db.query("SELECT * FROM chambres");
+    return results;
   }
   async selectOne(num) {
-    try {
-      const [results] = await db.query("SELECT * FROM `chambres` WHERE `num`=?", [num]);
-      return results;
-    } catch (error) {
-      logger.error("Error selecting chambres: " + error.message);
-      throw new Error("Error selecting chambres: " + error.message);
-    }
+    const [results] = await db.query("SELECT * FROM `chambres` WHERE `num`=?", [num]);
+    return results;
   }
 
   async selectLits(num) {
-    try {
-      const [results] = await db.query("SELECT * FROM `lits` WHERE `numChambre`=?", [num]);
-      return results;
-    } catch (error) {
-      logger.error("Error selecting chambres: " + error.message);
-      throw new Error("Error selecting chambres: " + error.message);
-    }
+    const [results] = await db.query("SELECT * FROM `lits` WHERE `numChambre`=?", [num]);
+    return results;
+  }
+  async selectLitsOccupe(num) {
+    const [results] = await db.query("SELECT * FROM `lits` WHERE `numChambre`=? AND occupe=1", [num]);
+    return results;
+  }
+  async selectLitsDisponible(num) {
+    const [results] = await db.query("SELECT * FROM `lits` WHERE `numChambre`=? AND occupe=0", [num]);
+    return results;
   }
 
-  async insert(num, etage, description, nombre_lits, nombre_lits_occupe) {
-    try {
-      await db.execute(
-        "INSERT INTO chambres(num, etage, description, nombre_lits, nombre_lits_occupe) VALUES (?, ?, ?, ?, ?)",
-        [num, etage, description, nombre_lits, nombre_lits_occupe]
-      );
-    } catch (error) {
-      logger.error("Error inserting chambre: " + error.message);
-      throw new Error("Error inserting chambre: " + error.message);
-    }
+  async insert(num, etage, description, nombre_lits) {
+    await db.execute("INSERT INTO chambres(num, etage, description, nombre_lits, nombre_lits_occupe) VALUES (?, ?, ?, ?, 0)", [num, etage, description, nombre_lits]);
   }
 
-  async update(num, nombre_lits, nombre_lits_occupe) {
-    try {
-      await db.query(
-        "UPDATE chambres SET nombre_lits=?, nombre_lits_occupe=? WHERE num=?",
-        [nombre_lits, nombre_lits_occupe, num]
-      );
-    } catch (error) {
-      logger.error("Error updating chambre: " + error.message);
-      throw new Error("Error updating chambre: " + error.message);
-    }
+  async update(num, nombre_lits, description) {
+    await db.query("UPDATE chambres SET nombre_lits=?, description=? WHERE num=?", [nombre_lits, description, num]);
   }
 
   async remove(num) {
-    try {
-      await db.query("DELETE FROM `chambres` WHERE num=?", [num]);
-    } catch (error) {
-      logger.error("Error removing chambre: " + error.message);
-      throw new Error("Error removing chambre: " + error.message);
-    }
+    //TODO: replace with soft-delete
+    await db.query("DELETE FROM `chambres` WHERE num=?", [num]);
   }
 }
 

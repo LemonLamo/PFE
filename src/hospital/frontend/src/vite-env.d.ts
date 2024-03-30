@@ -9,7 +9,7 @@ type LoginFormActions = {
   swapTo2FA: () => void;
 };
 type Consultation = {
-  code_consultation: string;
+  id: string;
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   nom_hopital: string;
@@ -23,12 +23,13 @@ type Consultation = {
   diagnostique_details: string;
   prescriptions: Prescription[];
   radiologie: Radio[];
-  analyses: Analyse[];
-  interventions: Intervention[];
+  bilans: Bilan[];
+  interventions: Partial<Intervention>[];
   prochaine_consultation: Date | null;
+  duree_arret_de_travail: number;
 };
 type Hospitalisation = {
-  code_hospitalisation: string;
+  id: string;
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   nom_hopital: string;
@@ -42,8 +43,9 @@ type Hospitalisation = {
   resume_hospitalisation?: string;
 };
 type Intervention = {
+  id: string;
   code_intervention: string;
-  nom: string;
+  designation?: string;
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   nom_hopital: string;
@@ -51,125 +53,156 @@ type Intervention = {
   protocole_operatoire?: string;
   remarques?: string;
 };
-type Patient = {
-  NIN: string;
-  nom: string;
-  prenom: string;
-  date_naissance: Date;
-  lieu_naissance: string;
-  sexe: string;
-  situation_familiale: string;
-  email: string;
-  telephone: string;
-  groupage: string;
-  taille: number;
-  poids: number;
-  adresse: string;
-  code_postale: number;
-  commune: string;
-  wilaya: string;
-  donneur_organe: boolean;
-};
+type InterventionCode = {
+  code_intervention: string;
+  designation: string;
+}
 type ExamenClinique = {
-  code: string;
-  nom: string;
+  code_examen_clinique: string;
+  designation?: string;
   resultat: string;
   remarques?: string;
 };
+type ExamenCliniqueCode = {
+  code_examen_clinique: string;
+  designation: string;
+}
+type Vaccination = {
+  code_vaccin: string;
+  designation?: string;
+  date: Date;
+  remarques?: string;
+  nombre_de_doses: number;
+  date_de_prochaine_dose: string;
+};
+type VaccinationCode = {
+  code_vaccin: string;
+  designation: string;
+}
+type Allergie = {
+  code_allergene: string;
+  designation?: string;
+  date?: Date;
+  remarques?: string;
+};
+type AllergieCode = {
+  code_allergene: string;
+  designation: string;
+}
+type Antecedent = {
+  patient?: string;
+  designation?: string;
+  date?: Date;
+  remarques?: string;
+};
+type Maladie = {
+  patient?: string;
+  code_maladie: string;
+  designation?: string;
+  date: Date;
+  chronique?: boolean;
+  remarques?: string;
+};
+type MaladieCode = {
+  code_maladie: string;
+  designation: string;
+}
+type Radio = {
+  id: string;
+  patient: Partial<Patient>
+  code_radio: string;
+  designation?: string;
+  date: Date;
+  date_fait?: Date;
+  remarques?: string;
+  fichiers?: File[];
+};
+type RadioCode = {
+  code_radio: string;
+  designation: string;
+}
+type Bilan = {
+  id: string;
+  patient: Partial<Patient>
+  code_bilan: string;
+  designation?: string;
+  date: Date;
+  date_fait?: Date;
+  remarques?: string;
+  fichiers?: File[];
+};
+type BilanCode = {
+  code_bilan: string;
+  designation: string;
+}
 type Prescription = {
-  id?: number;
-  code: string;
-  nom: string;
+  code_medicament: string;
+  DCI?: string;
   date_debut: Date;
   posologie: number;
   frequence: number;
   duree: number;
   remarques?: string;
 };
+type MedicamentCode = {
+  code_medicament: string;
+  DCI: string;
+};
 type Medicament = {
-  code: string;
-  nom: string;
-  quantite?: number;
+  code_medicament: string;
+  DCI: string;
+  quantite: number;
 };
 type Transaction = {
   id: string;
   date: Date;
-  medicament: Partial<Medicament>;
   avant: number;
   difference: number;
-  responsable?: string;
 };
-type Radio = {
-  code: string;
+type Patient = {
+  NIN: string;
   nom: string;
-  fichiers?: File[];
-  remarques?: string;
-};
-type Analyse = {
-  code: string;
-  nom: string;
-  fichiers?: File[];
-  remarques?: string;
+  prenom: string;
+  date_de_naissance: Date;
+  lieu_de_naissance: string;
+  sexe: string;
+  situation_familiale: string;
+  email: string;
+  telephone: string;
+  adresse: string;
+  code_postale: number;
+  commune: string;
+  wilaya: string;
+  groupage: string;
+  taille: number;
+  poids: number;
+  donneur_organe: boolean;
 };
 type Chambre = {
   num: string;
   etage: number;
-  description: string;
+  description?: string;
+  nombre_lits?: number;
+  nombre_lits_occupe?: number;
   lits?: Lit[];
-  nombre_lits: number | "";
-  nombre_lits_occupe?: number | "";
 };
 type Lit = {
-  numChambre: string;
   num: number;
   type: string;
-  occupe: boolean;
-  remarques: string;
+  numChambre?: string;
+  description?: string;
+  occupe?: boolean;
 };
 type Role = {
   id: string;
   nom: string;
   permissions: string[];
 };
-
-type Vaccination = {
-  id: number;
-  code_vaccin: string;
-  intitule_vaccin: string;
-  date: string;
-  remarques?: string;
-  nombre_de_doses: number;
-  date_de_prochaine_dose: string;
-};
-type Allergie = {
-  id: number;
-  code_allergene: string;
-  date: string;
-  remarques?: string;
-};
-type AntecedentMedicale = {
-  id: number;
-  description: string;
-  remarques: string;
-};
-type AntecedentFamilial = {
-  id: number;
-  description: string;
-  remarques: string;
-};
-type MaladieChro = {
-  id: number;
-  code: string;
-  intitule: string;
-  date_diagnostic: string;
-  remarque: string;
-};
 type Personnel = {
   NIN: string;
   nom: string;
   prenom: string;
-  nom_user: string;
-  date_de_naissance: Date | null;
+  date_de_naissance: Date;
   lieu_de_naissance: string;
   sexe: string;
   email: string;
@@ -178,10 +211,10 @@ type Personnel = {
   specialite: string;
   grade: string;
   adresse: string;
-  code_postale: number | "";
+  code_postale: number;
   commune: string;
   wilaya: string;
-  nom_hopital: string;
+  hopital: string;
   service: string;
 };
 type Soin = {
@@ -189,10 +222,23 @@ type Soin = {
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   infirmier: Partial<Personnel>;
-  hospitalisation: Partial<Hospitalisation>;
+  hospitalisation?: Partial<Hospitalisation>;
   nom_hopital: string;
   acte: string;
   date_soin: Date;
   details: string;
   fait: boolean;
 };
+
+type Notif = {
+  id: string,
+  NIN: string,
+  email: string,
+  telephone: string,
+  type: string,
+  title: string,
+  summary: string,
+  data: string,
+  read_at: Date,
+  created_at: Date,
+}

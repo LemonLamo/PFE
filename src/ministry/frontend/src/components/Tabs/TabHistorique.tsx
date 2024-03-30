@@ -2,7 +2,7 @@ import Timeline from "../UI/Timeline/Timeline";
 import TimelineItem from "../UI/Timeline/TimelineItem";
 import moment from "moment";
 import axios from "axios";
-import { baseURL } from "../../hooks";
+import { baseURL } from "../../config";
 import { useQuery } from "@tanstack/react-query";
 import TableLoading from "../UI/Loading";
 import TableError from "../UI/Tables/TableError";

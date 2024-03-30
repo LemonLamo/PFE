@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: patients-service
+  name: patients-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: patients-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: patients-service
+  name: patients-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patients-service
+  template:
+    metadata:
+      labels:
+        app: patients-service
+    spec:
+      containers:
+        - image: medicalife/patients-service:latest
+          name: patients-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

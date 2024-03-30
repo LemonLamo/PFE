@@ -2,7 +2,7 @@ import { Combobox, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import axios from 'axios'
 import { Fragment, useEffect, useState } from 'react'
-import { baseURL } from '../hooks'
+import { baseURL } from '../config'
 import TableLoading from './UI/Loading'
 
 type SelectProps = {

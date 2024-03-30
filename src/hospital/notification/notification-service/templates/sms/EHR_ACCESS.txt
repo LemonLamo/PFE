@@ -1,1 +1,0 @@
-${doctor} has accessed your EHR.

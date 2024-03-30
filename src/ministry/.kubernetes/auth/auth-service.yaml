@@ -6,8 +6,8 @@ metadata:
   name: auth-service
 spec:
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 80
+      targetPort: 80
   selector:
     app: auth-service
 ---
@@ -28,10 +28,10 @@ spec:
         app: auth-service
     spec:
       containers:
-        - image: abdou1307/auth-service:latest
+        - image: medicalife/auth-service:latest
           name: auth-service
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
       dnsConfig:
         nameservers:

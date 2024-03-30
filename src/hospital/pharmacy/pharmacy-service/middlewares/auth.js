@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 // Verify if a jwt token is valid
 exports.requireAuth = async (req, res, next) => {
-    const token = req.cookies.jwt
+    const token = req.header("Authorization") && req.header("Authorization").split(' ')[1]
 
     if (token == null)
         return res.status(401).json({ errorCode: "unauthorized.missing-auth", errorMessage: "Missing authentication header." });

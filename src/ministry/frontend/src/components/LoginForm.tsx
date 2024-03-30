@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
 import { login } from '../hooks/useAuth'
-import { baseURL } from "../hooks";
+import { baseURL } from "../config";
 
 type UserError = {
   code: string;
@@ -17,14 +17,14 @@ function LoginForm({ formActions, NIN, setNIN }: LoginFormProps) {
   async function handleLogin(e: any) {
     e.preventDefault();
     // submit login
-    const body = { NIN: NIN, password: password };
+    const body = { NIN: NIN, password: password, type: "patient" };
     try {
       const response = await axios.post(`${baseURL}/api/auth/login`, body);
       const data = response.data;
       // if 2fa enabled, swap
       if (data.successCode == "login.2fa-code") formActions.swapTo2FA();
       else {
-        login(data)
+        login(data, true)
         navigate(0);
       }
     } catch (err: AxiosError | any) {

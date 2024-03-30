@@ -58,11 +58,7 @@ function LandingPage() {
 
                         <ul className="mb-10 flex flex-wrap items-center justify-start gap-3">
                             <li>
-                                <a href="login.html" className="inline-flex items-center justify-center rounded-full bg-primary py-2 px-2 text-center text-base font-medium text-white transition duration-300 ease-in-out hover:shadow-lg hover:bg-white hover:text-primary hover:border-primary sm:px-6"> Se connecter </a>
-                            </li>
-
-                            <li>
-                                <a href="signup.html" className="flex items-center py-2 px-4 text-base rounded-full border border-primary bg-white font-medium text-primary transition duration-300 ease-in-out hover:bg-primary hover:text-white sm:px-6"> Créer un compte</a>
+                                <a href="login" className="flex items-center py-2 px-4 text-base rounded-full border border-primary bg-white font-medium text-primary transition duration-300 ease-in-out hover:bg-primary hover:text-white sm:px-6"> Se connecter</a>
                             </li>
                         </ul>
                     </div>

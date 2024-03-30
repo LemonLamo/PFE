@@ -1,8 +1,8 @@
 FROM node:20.11.1-slim
 WORKDIR /app
 
-# Expose the port 8080
-EXPOSE 8080
+# Expose the port 80
+EXPOSE 80
 
 # Set default command
 CMD ["npm", "start"]

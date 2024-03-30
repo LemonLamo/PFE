@@ -1,0 +1,2 @@
+import NouvelleConsultationPage from './NouvelleConsultationPage'
+export default NouvelleConsultationPage

@@ -1,23 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import Scaffold from "./pages/Scaffold";
-import Dashboard from "./pages/Dashboard";
-import NouveauPatientPage from "./pages/NouveauPatientPage";
-import NouvelleConsultationPage from "./pages/NouvelleConsultationPage";
-import MesRendezVousPage from "./pages/MesRendezVousPage";
-import MesPatientsPage from "./pages/MesPatientsPage";
-import NouvelleHospitalisationPage from "./pages/NouvelleHospitalisationPage";
-import MesPatientsAdmisPage from "./pages/MesPatientsAdmisPage";
-import PharmaciePage from "./pages/PharmaciePage";
-import PersonnelPage from "./pages/PersonnelPage";
-import ChambresPage from "./pages/ChambresPage";
-import RolesPage from "./pages/RolesPage";
-import ParemetresPage from "./pages/ParametresPage";
-import Test from "./pages/Test";
-import PatientPage from "./pages/PatientPage";
 import { PublicOrPrivateRoute, PrivateRouteOnly } from "./hooks/useAuth";
+import Scaffold from "./components/Scaffold";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import DashboardInfirmier from "./pages/DashboardInfirmier";
+import Dashboard from "./pages/DashboardMedecin";
+import DashboardInfirmier from "./pages/DashboardInfirmier/DashboardInfirmier";
+import NouveauPatientPage from "./pages/NouveauPatientPage/NouveauPatientPage";
+import NouvelleConsultationPage from "./pages/NouvelleConsultation/NouvelleConsultationPage";
+import MesPatientsPage from "./pages/MesPatientsPage/MesPatientsPage";
+import PatientPage from "./pages/PatientPage/PatientPage";
+import MesRendezVousPage from "./pages/MesRendezVousPage";
+import NouvelleHospitalisationPage from "./pages/NouvelleHospitalisation/NouvelleHospitalisationPage";
+import MesPatientsHospitalisesPage from "./pages/MesPatientsHospitalisesPage";
+import PharmaciePage from "./pages/PharmaciePage";
+import ChambresPage from "./pages/ChambresPage";
+import PersonnelPage from "./pages/PersonnelPage";
+import RolesPage from "./pages/RolesPage/RolesPage";
+import ParemetresPage from "./pages/ParametresPage";
+import DashboardAdmin from "./pages/DashboardAdmin";
+import DashboardEntree from "./pages/DashboardEntree";
+import DashboardLab from "./pages/DashboardLab";
+import DashboardRadio from "./pages/DashboardRadio";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -27,6 +30,14 @@ const router = createBrowserRouter([
     />)},
 
   { path: "/dashboard_inf", element:(<Scaffold> <DashboardInfirmier /> </Scaffold>)},
+
+  { path: "/dashboard_admin", element:(<Scaffold> <DashboardAdmin /> </Scaffold>)},
+
+  { path: "/dashboard_entree", element:(<Scaffold> <DashboardEntree /> </Scaffold>)},
+
+  { path: "/dashboard_lab", element:(<Scaffold> <DashboardLab /> </Scaffold>)},
+
+  { path: "/dashboard_radio", element:(<Scaffold> <DashboardRadio /> </Scaffold>)},
 
   { path: "/forgot-password", element:(<ForgotPasswordPage />)},
     
@@ -57,7 +68,7 @@ const router = createBrowserRouter([
 
   { path: "/mes_patients_admis", element:(
     <PrivateRouteOnly>
-      <Scaffold> <MesPatientsAdmisPage /> </Scaffold>
+      <Scaffold> <MesPatientsHospitalisesPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
   { path: "/patients/:NIN", element:(
@@ -89,8 +100,6 @@ const router = createBrowserRouter([
     <PrivateRouteOnly>
       <Scaffold> <ParemetresPage /> </Scaffold>
     </PrivateRouteOnly>)},
-    
-  { path: "/test", element:(<Scaffold> <Test/> </Scaffold>) },
 ]);
 
 export default router;

@@ -3,6 +3,7 @@ import user from '../../assets/user.svg'
 import NotificationDropdown from './NotificationDropdown';
 import { logout } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import * as useAuth from '../../hooks/useAuth'
 type HeaderProps = {
     setOpen: () => void
 }
@@ -12,13 +13,23 @@ function Header({ setOpen } : HeaderProps) {
 
     return <nav className="pr-2 relative flex bg-white flex-wrap items-center justify-between py-2 transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start">
         <div className="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
-            <div className='ms-0 sm:ms-2'>
-                <div className="text-sm capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600">
-                    Bonjour,
+            <div className='ms-0 sm:ms-2 inline'>
+                <div>
+                    <span className="capitalize leading-normal text-slate-700">
+                        Bonjour,{" "}
+                        <span className="mb-0 font-bold capitalize">
+                            { useAuth.getJWTContent()?.prenom ?? "undefined" }
+                        </span>
+                    </span>
                 </div>
-                <h6 className="mb-0 font-bold capitalize">
-                    Abderrazak
-                </h6>
+                <div>
+                    <span className="text-sm capitalize leading-normal text-slate-700">
+                        Service:{" "}
+                        <span className="mb-0 font-bold capitalize">
+                            { useAuth.getJWTContent()?.service ?? "undefined" }
+                        </span>
+                    </span>
+                </div>
             </div>
             <div className="flex justify-end mt-2 grow sm:mt-0 lg:flex lg:basis-auto">
                 <ul className="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full gap-4">

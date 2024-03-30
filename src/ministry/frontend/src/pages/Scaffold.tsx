@@ -4,11 +4,10 @@ import { ReactNode, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 
 type ScaffoldProps = {
-  size?: string,
   children : ReactNode
 }
 
-function Scaffold({ size ="max-w-8xl", children } : ScaffoldProps) {
+function Scaffold({ children } : ScaffoldProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
   useEffect(()=>{
@@ -21,8 +20,8 @@ function Scaffold({ size ="max-w-8xl", children } : ScaffoldProps) {
 
   return (
     <>
-      <Navbar setOpen={() => setSidebarOpen(!sidebarOpen)} className={size}/>
-      <main className={`container min-h-[91vh] flex flex-col justify-between ${size}`}>
+      <Navbar setOpen={() => setSidebarOpen(!sidebarOpen)} className='max-w-8xl'/>
+      <main className='container min-h-[91vh] flex flex-col justify-between max-w-8xl'>
         <div className='w-full sm:px-6 py-6 mx-auto flex justify-center flex-wrap'>
           <Header/>
           { children }

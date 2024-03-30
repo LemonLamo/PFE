@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ehr-service
+  name: ehr-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: ehr-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ehr-service
+  name: ehr-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ehr-service
+  template:
+    metadata:
+      labels:
+        app: ehr-service
+    spec:
+      containers:
+        - image: medicalife/ehr-service:latest
+          name: ehr-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

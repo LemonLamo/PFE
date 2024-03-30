@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useMemo } from 'react'
 import DataTable from '../UI/Tables/DataTable';
 import moment from 'moment';
-import { baseURL } from '../../hooks';
+import { baseURL } from '../../config';
 type Props = {
     NIN: string
 }

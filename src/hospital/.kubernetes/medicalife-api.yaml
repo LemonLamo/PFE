@@ -1,0 +1,12 @@
+ kind: Service
+ apiVersion: v1
+ metadata:
+   name: medicalife-api
+   annotations:
+    konghq.com/protocol: https
+ spec:
+   type: ExternalName
+   externalName: 192.168.1.200
+   ports:
+   - protocol: TCP
+     port: 443

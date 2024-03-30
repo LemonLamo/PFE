@@ -3,7 +3,7 @@ import login from '../assets/login.svg'
 import { useState } from 'react';
 
 function ForgotPasswordPage() {
-    const [NIN] = useState(useLocation().state?.NIN?? "");
+    const [NIN] = useState(useLocation().state?.NIN ?? "");
 
     function handleResetPassword() {
         // submit reset password

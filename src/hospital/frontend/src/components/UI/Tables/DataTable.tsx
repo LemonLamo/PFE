@@ -1,6 +1,6 @@
 import { UseQueryResult } from '@tanstack/react-query'
 import { PaginationState, SortingState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TableError from './TableError';
 import TableLoading from '../Loading';
 
@@ -14,10 +14,11 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
     const [sorting, setSorting] = useState<SortingState>([])
     const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10 })
     const [filtering, setFiltering] = useState('')
+    const [data, setData]= useState<typeof query.data>([])
 
     const table = useReactTable({
         columns: tableDefinition,
-        data: query.data as unknown[],
+        data: data as unknown[],
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -32,11 +33,9 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
         onGlobalFilterChange: setFiltering
     })
 
-    if(query.isLoading)
-        return <TableLoading />
-    
-    if(query.isError || !query.data)
-        return <TableError />
+    useEffect(() => {
+        setData(query.data || []);
+    }, [query.data, setData]);
 
     return(
         <div className={`${className}`}>
@@ -77,8 +76,14 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
                     </thead>
                     <tbody className='text-gray-600'>
                     {
+                    (query.isError)?
+                        <tr><td colSpan={table.getAllColumns().length}><TableError /></td></tr>:
+
+                    query.isLoading?
+                        <tr><td colSpan={table.getAllColumns().length}><TableLoading /></td></tr>:
+
                     table.getRowModel().rows?.length == 0 ?
-                    <tr> <td colSpan={table.getHeaderGroups()[0].headers.length} className="py-2 text-center"> Pas de lignes à afficher </td> </tr> :
+                    <tr><td colSpan={table.getHeaderGroups()[0].headers.length} className="py-2 text-center"> Pas de lignes à afficher </td></tr> :
                     table.getRowModel().rows?.map((row) => (
                         <tr key={row.id}>
                             {row.getVisibleCells().map(cell => (

@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "./UI/Alert";
-import { baseURL } from "../hooks";
+import { baseURL } from "../config";
 import { login } from "../hooks/useAuth";
 
 type UserError = {code: string, message: string}
@@ -34,7 +34,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
     async function handle2FA(e: any){
         e.preventDefault();
         // submit login
-        const body = { NIN: NIN, token: OTP.join('') }
+        const body = { NIN: NIN, token: OTP.join(''), type: "patient" }
         try {
 
             const response = await axios.post(`${baseURL}/api/auth/verify-2fa`, body)
@@ -44,7 +44,7 @@ function TwoFactorForm({ formActions, NIN }: LoginFormProps ){
                 formActions.swapTo2FA();
 
             else{
-                login(data)
+                login(data, true)
                 navigate("/dashboard", { replace: false })
             }
         } catch (err: AxiosError | any) {

@@ -13,12 +13,11 @@ database.connect();
 
 // configure express app
 app.set("trust proxy", 1); // trust first proxy
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 app.use(helmet()); // add security measures
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,21 +28,21 @@ const ChambresController = require("./controllers/ChambresController");
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 
-app.get("/api/chambres", auth.requireAuth, ChambresController.getAll);
-app.post("/api/chambres", auth.requireAuth, ChambresController.insert);
-app.put("/api/chambres", auth.requireAuth, ChambresController.update);
-app.get("/api/chambres/:num", auth.requireAuth, ChambresController.getOne);
-app.get("/api/chambres/:num/lits", auth.requireAuth, ChambresController.getLits);
-app.delete("/api/chambres/:num", auth.requireAuth, ChambresController.remove);
+app.get("/api/chambres", ChambresController.getAll);
+app.post("/api/chambres", ChambresController.insert);
+app.put("/api/chambres", ChambresController.update);
+app.get("/api/chambres/:num", ChambresController.getOne);
+app.get("/api/chambres/:num/lits", ChambresController.getLits);
+app.delete("/api/chambres/:num", ChambresController.remove);
 
 app.use((req, res) => res.sendStatus(404));
 
 // graceful shutdown
 process.on('SIGTERM', () =>
-  app.close(() => {console.log('Server shutdown.'); database.db.end()})
+  app.close(() => {logger.info('Server shutdown.'); database.db.end()})
 );
 
 // start server
-app.listen(8080, () => logger.info(`[SERVER] Listening on port ${8080}`));
+app.listen(80, () => logger.info(`[SERVER] Listening on port ${80}`));
 
 module.exports = app;
