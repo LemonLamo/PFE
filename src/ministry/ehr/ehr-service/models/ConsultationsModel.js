@@ -12,8 +12,13 @@ class ConsultationsModel {
     return results;
   }
 
-  async getOne(codeConsultation) {
-    const [results] = await db.query("SELECT * FROM `consultations` WHERE `codeConsultation`=?", [codeConsultation]);
+  async getOne(id) {
+    const [results] = await db.query("SELECT * FROM `consultations` WHERE `id`=?", [id]);
+    return results;
+  }
+
+  async getExamensCliniques(id) {
+    const [results] = await db.query("SELECT * FROM `consultations` WHERE `id`=?", [id]);
     return results;
   }
 }

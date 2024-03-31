@@ -34,10 +34,10 @@ class SoinsController {
   }
 
   async insert(req, res) {
-    const { code_soin, patient, medecin, infirmier, hospitalisation, nom_hopital, acte, date_soin, details, fait } = req.body;
+    const { id, patient, medecin, infirmier, hospitalisation, nom_hopital, acte, date_soin, details, fait } = req.body;
 
     try {
-      await Model.insert( code_soin, patient, medecin, infirmier, hospitalisation, nom_hopital, acte, date_soin, details, fait);
+      await Model.insert( id, patient, medecin, infirmier, hospitalisation, nom_hopital, acte, date_soin, details, fait);
       return res.status(200).json({ success: true });
     } catch (err) {
       logger.error("database-error: " + err.code);

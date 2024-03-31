@@ -20,7 +20,7 @@ function MedecinsSelect({ onChange, placeholder = '', className = '', state }: S
     useEffect(() => {
         if (query.length >= 3){
             setIsLoading(true);
-            axios.get(`${baseURL}/api/personnel?fonction=Medecin&search=${query}`).then((response) => {
+            axios.get(`${baseURL}/api/personnel?fonction=Medécin&search=${query}`).then((response) => {
                 setIsLoading(false);
                 setOptions(response.data);
             });

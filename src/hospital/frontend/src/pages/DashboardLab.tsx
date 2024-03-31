@@ -7,12 +7,13 @@ import moment from "moment";
 import Button from "../components/UI/Buttons/Button";
 import { baseURL } from "../config";
 import axios from "axios";
+import { status_badge } from "../hooks/useBilans";
 
 function DashboardLab(){
     const query = useQuery<Bilan[]>({
         queryKey: ['bilans'],
         queryFn: async () => {
-            const data = (await axios.get(`${baseURL}/api/bilans`)).data;
+            const data = (await axios.get(`${baseURL}/api/ehr/bilans`)).data;
             return data;
         }
     });
@@ -33,7 +34,11 @@ function DashboardLab(){
         { header: "Bilan", accessorKey: "designation" },
         { header: "Remarques", accessorKey: "remarques" },
         { header: "Date", id: "date", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm") },
-        { header: "Date (Fait)", id: "date", cell: (info) => moment(info.row.original.date_fait).format("DD/MM/YYYY HH:mm") },
+        { header: "Status", id: "status", cell: (info) => status_badge(info.row.original.date_fait) },
+        { header: "Date (Fait)", id: "date_fait", 
+            cell: (info) => info.row.original.date_fait? 
+                            moment(info.row.original.date_fait).format("DD/MM/YYYY HH:mm"):
+                            '-' },
         { header: "", id: "actions", cell: () => {
                 return (
                     <div className="flex justify-end gap-2">

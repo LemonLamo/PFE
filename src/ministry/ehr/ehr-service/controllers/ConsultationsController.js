@@ -11,6 +11,16 @@ class ConsultationsController {
     }
     return res.status(400).json({ errorCode: "", errorMessage: "" });
   }
+  async selectOne(req, res){
+    const { id } = req.params;
+    const result = await Model.getOne(id);
+    return res.status(200).json(result);
+  }
+  async selectExamensCliniques(req, res){
+    const { id } = req.params;
+    const result = await Model.getExamensCliniques(id);
+    return res.status(200).json(result);
+  }
 }
 
 /******** EXPORTS ********/

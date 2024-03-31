@@ -28,11 +28,24 @@ const logger = require('./utils/logger')
 const ConsultationsController = require('./controllers/ConsultationsController');
 const HospitalisationsController = require('./controllers/HospitalisationsController');
 const InterventionsController = require('./controllers/InterventionsController');
+const PrescriptionsController = require('./controllers/PrescriptionsController');
+const RadiosController = require('./controllers/RadiosController');
+const BilansController = require('./controllers/BilansController');
 const SoinsController = require('./controllers/SoinsController');
 
 // Consultations
 app.get('/api/ehr/consultations', ConsultationsController.select);
-//app.get('/api/ehr/consultations/:id', ConsultationsController.selectOne);
+app.get('/api/ehr/consultations/:id', ConsultationsController.selectOne);
+app.get('/api/ehr/consultations/:id/examens-cliniques', ConsultationsController.selectExamensCliniques);
+
+// Prescriptions
+app.get('/api/ehr/prescriptions', PrescriptionsController.select);
+
+// Radios
+app.get('/api/ehr/radios', RadiosController.select);
+
+// Bilans
+app.get('/api/ehr/bilans', BilansController.select);
 
 // Hospitalisations
 app.get('/api/ehr/hospitalisations', HospitalisationsController.select);
