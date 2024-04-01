@@ -23,6 +23,12 @@ class MaladiesController {
         const result = await Model.getOneChronique(code_maladie);
         return res.status(200).json(result)
     }
+
+    async getByCodes(req, res){
+        const { codes_maladies } = req.body;
+        const result = await Model.selectByCodes(codes_maladies);
+        return res.status(200).json(result);
+    }
 }
 
 /******** EXPORTS ********/

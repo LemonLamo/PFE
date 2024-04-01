@@ -10,6 +10,11 @@ class VaccinsModel {
     const [results] = await db.query('SELECT * FROM `vaccins` WHERE `code_vaccin`=?', [code_vaccin]);
     return results
   }
+
+  async selectByCodes(codes_vaccins){
+    const [results] = await db.query('SELECT * FROM `vaccins` WHERE `code_vaccin` IN (?)', [codes_vaccins]);
+    return results
+  }
 }
 
 module.exports = new VaccinsModel();

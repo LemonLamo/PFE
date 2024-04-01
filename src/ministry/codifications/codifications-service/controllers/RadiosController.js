@@ -14,6 +14,12 @@ class RadiosController {
         const result = await Model.getOne(code_radio);
         return res.status(200).json(result)
     }
+
+    async getByCodes(req, res){
+        const { codes_radios } = req.body;
+        const result = await Model.selectByCodes(codes_radios);
+        return res.status(200).json(result);
+    }
 }
 
 /******** EXPORTS ********/

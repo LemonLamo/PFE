@@ -14,6 +14,12 @@ class VaccinsController {
         const result = await Model.getOne(code_vaccin);
         return res.status(200).json(result)
     }
+
+    async getByCodes(req, res){
+        const { codes_vaccins } = req.body;
+        const result = await Model.selectByCodes(codes_vaccins);
+        return res.status(200).json(result);
+    }
 }
 
 /******** EXPORTS ********/

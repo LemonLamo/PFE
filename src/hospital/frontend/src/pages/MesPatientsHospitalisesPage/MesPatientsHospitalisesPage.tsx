@@ -18,7 +18,7 @@ import SortieModal from "./SortieModal";
 function MesPatientsHospitalisesPage() {
   const [selectedHospitalisation] = useState<Hospitalisation>({
     id: "",
-    nom_hopital: "",
+    hopital: "",
     medecin: { NIN: "", nom: "", prenom: "" },
     patient: { NIN: "", nom: "", prenom: "" },
     date_entree: new Date(),

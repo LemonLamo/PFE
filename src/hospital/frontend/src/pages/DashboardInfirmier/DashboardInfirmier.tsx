@@ -30,7 +30,7 @@ function DashboardInfirmier(){
     const [openModal, setOpenModal] = useState("");
     const [selectedSoin, setSelectedSoin] = useState<Soin>({
         code_soin: "",
-        nom_hopital: "",
+        hopital: "",
         medecin: { NIN: "", nom: "", prenom: "" },
         patient: { NIN: "", nom: "", prenom: "" },
         date_soin: new Date(),

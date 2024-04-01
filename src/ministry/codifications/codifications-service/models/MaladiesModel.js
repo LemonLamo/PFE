@@ -20,6 +20,11 @@ class MaladiesModel {
     const [results] = await db.query("SELECT * FROM `maladies` WHERE `code_maladie`=? AND `chronqiue`=1", [code_maladie]);
     return results
   }
+
+  async selectByCodes(codes_maladies){
+    const [results] = await db.query('SELECT * FROM `maladies` WHERE `code_maladie` IN (?)', [codes_maladies]);
+    return results
+  }
 }
 
 module.exports = new MaladiesModel();

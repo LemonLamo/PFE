@@ -10,6 +10,11 @@ class AllergenesModel {
     const [results] = await db.query("SELECT * FROM `allergenes` WHERE `code_allergene`=?", [code_allergene]);
     return results
   }
+
+  async selectByCodes(codes_allergenes){
+    const [results] = await db.query('SELECT * FROM `allergenes` WHERE `code_allergene` IN (?)', [codes_allergenes]);
+    return results
+  }
 }
 
 module.exports = new AllergenesModel();

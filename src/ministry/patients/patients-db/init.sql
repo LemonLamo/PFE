@@ -62,7 +62,7 @@ CREATE TABLE `maladies_chroniques` (
 --
 
 INSERT INTO `maladies_chroniques` (`patient`, `code_maladie`, `date`, `medecin`) VALUES
-('100010364027390000', 'AS531', '2023-06-25', '111111111111111111');
+('100010364027390000', '75120Z0', '2023-06-25', '111111111111111111');
 
 -- --------------------------------------------------------
 --
@@ -80,7 +80,7 @@ CREATE TABLE `allergies` (
 
 INSERT INTO `allergies`
 (`patient`, `code_allergene`, `date`, `remarques`, `medecin`) VALUES
-('100010364027390000', 'AS561', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
+('100010364027390000', 'C1', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
 
 -- --------------------------------------------------------
 --
@@ -124,4 +124,4 @@ CREATE TABLE `vaccinations` (
 --
 
 INSERT INTO `vaccinations` (`patient`, `code_vaccin`, `date`, `remarques`, `nombre_de_doses`, `date_de_prochaine_dose`, `medecin` ) VALUES
-('100010364027390000', 'VAC0867', '2023-06-25', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', 2, '2023-06-30', '111111111111111111');
+('100010364027390000', 'VAC0503', '2023-06-25', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', 2, '2023-06-30', '111111111111111111');

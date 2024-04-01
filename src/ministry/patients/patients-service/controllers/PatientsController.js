@@ -1,5 +1,6 @@
 const axios = require("axios");
 const Model = require("../models/PatientsModel");
+const { fetchMaladies, fetchAllergies, fetchVaccinations } = require("../utils/communication");
 //const validator = require('../middlewares/validation');
 
 class PatientsController{
@@ -21,13 +22,15 @@ class PatientsController{
   }
   async getMaladiesChroniques(req, res) {
     const { NIN } = req.params;
-    const result = await Model.selectMaladiesChroniques(NIN);
-    return res.status(200).json(result);
+    let maladies_chroniques = await Model.selectMaladiesChroniques(NIN);
+    maladies_chroniques = await fetchMaladies(maladies_chroniques);
+    return res.status(200).json(maladies_chroniques);
   }
   async getAllergies(req, res) {
     const { NIN } = req.params;
-    const result = await Model.selectAllergies(NIN);
-    return res.status(200).json(result);
+    let allergies = await Model.selectAllergies(NIN);
+    allergies = await fetchAllergies(allergies);
+    return res.status(200).json(allergies);
   }
   async getAntecedentsMedicals(req, res) {
     const { NIN } = req.params;
@@ -46,8 +49,9 @@ class PatientsController{
   }
   async getVaccinations(req, res) {
     const { NIN } = req.params;
-    const result = await Model.selectVaccinations(NIN);
-    return res.status(200).json(result);
+    let vaccinations = await Model.selectVaccinations(NIN);
+    vaccinations = await fetchVaccinations(vaccinations);
+    return res.status(200).json(vaccinations);
   }
   async getHistorique(req, res) {
     const { NIN } = req.params;

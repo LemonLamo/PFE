@@ -10,6 +10,11 @@ class InterventionsModel {
     const [results] = await db.query('SELECT * FROM `interventions` WHERE `code_intervention`=?', [code_intervention]);
     return results
   }
+
+  async selectByCodes(codes_interventions){
+    const [results] = await db.query('SELECT * FROM `interventions` WHERE `code_intervention` IN (?)', [codes_interventions]);
+    return results
+  }
 }
 
 module.exports = new InterventionsModel();

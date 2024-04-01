@@ -10,6 +10,11 @@ class BilansModel {
     const [results] = await db.query('SELECT * FROM `bilans` WHERE `code_bilan`=?', [code_bilan]);
     return results
   }
+
+  async selectByCodes(codes_bilans){
+    const [results] = await db.query('SELECT * FROM `bilans` WHERE `code_bilan` IN (?)', [codes_bilans]);
+    return results
+  }
 }
 
 module.exports = new BilansModel();

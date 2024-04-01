@@ -1,20 +1,15 @@
 const Model = require("../models/SoinsModel");
+const { fetchPatients } = require("../utils/communication");
 const logger = require("../utils/logger");
-const axios = require('axios');
 
 class SoinsController {
   async getAll(req, res) {
     try {
         let soins = await Model.select();
         soins = soins.map(({hospitalisation, chambre, lit, ...rest}) => (hospitalisation? {hospitalisation:{chambre, lit}, ...rest}: {...rest}))
+        soins = await fetchPatients(soins)
 
-        const NINs = soins.map((x) => x.patient)
-        const patients = (await axios.post('http://patients-service/private/patientsByNINs', {NINs: NINs})).data
-        const patientsMap = new Map();
-        patients.map(x => patientsMap.set(x.NIN, {...x}));
-
-        const result = soins.map ((x, i) => ({...x, patient: patientsMap.get(x.patient)}));
-        return res.status(200).json(result);
+        return res.status(200).json(soins);
     } catch (err) {
       logger.error("database-error: " + err.code);
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });

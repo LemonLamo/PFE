@@ -10,6 +10,11 @@ class AllergenesModel {
     const [results] = await db.query("SELECT * FROM `examens_cliniques` WHERE `code_examen_clinique`=?", [code_examen_clinique]);
     return results
   }
+
+  async selectByCodes(codes_examens_cliniques){
+    const [results] = await db.query('SELECT * FROM `examens_cliniques` WHERE `code_examen_clinique` IN (?)', [codes_examens_cliniques]);
+    return results
+  }
 }
 
 module.exports = new AllergenesModel();

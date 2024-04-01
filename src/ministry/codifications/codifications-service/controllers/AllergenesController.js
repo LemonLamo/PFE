@@ -13,6 +13,12 @@ class AllergenesController {
         const result = await Model.getOne(code_allergene);
         return res.status(200).json(result)
     }
+
+    async getByCodes(req, res){
+        const { codes_allergenes } = req.body;
+        const result = await Model.selectByCodes(codes_allergenes);
+        return res.status(200).json(result);
+    }
 }
 
 /******** EXPORTS ********/

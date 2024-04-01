@@ -13,6 +13,12 @@ class ExamensCliniquesController {
         const result = await Model.getOne(code_examen_clinique);
         return res.status(200).json(result)
     }
+
+    async getByCodes(req, res){
+        const { codes_examens_cliniques } = req.body;
+        const result = await Model.selectByCodes(codes_examens_cliniques);
+        return res.status(200).json(result);
+    }
 }
 
 /******** EXPORTS ********/

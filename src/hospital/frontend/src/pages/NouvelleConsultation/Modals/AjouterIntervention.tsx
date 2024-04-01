@@ -16,7 +16,7 @@ export default function AjouterIntervention({isOpen, close, action}: Props) {
         id: '',
         code_intervention: '',
         designation: '',
-        nom_hopital: '',
+        hopital: '',
         medecin: {},
         patient: {},
         date: new Date(),

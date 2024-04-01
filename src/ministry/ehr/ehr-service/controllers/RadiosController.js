@@ -1,19 +1,15 @@
-const axios = require('axios')
 const Model = require("../models/RadiosModel");
+const { fetchPatients, fetchRadios } = require('../utils/communication');
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
 class RadiosController {
   async select(req, res) {
-    const radios = await Model.getAll();
-    const NINs = radios.map((x) => x.patient)
-    const patients = (await axios.post('http://patients-service/private/patientsByNINs', {NINs: NINs})).data
-    
-    const patientsMap = new Map();
-    patients.map(x => patientsMap.set(x.NIN, {...x}));
+    let radios = await Model.getAll();
+    radios = await fetchPatients(radios);
+    radios = await fetchRadios(radios);
 
-    const result = radios.map ((x, i) => ({...x, patient: patientsMap.get(x.patient)}));
-    return res.status(200).json(result);
+    return res.status(200).json(radios);
   }
   async selectOne(req, res) {
     const { id } = req.params;

@@ -125,7 +125,7 @@ CREATE TABLE `radios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `radios` (`id`, `patient`, `code_radio`, `remarques`, `date`) VALUES
-('radio-25831', '100010364027390000', 'S10.9', 'Idk', '2024-02-27');
+('radio-25831', '100010364027390000', 'R10.9', 'Idk', '2024-02-27');
 -- --------------------------------------------------------
 --
 -- Structure de la table `bilans`
@@ -142,7 +142,7 @@ CREATE TABLE `bilans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `bilans` (`id`, `patient`, `code_bilan`, `remarques`, `date`) VALUES
-('bilan-25831', '100010364027390000', 'S10.9', 'Idk', '2024-03-30');
+('bilan-25831', '100010364027390000', 'B1', 'Idk', '2024-03-30');
 
 -- --------------------------------------------------------
 --

@@ -25,8 +25,8 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       let h = item as Hospitalisation;
       return (
         <TimelineItem key={index} icon="fa fa-bell text-red-400" title={`Hospitalisation ${h.id}`} date={h.date_entree}>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {h.medecin.nom} {h.medecin.prenom} ({h.nom_hopital})</p>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Période: </span> {moment(h.date_entree).format('DD/MM/YYYY')} ({h.mode_entree}) - {moment(h.date_sortie).format('DD/MM/YYYY')} ({h.mode_sortie})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {h.medecin.nom} {h.medecin.prenom} ({h.hopital})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Période: </span> {moment(h.date_entree).format('DD/MM/YYYY')} ({h.mode_entree}) - {h.date_sortie ? `${moment(h.date_sortie).format('DD/MM/YYYY')} (${h.mode_sortie})` : 'En cours'}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Motif: </span> {h.motif_hospitalisation}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Résumé: </span> {h.resume_hospitalisation}</p>
         </TimelineItem>
@@ -37,7 +37,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       let c = item as Consultation;
       return (
         <TimelineItem key={index} icon="fa fa-bell text-yellow-400" title={`Consultation ${c.id}`} date={c.date_consultation}>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {c.medecin.nom} {c.medecin.prenom} ({c.nom_hopital})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {c.medecin.nom} {c.medecin.prenom} ({c.hopital})</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Motif: </span> {c.motif_consultation}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Symptômes: </span> {c.symptomes}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Résumé: </span> {c.resume_consultation}</p>
@@ -51,7 +51,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       let i = item as Intervention;
       return (
         <TimelineItem key={index} icon="fa fa-bell text-green-400" title={`Intervention: ${i.designation} (${i.id})`} date={i.date}>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {i.medecin.nom} {i.medecin.prenom} ({i.nom_hopital})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {i.medecin.nom} {i.medecin.prenom} ({i.hopital})</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Protocole Operatoire: </span> {i.protocole_operatoire}</p>
         </TimelineItem>
       );

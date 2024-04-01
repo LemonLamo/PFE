@@ -12,7 +12,7 @@ type Consultation = {
   id: string;
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
-  nom_hopital: string;
+  hopital: string;
   date_consultation: Date;
   type_consultation: string;
   motif_consultation: string;
@@ -32,7 +32,7 @@ type Hospitalisation = {
   id: string;
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
-  nom_hopital: string;
+  hopital: string;
   date_entree: Date;
   mode_entree: string;
   motif_hospitalisation: string;
@@ -48,7 +48,7 @@ type Intervention = {
   designation?: string;
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
-  nom_hopital: string;
+  hopital: string;
   date?: Date;
   protocole_operatoire?: string;
   remarques?: string;
@@ -223,7 +223,7 @@ type Soin = {
   medecin: Partial<Personnel>;
   infirmier: Partial<Personnel>;
   hospitalisation?: Partial<Hospitalisation>;
-  nom_hopital: string;
+  hopital: string;
   acte: string;
   date_soin: Date;
   details: string;
