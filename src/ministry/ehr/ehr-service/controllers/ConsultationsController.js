@@ -16,42 +16,98 @@ class ConsultationsController {
     }
     return res.status(400).json({ errorCode: "", errorMessage: "" });
   }
-  async insert(req, res){
+  async insert(req, res) {
     const id = genID();
-    const { patient, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, prochaine_consultation } = req.body;
-    const { examens_cliniques, prescriptions, radios, bilans, duree_arret_de_travail} = req.body
+    const {
+      patient,
+      date,
+      type,
+      motif,
+      symptomes,
+      resume,
+      diagnostique,
+      diagnostique_details,
+      prochaine_consultation,
+    } = req.body;
+    const {
+      examens_cliniques,
+      prescriptions,
+      radios,
+      bilans,
+      duree_arret_de_travail,
+    } = req.body;
     const { NIN: medecin, hopital } = req.jwt;
 
-    await Model.insert(id, patient, medecin, hopital, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, prochaine_consultation, duree_arret_de_travail);
+    await Model.insert(
+      id,
+      patient,
+      medecin,
+      hopital,
+      date,
+      type,
+      motif,
+      symptomes,
+      resume,
+      diagnostique,
+      diagnostique_details,
+      prochaine_consultation,
+      duree_arret_de_travail
+    );
 
     // examens_cliniques
-    if(examens_cliniques)
-      for(let e of examens_cliniques)
-        await ExamensCliniquesModel.insert(genID(), patient, e.code_examen_clinique, e.resultat, e.remarques)
-    
+    if (examens_cliniques)
+      for (let e of examens_cliniques)
+        await ExamensCliniquesModel.insert(
+          genID(),
+          patient,
+          e.code_examen_clinique,
+          e.resultat,
+          e.remarques
+        );
+
+    // prescriptions
+    if (prescriptions)
+      for (let p of prescriptions)
+        await PrescriptionsModel.insert(
+          genID(),
+          patient,
+          p.code_medicament,
+          p.posologie,
+          p.frequence,
+          p.duree,
+          p.remarques
+        );
+
     // radios
-    if(prescriptions)
-      for(let p of prescriptions)
-        await PrescriptionsModel.insert(genID(), patient, p.code_medicament, p.posologie, p.frequence, p.duree, p.remarques)
-      
-    // radios
-    if(radios)
-      for(let r of radios)
-        await RadiosModel.insert(genID(), patient, r.code_radio, r.date, r.remarques)
+    if (radios)
+      for (let r of radios)
+        await RadiosModel.insert(
+          genID(),
+          patient,
+          r.code_radio,
+          r.date,
+          r.remarques
+        );
 
     // bilans
-    if(bilans)
-      for(let b of bilans)
-        await BilansModel.insert(genID(), patient, b.code_bilan, b.date, b.remarques)
+    if (bilans)
+      for (let b of bilans)
+        await BilansModel.insert(
+          genID(),
+          patient,
+          b.code_bilan,
+          b.date,
+          b.remarques
+        );
 
     return res.status(200).json({ success: true });
   }
-  async selectOne(req, res){
+  async selectOne(req, res) {
     const { id } = req.params;
     const result = await Model.getOne(id);
     return res.status(200).json(result);
   }
-  async selectExamensCliniques(req, res){
+  async selectExamensCliniques(req, res) {
     const { id } = req.params;
     const result = await Model.getExamensCliniques(id);
     return res.status(200).json(result);
