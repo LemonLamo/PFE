@@ -22,7 +22,7 @@ export default function AjouterAntecedentFamilial({isOpen, close, action}: Props
                 <input type="text" className="primary col-span-4" placeholder="Designation" value={selectedAntecedentFamilial.designation} onChange={(e) => setSelectedAntecedentFamilial({...selectedAntecedentFamilial, designation: e.target.value})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
-                <input type="date" className="primary col-span-4" placeholder="Date de naissance"  value={moment(selectedAntecedentFamilial.date).format("YYYY-MM-DD")} onChange={(e) => setSelectedAntecedentFamilial({...selectedAntecedentFamilial, date: moment(e.target.value, "YYYY-MM-DD").toDate()})}/>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date de naissance"  value={moment(selectedAntecedentFamilial.date).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedAntecedentFamilial({...selectedAntecedentFamilial, date: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedAntecedentFamilial.remarques} onChange={(e) => setSelectedAntecedentFamilial({...selectedAntecedentFamilial, remarques: e.target.value})}/>

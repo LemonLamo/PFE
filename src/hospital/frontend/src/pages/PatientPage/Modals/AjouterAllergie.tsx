@@ -27,7 +27,7 @@ export default function AjouterAllergie({isOpen, close, action}: Props) {
                 <Select<Allergie> url="allergenes" code="code_allergene" designation="designation" onChange={select_allergie} className="col-span-4" placeholder="Allergène"/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
-                <input type="date" className="primary col-span-4" placeholder="Date de diagnostic" value={moment(selectedAllergie.date).format("YYYY-MM-DD")} onChange={(e) => setSelectedAllergie({...selectedAllergie, date: moment(e.target.value, "YYYY-MM-DD").toDate()})}/>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date de diagnostic" value={moment(selectedAllergie.date).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedAllergie({...selectedAllergie, date: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedAllergie.remarques} onChange={(e) => setSelectedAllergie({...selectedAllergie, remarques: e.target.value})}/>

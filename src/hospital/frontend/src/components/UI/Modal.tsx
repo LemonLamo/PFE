@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Transition } from '@headlessui/react';
 
 type ModalProps = {
-    icon: string,
+    icon?: string,
     size: string
     isOpen: boolean,
     children: ReactNode[],
@@ -25,14 +25,14 @@ function Modal({ icon, theme, size, isOpen, children}: ModalProps) {
             <div className="fixed inset-0 bg-black/50">
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                     <div className={`relative transform rounded-md bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full ${size} max-h-[96vh] overflow-auto`} style={{"overflow":"inherit"}}>
-                        <div className='px-4 pb-4 pt-5 sm:p-6 sm:pb-4 '>
-                            <div className="sm:flex sm:items-start w-full">
+                        <div className='px-4 pb-4 pt-5 sm:p-6'>
+                            <div className="sm:flex sm:items-start w-full gap-4">
                                 { icon &&
-                                    <div className={`mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full ${ModalThemes[theme].offColor} sm:mx-0 sm:h-10 sm:w-10`}>
+                                    <div className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full ${ModalThemes[theme].offColor} sm:mx-0 sm:h-10 sm:w-10`}>
                                         <i className={`${icon} ${ModalThemes[theme].iconColor}`} />
                                     </div>
                                 }
-                                <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+                                <div className="mt-3 text-center sm:ml-2 sm:mt-0 sm:text-left w-full">
                                     {children}
                                 </div>
                             </div>

@@ -7,6 +7,10 @@ class PrescriptionsModel {
     return results;
   }
 
+  async insert(id, patient, code_medicament, posologie, frequence, duree, remarques){
+    await db.execute("INSERT INTO `prescriptions` (`id`, `patient`, `code_medicament`, `posologie`, `frequence`, `duree`, `remarques`) VALUES (?, ?, ?, ?, ?, ?, ?)", [id, patient, code_medicament, posologie, frequence, duree, remarques ?? null])
+  }
+
   async getByPatient(NIN) {
     const [results] = await db.query("SELECT * FROM `prescriptions` WHERE `patient`=? ORDER BY `date_consultation` DESC", [NIN]);
     return results;

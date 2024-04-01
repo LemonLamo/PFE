@@ -1,19 +1,23 @@
 import { ColumnDef } from "@tanstack/react-table";
-import Card from "../components/UI/Card";
-import { useMemo } from "react";
+import Card from "../../components/UI/Card";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import DataTable from "../components/UI/Tables/DataTable";
+import DataTable from "../../components/UI/Tables/DataTable";
 import moment from "moment";
-import Button from "../components/UI/Buttons/Button";
-import { baseURL } from "../config";
+import Button from "../../components/UI/Buttons/Button";
+import { baseURL } from "../../config";
 import axios from "axios";
-import { status_badge } from "../hooks/useBilans";
+import { status_badge } from "../../hooks/useRadios";
+import LabelRadio from "./LabelRadio";
+import JoindreResultatsRadio from "./JoindreResultatsRadio";
 
-function DashboardLab(){
-    const query = useQuery<Bilan[]>({
-        queryKey: ['bilans'],
+function DashboardRadio(){
+    const [openModal, setOpenModal] = useState("")
+    const [selectedRadio, setSelectedRadio] = useState<Radio>({id:"", code_radio:"", date: new Date(), patient: {} })
+    const query = useQuery<Radio[]>({
+        queryKey: ['radios'],
         queryFn: async () => {
-            const data = (await axios.get(`${baseURL}/api/ehr/bilans`)).data;
+            const data = (await axios.get(`${baseURL}/api/ehr/radios`)).data;
             return data;
         }
     });
@@ -31,7 +35,7 @@ function DashboardLab(){
                 </div>
             }
         },
-        { header: "Bilan", accessorKey: "designation" },
+        { header: "Radio", accessorKey: "designation" },
         { header: "Remarques", accessorKey: "remarques" },
         { header: "Date", id: "date", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm") },
         { header: "Status", id: "status", cell: (info) => status_badge(info.row.original.date_fait) },
@@ -39,22 +43,25 @@ function DashboardLab(){
             cell: (info) => info.row.original.date_fait? 
                             moment(info.row.original.date_fait).format("DD/MM/YYYY HH:mm"):
                             '-' },
-        { header: "", id: "actions", cell: () => {
+        { header: "", id: "actions", cell: (info) => {
+                const radio = info.row.original;
                 return (
                     <div className="flex justify-end gap-2">
-                        <Button onClick={()=>null} theme="success">Label</Button>
-                        <Button onClick={()=>null} theme="primary">Joindre</Button>
+                        <Button onClick={()=>{setSelectedRadio(radio); setOpenModal("label")}} theme="success">Label</Button>
+                        <Button onClick={()=>{setSelectedRadio(radio); setOpenModal("joindre")}} theme="primary">Joindre</Button>
                     </div>
                 )
             }
         },
-    ], []) as ColumnDef<Bilan>[];
+    ], []) as ColumnDef<Radio>[];
 
     return <>
-        <Card title="Mes bilans" subtitle="Liste des bilans à faire" className="w-full">
+        <Card title="Mes radios" subtitle="Liste des radios à faire" className="w-full">
             <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
+            <LabelRadio isOpen={openModal==="label"} close={()=>setOpenModal("")} selectedRadio={selectedRadio} />
+            <JoindreResultatsRadio isOpen={openModal==="joindre"} close={()=>setOpenModal("")} selectedRadio={selectedRadio} />
         </Card>
     </>
 }
 
-export default DashboardLab;
+export default DashboardRadio;

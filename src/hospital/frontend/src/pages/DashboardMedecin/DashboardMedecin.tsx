@@ -1,19 +1,19 @@
 import { ColumnDef } from "@tanstack/react-table";
-import Card from "../components/UI/Card";
+import Card from "../../components/UI/Card";
 import { Link } from "react-router-dom";
-import ViewButton from "../components/UI/Buttons/ViewButton";
+import ViewButton from "../../components/UI/Buttons/ViewButton";
 import { useMemo } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import DataTable from "../components/UI/Tables/DataTable";
+import DataTable from "../../components/UI/Tables/DataTable";
 import moment from "moment";
-import SmallCalendar from "../components/Calendars/SmallCalendar";
-import TableRow from "../components/UI/Tables/TableRow";
-import TableCell from "../components/UI/Tables/TableCell";
-import Table from "../components/UI/Tables/Table";
-import Badge from "../components/UI/Badge";
-import { baseURL } from "../config";
-import StatisticsCard from "../components/StatisticsCard";
+import SmallCalendar from "../../components/Calendars/SmallCalendar";
+import TableRow from "../../components/UI/Tables/TableRow";
+import TableCell from "../../components/UI/Tables/TableCell";
+import Table from "../../components/UI/Tables/Table";
+import Badge from "../../components/UI/Badge";
+import { baseURL } from "../../config";
+import StatisticsCard from "../../components/StatisticsCard";
 
 function DashboardMedecin(){
     const query = useQuery({

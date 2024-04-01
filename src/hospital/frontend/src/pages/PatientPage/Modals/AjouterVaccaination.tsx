@@ -5,13 +5,14 @@ import moment from "moment";
 
 type Props = {
   isOpen: boolean,
-  close: () => void
+  close: () => void,
+  action: (arg0: Vaccination) => void,
 }
 
 const theme = "primary"
 
-export default function AjouterVaccaination({isOpen, close}: Props) {
-    const [selectedVaccination, setSelectedVaccination] = useState<Partial<Vaccination>>({code_vaccin:"", designation:""});
+export default function AjouterVaccaination({isOpen, close, action}: Props) {
+    const [selectedVaccination, setSelectedVaccination] = useState<Vaccination>({code_vaccin:"", designation:"", date: new Date(), date_de_prochaine_dose: undefined});
     function select_vaccin(vaccin: VaccinationCode) {
         if(vaccin)
             setSelectedVaccination({ ...selectedVaccination, code_vaccin: vaccin.code_vaccin, designation: vaccin.designation })
@@ -22,18 +23,21 @@ export default function AjouterVaccaination({isOpen, close}: Props) {
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Ajouter une allergie </h3>
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une nouvelle allergie </p>
             <div className="grid grid-cols-6 gap-2">
-                <label className="font-semibold text-slate-700 text-sm col-span-2"> Allergene: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Vaccin: </label>
                 <Select<VaccinationCode> url="vaccins" code="code_vaccin" designation="designation" className="col-span-4" placeholder="Vaccination chronique" onChange={select_vaccin} />
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
-                <input type="date" className="primary col-span-4" placeholder="Date" value={moment(selectedVaccination.date).format("YYYY-MM-DD")} onChange={(e) => setSelectedVaccination({...selectedVaccination, date: moment(e.target.value, "YYYY-MM-DD").toDate()})}/>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={moment(selectedVaccination.date).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedVaccination({...selectedVaccination, date: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques"/>
+
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Date de prochaine dose: </label>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={moment(selectedVaccination.date_de_prochaine_dose).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedVaccination({...selectedVaccination, date_de_prochaine_dose: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => null}>Ajouter</button>
+                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedVaccination)}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

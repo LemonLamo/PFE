@@ -61,8 +61,7 @@ function TabInfoPersonelles({ NIN }: Props) {
                   {moment(new Date()).diff(
                     moment(profile.data!.date_de_naissance),
                     "years"
-                  )}{" "}
-                  ans
+                  )} ans
                 </p>
 
                 <strong className="text-slate-700">Sexe:</strong>

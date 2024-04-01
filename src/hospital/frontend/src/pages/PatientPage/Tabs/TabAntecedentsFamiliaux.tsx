@@ -7,6 +7,7 @@ import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterAntecedentFamilial from "../Modals/AjouterAntecedentFamilial";
 import moment from "moment";
+import { ajouter_antecedent } from "../../../hooks/usePatient";
 type Props = {
   NIN: string;
 };
@@ -48,7 +49,7 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={antecedents_familiauxTableDefinition} query={antecedents_familiaux} className="mt-2" />
-      <AjouterAntecedentFamilial isOpen={openModal==="ajouter_antecedants_familiales"} action={() => null} close={()=>setOpenModal("")}/>
+      <AjouterAntecedentFamilial isOpen={openModal==="ajouter_antecedants_familiales"} action={(a) => ajouter_antecedent(NIN, a, 'familial')} close={()=>setOpenModal("")}/>
     </>
   );
 }

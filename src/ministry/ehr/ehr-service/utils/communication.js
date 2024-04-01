@@ -8,6 +8,14 @@ exports.fetchPatients = async (data) => {
     return data.map((x) => ({ ...x, patient: patientsMap.get(x.patient) }));
 }
 
+exports.fetchInterventions = async (data) => {
+    const codes_interventions = data.map((x) => x.code_intervention);
+    const bilans = (await axios.post('http://codifications-service/private/interventionsByCodes', { codes_interventions })).data;
+    const codesMap = new Map(bilans.map((x) => [x.code_intervention, { ...x }]));
+
+    return data.map((x) => ({ ...x, designation: codesMap.get(x.code_intervention).designation }));
+}
+
 exports.fetchBilans = async (data) => {
     const codes_bilans = data.map((x) => x.code_bilan);
     const bilans = (await axios.post('http://codifications-service/private/bilansByCodes', { codes_bilans })).data;

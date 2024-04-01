@@ -7,6 +7,7 @@ import moment from "moment";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterAllergie from "../Modals/AjouterAllergie";
+import { ajouter_allergie } from "../../../hooks/usePatient";
 type Props = {
   NIN: string;
 };
@@ -48,7 +49,7 @@ function TabAllergies({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={allergiesTableDefinition} query={allergies} className="mt-2" />
-      <AjouterAllergie isOpen={openModal==="ajouter_allergie"} action={()=>null} close={()=>setOpenModal("")}/>
+      <AjouterAllergie isOpen={openModal==="ajouter_allergie"} action={(a) => ajouter_allergie(NIN, a)} close={()=>setOpenModal("")}/>
     </>
   );
 }

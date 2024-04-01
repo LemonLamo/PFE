@@ -14,7 +14,9 @@ class SoinsModel {
   }
 
   async insert(id, patient, medecin, infirmier, hospitalisation, hopital, acte, date_soin, details, fait) {
-    await db.execute("INSERT INTO soin(id, patient, medecin, infirmier, hospitalisation, hopital, acte, date_soin, details, fait) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id, patient, medecin, infirmier, hospitalisation, hopital, acte, date_soin, details, fait]);
+    await db.execute(
+      "INSERT INTO soin(id, patient, medecin, infirmier, hospitalisation, hopital, acte, date_soin, details, fait) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [id, patient, medecin, infirmier, hospitalisation, hopital, acte, date_soin, details, fait]);
   }
 
   async executer(id) {

@@ -13,16 +13,16 @@ type Consultation = {
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   hopital: string;
-  date_consultation: Date;
-  type_consultation: string;
-  motif_consultation: string;
+  date: Date;
+  type: string;
+  motif: string;
   symptomes: string;
-  resume_consultation: string;
+  resume: string;
   examens_cliniques: ExamenClinique[];
   diagnostique: string;
   diagnostique_details: string;
   prescriptions: Prescription[];
-  radiologie: Radio[];
+  radios: Radio[];
   bilans: Bilan[];
   interventions: Partial<Intervention>[];
   prochaine_consultation: Date | null;
@@ -72,8 +72,7 @@ type Vaccination = {
   designation?: string;
   date: Date;
   remarques?: string;
-  nombre_de_doses: number;
-  date_de_prochaine_dose: string;
+  date_de_prochaine_dose?: Date;
 };
 type VaccinationCode = {
   code_vaccin: string;

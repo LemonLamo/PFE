@@ -7,6 +7,7 @@ import moment from "moment";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterMaladieChronique from "../Modals/AjouterMaladieChronique";
+import { ajouter_maladie_chronique } from "../../../hooks/usePatient";
 type Props = {
   NIN: string;
 };
@@ -46,7 +47,7 @@ function TabMaladiesChroniques({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={maladies_chroniquesTableDefinition} query={maladies_chroniques} className="mt-2"/>
-      <AjouterMaladieChronique isOpen={openModal==="ajouter_maladie_chronique"} action={()=>null} close={()=>setOpenModal("")}/>
+      <AjouterMaladieChronique isOpen={openModal==="ajouter_maladie_chronique"} action={(m)=>ajouter_maladie_chronique(NIN, m)} close={()=>setOpenModal("")}/>
     </>
   );
 }

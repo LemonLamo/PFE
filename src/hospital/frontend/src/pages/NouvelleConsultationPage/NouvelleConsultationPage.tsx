@@ -17,7 +17,7 @@ function NouvelleConsultationPage() {
   const [validPatient, setValidPatient] = useState(false)
   const [state, setState] = useState<Record<string, boolean>>({
     mediacments_active: false,
-    radiologie_active: false,
+    radios_active: false,
     bilans_active: false,
     interventions_active: false,
     arret_de_travail_active: false,
@@ -25,11 +25,11 @@ function NouvelleConsultationPage() {
   })
   const [consultationData, setConsultationData] = useState<Partial<Consultation>>({
     patient: { NIN: '', nom: '', prenom: '' },
-    date_consultation: new Date(),
-    type_consultation: '',
-    motif_consultation: '',
+    date: new Date(),
+    type: 'Evaluation de nouveau patient',
+    motif: 'Symptôme',
     symptomes: '',
-    resume_consultation: '',
+    resume: '',
 
     examens_cliniques: [],
 
@@ -37,10 +37,11 @@ function NouvelleConsultationPage() {
     diagnostique_details: '',
 
     prescriptions: [],
-    radiologie: [],
+    radios: [],
     bilans: [],
     interventions: [],
-    prochaine_consultation: moment(new Date()).add(7).toDate()
+    prochaine_consultation: moment(new Date()).add(7).toDate(),
+    duree_arret_de_travail: undefined
   })
   
   function select_patient(patient: any){
@@ -57,6 +58,12 @@ function NouvelleConsultationPage() {
 
   async function submit (){
     try {
+      if(!state.mediacments_active) consultationData.prescriptions = [];
+      if(!state.radios_active) consultationData.radios = [];
+      if(!state.bilans_active) consultationData.bilans = [];
+      if(!state.arret_de_travail_active) consultationData.duree_arret_de_travail = undefined;
+      if(!state.prochaine_consultation_active) consultationData.prochaine_consultation = undefined;
+
       const data = {...consultationData, patient:consultationData.patient?.NIN!}
       await axios.post(`${baseURL}/api/ehr/consultations`, data);
     } catch (err: AxiosError | any) {

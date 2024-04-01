@@ -31,13 +31,25 @@ const PatientsController = require("./controllers/PatientsController");
 app.post("/api/patients", PatientsController.insert);
 app.get("/api/patients", PatientsController.getAll);
 app.get("/api/patients/:NIN", PatientsController.getOne);
-app.get("/api/patients/:NIN/maladies-chroniques", PatientsController.getMaladiesChroniques);
-app.get("/api/patients/:NIN/allergies", PatientsController.getAllergies);
-app.get("/api/patients/:NIN/antecedents-medicals", PatientsController.getAntecedentsMedicals);
-app.get("/api/patients/:NIN/antecedents-familiaux", PatientsController.getAntecedentsFamiliaux);
-app.get("/api/patients/:NIN/medicaments", PatientsController.getMedicaments);
-app.get("/api/patients/:NIN/vaccinations", PatientsController.getVaccinations);
 app.get("/api/patients/:NIN/historique", PatientsController.getHistorique);
+
+app.get("/api/patients/:NIN/maladies-chroniques", PatientsController.getMaladiesChroniques);
+app.post("/api/patients/:NIN/maladies-chroniques", auth.requireAuth, PatientsController.insertMaladieChronique);
+
+app.get("/api/patients/:NIN/allergies", PatientsController.getAllergies);
+app.post("/api/patients/:NIN/allergies", auth.requireAuth, PatientsController.getAllergies);
+
+app.get("/api/patients/:NIN/antecedents-medicals", PatientsController.getAntecedentsMedicals);
+app.post("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, PatientsController.insertAntecedentMedical);
+
+app.get("/api/patients/:NIN/antecedents-familiaux", PatientsController.getAntecedentsFamiliaux);
+app.post("/api/patients/:NIN/antecedents-familiaux", auth.requireAuth, PatientsController.insertAntecedentFamilial);
+
+app.get("/api/patients/:NIN/medicaments", PatientsController.getMedicaments);
+//app.get("/api/patients/:NIN/medicaments", PatientsController.getMedicaments);
+
+app.get("/api/patients/:NIN/vaccinations", PatientsController.getVaccinations);
+app.post("/api/patients/:NIN/vaccinations", auth.requireAuth, PatientsController.insertVaccination);
 
 app.post("/private/patientsByNINs", PatientsController.getByNINs);
 

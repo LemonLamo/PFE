@@ -35,8 +35,9 @@ const SoinsController = require('./controllers/SoinsController');
 
 // Consultations
 app.get('/api/ehr/consultations', ConsultationsController.select);
+app.post('/api/ehr/consultations', auth.requireAuth, ConsultationsController.insert);
 app.get('/api/ehr/consultations/:id', ConsultationsController.selectOne);
-app.get('/api/ehr/consultations/:id/examens-cliniques', ConsultationsController.selectExamensCliniques);
+//app.get('/api/ehr/consultations/:id/examens-cliniques', ConsultationsController.selectExamensCliniques);
 
 // Prescriptions
 app.get('/api/ehr/prescriptions', PrescriptionsController.select);

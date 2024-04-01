@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Card from "../components/UI/Card";
-import PatientsSelect from "../components/Selects/PatientsSelect";
+import Card from "../../components/UI/Card";
+import PatientsSelect from "../../components/Selects/PatientsSelect";
 import { useState } from "react";
-import MedecinsSelect from "../components/Selects/MedecinsSelect";
+import MedecinsSelect from "../../components/Selects/MedecinsSelect";
 
 function DashboardEntree(){
     const create_patient = (<Link className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" to="/nouveau_patient">

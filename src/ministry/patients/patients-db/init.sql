@@ -51,8 +51,9 @@ INSERT INTO `patients`
 CREATE TABLE `maladies_chroniques` (
   `patient` varchar(20) NOT NULL,
   `code_maladie` varchar(255) NOT NULL,
-  `date` date NOT NULL,
-  `medecin` varchar(255) DEFAULT NULL,
+  `date` timestamp NOT NULL,
+  `remarques` varchar(255) DEFAULT NULL,
+  `medecin` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -71,9 +72,9 @@ INSERT INTO `maladies_chroniques` (`patient`, `code_maladie`, `date`, `medecin`)
 CREATE TABLE `allergies` (
   `patient` varchar(20) NOT NULL,
   `code_allergene` varchar(255) NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL,
   `remarques` varchar(255) DEFAULT NULL,
-  `medecin` varchar(255) DEFAULT NULL,
+  `medecin` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -89,10 +90,10 @@ INSERT INTO `allergies`
 CREATE TABLE `antecedents` (
   `patient` varchar(20) NOT NULL,
   `designation` varchar(255) NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL,
   `type` varchar(255) DEFAULT NULL,
   `remarques` varchar(255) DEFAULT NULL,
-  `medecin` varchar(255) DEFAULT NULL,
+  `medecin` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -110,11 +111,10 @@ INSERT INTO `antecedents`
 CREATE TABLE `vaccinations` (
   `patient` varchar(20) NOT NULL,
   `code_vaccin` varchar(255) NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL,
   `remarques` varchar(255) DEFAULT NULL,
-  `nombre_de_doses` int(11) NOT NULL,
   `date_de_prochaine_dose` date DEFAULT NULL,
-  `medecin` varchar(255) DEFAULT NULL,
+  `medecin` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -123,5 +123,5 @@ CREATE TABLE `vaccinations` (
 -- Déchargement des données de la table `vaccinations`
 --
 
-INSERT INTO `vaccinations` (`patient`, `code_vaccin`, `date`, `remarques`, `nombre_de_doses`, `date_de_prochaine_dose`, `medecin` ) VALUES
-('100010364027390000', 'VAC0503', '2023-06-25', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', 2, '2023-06-30', '111111111111111111');
+INSERT INTO `vaccinations` (`patient`, `code_vaccin`, `date`, `remarques`, `date_de_prochaine_dose`, `medecin` ) VALUES
+('100010364027390000', 'VAC0503', '2023-06-25', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '2023-06-30', '111111111111111111');

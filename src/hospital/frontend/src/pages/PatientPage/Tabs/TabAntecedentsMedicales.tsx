@@ -7,6 +7,7 @@ import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterAntecedentMedical from "../Modals/AjouterAntecedentMedical";
 import moment from "moment";
+import { ajouter_antecedent } from "../../../hooks/usePatient";
 type Props = {
   NIN: string;
 };
@@ -48,7 +49,7 @@ function TabAntecedentsMedicales({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={antecedents_medicalesTableDefinition} query={antecedents_medicales} className="mt-2" />
-      <AjouterAntecedentMedical isOpen={openModal==="ajouter_antecedants_medicales"} action={() => null} close={()=>setOpenModal("")}/>
+      <AjouterAntecedentMedical isOpen={openModal==="ajouter_antecedants_medicales"} action={(a) => ajouter_antecedent(NIN, a, 'medical')} close={()=>setOpenModal("")}/>
     </>
   );
 }

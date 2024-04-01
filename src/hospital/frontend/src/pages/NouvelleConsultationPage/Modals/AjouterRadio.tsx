@@ -1,3 +1,4 @@
+import moment from "moment";
 import Select from "../../../components/Selects/Select";
 import Modal, { ModalThemes } from "../../../components/UI/Modal";
 import { useState } from "react";
@@ -11,11 +12,11 @@ type Props = {
 const theme = "primary"
 
 export default function AjouterRadio({isOpen, close, action}: Props) {
-    const [selectedRadiologie, setSelectedRadiologie] = useState<Partial<Radio>>({ code_radio: '', designation: '', remarques: '' })
+    const [selectedRadio, setSelectedRadio] = useState<Partial<Radio>>({ code_radio: '', designation: '', remarques: '', date: new Date() })
 
     function select_radiologie(radio : RadioCode) {
         if(radio)
-            setSelectedRadiologie({ ...selectedRadiologie, code_radio: radio.code_radio, designation: radio.designation })
+            setSelectedRadio({ ...selectedRadio, code_radio: radio.code_radio, designation: radio.designation })
     }
 
     return (
@@ -26,12 +27,15 @@ export default function AjouterRadio({isOpen, close, action}: Props) {
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Radio: </label>
                 <Select<RadioCode> url="radios" code="code_radio" designation="designation" className="col-span-4" placeholder="Radio" onChange={select_radiologie} />
 
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={moment(selectedRadio.date).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedRadio({...selectedRadio, date: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
+
                 <label className="font-semibold text-slate-700 text-sm col-span-2  self-start"> Remarques: </label>
-                <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedRadiologie.remarques} onChange={(e) => setSelectedRadiologie({ ...selectedRadiologie, remarques: e.target.value })}></textarea>
+                <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedRadio.remarques} onChange={(e) => setSelectedRadio({ ...selectedRadio, remarques: e.target.value })}></textarea>
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedRadiologie)}>Ajouter</button>
+                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedRadio)}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

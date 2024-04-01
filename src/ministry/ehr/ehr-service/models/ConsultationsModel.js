@@ -7,8 +7,14 @@ class ConsultationsModel {
     return results;
   }
 
+  async insert(id, patient, medecin, hopital, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, prochaine_consultation, duree_arret_de_travail){
+    await db.execute(
+      "INSERT INTO consultations(id, patient, medecin, hopital, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, prochaine_consultation, duree_arret_de_travail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [id, patient, medecin, hopital, new Date(date), type, motif, symptomes, resume, diagnostique, diagnostique_details, new Date(prochaine_consultation), duree_arret_de_travail ?? null]);
+  }
+
   async getByPatient(NIN) {
-    const [results] = await db.query("SELECT * FROM `consultations` WHERE `patient`=? ORDER BY `date_consultation` DESC", [NIN]);
+    const [results] = await db.query("SELECT * FROM `consultations` WHERE `patient`=? ORDER BY `date` DESC", [NIN]);
     return results;
   }
 

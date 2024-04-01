@@ -33,20 +33,6 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       );
     }
 
-    else if ((item as Consultation).date_consultation !== undefined){
-      let c = item as Consultation;
-      return (
-        <TimelineItem key={index} icon="fa fa-bell text-yellow-400" title={`Consultation ${c.id}`} date={c.date_consultation}>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {c.medecin.nom} {c.medecin.prenom} ({c.hopital})</p>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Motif: </span> {c.motif_consultation}</p>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Symptômes: </span> {c.symptomes}</p>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Résumé: </span> {c.resume_consultation}</p>
-          <p className="mb-0 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Diagnostique: </span> {c.diagnostique}</p>
-          <p className="mb-0 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Prochaine rendez-vous: </span> {moment(c.prochaine_consultation).format('DD/MM/YYYY')}</p>
-        </TimelineItem>
-      );
-    }
-
     else if ((item as Intervention).code_intervention !== undefined) {
       let i = item as Intervention;
       return (
@@ -56,6 +42,21 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
         </TimelineItem>
       );
     }
+
+    else if ((item as Consultation).date !== undefined){
+      let c = item as Consultation;
+      return (
+        <TimelineItem key={index} icon="fa fa-bell text-yellow-400" title={`Consultation ${c.id}`} date={c.date}>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {c.medecin.nom} {c.medecin.prenom} ({c.hopital})</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Motif: </span> {c.motif}</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Symptômes: </span> {c.symptomes}</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Résumé: </span> {c.resume}</p>
+          <p className="mb-0 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Diagnostique: </span> {c.diagnostique}</p>
+          <p className="mb-0 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Prochaine rendez-vous: </span> {c.prochaine_consultation? moment(c.prochaine_consultation).format('DD/MM/YYYY') : '-'}</p>
+        </TimelineItem>
+      );
+    }
+
   }
   
   return (

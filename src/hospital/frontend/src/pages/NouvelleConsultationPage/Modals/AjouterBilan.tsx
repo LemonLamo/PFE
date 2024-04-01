@@ -1,6 +1,7 @@
 import Modal, { ModalThemes } from "../../../components/UI/Modal";
 import { useState } from "react";
 import Select from "../../../components/Selects/Select";
+import moment from "moment";
 
 type Props = {
   isOpen: boolean,
@@ -11,7 +12,7 @@ type Props = {
 const theme = "primary"
 
 export default function AjouterBilan({isOpen, close, action}: Props) {
-    const [selectedBilan, setSelectedBilan] = useState<Partial<Bilan>>({ code_bilan: '', designation: '', remarques: '' })
+    const [selectedBilan, setSelectedBilan] = useState<Partial<Bilan>>({ code_bilan: '', designation: '', remarques: '', date: new Date() })
     function select_bilan(bilan : BilanCode) {
         if(bilan)
             setSelectedBilan({ ...selectedBilan, code_bilan: bilan.code_bilan, designation: bilan.designation })
@@ -24,6 +25,9 @@ export default function AjouterBilan({isOpen, close, action}: Props) {
             <div className="grid grid-cols-6 gap-2">
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Bilan: </label>
                 <Select<BilanCode> url="bilans" code="code_bilan" designation="designation" onChange={select_bilan} className="col-span-4" placeholder="Bilan" />
+
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={moment(selectedBilan.date).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedBilan({...selectedBilan, date: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedBilan.remarques} onChange={(e) => setSelectedBilan({ ...selectedBilan, remarques: e.target.value })}></textarea>

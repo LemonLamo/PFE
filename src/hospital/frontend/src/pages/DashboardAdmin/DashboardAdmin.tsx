@@ -1,7 +1,7 @@
-import Card from "../components/UI/Card";
+import Card from "../../components/UI/Card";
 import { Line, Pie, Bar } from "react-chartjs-2"
 import { Chart as ChartJS, CategoryScale,  LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import StatisticsCard from "../components/StatisticsCard";
+import StatisticsCard from "../../components/StatisticsCard";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, BarElement, Title, Tooltip, Legend );
 
 const MAIN_COLORS = ['rgb(255, 99, 132)', 'rgb(99, 132, 255)', 'rgb(99, 200, 132)', 'rgb(180, 15, 180)', 'rgb(240, 220, 0)']

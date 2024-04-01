@@ -22,7 +22,7 @@ export default function AjouterAntecedentMedical({isOpen, close, action}: Props)
                 <input type="text" className="primary col-span-4" placeholder="Designation" value={selectedAntecedentMedical.designation} onChange={(e) => setSelectedAntecedentMedical({...selectedAntecedentMedical, designation: e.target.value})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
-                <input type="date" className="primary col-span-4" placeholder="Date de naissance" value={moment(selectedAntecedentMedical.date).format("YYYY-MM-DD")} onChange={(e) => setSelectedAntecedentMedical({...selectedAntecedentMedical, date: moment(e.target.value, "YYYY-MM-DD").toDate()})}/>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={moment(selectedAntecedentMedical.date).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedAntecedentMedical({...selectedAntecedentMedical, date: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedAntecedentMedical.remarques} onChange={(e) => setSelectedAntecedentMedical({...selectedAntecedentMedical, remarques: e.target.value})}/>

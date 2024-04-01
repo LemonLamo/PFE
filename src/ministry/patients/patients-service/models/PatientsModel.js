@@ -51,8 +51,34 @@ class PatientsModel{
     }
 
     async selectByNINs (NINs){
-        const [results] = await db.query('SELECT `NIN`, `nom`, `prenom` FROM `patients` WHERE `NIN` IN (?)', [NINs]);
+        const [results] = await db.query('SELECT `NIN`, `nom`, `prenom`, `date_de_naissance`, `sexe` FROM `patients` WHERE `NIN` IN (?)', [NINs]);
         return results
+    }
+
+    async insertMaladieChronique(NIN, code_maladie, date, remarques, medecin){
+        console.log(NIN, code_maladie, date, remarques, medecin)
+        await db.execute("INSERT INTO maladies_chroniques (`patient`, `code_maladie`, `date`, `remarques`, `medecin`) VALUES (?, ?, ?, ?, ?)",
+            [NIN, code_maladie, new Date(date), remarques ?? null, medecin]);
+    }
+
+    async insertAllergie(NIN, code_allergene, date, remarques, medecin){
+        await db.execute("INSERT INTO allergies (`patient`, `code_allergene`, `date`, `remarques`, `medecin`) VALUES (?, ?, ?, ?, ?)",
+            [NIN, code_allergene, new Date(date), remarques ?? null, medecin]);
+    }
+
+    async insertAntecedentMedical(NIN, designation, date, remarques, medecin){
+        await db.execute("INSERT INTO antecedents (`patient`, `designation`, `date`, `remarques`, `type`, `medecin`) VALUES (?, ?, ?, ?, ?, ?)",
+            [NIN, designation, new Date(date), remarques ?? null, 'medical', medecin]);
+    }
+
+    async insertAntecedentFamilial(NIN, designation, date, remarques, medecin){
+        await db.execute("INSERT INTO antecedents (`patient`, `designation`, `date`, `remarques`, `type`, `medecin`) VALUES (?, ?, ?, ?, ?, ?)",
+            [NIN, designation, new Date(date), remarques ?? null, 'familial', medecin]);
+    }
+
+    async insertVaccination(NIN, code_vaccin, date, remarques, date_de_prochaine_dose, medecin){
+        await db.execute("INSERT INTO vaccinations (`patient`, `code_vaccin`, `date`, `remarques`, `date_de_prochaine_dose`, `medecin`) VALUES (?, ?, ?, ?, ?, ?)",
+            [NIN, code_vaccin, new Date(date), remarques ?? null, date_de_prochaine_dose? new Date(date_de_prochaine_dose) : null, medecin]);
     }
 }
 module.exports = new PatientsModel();

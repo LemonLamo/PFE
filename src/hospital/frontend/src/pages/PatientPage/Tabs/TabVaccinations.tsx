@@ -7,6 +7,7 @@ import moment from "moment";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterVaccaination from "../Modals/AjouterVaccaination";
+import { ajouter_vaccination } from "../../../hooks/usePatient";
 type Props = {
   NIN: string;
 };
@@ -28,12 +29,7 @@ function TabVaccinations({ NIN }: Props) {
       { header: "Désignation", accessorKey: "designation" },
       { header: "Date", id: "date", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm") },
       { header: "Remarques", accessorKey: "remarques" },
-      { header: "Nombre de doses", accessorKey: "nombre_de_doses" },
-      { header: "Prochaine dose", id: "date_de_prochaine_dose", cell: (info) =>
-          moment(info.row.original.date_de_prochaine_dose).format(
-            "DD/MM/YYYY HH:mm"
-          ),
-      },
+      { header: "Prochaine dose", id: "date_de_prochaine_dose", cell: (info) => moment(info.row.original.date_de_prochaine_dose).format("DD/MM/YYYY HH:mm"),},
     ],
     []
   ) as ColumnDef<Vaccination>[];
@@ -54,7 +50,7 @@ function TabVaccinations({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={vaccinationsTableDefinition} query={vaccinations} className="mt-2"/>
-      <AjouterVaccaination isOpen={openModal==="ajouter_vaccinations"} close={()=>setOpenModal("")}/>
+      <AjouterVaccaination isOpen={openModal==="ajouter_vaccinations"} action={(v) => ajouter_vaccination(NIN, v)} close={()=>setOpenModal("")}/>
     </>
   );
 }

@@ -3,13 +3,13 @@ import { baseURL } from "../config";
 
 export async function createPersonnel(personnel : Personnel) {
   console.log(personnel)
-    try {
-      await axios.post(`${baseURL}/api/personnel`, personnel);
-      //window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    await axios.post(`${baseURL}/api/personnel`, personnel);
+    //window.location.reload();
+  } catch (error) {
+    console.log(error);
   }
+}
 
 export async function editPersonnel(personnel : Personnel) {
   console.log(personnel)
