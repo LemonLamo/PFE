@@ -4,10 +4,10 @@ class PatientsModel{
     validationRules = {
 
     }
-    async insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, groupage, taille, poids, donneur_organe) {
+    async insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe) {
         await db.execute(
-            "INSERT INTO patients (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`,`telephone`, `adresse`, `code_postale`, `commune`, `wilaya`, `groupage`, `taille`, `poids`, `donneur_organe`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            [NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, groupage, taille, poids, donneur_organe]
+            "INSERT INTO patients (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`, `telephone`, `adresse`, `commune`, `code_postale`, `wilaya`, `groupage`, `taille`, `poids`, `donneur_organe`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            [NIN, nom, prenom, new Date(date_de_naissance), lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe]
         );
     }
     async select(search) {

@@ -44,11 +44,10 @@ function MesPatientsPage() {
           );
         },
       },
+      { header: "Sexe", accessorKey: "sexe" },
       { header: "Date et lieu de naissance", id: "date_lieu_naissance",cell: (info) => (<> {moment(info.row.original.date_de_naissance).format("DD/MM/YYYY")}, {info.row.original.lieu_de_naissance}</>) },
       { header: "Email", accessorKey: "email" },
       { header: "Telephone", accessorKey: "telephone" },
-      { header: "Dernier rendez-vous", id: "dernier_rdv",cell: () => "16/03/2024" },
-      { header: "Prochain rendez-vous", id: "prochain_rdv", cell: () => "20/03/2024",},
       { header: "", id: "actions", cell: (info) => {
           const a = info.row.original;
           return (

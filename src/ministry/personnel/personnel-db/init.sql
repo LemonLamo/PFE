@@ -39,4 +39,4 @@ CREATE TABLE `personnel` (
 INSERT INTO `personnel` (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `email`, 
 `telephone`, `fonction`, `specialite`, `grade`, `adresse`, `code_postale`, `commune`, `wilaya`, `hopital`, `service`) VALUES
 ('100010364027390000', 'BRAHIM', 'Abderrazak', '2001-07-13', 'Tebessa', 'Homme', 'brahim.abderrazak1307@gmail.com', '+213549297666', 'Medécin', 'Cardiologie', 'Chef de service', 'Cité 18 logements, de E.S.B', 16032, 'Bouzareah','Alger', 'CHU Beni Messous', 'Cardiologie'),
-('111111111111111111', 'NADIL', 'Marwa', '2002-05-12', 'Alger', 'Femme', 'marwa02@gmail.com', '+213549297665', 'Infirmier', NULL, NULL, 'Cité 15 logements, Mouhouss', 16042, 'Bordj el kiffane','Alger', 'CHU Mustapha', 'Radiologie');
+('111111111111111111', 'NADIL', 'Marwa', '2002-05-12', 'Alger', 'Femme', 'marwa02@gmail.com', '+213549297665', 'Infirmier', NULL, NULL, 'Cité 15 logements, Mouhouss', 16042, 'Bordj el kiffane','Alger', 'CHU Beni Messous', 'Radiologie');

@@ -3,12 +3,14 @@ import user from '../../assets/user.svg'
 import NotificationDropdown from './NotificationDropdown';
 import { logout } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import * as useAuth from '../../hooks/useAuth'
+import { useContext } from 'react';
+import AuthContext from '../../hooks/AuthContext';
 type HeaderProps = {
     setOpen: () => void
 }
 
 function Header({ setOpen } : HeaderProps) {
+    const auth = useContext(AuthContext)
     const navigate = useNavigate()
 
     return <nav className="pr-2 relative flex bg-white flex-wrap items-center justify-between py-2 transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start">
@@ -18,7 +20,7 @@ function Header({ setOpen } : HeaderProps) {
                     <span className="capitalize leading-normal text-slate-700">
                         Bonjour,{" "}
                         <span className="mb-0 font-bold capitalize">
-                            { useAuth.getJWTContent()?.prenom ?? "undefined" }
+                            { auth?.prenom ?? "undefined" }
                         </span>
                     </span>
                 </div>
@@ -26,7 +28,7 @@ function Header({ setOpen } : HeaderProps) {
                     <span className="text-sm capitalize leading-normal text-slate-700">
                         Service:{" "}
                         <span className="mb-0 font-bold capitalize">
-                            { useAuth.getJWTContent()?.service ?? "undefined" }
+                            { auth?.service ?? "undefined" }
                         </span>
                     </span>
                 </div>

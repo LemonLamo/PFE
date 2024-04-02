@@ -2,11 +2,11 @@ import moment from "moment";
 
 type Props = {
   title: string,
-  subtitle: string,
-  start: Date
+  subtitle:string,
+  start: Date,
 }
 
-function RdvCard({ title, subtitle, start } : Props) {
+function RdvCard({title, subtitle, start} : Props) {
   return (
     <li className="flex justify-between gap-x-3 mb-0">
       <img

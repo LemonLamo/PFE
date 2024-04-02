@@ -2,8 +2,9 @@ const Model = require("../models/ConsultationsModel");
 const PrescriptionsModel = require("../models/PrescriptionsModel");
 const BilansModel = require("../models/BilansModel");
 const RadiosModel = require("../models/RadiosModel");
-const { genID } = require("../utils");
 const ExamensCliniquesModel = require("../models/ExamensCliniquesModel");
+const { genID } = require("../utils");
+const { fetchPatients } = require("../utils/communication");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -15,6 +16,11 @@ class ConsultationsController {
       return res.status(200).json(result);
     }
     return res.status(400).json({ errorCode: "", errorMessage: "" });
+  }
+  async selectByMedecin(req, res) {
+    const consultations = await Model.getActiveByMedecin(req.jwt.NIN);
+    const result = await fetchPatients(consultations);
+    return res.status(200).json(result);
   }
   async insert(req, res) {
     const id = genID();
@@ -111,6 +117,17 @@ class ConsultationsController {
     const { id } = req.params;
     const result = await Model.getExamensCliniques(id);
     return res.status(200).json(result);
+  }
+  async selectCount(req, res){
+    const { hopital, medecin } = req.query;
+    if(hopital && medecin){
+      const result = await Model.countByMedecin(hopital, medecin);
+      return res.status(200).json(result);
+    }else if(hopital){
+      const result = await Model.countByHopital(hopital);
+      return res.status(200).json(result);
+    }
+    return res.status(403).json({});
   }
 }
 

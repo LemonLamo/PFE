@@ -58,6 +58,27 @@ class PersonnelController {
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
+  async selectCount(req, res){
+    const { hopital, service } = req.query;
+    if(hopital && service){
+      const result = await Model.countByService(hopital, service);
+      return res.status(200).json(result);
+    }else if(hopital){
+      const result = await Model.countByHopital(hopital);
+      return res.status(200).json(result);
+    }
+    return res.status(403).json({});
+  }
+  async selectCountGroupBySexe(req, res){
+    const { hopital } = req.jwt;
+    const result = await Model.countGroupBySexe(hopital);
+    return res.status(200).json(result);
+  }
+  async selectCountGroupByService(req, res){
+    const { hopital } = req.jwt;
+    const result = await Model.countGroupByService(hopital);
+    return res.status(200).json(result);
+  }
 }
 
 module.exports = new PersonnelController();

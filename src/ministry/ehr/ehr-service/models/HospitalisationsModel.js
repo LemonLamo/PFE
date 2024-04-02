@@ -7,6 +7,11 @@ class ConsultationsModel {
     return results;
   }
 
+  async getOne(id) {
+    const [results] = await db.query("SELECT * FROM `hospitalisations` WHERE `id`=?", [id]);
+    return results;
+  }
+
   async getByPatient(NIN) {
     const [results] = await db.query(
       "SELECT * FROM `hospitalisations` WHERE `patient`=? ORDER BY `date_entree` DESC",
@@ -33,12 +38,10 @@ class ConsultationsModel {
     motif_hospitalisation,
     chambre,
     lit,
-    date_sortie,
-    mode_sortie,
     resume_hospitalisation
   ) {
     await db.execute(
-      "INSERT INTO hospitalisations(id, patient, medecin, hopital, date_entree, mode_entree, motif_hospitalisation, chambre, lit, date_sortie, mode_sortie, resume_hospitalisation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO hospitalisations(id, patient, medecin, hopital, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         id,
         patient,
@@ -49,11 +52,19 @@ class ConsultationsModel {
         motif_hospitalisation,
         chambre,
         lit,
-        new Date(date_sortie),
-        mode_sortie,
-        resume_hospitalisation,
+        resume_hospitalisation ?? null,
       ]
     );
+  }
+  
+  async countByHopital(hopital){
+    const [results] = await db.query("SELECT COUNT(*) AS count FROM `hospitalisations` WHERE `hopital`=?", [hopital]);
+    return results[0];
+  }
+
+  async countByMedecin(hopital, medecin){
+    const [results] = await db.query("SELECT COUNT(*) AS count FROM `hospitalisations` WHERE `hopital`=? AND `medecin`=?", [hopital, medecin]);
+    return results[0];
   }
 }
 

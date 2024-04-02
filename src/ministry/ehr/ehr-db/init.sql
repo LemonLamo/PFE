@@ -23,13 +23,14 @@ CREATE TABLE `consultations` (
   `diagnostique` VARCHAR(255) NOT NULL,
   `diagnostique_details` VARCHAR(255) DEFAULT NULL,
   `prochaine_consultation` TIMESTAMP NULL,
+  `duree_arret_de_travail` int(11) NULL,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `consultations` (`id`, `patient`, `medecin`, `hopital`, `date`, `type`, `motif`, `symptomes`, `resume`, `diagnostique`, `diagnostique_details`) VALUES
-('cons-XNDHDBZ', '100010364027390000', '111111111111111111', 'CHU Beni Messous', '2023-02-17', 'Evaluation de nouveau patient', 'Symptôme', 'Fièvre, Frissons, Toux sèche, Mal de gorge', "Le patient s'est présenté avec des symptômes typiques de la grippe, notamment de la fièvre, des frissons, une toux sèche, un mal de gorge, un nez qui coule ou congestionné, des courbatures, de la fatigue et des maux de tête. Il n'y a pas d'antécédents de voyage récent ou de contact avec des personnes malades. Le patient rapporte que les symptômes ont commencé il ya 5 semaines", 'H1N1 - Influenza A', '-'),
-('cons-QULJ7WZ', '100010364027390000', '222222222222222222', 'CHU Beni Messous', '2024-03-17', 'Evaluation de nouveau patient', 'Symptôme', 'Fatigue, Maux de tête occasionnels, Légère fièvre', "Le patient s'est présenté avec des symptômes typiques de l'allergie saisonnière", 'A2N1 - Allergie saisonnière', '-');
+('cons-XNDHDBZ', '100010364027390000', '100010364027390000', 'CHU Beni Messous', '2023-02-17', 'Evaluation de nouveau patient', 'Symptôme', 'Fièvre, Frissons, Toux sèche, Mal de gorge', "Le patient s'est présenté avec des symptômes typiques de la grippe, notamment de la fièvre, des frissons, une toux sèche, un mal de gorge, un nez qui coule ou congestionné, des courbatures, de la fatigue et des maux de tête. Il n'y a pas d'antécédents de voyage récent ou de contact avec des personnes malades. Le patient rapporte que les symptômes ont commencé il ya 5 semaines", 'H1N1 - Influenza A', '-'),
+('cons-QULJ7WZ', '100010364027390000', '100010364027390000', 'CHU Beni Messous', '2024-03-17', 'Evaluation de nouveau patient', 'Symptôme', 'Fatigue, Maux de tête occasionnels, Légère fièvre', "Le patient s'est présenté avec des symptômes typiques de l'allergie saisonnière", 'A2N1 - Allergie saisonnière', '-');
 
 -- --------------------------------------------------------
 --
@@ -74,7 +75,7 @@ CREATE TABLE `interventions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `interventions` (`id`, `code_intervention`, `patient`, `medecin`, `hopital`, `date`, `remarques`, `protocole_operatoire`) VALUES
-('interv-XNDHDBZ', '03120Z0', '100010364027390000', '111111111111111111', 'CHU Beni Messous', '2023-02-18', '-', 'Idk');
+('interv-XNDHDBZ', '03120Z0', '100010364027390000', '100010364027390000', 'CHU Beni Messous', '2024-02-18', '-', 'Idk');
 
 -- --------------------------------------------------------
 --
@@ -173,5 +174,5 @@ CREATE TABLE `soins` (
 --
 
 INSERT INTO `soins` (`id`, `patient`, `medecin`, `infirmier`, `hospitalisation`, `hopital`, `acte`, `date_soin`, `details`) VALUES
-('soin-15830', '100010364027390000', '100010364027390000', '111111111111111111', 'hos-25831','CHU Beni Messous' ,'Injection', '2023-02-17', 'XXXXX-details-XXXXX' ),
-('soin-15831', '111111111111111111', '100010364027390000', '111111111111111111', NULL,'CHU Mustapha Bacha' ,'Injection', '2023-02-17', 'XXXXX-details-XXXXX' );
+('soin-PZR37CU', '100010364027390000', '100010364027390000', '111111111111111111', 'hos-25831','CHU Beni Messous' ,'Injection', '2023-02-17', 'XXXXX-details-XXXXX' ),
+('soin-QULJ7WZ', '111111111111111111', '100010364027390000', '111111111111111111', NULL,'CHU Mustapha Bacha' ,'Injection', '2023-02-17', 'XXXXX-details-XXXXX' );

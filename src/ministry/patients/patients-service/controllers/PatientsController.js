@@ -5,9 +5,27 @@ const { fetchMaladies, fetchAllergies, fetchVaccinations } = require("../utils/c
 
 class PatientsController{
   async insert(req, res) {
-    let { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, code_postale, commune, wilaya, groupage, taille, poids, donneur_organe } = req.body;
+    const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe } = req.body;
+    const { maladies_chroniques, allergies, antecedents_medicaux, antecedents_familiaux} = req.body
+
+    const result = await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe);
+    if(maladies_chroniques)
+      for(let maladie of maladies_chroniques)
+        Model.insertMaladieChronique(NIN, maladie.code_maladie, maladie.date, maladie.remarques, req.jwt.NIN)
+    
+    if(allergies)
+      for(let allergie of allergies)
+        Model.insertAllergie(NIN, allergie.code_allergene, allergie.date, allergie.remarques, req.jwt.NIN)
+    
+    if(antecedents_medicaux)
+      for(let antecedent_medical of antecedents_medicaux)
+        Model.insertAntecedentMedical(NIN, antecedent_medical.designation, antecedent_medical.date, antecedent_medical.remarques, req.jwt.NIN)
+    
+    if(antecedents_familiaux)
+      for(let antecedent_familial of antecedents_familiaux)
+        Model.insertAntecedentFamilial(NIN, antecedent_familial.designation, antecedent_familial.date, antecedent_familial.remarques, req.jwt.NIN)
+
     // TODO: Send (NIN, email, role) to auth-service to create an account.
-    const result = await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, code_postale, commune, wilaya, groupage, taille, poids, donneur_organe);
     return res.status(200).json(result);
   }
   async getAll(req, res) {

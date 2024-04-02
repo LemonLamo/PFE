@@ -28,7 +28,7 @@ const auth = require("./middlewares/auth");
 const logger = require("./utils/logger")
 const PatientsController = require("./controllers/PatientsController");
 
-app.post("/api/patients", PatientsController.insert);
+app.post("/api/patients", auth.requireAuth, PatientsController.insert);
 app.get("/api/patients", PatientsController.getAll);
 app.get("/api/patients/:NIN", PatientsController.getOne);
 app.get("/api/patients/:NIN/historique", PatientsController.getHistorique);

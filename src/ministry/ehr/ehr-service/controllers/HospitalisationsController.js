@@ -1,5 +1,6 @@
-const axios = require("axios");
 const Model = require("../models/HospitalisationsModel");
+const { genID } = require("../utils");
+const { fetchPatients } = require("../utils/communication");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -12,22 +13,14 @@ class HospitalisationsController {
     }
     return res.status(400).json({ errorCode: "", errorMessage: "" });
   }
+  async selectOne(req, res) {
+    const { id } = req.params;
+    const result = await Model.getOne(id);
+    return res.status(200).json(result);
+  }
   async selectByMedecin(req, res) {
     const hospitalisations = await Model.getActiveByMedecin(req.jwt.NIN);
-    const NINs = hospitalisations.map((x) => x.patient);
-    const patients = (
-      await axios.post("http://patients-service/private/patientsByNINs", {
-        NINs: NINs,
-      })
-    ).data;
-
-    const patientsMap = new Map();
-    patients.map((x) => patientsMap.set(x.NIN, { ...x }));
-
-    const result = hospitalisations.map((x, i) => ({
-      ...x,
-      patient: patientsMap.get(x.patient),
-    }));
+    const result = await fetchPatients(hospitalisations);
     return res.status(200).json(result);
   }
 
@@ -53,11 +46,20 @@ class HospitalisationsController {
       motif_hospitalisation,
       chambre,
       lit,
-      date_sortie,
-      mode_sortie,
       resume_hospitalisation
     );
     return res.status(200).json({ success: true });
+  }
+  async selectCount(req, res){
+    const { hopital, medecin } = req.query;
+    if(hopital && medecin){
+      const result = await Model.countByMedecin(hopital, medecin);
+      return res.status(200).json(result);
+    }else if(hopital){
+      const result = await Model.countByHopital(hopital);
+      return res.status(200).json(result);
+    }
+    return res.status(403).json({});
   }
 }
 

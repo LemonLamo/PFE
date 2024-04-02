@@ -31,6 +31,9 @@ const logger = require("./utils/logger");
 app.get("/api/personnel", PersonnelController.getAll);
 app.post("/api/personnel", PersonnelController.insert);
 app.put("/api/personnel", PersonnelController.update);
+app.get("/api/personnel/count", PersonnelController.selectCount);
+app.get("/api/personnel/countBySexe", auth.requireAuth, PersonnelController.selectCountGroupBySexe);
+app.get("/api/personnel/countByService", auth.requireAuth, PersonnelController.selectCountGroupByService);
 app.get("/api/personnel/:NIN", PersonnelController.getOne);
 app.delete("/api/personnel/:NIN", PersonnelController.remove);
 

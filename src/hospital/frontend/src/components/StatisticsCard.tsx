@@ -16,7 +16,7 @@ function StatisticsCard({title, icon, children} : Props) {
                 
             </div>
             <div className="px-3 text-right">
-                <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
+                <div className="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-cyan-400 to-blue-400">
                     <i className={`${icon} text-2xl relative top-2 text-white`}></i>
                 </div>
             </div>

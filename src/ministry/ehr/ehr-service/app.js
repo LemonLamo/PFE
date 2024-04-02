@@ -35,16 +35,20 @@ const PrescriptionsController = require("./controllers/PrescriptionsController")
 const RadiosController = require("./controllers/RadiosController");
 const BilansController = require("./controllers/BilansController");
 const SoinsController = require("./controllers/SoinsController");
+const StatisticsService = require("./controllers/StatisticsService");
+
+// TODO: rework the names of these
+app.get("/api/ehr/statistics", StatisticsService.timeline);
+app.get("/api/ehr/medecin/consultations", auth.requireAuth, ConsultationsController.selectByMedecin);
+app.get("/api/ehr/medecin/hospitalisations", auth.requireAuth, HospitalisationsController.selectByMedecin);
+app.get("/api/ehr/medecin/interventions", auth.requireAuth, InterventionsController.selectByMedecin);
 
 // Consultations
 app.get("/api/ehr/consultations", ConsultationsController.select);
-app.post(
-  "/api/ehr/consultations",
-  auth.requireAuth,
-  ConsultationsController.insert
-);
+app.get("/api/ehr/consultations/count", ConsultationsController.selectCount);
+app.post("/api/ehr/consultations",auth.requireAuth, ConsultationsController.insert);
 app.get("/api/ehr/consultations/:id", ConsultationsController.selectOne);
-//app.get('/api/ehr/consultations/:id/examens-cliniques', ConsultationsController.selectExamensCliniques);
+app.get('/api/ehr/consultations/:id/examens-cliniques', ConsultationsController.selectExamensCliniques);
 
 // Prescriptions
 app.get("/api/ehr/prescriptions", PrescriptionsController.select);
@@ -57,21 +61,14 @@ app.get("/api/ehr/bilans", BilansController.select);
 
 // Hospitalisations
 app.get("/api/ehr/hospitalisations", HospitalisationsController.select);
-//app.get('/api/ehr/hospitalisations/:id', HospitalisationsController.selectOne);
-app.get(
-  "/api/ehr/medecin/hospitalisations",
-  auth.requireAuth,
-  HospitalisationsController.selectByMedecin
-);
-app.post(
-  "/api/ehr/hospitalisations",
-  auth.requireAuth,
-  HospitalisationsController.insert
-);
+app.get("/api/ehr/hospitalisations/count", HospitalisationsController.selectCount);
+app.get('/api/ehr/hospitalisations/:id', HospitalisationsController.selectOne);
+app.post("/api/ehr/hospitalisations", auth.requireAuth, HospitalisationsController.insert);
 
 // Interventions
 app.get("/api/ehr/interventions", InterventionsController.select);
-//app.get('/api/ehr/interventions/:id', InterventionsController.selectOne);
+app.get("/api/ehr/interventions/count", InterventionsController.selectCount);
+app.get('/api/ehr/interventions/:id', InterventionsController.selectOne);
 
 // Soins
 app.get("/api/soins", SoinsController.getAll);
