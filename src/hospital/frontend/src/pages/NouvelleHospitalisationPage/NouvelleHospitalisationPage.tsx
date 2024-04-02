@@ -57,7 +57,7 @@ function NouvelleHospitalisationPage() {
       {!validPatient && (
         <Card
           title="Choisir un patient?"
-          subtitle="Pick a patient, any patient"
+          subtitle="Veuillez sélectionner un patient"
           className="w-full max-w-[500px]"
         >
           <div className="flex w-inherit">
