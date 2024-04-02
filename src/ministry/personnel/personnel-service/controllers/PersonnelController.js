@@ -24,26 +24,28 @@ class PersonnelController {
     }
   }
   async insert(req, res) {
-    let { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service } = req.body;
-    date_de_naissance = new Date(date_de_naissance).toISOString().slice(0,19).replace('T', '');
+    const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, service } = req.body;
+    const { hopital } = req.jwt
     // TODO: Send (NIN, email) to auth-service to create an account.
 
     try {
-      await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service );
+      await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service );
       return res.status(200).json({ success: true });
     } catch (err) {
-      logger.error("database-error: " + err.code);
+      logger.error("database-error: " + err);
       return res .status(400) .json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 
   async update(req, res) {
-    const { NIN, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service, } = req.body;
+    const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, service } = req.body;
+    const { hopital } = req.jwt
+
     try {
-      await Model.update( NIN, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service );
+      await Model.update( NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service );
       return res.status(200).json({ success: true });
     } catch (err) {
-      logger.error("database-error: " + err.code);
+      logger.error("database-error: " + err);
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }

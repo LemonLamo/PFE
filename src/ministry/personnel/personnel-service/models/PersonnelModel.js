@@ -16,17 +16,17 @@ class PersonnelModel {
     return results[0];
   }
 
-  async insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service) {
+  async insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service) {
     await db.execute(
-      "INSERT INTO personnel(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email,telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service]
+      "INSERT INTO personnel(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email,telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [NIN, nom, prenom, new Date(date_de_naissance), lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service]
     );
   }
 
-  async update(NIN, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service) {
+  async update(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service) {
     await db.query(
-      "UPDATE personnel SET email=?, telephone=? , fonction=?, specialite=?, grade=?, adresse=?, code_postale=?, commune=?, wilaya=?, nom_hopital=?, service=? WHERE NIN=?",
-      [email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, nom_hopital, service, NIN]
+      "UPDATE personnel SET nom=?, prenom=?, date_de_naissance=?, lieu_de_naissance=?, sexe=?, email=?, telephone=? , fonction=?, specialite=?, grade=?, adresse=?, code_postale=?, commune=?, wilaya=?, hopital=?, service=? WHERE NIN=?",
+      [nom, prenom, new Date(date_de_naissance), lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service, NIN]
     );
   }
 
