@@ -24,7 +24,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
     <Modal isOpen={isOpen} icon="fa fa-user" theme={theme} size="sm:max-w-5xl">
       <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
         {" "}
-        Créer une Personnel{" "}
+        Créer un Personnel{" "}
       </h3>
       <p className="text-gray-600">
         {" "}
@@ -140,10 +140,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
             />
           </div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">
-              {" "}
-              Numero de téléphone{" "}
-            </label>
+            <label className="text-sm font-semibold">Numero de téléphone</label>
             <input
               type="tel"
               className="primary"

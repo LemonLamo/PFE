@@ -15,7 +15,25 @@ import EditPersonnelModal from "./EditPersonnelModal";
 import DeletePersonnelModal from "./DeletePersonnelModal";
 
 function PersonnelPage() {
-  const [selectedPersonnel, setSelectedPersonnel] = useState<Personnel>({NIN: "", nom: "", prenom: "", date_de_naissance: new Date(), lieu_de_naissance: "", sexe: "", email: "", telephone: "", fonction: "", specialite: "", grade: "", adresse: "", code_postale: 0, commune: "", wilaya: "", hopital: "", service: "", });
+  const [selectedPersonnel, setSelectedPersonnel] = useState<Personnel>({
+    NIN: "",
+    nom: "",
+    prenom: "",
+    date_de_naissance: new Date(),
+    lieu_de_naissance: "",
+    sexe: "",
+    email: "",
+    telephone: "",
+    fonction: "",
+    specialite: "",
+    grade: "",
+    adresse: "",
+    code_postale: 0,
+    commune: "",
+    wilaya: "",
+    hopital: "",
+    service: "",
+  });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery({
     queryKey: ["personnel"],
@@ -27,7 +45,10 @@ function PersonnelPage() {
 
   const tableDefinition = useMemo(
     () => [
-      { header: "Profile", id: "profile", cell: (info) => {
+      {
+        header: "Profile",
+        id: "profile",
+        cell: (info) => {
           const p = info.row.original;
           return (
             <div className="flex w-68">
@@ -51,13 +72,31 @@ function PersonnelPage() {
       { header: "Grade", accessorKey: "grade" },
       { header: "Email", accessorKey: "email" },
       { header: "Telephone", accessorKey: "telephone" },
-      { header: "", id: "actions", cell: (info) => {
+      {
+        header: "",
+        id: "actions",
+        cell: (info) => {
           const a = info.row.original;
           return (
             <div className="flex justify-end gap-2">
-              <ViewButton onClick={() => { setSelectedPersonnel(a); setOpenModal("view"); }} />
-              <EditButton onClick={() => { setSelectedPersonnel(a); setOpenModal("edit"); }} />
-              <DeleteButton onClick={() => { setSelectedPersonnel(a); setOpenModal("delete"); }}/>
+              <ViewButton
+                onClick={() => {
+                  setSelectedPersonnel(a);
+                  setOpenModal("view");
+                }}
+              />
+              <EditButton
+                onClick={() => {
+                  setSelectedPersonnel(a);
+                  setOpenModal("edit");
+                }}
+              />
+              <DeleteButton
+                onClick={() => {
+                  setSelectedPersonnel(a);
+                  setOpenModal("delete");
+                }}
+              />
             </div>
           );
         },
@@ -76,11 +115,30 @@ function PersonnelPage() {
   return (
     <>
       <Card title="Personnel" action={action} className="w-full">
-        <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
-        <CreatePersonnelModal isOpen={openModal==="create"} close={() => setOpenModal("")} />
-        <ViewPersonnelModal isOpen={openModal==="view"} close={() => setOpenModal("")} selectedPersonnel={selectedPersonnel}/>
-        <EditPersonnelModal isOpen={openModal==="edit"} close={() => setOpenModal("")} selectedPersonnel={selectedPersonnel}/>
-        <DeletePersonnelModal isOpen={openModal==="delete"} close={() => setOpenModal("")} selectedPersonnel={selectedPersonnel}/>
+        <DataTable
+          tableDefinition={tableDefinition}
+          query={query}
+          className="mt-2"
+        />
+        <CreatePersonnelModal
+          isOpen={openModal === "create"}
+          close={() => setOpenModal("")}
+        />
+        <ViewPersonnelModal
+          isOpen={openModal === "view"}
+          close={() => setOpenModal("")}
+          selectedPersonnel={selectedPersonnel}
+        />
+        <EditPersonnelModal
+          isOpen={openModal === "edit"}
+          close={() => setOpenModal("")}
+          selectedPersonnel={selectedPersonnel}
+        />
+        <DeletePersonnelModal
+          isOpen={openModal === "delete"}
+          close={() => setOpenModal("")}
+          selectedPersonnel={selectedPersonnel}
+        />
       </Card>
     </>
   );
