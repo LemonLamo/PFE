@@ -22,6 +22,7 @@ CREATE TABLE `soins` (
   `details` VARCHAR(255),
   `fait` tinyint(1) DEFAULT 0,
   `date_fait` TIMESTAMP,
+  `details_fait` VARCHAR(255) ,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

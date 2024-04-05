@@ -19,8 +19,8 @@ class SoinsModel {
       [id, patient, medecin, infirmier, hospitalisation, hopital, acte, date_soin, details]);
   }
 
-  async executer(id) {
-    await db.execute("UPDATE soins SET fait=1, date_fait=NOW() WHERE id=?", [id]);
+  async executer(id, remarque) {
+    await db.execute("UPDATE soins SET fait=1, date_fait=NOW(), details_fait=? WHERE id=?", [remarque, id]);
   }
 }
 

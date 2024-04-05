@@ -37,13 +37,15 @@ class ChambresController {
     }
   }
   async insert(req, res) {
-    const { num, etage, description, nombre_lits } =
-      req.body;
+    const { num, etage, description, nombre_lits } = req.body;
+    const { lits } = req.body;
     try {
+      const insertLits = lits.map((lit, i) => Model.insertLit(i, num, lit.type, lit.remarques))
       await Model.insert(num, etage, description, nombre_lits);
+      await Promise.all(insertLits);
       return res.status(200).json({ success: true });
     } catch (err) {
-      logger.error("database-error: " + err.code);
+      logger.error("database-error: " + err);
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });

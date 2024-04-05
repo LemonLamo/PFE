@@ -49,9 +49,9 @@ class SoinsController {
   }
 
   async executer(req, res) {
-    const { id } = req.params;
+    const { id, remarque } = req.params;
     try {
-      await Model.executer(id);
+      await Model.executer(id, remarque);
       return res.status(200).json({ success: true });
     } catch (err) {
       logger.error("database-error: " + err);

@@ -25,7 +25,11 @@ class ChambresService {
   }
 
   async insert(num, etage, description, nombre_lits) {
-    await db.execute("INSERT INTO chambres(num, etage, description, nombre_lits, nombre_lits_occupe) VALUES (?, ?, ?, ?, 0)", [num, etage, description, nombre_lits]);
+    await db.execute("INSERT INTO chambres(num, etage, description, nombre_lits, nombre_lits_occupe) VALUES (?, ?, ?, ?, 0)", [num, etage, description ?? null, nombre_lits]);
+  }
+  
+  async insertLit(num, numChambre, type, remarques) {
+    await db.execute("INSERT INTO lits(num, numChambre, type, remarques) VALUES (?, ?, ?, ?)", [num, numChambre, type, remarques ?? null]);
   }
 
   async update(num, etage, nombre_lits, description) {

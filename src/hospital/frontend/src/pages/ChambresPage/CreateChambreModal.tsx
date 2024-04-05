@@ -3,7 +3,7 @@ import Modal, { ModalThemes } from "../../components/UI/Modal";
 import Table from "../../components/UI/Tables/Table";
 import TableCell from "../../components/UI/Tables/TableCell";
 import TableRow from "../../components/UI/Tables/TableRow";
-import { createChambre } from "../../hooks/useChambres";
+import { lits_types, createChambre } from "../../hooks/useChambres";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -76,16 +76,15 @@ export default function CreateChambreModal({isOpen, close} : Props) {
             <label className="text-sm font-semibold">Lits </label>
             <Table fields={["#", "Type", "Description"]} className="mb-4 col-span-12 max-h-72">
             {
-              lits.map((lit, i) => (<TableRow key={i}>
+              lits.map((_, i) => (<TableRow key={i}>
                 <TableCell className="font-bold">{i+1}</TableCell>
                 <TableCell>
-                <select className="primary" value={lit.type} onChange={(e) => updateLit(i, "type", e.target.value)}>
-                    <option> Type A </option>
-                    <option> Type B </option>
+                <select className="primary" value={lits[i].type} onChange={(e) => updateLit(i, "type", e.target.value)}>
+                    {lits_types.map((type, j)=> <option key={j}> {type} </option>)}
                 </select>
                 </TableCell>
                 <TableCell>
-                <input className="primary" placeholder="Description..." value={lit.description} onChange={(e) => updateLit(i, "description", e.target.value)}/>
+                <input className="primary" placeholder="Description..." value={lits[i].description} onChange={(e) => updateLit(i, "description", e.target.value)}/>
                 </TableCell>
             </TableRow>))            
             }

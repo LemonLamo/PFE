@@ -13,7 +13,7 @@ USE forza;
 CREATE TABLE `chambres` (
   `num` nvarchar(255) NOT NULL PRIMARY KEY,
   `etage` nvarchar(255) NOT NULL,
-  `description` nvarchar(255) NOT NULL,
+  `description` nvarchar(255),
   `nombre_lits` int(11) NOT NULL,
   `nombre_lits_occupe` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -34,11 +34,11 @@ INSERT INTO `chambres` (`num`, `etage`, `description`, `nombre_lits`, `nombre_li
 -- Structure de la table `lits`
 --
 CREATE TABLE `lits` (
-  `numChambre` nvarchar(255) NOT NULL REFERENCES `chambres`.`num`,
   `num` nvarchar(255) NOT NULL,
+  `numChambre` nvarchar(255) NOT NULL REFERENCES `chambres`.`num`,
   `type` nvarchar(255) NOT NULL,
+  `remarques` nvarchar(255),
   `occupe` tinyint(1) DEFAULT 0,
-  `remarques` nvarchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -3,6 +3,11 @@ import { baseURL } from "../config";
 import Badge from "../components/UI/Badge";
 import { CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
+export const lits_types = [
+    'Broncal',
+    'Type A',
+    'Type B',
+]
 
 export async function createChambre(chambre : Chambre) {
     try {
