@@ -10,6 +10,7 @@ import axios from "axios";
 import { status_badge } from "../../hooks/useRadios";
 import LabelRadio from "./LabelRadio";
 import JoindreResultatsRadio from "./JoindreResultatsRadio";
+import { Link } from "react-router-dom";
 
 function DashboardRadio(){
     const [openModal, setOpenModal] = useState("")
@@ -17,7 +18,7 @@ function DashboardRadio(){
     const query = useQuery<Radio[]>({
         queryKey: ['radios'],
         queryFn: async () => {
-            const data = (await axios.get(`${baseURL}/api/ehr/radios`)).data;
+            const data = (await axios.get(`${baseURL}/api/radios`)).data;
             return data;
         }
     });
@@ -46,9 +47,13 @@ function DashboardRadio(){
         { header: "", id: "actions", cell: (info) => {
                 const radio = info.row.original;
                 return (
+                    !info.row.original.date_fait?
                     <div className="flex justify-end gap-2">
                         <Button onClick={()=>{setSelectedRadio(radio); setOpenModal("label")}} theme="success">Label</Button>
                         <Button onClick={()=>{setSelectedRadio(radio); setOpenModal("joindre")}} theme="primary">Joindre</Button>
+                    </div> :
+                    <div className="flex justify-end gap-2">
+                        <Link to={`/radios/${radio.id}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center py-2 px-4 font-semibold transition border text-cyan-500 border-cyan-500 rounded hover:bg-cyan-500 hover:text-white">Résultats</Link>
                     </div>
                 )
             }

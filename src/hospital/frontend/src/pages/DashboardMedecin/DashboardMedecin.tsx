@@ -2,23 +2,50 @@ import { ColumnDef } from "@tanstack/react-table";
 import Card from "../../components/UI/Card";
 import { Link } from "react-router-dom";
 import ViewButton from "../../components/UI/Buttons/ViewButton";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "../../components/UI/Tables/DataTable";
 import moment from "moment";
 import SmallCalendar from "../../components/Calendars/SmallCalendar";
-import TableRow from "../../components/UI/Tables/TableRow";
-import TableCell from "../../components/UI/Tables/TableCell";
-import Table from "../../components/UI/Tables/Table";
 import Badge from "../../components/UI/Badge";
 import { baseURL } from "../../config";
 import StatisticsCard from "../../components/StatisticsCard";
 import AuthContext from "../../hooks/AuthContext";
+import TableLoading from "../../components/UI/Loading";
 
+const today = new Date();
 function DashboardMedecin(){
     const auth = useContext(AuthContext);
-    const query = useQuery({
+
+    const statistics = useQuery<any>({
+        queryKey: ['statistics_medecin'],
+        queryFn: async () => {
+            const statistics = { consultations: "", hospitalisations: "", interventions: "", patients_attente: "??",}
+            statistics.consultations = await (await axios.get(`${baseURL}/api/consultations/count?hopital=${auth!.hopital}&medecin=${auth!.NIN}`)).data.count;
+            statistics.hospitalisations = await (await axios.get(`${baseURL}/api/hospitalisations/count?hopital=${auth!.hopital}&medecin=${auth!.NIN}`)).data.count;
+            statistics.interventions = (await axios.get(`${baseURL}/api/interventions/count?hopital=${auth!.hopital}&medecin=${auth!.NIN}`)).data.count;
+            return statistics
+        }
+    })
+
+    const consultations = useQuery<RendezVous[]>({
+        queryKey: ['consultations_rendezvous'],
+        queryFn: async () => {
+            const data = (await axios.get(`${baseURL}/api/rendez-vous`)).data;
+            return data.filter((x: RendezVous ) => new Date(x.date) >= today && x.type == "Consultation")
+        }
+    })
+
+    const interventions = useQuery<RendezVous[]>({
+        queryKey: ['interventions_rendezvous'],
+        queryFn: async () => {
+            const data = (await axios.get(`${baseURL}/api/rendez-vous`)).data;
+            return data.filter((x: RendezVous ) => new Date(x.date) >= today && x.type == "Intervention")
+        }
+    })
+
+    const patients = useQuery({
         queryKey: ['patients'],
         queryFn: async () => {
             const data = (await axios.get(`${baseURL}/api/patients`)).data;
@@ -61,100 +88,81 @@ function DashboardMedecin(){
         },
     ], []) as ColumnDef<Partial<Patient>>[];
 
-    const [statistics, setStatistics] = useState({
-      consultations: "",
-      hospitalisations: "",
-      interventions: "",
-      patients_attente: "??",
-    })
-    const [consultations, setConsultations] = useState<any>([])
-    const [interventions, setInterventions] = useState<any>([])
-    useEffect(()=>{
-      axios.get(`${baseURL}/api/ehr/consultations/count?hopital=${auth!.hopital}&medecin=${auth!.NIN}`).then((response: any)=> setStatistics(s => ({...s, consultations: response.data.count})))
-      axios.get(`${baseURL}/api/ehr/hospitalisations/count?hopital=${auth!.hopital}&medecin=${auth!.NIN}`).then((response: any)=> setStatistics(s => ({...s, hospitalisations: response.data.count})))
-      axios.get(`${baseURL}/api/ehr/interventions/count?hopital=${auth!.hopital}&medecin=${auth!.NIN}`).then((response: any)=> setStatistics(s => ({...s, interventions: response.data.count})))
-
-      setConsultations([{patient:{nom: "BRAHIM", prenom:"Abderrazak"}, date:new Date()}])
-      setInterventions([{patient:{nom: "BRAHIM", prenom:"Abderrazak"}, designation: "Appendicite", date:new Date()}])
-    }, [])
+    const tableDefinition2 = useMemo(() => [
+        { header: "Patient", id: "patient", cell: (info) => {
+                const x = info.row.original;
+                return <div className="flex gap-x-2">
+                    <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                    <div className="min-w-0 flex-auto">
+                        <p className="text-sm font-semibold leading-6 text-gray-900 mb-0">
+                            {x.patient.nom} {x.patient.prenom}
+                        </p>
+                        <p className="mb-0 truncate text-sm leading-5 text-gray-600">
+                            {x.title}
+                        </p>
+                    </div>
+                </div>
+            }
+        },
+        { header: "RDV", id:"date", cell: (info) => {
+            const x = info.row.original;
+            return <div className="text-center">
+                <p className="text-center mb-0">{moment(x.date).format("DD/MM/YYYY")}</p>
+                <p className="text-center mb-0">{moment(x.date).format("HH:mm")}</p>
+            </div>
+        } },
+        { header: "État", id: "etat", cell: (info) => {
+            const x = info.row.original;
+            return <div className="text-center">
+                <Badge textColor="#0891b2" bgColor="#cffafe">{x.duree}m</Badge>
+            </div>
+        }}
+    ], []) as ColumnDef<RendezVous>[];
 
     return <>
         <div className="grid grid-cols-12 gap-x-4 gap-y-2 w-full">
             <StatisticsCard icon="fa fa-user" title="Consultations" >
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.consultations}</h5>
+            {
+                statistics.isError? "Erreur":
+                statistics.isLoading? <TableLoading /> :
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.consultations}</h5>
+            }
             </StatisticsCard>
 
             <StatisticsCard icon="fa fa-bed-pulse" title="Hospitalisations" >
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.hospitalisations}</h5>
+            {
+                statistics.isError? "Erreur":
+                statistics.isLoading?
+                    <TableLoading />:
+                    <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.hospitalisations}</h5>
+            }
             </StatisticsCard>
 
             <StatisticsCard icon="fa fa-heart-pulse" title="Interventions">
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.interventions}</h5>
+            {
+                statistics.isError? "Erreur":
+                statistics.isLoading?
+                    <TableLoading />:
+                    <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.interventions}</h5>
+            }
             </StatisticsCard>
 
             <StatisticsCard icon="fa fa-user" title="Patients en attente">
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.patients_attente}</h5>
+            {
+                statistics.isError? "Erreur":
+                statistics.isLoading?
+                    <TableLoading />:
+                    <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.patients_attente}</h5>
+            }
             </StatisticsCard>
         </div>
-        <div className="grid grid-cols-12 gap-x-4 gap-y-2 w-full">
-            <Card title="Prochaines interventions" className="col-span-12 md:col-span-5">
-                <Table fields={["Patient", "Remarques", "Time"]}>
-                    {
-                        interventions.map((item: any, i: number)=> (
-                            <TableRow key={i}>
-                                <TableCell>
-                                    <div className="flex gap-x-2">
-                                        <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                        <div className="min-w-0 flex-auto">
-                                            <p className="text-sm font-semibold leading-6 text-gray-900 mb-0">
-                                                {item.patient.nom} {item.patient.prenom}
-                                            </p>
-                                            <p className="mb-0 truncate text-sm leading-5 text-gray-600">
-                                                Appendecite
-                                            </p>
-                                        </div>
-                                    </div>
-                                </TableCell>
-                                <TableCell>
-                                    <p className="text-center">{moment(item.date).format("DD/MM/YYYY")}</p>
-                                </TableCell>
-                                <TableCell className="text-center">
-                                    <Badge textColor="#0891b2" bgColor="#cffafe">{moment(item.date).format("HH:mm")}</Badge>
-                                </TableCell>
-                            </TableRow>
-                        ))
-                    }
-                </Table>
+        <div className="grid grid-cols-11 gap-x-4 gap-y-2 w-full">
+            <Card title="Prochaines interventions" className="col-span-12 md:col-span-4">
+                <DataTable tableDefinition={tableDefinition2} query={consultations} pageSize={3} searchable={false} />
             </Card>
 
             <Card title="Prochaines consultations" className="col-span-12 md:col-span-4">
-                <Table fields={["Patient", "Date", "Time"]}>
-                    {
-                        consultations.map((item: any, i: number)=> (
-                            <TableRow key={i}>
-                                <TableCell>
-                                    <div className="flex gap-x-2">
-                                        <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                        <div className="min-w-0 flex-auto">
-                                            <p className="text-sm font-semibold leading-6 text-gray-900 mb-0">
-                                                {item.patient.nom} {item.patient.prenom}
-                                            </p>
-                                            <p className="mb-0 truncate text-sm leading-5 text-gray-600">
-                                                Consultation
-                                            </p>
-                                        </div>
-                                    </div>
-                                </TableCell>
-                                <TableCell>
-                                    <p className="text-center">{moment(item.date).format("DD/MM/YYYY")}</p>
-                                </TableCell>
-                                <TableCell className="text-center">
-                                    <Badge textColor="#0891b2" bgColor="#cffafe">{moment(item.date).format("HH:mm")}</Badge>
-                                </TableCell>
-                            </TableRow>
-                        ))
-                    }
-                </Table>
+                <DataTable tableDefinition={tableDefinition2} query={interventions} pageSize={3} searchable={false} />
             </Card>
             
             <Card className="col-span-12 md:col-span-3 flex justify-center !p-0 aspect-[5/4]">
@@ -162,7 +170,7 @@ function DashboardMedecin(){
             </Card>
         </div>
         <Card title="Mes patients" subtitle="Liste de vos patients" className="w-full">
-            <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
+            <DataTable tableDefinition={tableDefinition} query={patients} className="mt-2" />
         </Card>
     </>
 }

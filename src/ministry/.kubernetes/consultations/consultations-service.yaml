@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: consultations-service
+  name: consultations-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: consultations-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: consultations-service
+  name: consultations-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consultations-service
+  template:
+    metadata:
+      labels:
+        app: consultations-service
+    spec:
+      containers:
+        - image: medicalife/consultations-service:latest
+          name: consultations-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

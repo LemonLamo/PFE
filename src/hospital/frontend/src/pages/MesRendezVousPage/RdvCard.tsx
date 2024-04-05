@@ -2,11 +2,11 @@ import moment from "moment";
 
 type Props = {
   title: string,
-  subtitle:string,
+  patient: Partial<Patient>,
   start: Date,
 }
 
-function RdvCard({title, subtitle, start} : Props) {
+function RdvCard({title, patient, start} : Props) {
   return (
     <li className="flex justify-between gap-x-3 mb-0">
       <img
@@ -19,7 +19,7 @@ function RdvCard({title, subtitle, start} : Props) {
           {title}
         </p>
         <p className="mb-0 truncate text-sm leading-5 text-gray-600">
-          {subtitle} - {moment(start).format('DD/MM/YYYY HH:mm')}
+          {patient.nom} {patient.prenom} - {moment(start).format('DD/MM/YYYY HH:mm')}
         </p>
       </div>
     </li>

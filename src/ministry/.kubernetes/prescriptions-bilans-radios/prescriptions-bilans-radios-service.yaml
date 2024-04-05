@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prescriptions-bilans-radios-service
+  name: prescriptions-bilans-radios-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: prescriptions-bilans-radios-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prescriptions-bilans-radios-service
+  name: prescriptions-bilans-radios-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prescriptions-bilans-radios-service
+  template:
+    metadata:
+      labels:
+        app: prescriptions-bilans-radios-service
+    spec:
+      containers:
+        - image: medicalife/prescriptions-bilans-radios-service:latest
+          name: prescriptions-bilans-radios-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

@@ -10,6 +10,7 @@ import axios from "axios";
 import { baseURL } from "../../config";
 import IconButton from "../../components/UI/Buttons/IconButton";
 import ExecuterSoinModal from "./ExecuterSoinModal";
+import { executerSoin } from "../../hooks/useSoins";
 
 const build_badge = (done: boolean) => {
   return (
@@ -29,8 +30,9 @@ const build_badge = (done: boolean) => {
 function DashboardInfirmier(){
     const [openModal, setOpenModal] = useState("");
     const [selectedSoin, setSelectedSoin] = useState<Soin>({
-        code_soin: "",
+        id: "",
         hopital: "",
+        hospitalisation: {chambre:"", lit: 0},
         medecin: { NIN: "", nom: "", prenom: "" },
         patient: { NIN: "", nom: "", prenom: "" },
         date_soin: new Date(),
@@ -61,7 +63,7 @@ function DashboardInfirmier(){
         },
         { header: "Chambre et lit", id: "chambre_lit", cell: ((info) => 
             info.row.original.hospitalisation?
-                `Chambre ${info.row.original.hospitalisation.chambre}, Lit N°${info.row.original.hospitalisation.lit}`:
+                `Chambre ${(info.row.original.hospitalisation as Partial<Hospitalisation>).chambre}, Lit N°${(info.row.original.hospitalisation as Partial<Hospitalisation>).lit}`:
                 "-"
         )},
         { header: "Date", id: "date", cell: (info) => moment(info.row.original.date_soin).format("DD/MM/YYYY HH:mm") },
@@ -82,7 +84,7 @@ function DashboardInfirmier(){
     return <>
         <Card title="Mes tâches" subtitle="Liste de vos patients" className="w-full">
             <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
-            <ExecuterSoinModal isOpen={openModal==="soin"} close={() => setOpenModal("")} selectedSoin={selectedSoin}/>
+            <ExecuterSoinModal isOpen={openModal==="soin"} close={() => setOpenModal("")} action={executerSoin} selectedSoin={selectedSoin}/>
         </Card>
     </>
 }

@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hospitalisations-db
+  name: hospitalisations-db
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: hospitalisations-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hospitalisations-db
+  name: hospitalisations-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hospitalisations-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hospitalisations-db
+    spec:
+      containers:
+        - image: medicalife/hospitalisations-db:latest
+          name: hospitalisations-db
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/hospitalisations
+              name: hospitalisations-data
+      restartPolicy: Always
+      volumes:
+        - name: hospitalisations-data
+          persistentVolumeClaim:
+            claimName: hospitalisations-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hospitalisations-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

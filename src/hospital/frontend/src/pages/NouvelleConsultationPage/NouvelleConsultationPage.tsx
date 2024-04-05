@@ -73,7 +73,7 @@ function NouvelleConsultationPage() {
         ...consultationData,
         patient: consultationData.patient?.NIN!,
       };
-      await axios.post(`${baseURL}/api/ehr/consultations`, data);
+      await axios.post(`${baseURL}/api/consultations`, data);
     } catch (err: AxiosError | any) {
       if (err.response)
         alert(
@@ -120,32 +120,32 @@ function NouvelleConsultationPage() {
               <TabInfoPersonelles NIN={consultationData.patient!.NIN!} />
             </TabContent>
 
-            <TabContent icon="fa fa-user" text="Historique Médicale">
+            <TabContent icon="fa fa-timeline" text="Historique Médicale">
               <TabHistorique NIN={consultationData.patient!.NIN!} />
             </TabContent>
 
-            <TabContent icon="fa fa-user" text="Motif de la consultation">
+            <TabContent icon="fa fa-clipboard-question" text="Motif de la consultation">
               <TabMotif
                 consultationData={consultationData}
                 setConsultationData={setConsultationData}
               />
             </TabContent>
 
-            <TabContent icon="fa fa-user" text="Examen clinique">
+            <TabContent icon="fa fa-stethoscope" text="Examen clinique">
               <TabExamenClinique
                 consultationData={consultationData}
                 setConsultationData={setConsultationData}
               />
             </TabContent>
 
-            <TabContent icon="fa fa-user" text="Diagnostique">
+            <TabContent icon="fa fa-user-doctor" text="Diagnostique">
               <TabDiagnostique
                 consultationData={consultationData}
                 setConsultationData={setConsultationData}
               />
             </TabContent>
 
-            <TabContent icon="fa fa-user" text="Prise en charge">
+            <TabContent icon="fa fa-hand-holding-medical" text="Prise en charge">
               <TabPriseEnCharge
                 consultationData={consultationData}
                 setConsultationData={setConsultationData}

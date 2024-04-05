@@ -28,8 +28,8 @@ class ChambresService {
     await db.execute("INSERT INTO chambres(num, etage, description, nombre_lits, nombre_lits_occupe) VALUES (?, ?, ?, ?, 0)", [num, etage, description, nombre_lits]);
   }
 
-  async update(num, nombre_lits, description) {
-    await db.query("UPDATE chambres SET nombre_lits=?, description=? WHERE num=?", [nombre_lits, description, num]);
+  async update(num, etage, nombre_lits, description) {
+    await db.query("UPDATE chambres SET etage=?, nombre_lits=?, description=? WHERE num=?", [etage, nombre_lits, description, num]);
   }
 
   async remove(num) {

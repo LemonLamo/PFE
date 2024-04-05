@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prescriptions-bilans-radios-db
+  name: prescriptions-bilans-radios-db
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: prescriptions-bilans-radios-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prescriptions-bilans-radios-db
+  name: prescriptions-bilans-radios-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prescriptions-bilans-radios-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: prescriptions-bilans-radios-db
+    spec:
+      containers:
+        - image: medicalife/prescriptions-bilans-radios-db:latest
+          name: prescriptions-bilans-radios-db
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/prescriptions-bilans-radios
+              name: prescriptions-bilans-radios-data
+      restartPolicy: Always
+      volumes:
+        - name: prescriptions-bilans-radios-data
+          persistentVolumeClaim:
+            claimName: prescriptions-bilans-radios-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prescriptions-bilans-radios-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

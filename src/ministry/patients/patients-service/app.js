@@ -46,7 +46,6 @@ app.get("/api/patients/:NIN/antecedents-familiaux", PatientsController.getAntece
 app.post("/api/patients/:NIN/antecedents-familiaux", auth.requireAuth, PatientsController.insertAntecedentFamilial);
 
 app.get("/api/patients/:NIN/medicaments", PatientsController.getMedicaments);
-//app.get("/api/patients/:NIN/medicaments", PatientsController.getMedicaments);
 
 app.get("/api/patients/:NIN/vaccinations", PatientsController.getVaccinations);
 app.post("/api/patients/:NIN/vaccinations", auth.requireAuth, PatientsController.insertVaccination);

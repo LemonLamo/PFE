@@ -26,7 +26,7 @@ type Consultation = {
   bilans: Bilan[];
   interventions: Partial<Intervention>[];
   prochaine_consultation: Date | null;
-  duree_arret_de_travail: number;
+  duree_arret_de_travail?: number;
 };
 type Hospitalisation = {
   id: string;
@@ -176,6 +176,8 @@ type Patient = {
   taille: number;
   poids: number;
   donneur_organe: boolean;
+  NIN_pere: string;
+  NIN_mere: string;
 };
 type Chambre = {
   num: string;
@@ -217,11 +219,11 @@ type Personnel = {
   service: string;
 };
 type Soin = {
-  code_soin: string;
+  id: string;
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   infirmier: Partial<Personnel>;
-  hospitalisation?: Partial<Hospitalisation>;
+  hospitalisation?: Partial<Hospitalisation> | string;
   hopital: string;
   acte: string;
   date_soin: Date;
@@ -240,4 +242,28 @@ type Notif = {
   data: string,
   read_at: Date,
   created_at: Date,
+}
+
+type Sortie = {
+  date_sortie: Hospitalisation["date_sortie"]
+  mode_sortie: Hospitalisation["mode_sortie"]
+}
+
+type Transfert = {
+  hospitalisation: Hospitalisation["id"],
+  hopital: string,
+  service: string,
+  medecin: Partial<Personnel>,
+  remarques: string 
+}
+
+type RendezVous = {
+  id: string
+  patient: Partial<Patient>,
+  medecin: Partial<Personnel>,
+  type: string,
+  title: string,
+  date: Date,
+  duree: number,
+  details?: string
 }

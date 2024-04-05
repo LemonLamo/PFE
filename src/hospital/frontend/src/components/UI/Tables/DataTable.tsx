@@ -7,12 +7,14 @@ import TableLoading from '../Loading';
 type Props = {
     tableDefinition: any[]
     query: UseQueryResult
-    className?: string
+    searchable?: boolean,
+    pageSize?: number,
+    className?: string,
 }
 
-function DataTable({ tableDefinition, query, className=''} : Props) {
+function DataTable({ tableDefinition, query, searchable=true, pageSize=10, className=''} : Props) {
     const [sorting, setSorting] = useState<SortingState>([])
-    const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10 })
+    const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: pageSize })
     const [filtering, setFiltering] = useState('')
     const [data, setData]= useState<typeof query.data>([])
 
@@ -39,6 +41,7 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
 
     return(
         <div className={`${className}`}>
+            {searchable &&
             <div className='flex justify-end mb-2'>
                 <div className='relative max-w-64'>
                     <span className="text-sm top-3.5 left-3 absolute flex text-slate-500">
@@ -46,8 +49,8 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
                     </span>
                     <input className="pl-9 w-full primary" type="text" placeholder="Rechercher" value={filtering} onChange={e => setFiltering(e.target.value)} />
                 </div>
-            </div>
-            <div className='block w-full overflow-auto scrolling-touch'>
+            </div>}
+            <div className='block min-w-full divide-y divide-gray-200 overflow-auto'>
                 <table className="w-full max-w-full mb-4">
                     <thead>
                         {table.getHeaderGroups().map((headerGroup) => (

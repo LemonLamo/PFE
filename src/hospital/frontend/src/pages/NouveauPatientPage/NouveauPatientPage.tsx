@@ -104,7 +104,7 @@ function NewPatientPage() {
           <h6 className="mb-1"> Informations civiles</h6>
           <div className="grid grid-cols-12 gap-x-2">
             <div className="col-span-12 mb-2">
-              <label className="text-sm font-semibold">NIN:</label>
+              <label className="text-sm font-semibold">NIN<span className="text-red-500">*</span></label>
               <input
                 type="text"
                 className="primary"
@@ -112,8 +112,16 @@ function NewPatientPage() {
                 placeholder="ex. 111111111111111111"
               />
             </div>
+            <div className="col-span-12 mb-2">
+              <label className="text-sm font-semibold">NSS</label>
+              <input
+                type="text"
+                className="primary"
+                placeholder="ex. 111111111111111111"
+              />
+            </div>
             <div className="col-span-6 mb-2">
-              <label className="text-sm font-semibold">Nom:</label>
+              <label className="text-sm font-semibold">Nom<span className="text-red-500">*</span></label>
               <input
                 type="text"
                 className="primary"
@@ -122,7 +130,7 @@ function NewPatientPage() {
               />
             </div>
             <div className="col-span-6 mb-2">
-              <label className="text-sm font-semibold">Prénom:</label>
+              <label className="text-sm font-semibold">Prénom<span className="text-red-500">*</span></label>
               <input
                 type="text"
                 className="primary"
@@ -132,7 +140,7 @@ function NewPatientPage() {
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">
-                Date de naissance:
+                Date de naissance<span className="text-red-500">*</span>
               </label>
               <input
                 type="date"
@@ -143,7 +151,7 @@ function NewPatientPage() {
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">
-                Lieu de naissance:
+                Lieu de naissance<span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -153,7 +161,7 @@ function NewPatientPage() {
               />
             </div>
             <div className="col-span-6 mb-2">
-              <label className="text-sm font-semibold">Sexe:</label>
+              <label className="text-sm font-semibold">Sexe<span className="text-red-500">*</span></label>
               <select {...register("sexe")}>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -161,7 +169,7 @@ function NewPatientPage() {
             </div>
             <div className="col-span-6 mb-2">
               <label className="text-sm font-semibold">
-                Situation Familiale:
+                Situation Familiale<span className="text-red-500">*</span>
               </label>
               <select {...register("situation_familiale")}>
                 <option value="Célébataire">Célébataire</option>
@@ -174,7 +182,7 @@ function NewPatientPage() {
 
           <h6 className="mt-4 mb-1"> Information de contact</h6>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Email:</label>
+            <label className="text-sm font-semibold">Email<span className="text-red-500">*</span></label>
             <input
               type="text"
               className="primary"
@@ -184,7 +192,7 @@ function NewPatientPage() {
           </div>
           <div className="mb-2">
             <label className="text-sm font-semibold">
-              Numéro de téléphone:
+              Numéro de téléphone<span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -199,7 +207,7 @@ function NewPatientPage() {
           <h6 className="mt-0 mb-1"> Informations d'adresse</h6>
           <div className="grid grid-cols-3 gap-x-2">
             <div className="col-span-3 mb-2">
-              <label className="text-sm font-semibold">Adresse:</label>
+              <label className="text-sm font-semibold">Adresse<span className="text-red-500">*</span></label>
               <input
                 type="text"
                 className="primary"
@@ -208,7 +216,7 @@ function NewPatientPage() {
               />
             </div>
             <div className="mb-2">
-              <label className="text-sm font-semibold">Commune:</label>
+              <label className="text-sm font-semibold">Commune<span className="text-red-500">*</span></label>
               <input
                 type="text"
                 className="primary"
@@ -217,7 +225,7 @@ function NewPatientPage() {
               />
             </div>
             <div className="mb-2">
-              <label className="text-sm font-semibold">Code postale:</label>
+              <label className="text-sm font-semibold">Code postale<span className="text-red-500">*</span></label>
               <input
                 type="number"
                 className="primary"
@@ -226,7 +234,7 @@ function NewPatientPage() {
               />
             </div>
             <div className="mb-6">
-              <label className="text-sm font-semibold">Wilaya:</label>
+              <label className="text-sm font-semibold">Wilaya<span className="text-red-500">*</span></label>
               <select {...register("wilaya")}>
                 <option>01- Adrar</option>
                 <option>02- Chlef</option>
@@ -291,7 +299,7 @@ function NewPatientPage() {
           </div>
           <h6 className="mb-1"> Informations Medicales</h6>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Groupe Sanguin:</label>
+            <label className="text-sm font-semibold">Groupe Sanguin<span className="text-red-500">*</span></label>
             <select {...register("groupage")}>
               <option>A+</option>
               <option>A-</option>
@@ -305,7 +313,7 @@ function NewPatientPage() {
           </div>
           <div className="grid grid-cols-2 gap-x-2">
             <div className="mb-2">
-              <label className="text-sm font-semibold">Taille:</label>
+              <label className="text-sm font-semibold">Taille<span className="text-red-500">*</span></label>
               <div className="flex items-center">
                 <input
                   className="primary mb-2"
@@ -317,29 +325,44 @@ function NewPatientPage() {
               </div>
             </div>
             <div className="mb-2">
-              <label className="text-sm font-semibold">Poids:</label>
+              <label className="text-sm font-semibold">Poids<span className="text-red-500">*</span></label>
               <div className="flex items-center">
                 <input
                   className="primary mb-2"
                   {...register("poids")}
                   placeholder="72.8"
                   type="number"
+                  step="0.01"
                 />
                 <span className="w-6 ms-2 text-right"> kg</span>
               </div>
             </div>
-            <div className="mb-2 pl-7 col-span-2">
-              <input
-                id="chk"
-                type="checkbox"
-                {...register("donneur_organe")}
-                className="checkbox"
-              ></input>
+            <div className="mb-3 pl-7 col-span-2">
+              <input id="chk" type="checkbox" {...register("donneur_organe")}className="checkbox"></input>
               <label htmlFor="chk" className="select-none text-slate-700">
                 Donneur d'organes?
               </label>
             </div>
           </div>
+          <h6 className="mb-1"> Parents</h6>
+          <div className="col-span-12 mb-2">
+            <label className="text-sm font-semibold">Père</label>
+            <input
+              type="text"
+              className="primary"
+              {...register("NIN_pere")}
+              placeholder="ex. 111111111111111111"
+            />
+          </div>
+          <div className="col-span-12 mb-2">
+            <label className="text-sm font-semibold">Mère</label>
+            <input
+              type="text"
+              className="primary"
+              {...register("NIN_mere")}
+              placeholder="ex. 111111111111111111"
+            />
+        </div>
         </div>
 
         <div className="col-span-12 md:col-span-4">

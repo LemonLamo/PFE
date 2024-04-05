@@ -28,7 +28,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {h.medecin.nom} {h.medecin.prenom} ({h.hopital})</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Période: </span> {moment(h.date_entree).format('DD/MM/YYYY')} ({h.mode_entree}) - {h.date_sortie ? `${moment(h.date_sortie).format('DD/MM/YYYY')} (${h.mode_sortie})` : 'En cours'}</p>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Motif: </span> {h.motif_hospitalisation}</p>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Résumé: </span> {h.resume_hospitalisation}</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500 whitespace-pre-wrap"><span className="font-semibold">Résumé: </span> {h.resume_hospitalisation}</p>
         </TimelineItem>
       );
     }
@@ -38,7 +38,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
       return (
         <TimelineItem key={index} icon="fa fa-bell text-green-400" title={`Intervention: ${i.designation} (${i.id})`} date={i.date}>
           <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Medecin: </span> {i.medecin.nom} {i.medecin.prenom} ({i.hopital})</p>
-          <p className="mb-1 leading-tight text-sm text-justify text-slate-500"><span className="font-semibold">Protocole Operatoire: </span> {i.protocole_operatoire}</p>
+          <p className="mb-1 leading-tight text-sm text-justify text-slate-500 whitespace-pre-wrap"><span className="font-semibold">Protocole Operatoire: </span> {i.protocole_operatoire}</p>
         </TimelineItem>
       );
     }
@@ -63,7 +63,6 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
     <>
       <h3 className="text-lg mb-0">Historique médicale</h3>
       <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
-      <Timeline>
         {
           historique.isError ? 
             <div className="block w-full ">
@@ -73,10 +72,10 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
             <div className="block w-full ">
               <TableLoading />
             </div>:
-          historique.data!.map((item, i) => buildTimelineItem(item, i))
-
+          <Timeline>
+            {historique.data!.map((item, i) => buildTimelineItem(item, i))}
+          </Timeline>
         }
-      </Timeline>
     </>
   );
 }

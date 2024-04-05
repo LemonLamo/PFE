@@ -35,15 +35,15 @@ export default function DetailsMedicamentModal({isOpen, close, selectedMedicamen
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une nouvelle chambre </p>
             <div className="grid grid-cols-12 gap-x-4">
                 <div className="col-span-4 mb-2">
-                    <label className="text-sm font-semibold">Code:</label>
+                    <label className="text-sm font-semibold">Code<span className="text-red-500">*</span> </label>
                     <input type="text" className="primary" placeholder="Code" value={selectedMedicament.code_medicament} disabled />
                 </div>
                     <div className="col-span-4 mb-2">
-                    <label className="text-sm font-semibold">Nom:</label>
+                    <label className="text-sm font-semibold">Nom<span className="text-red-500">*</span> </label>
                     <input type="text" className="primary" placeholder="Nom" value={selectedMedicament.DCI} disabled />
                 </div>
                     <div className="col-span-4 mb-2">
-                    <label className="text-sm font-semibold">Quantité actuelle:</label>
+                    <label className="text-sm font-semibold">Quantité actuelle<span className="text-red-500">*</span> </label>
                     <input type="number" className="primary" placeholder="Qte" value={selectedMedicament.quantite} disabled />
                 </div>
 

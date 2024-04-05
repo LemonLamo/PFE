@@ -36,6 +36,7 @@ function TabPrescription({ NIN }: Props) {
         tableDefinition={tableDefinitionPrescription}
         query={query}
         className="mt-2"
+        searchable={false}
       />
     </>
   );

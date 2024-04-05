@@ -47,6 +47,7 @@ function TabRadio({ NIN }: Props) {
         tableDefinition={tableDefinitionRadio}
         query={query}
         className="mt-2"
+        searchable={false}
       />
     </>
   );

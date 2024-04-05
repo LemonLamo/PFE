@@ -5,10 +5,10 @@ const { fetchMaladies, fetchAllergies, fetchVaccinations } = require("../utils/c
 
 class PatientsController{
   async insert(req, res) {
-    const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe } = req.body;
+    const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe, NIN_pere, NIN_mere } = req.body;
     const { maladies_chroniques, allergies, antecedents_medicaux, antecedents_familiaux} = req.body
 
-    const result = await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe);
+    const result = await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe, NIN_pere, NIN_mere);
     if(maladies_chroniques)
       for(let maladie of maladies_chroniques)
         Model.insertMaladieChronique(NIN, maladie.code_maladie, maladie.date, maladie.remarques, req.jwt.NIN)
@@ -40,15 +40,19 @@ class PatientsController{
   }
   async getMaladiesChroniques(req, res) {
     const { NIN } = req.params;
-    let maladies_chroniques = await Model.selectMaladiesChroniques(NIN);
-    maladies_chroniques = await fetchMaladies(maladies_chroniques);
-    return res.status(200).json(maladies_chroniques);
+    const data = await Model.selectMaladiesChroniques(NIN);
+    const maladies_chroniques = await fetchMaladies(data);
+
+    const result = data.map((x) => ({ ...x, designation: maladies_chroniques.get(x.code_maladie).designation }));
+    return res.status(200).json(result);
   }
   async getAllergies(req, res) {
     const { NIN } = req.params;
-    let allergies = await Model.selectAllergies(NIN);
-    allergies = await fetchAllergies(allergies);
-    return res.status(200).json(allergies);
+    const data = await Model.selectAllergies(NIN);
+    const allergies = await fetchAllergies(data);
+
+    const result = data.map((x) => ({ ...x, designation: allergies.get(x.code_allergene).designation }));
+    return res.status(200).json(result);
   }
   async getAntecedentsMedicals(req, res) {
     const { NIN } = req.params;
@@ -67,15 +71,17 @@ class PatientsController{
   }
   async getVaccinations(req, res) {
     const { NIN } = req.params;
-    let vaccinations = await Model.selectVaccinations(NIN);
-    vaccinations = await fetchVaccinations(vaccinations);
-    return res.status(200).json(vaccinations);
+    const data = await Model.selectVaccinations(NIN);
+    const vaccinations = await fetchVaccinations(data);
+    
+    const result = data.map((x) => ({ ...x, designation: vaccinations.get(x.code_vaccin).designation }));
+    return res.status(200).json(result);
   }
   async getHistorique(req, res) {
     const { NIN } = req.params;
-    const consultations = (await axios.get(`http://ehr-service/api/ehr/consultations?patient=${NIN}`)).data;
-    const hospitalisations = (await axios.get(`http://ehr-service/api/ehr/hospitalisations?patient=${NIN}`)).data;
-    const interventions = (await axios.get(`http://ehr-service/api/ehr/interventions?patient=${NIN}`)).data;
+    const consultations = (await axios.get(`http://consultations-service/api/consultations?patient=${NIN}`)).data;
+    const hospitalisations = (await axios.get(`http://hospitalisations-service/api/hospitalisations?patient=${NIN}`)).data;
+    const interventions = (await axios.get(`http://interventions-service/api/interventions?patient=${NIN}`)).data;
     return res.status(200).json([...consultations, ...hospitalisations, ...interventions].sort((a, b) => new Date(b.date_entree ?? b.date) - new Date(a.date_entree ?? a.date)));
   }
 

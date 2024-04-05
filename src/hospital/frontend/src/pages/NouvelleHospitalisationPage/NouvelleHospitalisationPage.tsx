@@ -42,7 +42,7 @@ function NouvelleHospitalisationPage() {
         ...hospitalisationData,
         patient: hospitalisationData.patient?.NIN!,
       };
-      await axios.post(`${baseURL}/api/ehr/hospitalisations`, data);
+      await axios.post(`${baseURL}/api/hospitalisations`, data);
     } catch (err: AxiosError | any) {
       if (err.response)
         alert(
@@ -89,11 +89,11 @@ function NouvelleHospitalisationPage() {
               <TabInfoPersonelles NIN={hospitalisationData.patient!.NIN!} />
             </TabContent>
 
-            <TabContent icon="fa fa-user" text="Historique Médicale">
+            <TabContent icon="fa fa-timeline" text="Historique Médicale">
               <TabHistorique NIN={hospitalisationData.patient!.NIN!} />
             </TabContent>
 
-            <TabContent icon="fa fa-user" text="Hospitalisation">
+            <TabContent icon="fa fa-bed-pulse" text="Hospitalisation">
               <TabHospitalisation
                 hospitalisationData={hospitalisationData}
                 setHospitalisationData={setHospitalisationData}

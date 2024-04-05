@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rendez-vous-service
+  name: rendez-vous-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: rendez-vous-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rendez-vous-service
+  name: rendez-vous-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rendez-vous-service
+  template:
+    metadata:
+      labels:
+        app: rendez-vous-service
+    spec:
+      containers:
+        - image: medicalife/rendez-vous-service:latest
+          name: rendez-vous-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

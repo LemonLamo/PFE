@@ -7,6 +7,8 @@ import axios from "axios";
 import AuthContext from "../../hooks/AuthContext";
 import { baseURL } from "../../config";
 import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
+import TableLoading from "../../components/UI/Loading";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, BarElement, Title, Tooltip, Legend );
 
 const MAIN_COLORS = ['rgb(100, 212, 253)', 'rgb(255, 99, 132)', 'rgb(99, 200, 132)', 'rgb(180, 15, 180)', 'rgb(240, 220, 0)']
@@ -24,35 +26,68 @@ const options = {
 
 function DashboardAdmin(){
     const auth = useContext(AuthContext);
-    const [statistics, setStatistics] = useState({
-      consultations: "0",
-      hospitalisations: "0",
-      interventions: "0",
-      personnel: "0",
+
+    const statistics = useQuery<any>({
+      queryKey: ['statistics_admin'],
+      queryFn: async () => {
+        const statistics = { consultations: "", hospitalisations: "", interventions: "", personnel: "",}
+        statistics.consultations = (await axios.get(`${baseURL}/api/consultations/count?hopital=${auth!.hopital}`)).data.count;
+        statistics.hospitalisations = (await axios.get(`${baseURL}/api/hospitalisations/count?hopital=${auth!.hopital}`)).data.count;
+        statistics.interventions = (await axios.get(`${baseURL}/api/interventions/count?hopital=${auth!.hopital}`)).data.count;
+        statistics.personnel = (await axios.get(`${baseURL}/api/personnel/count?hopital=${auth!.hopital}`)).data.count;
+        return statistics
+      }
     })
-    const [chart1Data, setChart1Data] = useState({date_keys:[], consultations:[], hospitalisations:[], interventions:[]})
+    const timeline = useQuery<any>({
+      queryKey: ['timeline_admin'],
+      queryFn: async () => {
+        const result : Record<string, any[]> = {date_keys:[], consultations:[], hospitalisations:[], interventions:[]}
+        const months = 12
+        const [result1, result2, result3] = await Promise.all([
+          axios.get(`${baseURL}/api/consultations/timeline?hopital=${auth?.hopital}&duree=${months}`),
+          axios.get(`${baseURL}/api/hospitalisations/timeline?hopital=${auth?.hopital}&duree=${months}`),
+          axios.get(`${baseURL}/api/interventions/timeline?hopital=${auth?.hopital}&duree=${months}`),
+        ])
+        
+        const today = new Date();
+        const lastYear = moment(today).subtract(months, 'months').year();
+
+        for(let i=0; i <= months; i++){
+          const date = new Date(lastYear, today.getMonth()+i, 1)
+          const date_key = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, '0');
+
+          result.date_keys.push(date_key)
+          result.consultations.push(result1.data[date_key]? result1.data[date_key] : 0)
+          result.hospitalisations.push(result2.data[date_key]? result2.data[date_key] : 0)
+          result.interventions.push(result3.data[date_key]? result3.data[date_key] : 0)
+        }
+
+        return result
+      }
+    })
+
     const [chart2Data, setChart2Data] = useState({labels: [], data: []})
     const [chart3Data, setChart3Data] = useState({labels: [], data: []})
     const [chart4Data, setChart4Data] = useState({labels: [], data: []})
 
     const chart1_data = {
-      labels: chart1Data.date_keys,
+      labels: timeline.data? timeline.data.date_keys : [],
       datasets: [
         {
           label: 'Consultations',
-          data: chart1Data.consultations,
+          data: timeline.data? timeline.data.consultations : [],
           borderColor: MAIN_COLORS[0],
           backgroundColor: OFF_COLORS[0]
         },
         {
           label: 'Hospitalisations',
-          data: chart1Data.hospitalisations,
+          data: timeline.data? timeline.data.hospitalisations : [],
           borderColor: MAIN_COLORS[1],
           backgroundColor: OFF_COLORS[1]
         },
         {
           label: 'Interventions',
-          data: chart1Data.interventions,
+          data: timeline.data? timeline.data.interventions : [],
           borderColor: MAIN_COLORS[2],
           backgroundColor: OFF_COLORS[2]
         }
@@ -91,34 +126,8 @@ function DashboardAdmin(){
         }
       ],
     };
+
     useEffect(()=>{
-      // get cards
-      axios.get(`${baseURL}/api/ehr/consultations/count?hopital=${auth!.hopital}`).then((response: any)=> setStatistics(s => ({...s, consultations: response.data.count})))
-      axios.get(`${baseURL}/api/ehr/hospitalisations/count?hopital=${auth!.hopital}`).then((response: any)=> setStatistics(s => ({...s, hospitalisations: response.data.count})))
-      axios.get(`${baseURL}/api/ehr/interventions/count?hopital=${auth!.hopital}`).then((response: any)=> setStatistics(s => ({...s, interventions: response.data.count})))
-      axios.get(`${baseURL}/api/personnel/count?hopital=${auth!.hopital}`).then((response: any)=> setStatistics(s => ({...s, personnel: response.data.count})))
-
-      //get chart 1
-      const months = 12
-      axios.get(`${baseURL}/api/ehr/statistics`).then((response: any)=> {
-        const today = new Date();
-        const lastYear = moment(today).subtract(months, 'months').year();
-        const date_keys : any = []
-        const consultations : any = []
-        const hospitalisations : any = []
-        const interventions : any = []
-
-        for(let i=0; i<=months; i++){
-          const date = new Date(lastYear, today.getMonth()+i+1, 1)
-          const date_key = date.getFullYear() + "-" + date.getMonth().toString().padStart(2, '0');
-          date_keys.push(date_key)
-          consultations.push(response.data[date_key]? response.data[date_key].consultations : 0)
-          hospitalisations.push(response.data[date_key]? response.data[date_key].hospitalisations : 0)
-          interventions.push(response.data[date_key]? response.data[date_key].interventions : 0)
-        }
-        setChart1Data({date_keys, consultations, hospitalisations, interventions})
-      })
-
       //get chart 2
       axios.get(`${baseURL}/api/personnel/countBySexe?hopital=${auth!.hopital}`).then((response: any)=> {
         const labels = response.data.map((x : any) => x.sexe);
@@ -137,19 +146,39 @@ function DashboardAdmin(){
     return <>
         <div className="grid grid-cols-12 gap-x-4 gap-y-2 w-full">
             <StatisticsCard icon="fa fa-user" title="Consultations" >
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.consultations}</h5>
+            {
+              statistics.isError? "Erreur":
+              statistics.isLoading?
+                <TableLoading />:
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.consultations}</h5>
+            }
             </StatisticsCard>
 
             <StatisticsCard icon="fa fa-bed-pulse" title="Hospitalisations" >
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.hospitalisations}</h5>
+            {
+              statistics.isError? "Erreur":
+              statistics.isLoading?
+                <TableLoading />:
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.hospitalisations}</h5>
+            }
             </StatisticsCard>
 
             <StatisticsCard icon="fa fa-heart-pulse" title="Interventions">
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.interventions}</h5>
+            {
+              statistics.isError? "Erreur":
+              statistics.isLoading?
+                <TableLoading />:
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.interventions}</h5>
+            }
             </StatisticsCard>
 
             <StatisticsCard icon="fa fa-user-nurse" title="Personnel">
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.personnel}</h5>
+            {
+              statistics.isError? "Erreur":
+              statistics.isLoading?
+                <TableLoading />:
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.personnel}</h5>
+            }
             </StatisticsCard>
         </div>
         <div className="grid grid-cols-10 gap-x-4 gap-y-2 w-full">

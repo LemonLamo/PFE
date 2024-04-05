@@ -34,6 +34,7 @@ function TabExamenClinique({ NIN }: Props) {
         tableDefinition={tableDefinitionExamenClinique}
         query={query}
         className="mt-2"
+        searchable={false}
       />
     </>
   );

@@ -23,23 +23,23 @@ function Sidebar({ setOpen }: SidebarProps) {
       <div className="items-center block w-auto max-h-screen">
         <ul className="flex flex-col pl-0 pt-2 pb-4">
           <SidebarButton text="Dashboard Medecin" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Admin" icon="fa fa-staff-snake" route="/dashboard_admin" closeSidebar={setOpen}/>
+          <SidebarButton text="Dashboard Admin" icon="fa fa-pie-chart" route="/dashboard_admin" closeSidebar={setOpen}/>
           <SidebarButton text="Dashboard Inf" icon="fa fa-staff-snake" route="/dashboard_inf" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Lab" icon="fa fa-staff-snake" route="/dashboard_lab" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Radio" icon="fa fa-staff-snake" route="/dashboard_radio" closeSidebar={setOpen}/>
+          <SidebarButton text="Dashboard Lab" icon="fa fa-vial" route="/dashboard_lab" closeSidebar={setOpen}/>
+          <SidebarButton text="Dashboard Radio" icon="fa fa-x-ray" route="/dashboard_radio" closeSidebar={setOpen}/>
 
           <SidebarHeader text="Bureau d'entrée" />
           <SidebarButton text="Dashboard Entrée" icon="fa fa-staff-snake" route="/dashboard_entree" closeSidebar={setOpen}/>
-          <SidebarButton text="Nouveau patient" icon="fa fa-user-plus" route="/nouveau_patient" closeSidebar={setOpen}/>
+          <SidebarButton text="Nouveau patient" icon="fa fa-user-plus" route="/patients/new" closeSidebar={setOpen}/>
 
           <SidebarHeader text="Consultation" />
           <SidebarButton text="Nouvelle consultation" icon="fa fa-folder-plus" route="/nouvelle_consultation" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes patients" icon="fa fa-user" route="/mes_patients" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/mes_rendez_vous" closeSidebar={setOpen}/>
+          <SidebarButton text="Mes patients" icon="fa fa-user" route="/patients" closeSidebar={setOpen}/>
+          <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez_vous" closeSidebar={setOpen}/>
 
           <SidebarHeader text="Hospitalisations" />
-          <SidebarButton text="Nouvelle hospitalisation" icon="fa fa-folder-plus" route="/nouvelle_hospitalisation" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes patients hospitalisés" icon="fa fa-bed-pulse" route="/mes_patients_admis" closeSidebar={setOpen}/>
+          <SidebarButton text="Nouvelle hospitalisation" icon="fa fa-folder-plus" route="/hospitalisations/new" closeSidebar={setOpen}/>
+          <SidebarButton text="Mes patients hospitalisés" icon="fa fa-bed-pulse" route="/hospitalisations" closeSidebar={setOpen}/>
 
           <SidebarHeader text="Pharmacie" />
           <SidebarButton text="Gestion des médicaments" icon="fa fa-prescription-bottle-medical" route="/pharmacie" closeSidebar={setOpen}/>
@@ -47,7 +47,6 @@ function Sidebar({ setOpen }: SidebarProps) {
           <SidebarHeader text="Administration" />
           <SidebarButton text="Gestion du personnel" icon="fa fa-users" route="/personnel" closeSidebar={setOpen}/>
           <SidebarButton text="Gestion des chambres" icon="fa fa-bed" route="/chambres" closeSidebar={setOpen}/>
-          {/*<SidebarButton text="Rôles et permissions" icon="fa fa-shield" route="/roles" closeSidebar={setOpen}/>*/}
         </ul>
       </div>
     </aside>

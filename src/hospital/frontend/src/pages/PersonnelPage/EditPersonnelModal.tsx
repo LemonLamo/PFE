@@ -34,38 +34,38 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
         <form className="grid grid-cols-2 gap-2" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">NIN</label>
+            <label className="text-sm font-semibold">NIN<span className="text-red-500">*</span></label>
             <input type="text" className="primary" placeholder="NIN" {...register('NIN')}/>
           </div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Nom </label>
+            <label className="text-sm font-semibold">Nom<span className="text-red-500">*</span> </label>
             <input type="text" className="primary" placeholder="Nom" {...register('nom')}/>
           </div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Prénom </label>
+            <label className="text-sm font-semibold">Prénom<span className="text-red-500">*</span> </label>
             <input type="text" className="primary" placeholder="Prénom" {...register('prenom')}/>
           </div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Sexe </label>
+            <label className="text-sm font-semibold">Sexe<span className="text-red-500">*</span> </label>
             <input type="text" className="primary" placeholder="Sexe" {...register('sexe')}/>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="text-sm font-semibold">Date de naissance</label>
+              <label className="text-sm font-semibold">Date de naissance<span className="text-red-500">*</span> </label>
               <input type="date" className="primary" placeholder="Date de naissance" {...register('date_de_naissance', {valueAsDate: true})}/>
             </div>
             <div>
-              <label className="text-sm font-semibold">Lieu de naissance</label>
+              <label className="text-sm font-semibold">Lieu de naissance<span className="text-red-500">*</span> </label>
               <input type="text" className="primary" placeholder="Lieu de naissance" {...register('lieu_de_naissance')}/>
             </div>
           </div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Service</label>
+            <label className="text-sm font-semibold">Service<span className="text-red-500">*</span> </label>
             <input type="text" className="primary" placeholder="Service" {...register('service')}/>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div className="mb-2">
-              <label className="text-sm font-semibold">Fonction</label>
+              <label className="text-sm font-semibold">Fonction<span className="text-red-500">*</span> </label>
               <input type="text" className="primary" placeholder="Fonction" {...register('fonction')}/>
             </div>
             <div className="mb-2">
@@ -81,28 +81,28 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
 
         <div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Email </label>
+            <label className="text-sm font-semibold">Email<span className="text-red-500">*</span> </label>
             <input type="email" className="primary" placeholder="Email" {...register('email')}/>
           </div>
           <div className="mb-2">
-            <label className="text-sm font-semibold"> Numero de téléphone </label>
+            <label className="text-sm font-semibold"> Numero de téléphone<span className="text-red-500">*</span> </label>
             <input type="tel" className="primary" placeholder="Numero de telephone" {...register('telephone')}/>
           </div>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Adresse</label>
+            <label className="text-sm font-semibold">Adresse<span className="text-red-500">*</span> </label>
             <input type="text" className="primary" placeholder="Adresse" {...register('adresse')}/>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div>
-              <label className="text-sm font-semibold">Commune</label>
+              <label className="text-sm font-semibold">Commune<span className="text-red-500">*</span> </label>
               <input type="text" className="primary" placeholder="Commune" {...register('commune')}/>
             </div>
             <div>
-              <label className="text-sm font-semibold">Wilaya</label>
+              <label className="text-sm font-semibold">Wilaya<span className="text-red-500">*</span> </label>
               <input type="text" className="primary" placeholder="Wilaya" {...register('wilaya')}/>
             </div>
             <div>
-              <label className="text-sm font-semibold">Code postale</label>
+              <label className="text-sm font-semibold">Code postale<span className="text-red-500">*</span> </label>
               <input type="text" className="primary" placeholder="Code Postale" {...register('code_postale')}/>
             </div>
           </div>

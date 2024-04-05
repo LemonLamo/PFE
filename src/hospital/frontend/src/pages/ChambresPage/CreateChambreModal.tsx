@@ -44,12 +44,12 @@ export default function CreateChambreModal({isOpen, close} : Props) {
       <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une nouvelle chambre </p>
       <form className="grid grid-cols-12 gap-2" onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
         <div className="col-span-4">
-          <label className="text-sm font-semibold">Numéro de chambre</label>
+          <label className="text-sm font-semibold">Numéro de chambre<span className="text-red-500">*</span></label>
           <input type="text" className="primary" placeholder="Num" {...register('num')} />
         </div>
 
         <div className="col-span-4">
-          <label className="text-sm font-semibold">Etage </label>
+          <label className="text-sm font-semibold">Etage<span className="text-red-500">*</span> </label>
           <select className="primary" {...register('etage')}>
             <option value={0}>RDC</option>
             <option value={1}>1er</option>
@@ -62,7 +62,7 @@ export default function CreateChambreModal({isOpen, close} : Props) {
         </div>
 
         <div className="col-span-4">
-          <label className="text-sm font-semibold">Nombre de lits </label>
+          <label className="text-sm font-semibold">Nombre de lits<span className="text-red-500">*</span> </label>
           <input type="number" min="0" className="primary" placeholder="Nombre" {...register('nombre_lits')} />
         </div>
         

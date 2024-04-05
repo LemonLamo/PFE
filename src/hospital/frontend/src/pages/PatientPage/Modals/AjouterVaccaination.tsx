@@ -30,10 +30,10 @@ export default function AjouterVaccaination({isOpen, close, action}: Props) {
                 <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={moment(selectedVaccination.date).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedVaccination({...selectedVaccination, date: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
-                <textarea className="col-span-4" rows={5} placeholder="Remarques"/>
+                <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedVaccination.remarques} onChange={(e) => setSelectedVaccination({...selectedVaccination, remarques: e.target.value})}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Date de prochaine dose: </label>
-                <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={moment(selectedVaccination.date_de_prochaine_dose).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSelectedVaccination({...selectedVaccination, date_de_prochaine_dose: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
+                <input type="datetime-local" className="primary col-span-4" placeholder="Date" value={selectedVaccination.date_de_prochaine_dose? moment(selectedVaccination.date_de_prochaine_dose).format("YYYY-MM-DD HH:mm") : undefined} onChange={(e) => setSelectedVaccination({...selectedVaccination, date_de_prochaine_dose: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()})}/>
             </div>
 
             <div className="flex justify-end gap-3 mt-4">

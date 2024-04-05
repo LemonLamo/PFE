@@ -21,6 +21,7 @@ import ChambresPage from "./pages/ChambresPage";
 import PersonnelPage from "./pages/PersonnelPage";
 import RolesPage from "./pages/RolesPage/RolesPage";
 import ParemetresPage from "./pages/ParametresPage";
+import TestRoute from "./pages/TestRoute";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -46,34 +47,34 @@ const router = createBrowserRouter([
       <Scaffold> <NouvelleConsultationPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
-  { path: "/nouveau_patient", element:(
-    <PrivateRouteOnly>
-      <Scaffold> <NouveauPatientPage/> </Scaffold>
-    </PrivateRouteOnly>)},
-
-  { path: "/mes_patients", element:(
+  { path: "/patients", element:(
     <PrivateRouteOnly>
       <Scaffold> <MesPatientsPage/> </Scaffold>
     </PrivateRouteOnly>)},
 
-  { path: "/mes_rendez_vous", element:(
+  { path: "/patients/new", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <NouveauPatientPage/> </Scaffold>
+    </PrivateRouteOnly>)},
+  
+  { path: "/patients/:NIN", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <PatientPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+
+  { path: "/rendez_vous", element:(
     <PrivateRouteOnly>
       <Scaffold> <MesRendezVousPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
-  { path: "/nouvelle_hospitalisation", element:(
-    <PrivateRouteOnly>
-      <Scaffold> <NouvelleHospitalisationPage /> </Scaffold>
-    </PrivateRouteOnly>)},
-
-  { path: "/mes_patients_admis", element:(
+  { path: "/hospitalisations", element:(
     <PrivateRouteOnly>
       <Scaffold> <MesPatientsHospitalisesPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
-  { path: "/patients/:NIN", element:(
+  { path: "/hospitalisations/new", element:(
     <PrivateRouteOnly>
-      <Scaffold> <PatientPage /> </Scaffold>
+      <Scaffold> <NouvelleHospitalisationPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
   { path: "/pharmacie", element:(
@@ -100,6 +101,8 @@ const router = createBrowserRouter([
     <PrivateRouteOnly>
       <Scaffold> <ParemetresPage /> </Scaffold>
     </PrivateRouteOnly>)},
+
+  { path: "/test", element:( <Scaffold> <TestRoute/> </Scaffold>)}
 ]);
 
 export default router;

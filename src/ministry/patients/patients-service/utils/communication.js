@@ -6,7 +6,7 @@ exports.fetchMaladies = async (data) => {
     const maladies = (await axios.post('http://codifications-service/private/maladiesByCodes', { codes_maladies })).data;
     const codesMap = new Map(maladies.map((x) => [x.code_maladie, { ...x }]));
 
-    return data.map((x) => ({ ...x, designation: codesMap.get(x.code_maladie).designation }));
+    return codesMap;
 }
 
 exports.fetchAllergies = async (data) => {
@@ -15,7 +15,7 @@ exports.fetchAllergies = async (data) => {
     const allergenes = (await axios.post('http://codifications-service/private/allergenesByCodes', { codes_allergenes })).data;
     const codesMap = new Map(allergenes.map((x) => [x.code_allergene, { ...x }]));
 
-    return data.map((x) => ({ ...x, designation: codesMap.get(x.code_allergene).designation }));
+    return codesMap;
 }
 
 exports.fetchVaccinations = async (data) => {
@@ -24,5 +24,5 @@ exports.fetchVaccinations = async (data) => {
     const vaccins = (await axios.post('http://codifications-service/private/vaccinsByCodes', { codes_vaccins })).data;
     const codesMap = new Map(vaccins.map((x) => [x.code_vaccin, { ...x }]));
 
-    return data.map((x) => ({ ...x, designation: codesMap.get(x.code_vaccin).designation }));
+    return codesMap;
 }

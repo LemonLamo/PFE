@@ -51,9 +51,9 @@ class ChambresController {
   }
 
   async update(req, res) {
-    const { num, nombre_lits, description } = req.body;
+    const { num, etage, nombre_lits, description } = req.body;
     try {
-      await Model.update(num, nombre_lits, description);
+      await Model.update(num, etage, nombre_lits, description);
       return res.status(200).json({ success: true });
     } catch (err) {
       logger.error("database-error: " + err.code);

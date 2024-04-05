@@ -31,11 +31,11 @@ export default function RetirerMedicamentModal({isOpen, close}: Props) {
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Ajouter un médicament </h3>
             <p className="text-gray-600"> Remplissez ce formulaire pour retirer des boites d'un médicament </p>
             <div className="mb-2">
-                    <label className="text-sm font-semibold">Code:</label>
+                    <label className="text-sm font-semibold">Code<span className="text-red-500">*</span> </label>
                     <Select<MedicamentCode> url="medicaments" code="code_medicament" designation="DCI" placeholder="Médicament" onChange={select_medicament} />
                 </div>
                 <div className="col-span-4 mb-2">
-                    <label className="text-sm font-semibold">Quantité à retirer:</label>
+                    <label className="text-sm font-semibold">Quantité à retirer<span className="text-red-500">*</span> </label>
                     <input type="number" className="primary" placeholder="Qte" value={selectedMedicament.quantite} onChange={(e) => setSelectedMedicament({ ...selectedMedicament, quantite: e.target.valueAsNumber }) } />
                 </div>
 

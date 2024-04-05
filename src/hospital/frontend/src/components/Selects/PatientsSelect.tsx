@@ -31,10 +31,7 @@ function PatientsSelect({ onChange, placeholder = '', className = '', state }: S
         }
     }, [query])
 
-    const filteredOptions = options === undefined ? [] : options.filter(
-        (v) => v.NIN.toLowerCase().includes(query.toLowerCase()) ||
-            `${v.nom} ${v.prenom}`.toLowerCase().includes(query.toLowerCase()) ||
-            `${v.prenom} ${v.nom}`.toLowerCase().includes(query.toLowerCase()))
+    const filteredOptions = options ?? []
 
     useEffect(()=>{
         onChange(selectedPatient)

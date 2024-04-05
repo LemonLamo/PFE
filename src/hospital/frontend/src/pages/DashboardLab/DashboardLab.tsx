@@ -10,6 +10,7 @@ import axios from "axios";
 import { status_badge } from "../../hooks/useBilans";
 import LabelBilan from "./LabelBilan";
 import JoindreResultatsBilan from "./JoindreResultatsBilan";
+import { Link } from "react-router-dom";
 
 function DashboardLab(){
     const [openModal, setOpenModal] = useState("")
@@ -17,7 +18,7 @@ function DashboardLab(){
     const query = useQuery<Bilan[]>({
         queryKey: ['bilans'],
         queryFn: async () => {
-            const data = (await axios.get(`${baseURL}/api/ehr/bilans`)).data;
+            const data = (await axios.get(`${baseURL}/api/bilans`)).data;
             return data;
         }
     });
@@ -46,9 +47,13 @@ function DashboardLab(){
         { header: "", id: "actions", cell: (info) => {
                 const bilan = info.row.original;
                 return (
+                    !info.row.original.date_fait?
                     <div className="flex justify-end gap-2">
                         <Button onClick={()=>{setSelectedBilan(bilan); setOpenModal("label")}} theme="success">Label</Button>
                         <Button onClick={()=>{setSelectedBilan(bilan); setOpenModal("joindre")}} theme="primary">Joindre</Button>
+                    </div> :
+                    <div className="flex justify-end gap-2">
+                        <Link to={`/bilans/${bilan.id}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center py-2 px-4 font-semibold transition border text-cyan-500 border-cyan-500 rounded hover:bg-cyan-500 hover:text-white">Résultats</Link>
                     </div>
                 )
             }

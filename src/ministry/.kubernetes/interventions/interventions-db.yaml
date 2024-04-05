@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: interventions-db
+  name: interventions-db
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: interventions-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: interventions-db
+  name: interventions-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: interventions-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: interventions-db
+    spec:
+      containers:
+        - image: medicalife/interventions-db:latest
+          name: interventions-db
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/interventions
+              name: interventions-data
+      restartPolicy: Always
+      volumes:
+        - name: interventions-data
+          persistentVolumeClaim:
+            claimName: interventions-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: interventions-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

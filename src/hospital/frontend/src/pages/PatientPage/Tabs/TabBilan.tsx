@@ -47,6 +47,7 @@ function TabBilan({ NIN }: Props) {
         tableDefinition={tableDefinitionBilan}
         query={query}
         className="mt-2"
+        searchable={false}
       />
     </>
   );

@@ -1,5 +1,8 @@
 import moment from "moment";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
+import { useState } from "react";
+import axios from "axios";
+import { baseURL } from "../../config";
 
 type Props = {
   isOpen: boolean,
@@ -7,7 +10,31 @@ type Props = {
   selectedBilan: Bilan,
 }
 
-export default function JoindreResultatsBilan({ isOpen, close, selectedBilan} : Props) {
+export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } : Props) {
+  const [bilans, setBilans] = useState<File[]>([]);
+
+  function handleChange(event : React.ChangeEvent<HTMLInputElement>) {
+    if(event.target.files)
+      setBilans([...event.target.files])
+  }
+  function deleteUploadedFile(index : number){
+    const newBilans = [...bilans];
+    newBilans.splice(index, 1);
+    setBilans(newBilans)
+  }
+  async function submit(){
+    const formData = new FormData();
+    bilans.forEach((bilan, i) => formData.append(`bilan${i}`, bilan))
+    
+    const config = { headers: {'content-type': 'multipart/form-data'} }
+    try{
+      const response = await axios.post(`${baseURL}/api/bilans/${selectedBilan.id}`, formData, config);
+      console.log(response.data);
+    }catch(e){
+      console.error(e)
+    }
+  }
+
   return(
     <Modal isOpen={isOpen} theme="primary" size="sm:max-w-2xl">
       <div className="overflow-auto w-full h-full flex flex-col">
@@ -32,35 +59,44 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan} : 
         </div>
         
         <div className="border-dashed border-2 border-gray-400 mt-2 py-4 flex flex-col justify-center items-center">
-          <i>
-            <svg className="fill-current w-12 h-12 mb-3 text-cyan-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M19.479 10.092c-.212-3.951-3.473-7.092-7.479-7.092-4.005 0-7.267 3.141-7.479 7.092-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408zm-7.479-1.092l4 4h-3v4h-2v-4h-3l4-4z" />
-            </svg>
-          </i>
-          <p className="mb-3 font-semibold text-gray-900 text-center">
-            <div>Glissez-déposez vos fichiers n'importe où</div>
-            <div>ou bien</div>
-          </p>
-          <input id="hidden-input" type="file" multiple className="hidden" />
-          <button id="button" className="mt-2 rounded-sm px-3 py-1 bg-gray-100 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-            Upload a file
-          </button>
+          <label htmlFor="fileupload" className="mb-3 text-center">
+            <i>
+              <svg className="fill-current w-12 h-12 mb-3 text-cyan-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M19.479 10.092c-.212-3.951-3.473-7.092-7.479-7.092-4.005 0-7.267 3.141-7.479 7.092-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408zm-7.479-1.092l4 4h-3v4h-2v-4h-3l4-4z" />
+              </svg>
+            </i>
+            <div className="font-semibold text-gray-900">Glissez-déposez vos fichiers n'importe où</div>
+            <div className="font-semibold text-gray-900">ou bien</div>
+            <div className="mt-2">
+              <span id="button" className="mt-2 rounded-sm px-3 py-1 bg-gray-100 hover:bg-gray-300 focus:shadow-outline focus:outline-none"> Upload a file</span>
+            </div>
+          </label>
+          <input id="fileupload" type="file" multiple className="hidden" onChange={handleChange}/>
         </div>
 
-        <h1 className="pt-6 pb-3 font-semibold sm:text-lg text-gray-900">
-          Lab reports
-        </h1>
-
-        <ul id="gallery" className="flex flex-1 flex-wrap ">
-          <li id="empty" className="h-full w-full text-center flex flex-col items-center justify-center items-center">
-            <img className="mx-auto w-32" src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png" alt="no data" />
-            <span className="text-small text-gray-500">No files selected</span>
-          </li>
-        </ul>
+        <h1 className="pt-6 pb-3 font-semibold sm:text-lg text-gray-900">Lab reports</h1>
+        <div className="flex flex-1 flex-wrap bg-no-repeat bg-opacity- bg-center min-h-[150px] gap-4" style={{"backgroundImage": "url('https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png')"}}>
+          {
+            bilans?.map((x, i)=> (
+              <div key={i} className="block h-46 w-32">
+                <div className="group w-full h-full rounded-md focus:outline-none focus:shadow-outline elative bg-gray-100 cursor-pointer relative shadow-sm">
+                  <div className="text-xs break-words w-full absolute bottom-0">
+                    <div className="flex items-center justify-between px-2 pb-1 gap-1">
+                      <i className="fa fa-file text-red-800 text-sm" />
+                      <span className="text-blue-800 text-sm truncate"> {x.name} </span>
+                      <button className="focus:outline-none text-gray-800 pl-2" onClick={() => deleteUploadedFile(i)}>
+                        <i className="fa fa-trash text-sm" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
         </div>
-
+      </div>
         <div className="flex justify-end gap-3 mt-4">
-          <button type="button" className={`${ModalThemes['primary'].color} rounded-md px-4 py-2 font-semibold text-white`}>Upload</button>
+          <button type="button" className={`${ModalThemes['primary'].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => submit()}>Upload</button>
           <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
         </div>
     </Modal>);

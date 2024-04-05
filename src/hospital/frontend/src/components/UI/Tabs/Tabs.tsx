@@ -17,8 +17,8 @@ function Tabs({type="vertical", children} : TabsProps) {
                 {
                     children.map((tab, i)=>{
                         return <li key={`tab${i}`}>
-                            <button className={`${selected == i ? activeStyle : inactiveStyle} flex justify-start items-center text-left w-full ps-2 pe-6 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
-                                {tab.props.icon && <i className={`${tab.props.icon} sm:me-2`} />}
+                            <button className={`${selected == i ? activeStyle : inactiveStyle} pb-4 h-12 flex justify-start items-center text-left w-full ps-2 pe-6 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
+                                {tab.props.icon && <i className={`${tab.props.icon} text-[1rem] w-5 sm:me-2`} />}
                                 {
                                     type=="horizontal"?
                                     <span className={`${(selected == i) ? "block" : "hidden lg:block"}`}>{tab.props.text}</span>:

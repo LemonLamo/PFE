@@ -12,15 +12,15 @@ type Props = {
 const theme = "primary"
 
 export default function AjouterInterventionModal({isOpen, close, selectedHospitalisation}: Props) {
-    const [selectedIntervention, setSelectedIntervention] = useState<Partial<Intervention>>({code_intervention:"", designation:""});
-    function select_intervention(intervention: any) {
+    const [selectedIntervention, setSelectedIntervention] = useState<Partial<Intervention>>({code_intervention:"", designation:"", date: new Date(), remarques: ""});
+    function select_intervention(intervention: InterventionCode) {
         if(intervention)
-            setSelectedIntervention({ code_intervention: intervention.code, designation: intervention.designation })
+            setSelectedIntervention({ code_intervention: intervention.code_intervention, designation: intervention.designation })
     }
 
     return (
-        <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-2xl">
-            <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Ajouter une intervention </h3>
+        <Modal isOpen={isOpen} icon="fa fa-staff-snake" theme={theme} size="sm:max-w-2xl">
+            <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Plannifier une intervention </h3>
             <p className="text-gray-600"> Remplissez ce formulaire pour plannifier une intervention pour {selectedHospitalisation.patient.nom} {selectedHospitalisation.patient.prenom} </p>
             <div className="grid grid-cols-6 gap-2">
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention: </label>
