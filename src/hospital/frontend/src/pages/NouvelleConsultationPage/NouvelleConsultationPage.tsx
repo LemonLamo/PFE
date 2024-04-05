@@ -16,16 +16,14 @@ import axios, { AxiosError } from "axios";
 function NouvelleConsultationPage() {
   const [validPatient, setValidPatient] = useState(false);
   const [state, setState] = useState<Record<string, boolean>>({
-    mediacments_active: false,
+    prescriptions_active: false,
     radios_active: false,
     bilans_active: false,
     interventions_active: false,
     arret_de_travail_active: false,
     prochaine_consultation_active: true,
   });
-  const [consultationData, setConsultationData] = useState<
-    Partial<Consultation>
-  >({
+  const [consultationData, setConsultationData] = useState<Partial<Consultation>>({
     patient: { NIN: "", nom: "", prenom: "" },
     date: new Date(),
     type: "Evaluation de nouveau patient",
@@ -61,7 +59,8 @@ function NouvelleConsultationPage() {
 
   async function submit() {
     try {
-      if (!state.mediacments_active) consultationData.prescriptions = [];
+      console.log(state)
+      if (!state.prescriptions_active) consultationData.prescriptions = [];
       if (!state.radios_active) consultationData.radios = [];
       if (!state.bilans_active) consultationData.bilans = [];
       if (!state.arret_de_travail_active)
