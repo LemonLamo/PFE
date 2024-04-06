@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hopitaux-service
+  name: hopitaux-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: hopitaux-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hopitaux-service
+  name: hopitaux-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hopitaux-service
+  template:
+    metadata:
+      labels:
+        app: hopitaux-service
+    spec:
+      containers:
+        - image: medicalife/hopitaux-service:latest
+          name: hopitaux-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

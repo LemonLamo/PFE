@@ -50,17 +50,12 @@ function TabHospitalisation({ hospitalisationData, setHospitalisationData } : Ta
 
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Chambre: </label>
         <select className="col-span-3" value={hospitalisationData.chambre} onChange={(e) => updateHospitalisationData('chambre', e.target.value)}>
-          <option value="" key={-1} disabled> Chambre</option>
-          {
-            chambres.map((c, i) => (<option value={c?.num} key={i}> Chambre {c?.num}</option>))
-          }
+          { chambres.map((c, i) => (<option value={c?.num} key={i}> Chambre {c?.num}</option>)) }
         </select>
 
         <label className="font-semibold text-slate-700 text-sm col-span-1"> Lit: </label>
         <select className="col-span-3" value={hospitalisationData.lit} onChange={(e) => updateHospitalisationData('lit', e.target.value)}>
-          {
-            lits.map((l, i) => (<option value={l?.num} key={i}> Lit N°{l?.num}</option>))
-          }
+          { lits.map((l, i) => (<option value={l?.num} key={i}> Lit N°{l?.num}</option>)) }
         </select>
 
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Motif d'hospitalisation: </label>

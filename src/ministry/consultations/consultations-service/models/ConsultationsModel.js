@@ -14,10 +14,7 @@ class ConsultationsModel {
   }
 
   async getActiveByMedecin(NIN) {
-    const [results] = await db.query(
-      "SELECT * FROM `consultations` WHERE `medecin`=? ORDER BY `date` DESC",
-      [NIN]
-    );
+    const [results] = await db.query("SELECT * FROM `consultations` WHERE `medecin`=? ORDER BY `date` DESC", [NIN]);
     return results;
   }
 

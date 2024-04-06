@@ -10,7 +10,9 @@ class ConsultationsController {
   async select(req, res) {
     const { patient } = req.query;
     if (patient) {
-      const result = await Model.getByPatient(patient);
+      const data = await Model.getByPatient(patient);
+      const patients = await fetchPatients(data);
+      const result = data.map((x) => ({ ...x, patient: patients.get(x.patient) }))
       return res.status(200).json(result);
     }
     return res.status(400).json({ errorCode: "", errorMessage: "" });

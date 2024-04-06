@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: hopitaux-routes
+  annotations:
+    konghq.com/strip-path: 'false'
+    konghq.com/protocols: "https"
+    konghq.com/https-redirect-status-code: "301"
+spec:
+  parentRefs:
+  - name: kong
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/hopitaux
+    backendRefs:
+    - name: hopitaux-service
+      kind: Service
+      port: 80

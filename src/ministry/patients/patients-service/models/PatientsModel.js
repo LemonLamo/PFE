@@ -51,7 +51,7 @@ class PatientsModel{
     }
 
     async selectByNINs (NINs){
-        const [results] = await db.query('SELECT `NIN`, `nom`, `prenom`, `date_de_naissance`, `sexe` FROM `patients` WHERE `NIN` IN (?)', [NINs]);
+        const [results] = await db.query('SELECT `NIN`, `nom`, `prenom`, `date_de_naissance`, `sexe`, `groupage` FROM `patients` WHERE `NIN` IN (?)', [NINs]);
         return results
     }
 

@@ -68,7 +68,8 @@ class ConsultationsModel {
   }
 
   async addRemarque(id, remarque){
-    await db.execute("UPDATE hospitalisations SET `resume_hospitalisation`=CONCAT_WS(CHAR(10 using utf8), `resume_hospitalisation`, ?) WHERE `id`=?", [remarque, id])
+    const timestamp = moment(new Date()).format("DD/MM/YYYY HH:mm")
+    await db.execute("UPDATE hospitalisations SET `resume_hospitalisation`=CONCAT_WS(CHAR(10 using utf8), '[', ?, ']: ', `resume_hospitalisation`, ?) WHERE `id`=?", [remarque, timestamp, id])
   }
   
   async addSortie(id, mode_sortie, date_sortie){

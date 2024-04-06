@@ -15,6 +15,9 @@ services = [
     "consultations/consultations-db",
     "consultations/consultations-service",
 
+    "hopitaux/hopitaux-db",
+    "hopitaux/hopitaux-service",
+
     "hospitalisations/hospitalisations-db",
     "hospitalisations/hospitalisations-service",
 

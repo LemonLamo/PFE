@@ -8,9 +8,8 @@ class InterventionsController {
         const { patient } = req.query
         if(patient){
             const data = await Model.getByPatient(patient);
-            const interventions = await fetchInterventions(data)
-
-            const result = data.map((x) => ({ ...x, designation: interventions.get(x.code_intervention).designation }))
+            const [interventions, patients] = await Promise.all([fetchInterventions(data), fetchPatients(data)])
+            const result = data.map((x) => ({ ...x, patient: patients.get(x.patient), designation: interventions.get(x.code_intervention).designation }))
             return res.status(200).json(result);
         }
         return res.status(400).json({errorCode: "", errorMessage: ""})

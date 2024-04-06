@@ -37,6 +37,14 @@ spec:
   - matches:
     - path:
         type: PathPrefix
+        value: /api/hopitaux
+    backendRefs:
+    - name: medicalife-api
+      kind: Service
+      port: 443
+  - matches:
+    - path:
+        type: PathPrefix
         value: /api/hospitalisations
     backendRefs:
     - name: medicalife-api
