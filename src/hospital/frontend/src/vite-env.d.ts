@@ -56,7 +56,7 @@ type Intervention = {
 type InterventionCode = {
   code_intervention: string;
   designation: string;
-}
+};
 type ExamenClinique = {
   code_examen_clinique: string;
   designation?: string;
@@ -66,7 +66,7 @@ type ExamenClinique = {
 type ExamenCliniqueCode = {
   code_examen_clinique: string;
   designation: string;
-}
+};
 type Vaccination = {
   code_vaccin: string;
   designation?: string;
@@ -77,7 +77,7 @@ type Vaccination = {
 type VaccinationCode = {
   code_vaccin: string;
   designation: string;
-}
+};
 type Allergie = {
   code_allergene: string;
   designation?: string;
@@ -87,7 +87,7 @@ type Allergie = {
 type AllergieCode = {
   code_allergene: string;
   designation: string;
-}
+};
 type Antecedent = {
   patient?: string;
   designation?: string;
@@ -105,10 +105,10 @@ type Maladie = {
 type MaladieCode = {
   code_maladie: string;
   designation: string;
-}
+};
 type Radio = {
   id: string;
-  patient: Partial<Patient>
+  patient: Partial<Patient>;
   code_radio: string;
   designation?: string;
   date: Date;
@@ -119,10 +119,10 @@ type Radio = {
 type RadioCode = {
   code_radio: string;
   designation: string;
-}
+};
 type Bilan = {
   id: string;
-  patient: Partial<Patient>
+  patient: Partial<Patient>;
   code_bilan: string;
   designation?: string;
   date: Date;
@@ -133,7 +133,7 @@ type Bilan = {
 type BilanCode = {
   code_bilan: string;
   designation: string;
-}
+};
 type Prescription = {
   code_medicament: string;
   DCI?: string;
@@ -232,38 +232,38 @@ type Soin = {
 };
 
 type Notif = {
-  id: string,
-  NIN: string,
-  email: string,
-  telephone: string,
-  type: string,
-  title: string,
-  summary: string,
-  data: string,
-  read_at: Date,
-  created_at: Date,
-}
+  id: string;
+  NIN: string;
+  email: string;
+  telephone: string;
+  type: string;
+  title: string;
+  summary: string;
+  data: string;
+  read_at: Date;
+  created_at: Date;
+};
 
 type Sortie = {
-  date_sortie: Hospitalisation["date_sortie"]
-  mode_sortie: Hospitalisation["mode_sortie"]
-}
+  date_sortie: Hospitalisation["date_sortie"];
+  mode_sortie: Hospitalisation["mode_sortie"];
+};
 
 type Transfert = {
-  hospitalisation: Hospitalisation["id"],
-  hopital: string,
-  service: string,
-  medecin: Partial<Personnel>,
-  remarques: string 
-}
+  hospitalisation: Hospitalisation["id"];
+  hopital: string;
+  service: string;
+  medecin: Partial<Personnel>;
+  remarques: string;
+};
 
 type RendezVous = {
-  id: string
-  patient: Partial<Patient>,
-  medecin: Partial<Personnel>,
-  type: string,
-  title: string,
-  date: Date,
-  duree: number,
-  details?: string
-}
+  id: string;
+  patient: Partial<Patient>;
+  medecin: Partial<Personnel>;
+  type: string;
+  title: string;
+  date: Date;
+  duree: number;
+  details?: string;
+};
