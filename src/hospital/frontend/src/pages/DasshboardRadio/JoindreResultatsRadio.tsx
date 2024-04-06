@@ -24,7 +24,7 @@ export default function JoindreResultatsRadio({ isOpen, close, selectedRadio} : 
   }
   async function submit(){
     const formData = new FormData();
-    radios.forEach((radio, i) => formData.append(`radio${i}`, radio))
+    radios.forEach((radio) => formData.append(`radios`, radio))
     
     const config = { headers: {'content-type': 'multipart/form-data'} }
     try{

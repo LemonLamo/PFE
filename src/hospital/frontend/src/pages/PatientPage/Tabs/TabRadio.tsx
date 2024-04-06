@@ -4,16 +4,17 @@ import axios from "axios";
 import { useMemo } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import { baseURL } from "../../../config";
-import ViewButton from "../../../components/UI/Buttons/ViewButton";
+import { Link } from "react-router-dom";
+import IconButton from "../../../components/UI/Buttons/IconButton";
 type Props = {
-  NIN: string;
+  reference: string;
 };
 
-function TabRadio({ NIN }: Props) {
+function TabRadio({ reference }: Props) {
   const query = useQuery({
-    queryKey: ["patient"],
+    queryKey: ["radios"+reference],
     queryFn: async () => {
-      let data = (await axios.get(`${baseURL}/api/radio`)).data;
+      let data = (await axios.get(`${baseURL}/api/radios?reference=${reference}`)).data;
       return data;
     },
   });
@@ -31,7 +32,11 @@ function TabRadio({ NIN }: Props) {
           const a = info.row.original;
           return (
             <div className="flex justify-end gap-2">
-              <ViewButton onClick={() => {}} />
+              {a.date_fait && 
+              <Link to={`/radios/${a.id}`} target="_blank">
+                <IconButton icon="fa fa-eye" onClick={() => null} className="text-green-500" />
+              </Link>
+              }
             </div>
           );
         },

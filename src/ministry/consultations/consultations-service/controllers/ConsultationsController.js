@@ -36,13 +36,13 @@ class ConsultationsController {
       // Other services
       const insert_examens_cliniques = examens_cliniques.map((e) => ExamensCliniquesModel.insert(genID(), patient, id, e.code_examen_clinique, e.resultat, e.remarques))
       const rdv = {patient, medecin, type: "Consultation", title: "Consultation", details: null, date: prochaine_consultation, duree: 15}
-      Promise.all([
-        ...insert_examens_cliniques,
-        axios.post('http://rendez-vous-service/api/rendez-vous/insert', rdv),
-        axios.post('http://prescriptions-bilans-radios-service/api/prescriptions', { patient, prescriptions, reference:id }),
-        axios.post('http://prescriptions-bilans-radios-service/api/radios', { patient, radios, reference:id }),
-        axios.post('http://prescriptions-bilans-radios-service/api/bilans', { patient, bilans, reference:id }),
-      ])
+      const promises = [...insert_examens_cliniques, axios.post('http://rendez-vous-service/api/rendez-vous/insert', rdv, {headers: {'Authorization': req.headers.authorization}})]
+
+      if(prescriptions) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/prescriptions', { patient, prescriptions, reference:id }))
+      if(radios) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/radios', { patient, radios, reference:id }))
+      if(bilans) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/bilans', { patient, bilans, reference:id }))
+
+      Promise.all(promises)
 
       return res.status(200).json({ success: true });
     }catch(e){

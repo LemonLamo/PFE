@@ -10,12 +10,9 @@ import moment from "moment";
 
 function TestRoute() {
   const [openModal, setOpenModal] = useState("");
-  const [selectedConsultation, setSelectedConsultation] =
-    useState<Consultation>();
-  const [selectedHospitalisation, setSelectedHospitalisation] =
-    useState<Hospitalisation>();
-  const [selectedIntervention, setSelectedIntervention] =
-    useState<Intervention>();
+  const [selectedConsultation, setSelectedConsultation] = useState<Consultation>();
+  const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>();
+  const [selectedIntervention, setSelectedIntervention] = useState<Intervention>();
   const timelineitems = [
     {
       id: "cons-XNDHDBZ",
@@ -116,14 +113,10 @@ function TestRoute() {
             if ((item as Hospitalisation).date_entree !== undefined) {
               let h = item as Hospitalisation;
               const detailsButton = (
-                <Button
-                  theme="primary-alternate"
-                  className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"
-                  onClick={() => {
+                <Button theme="primary-alternate" className="w-38 flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" onClick={() => {
                     setSelectedHospitalisation(h);
                     setOpenModal("hospitalisation");
-                  }}
-                >
+                  }}>
                   <i className="fa fa-magnifying-glass" />
                   <span className="ms-2">Voir détails</span>
                 </Button>
@@ -144,7 +137,7 @@ function TestRoute() {
               const detailsButton = (
                 <Button
                   theme="primary-alternate"
-                  className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"
+                  className="w-38 flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"
                   onClick={() => {
                     setSelectedIntervention(i);
                     setOpenModal("intervention");
@@ -170,7 +163,7 @@ function TestRoute() {
               const detailsButton = (
                 <Button
                   theme="primary-alternate"
-                  className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"
+                  className="w-38 flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"
                   onClick={() => {
                     setSelectedConsultation(c);
                     setOpenModal("consultation");
@@ -195,27 +188,9 @@ function TestRoute() {
           })}
         </Timeline>
       </Card>
-      {selectedConsultation ? (
-        <DetailsConsultation
-          isOpen={openModal === "consultation"}
-          close={() => setOpenModal("")}
-          selectedConsultation={selectedConsultation!}
-        />
-      ) : null}
-      {selectedHospitalisation ? (
-        <DetailsHospitalisation
-          isOpen={openModal === "hospitalisation"}
-          close={() => setOpenModal("")}
-          selectedHospitalisation={selectedHospitalisation!}
-        />
-      ) : null}
-      {selectedIntervention ? (
-        <DetailsIntervention
-          isOpen={openModal === "intervention"}
-          close={() => setOpenModal("")}
-          selectedIntervention={selectedIntervention!}
-        />
-      ) : null}
+      {selectedConsultation ? <DetailsConsultation isOpen={openModal === "consultation"} close={() => setOpenModal("")} selectedConsultation={selectedConsultation!} /> : null}
+      {selectedHospitalisation ? <DetailsHospitalisation isOpen={openModal === "hospitalisation"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation!} /> : null}
+      {selectedIntervention ? <DetailsIntervention isOpen={openModal === "intervention"} close={() => setOpenModal("")} selectedIntervention={selectedIntervention!} /> : null}
     </>
   );
 }

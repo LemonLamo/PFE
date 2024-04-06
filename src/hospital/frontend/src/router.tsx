@@ -22,6 +22,8 @@ import PersonnelPage from "./pages/PersonnelPage";
 import RolesPage from "./pages/RolesPage/RolesPage";
 import ParemetresPage from "./pages/ParametresPage";
 import TestRoute from "./pages/TestRoute";
+import RadioResultPage from "./pages/RadioResultPage";
+import BilanResultPage from "./pages/BilanResultPage";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
   { path: "/dashboard_radio", element:(<Scaffold> <DashboardRadio /> </Scaffold>)},
 
   { path: "/forgot-password", element:(<ForgotPasswordPage />)},
+
+  { path: "/radios/:id", element:(<RadioResultPage />)},
+
+  { path: "/bilans/:id", element:(<BilanResultPage />)},
     
   { path: "/nouvelle_consultation", element:(
     <PrivateRouteOnly>

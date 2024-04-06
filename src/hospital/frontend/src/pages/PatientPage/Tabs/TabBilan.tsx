@@ -4,16 +4,17 @@ import axios from "axios";
 import { useMemo } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import { baseURL } from "../../../config";
-import ViewButton from "../../../components/UI/Buttons/ViewButton";
+import IconButton from "../../../components/UI/Buttons/IconButton";
+import { Link } from "react-router-dom";
 type Props = {
-  NIN: string;
+  reference: string;
 };
 
-function TabBilan({ NIN }: Props) {
+function TabBilan({ reference }: Props) {
   const query = useQuery({
-    queryKey: ["patient"],
+    queryKey: ["bilans"+reference],
     queryFn: async () => {
-      let data = (await axios.get(`${baseURL}/api/bilan`)).data;
+      let data = (await axios.get(`${baseURL}/api/bilans?reference=${reference}`)).data;
       return data;
     },
   });
@@ -31,7 +32,11 @@ function TabBilan({ NIN }: Props) {
           const a = info.row.original;
           return (
             <div className="flex justify-end gap-2">
-              <ViewButton onClick={() => {}} />
+              {a.date_fait && 
+              <Link to={`/bilans/${a.id}`} target="_blank">
+                <IconButton icon="fa fa-eye" onClick={() => null} className="text-green-500" />
+              </Link>
+              }
             </div>
           );
         },

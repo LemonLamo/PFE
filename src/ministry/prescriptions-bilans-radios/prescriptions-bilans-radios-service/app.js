@@ -41,14 +41,18 @@ app.get ("/api/prescriptions/:id", PrescriptionsController.select);
 // Radios
 app.get ("/api/radios", RadiosController.select);
 app.get ("/api/radios/:id", RadiosController.selectOne);
+app.get ("/api/radios/:id/results", RadiosController.getResultsList);
+app.get ("/api/radios/:id/results/:num", RadiosController.getResultOne);
 app.post("/api/radios", RadiosController.insert);
-app.post("/api/radios/:id", upload.array("radio", 1), RadiosController.addResults);
+app.post("/api/radios/:id", upload.array("radios", 5), RadiosController.addResults);
 
 // Bilans
 app.get ("/api/bilans", BilansController.select);
 app.get ("/api/bilans/:id", BilansController.selectOne);
+app.get ("/api/bilans/:id/results", BilansController.getResultsList);
+app.get ("/api/bilans/:id/results/:num", BilansController.getResultOne);
 app.post("/api/bilans", BilansController.insert);
-app.post("/api/bilans/:id", upload.array("bilan", 1), BilansController.addResults);
+app.post("/api/bilans/:id", upload.array("bilans", 5), BilansController.addResults);
 
 app.use((req, res) => res.sendStatus(404));
 

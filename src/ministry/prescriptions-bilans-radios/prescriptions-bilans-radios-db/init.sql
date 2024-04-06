@@ -42,8 +42,13 @@ CREATE TABLE `radios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `radios` (`id`, `patient`, `reference`, `code_radio`, `remarques`, `date`, `date_fait`) VALUES
-('radio-PZR37CU', '100010364027390000', 'cons-XNDHDBZ', 'R10.9', NULL, '2024-03-30', '2024-04-03 08:00'),
+('radio-PZR37CU', '100010364027390000', 'cons-XNDHDBZ', 'R10.9', NULL, '2024-03-30', NULL),
 ('radio-QULJ7WZ', '100010364027390000', 'cons-QULJ7WZ', 'R10.9', 'Idk', '2024-02-27', NULL);
+
+CREATE TABLE `radios_files` (
+  `id` VARCHAR(255) NOT NULL,
+  `file` VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 --
@@ -62,5 +67,11 @@ CREATE TABLE `bilans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `bilans` (`id`, `patient`, `reference`, `code_bilan`, `remarques`, `date`, `date_fait`) VALUES
-('bilan-VZR37CX', '100010364027390000', 'cons-XNDHDBZ', 'B2', 'Idk', '2024-03-30', '2024-04-03 10:00'),
+('bilan-VZR37CX', '100010364027390000', 'cons-XNDHDBZ', 'B2', 'Idk', '2024-03-30', NULL),
 ('bilan-PZR37CU', '100010364027390000', 'cons-XNDHDBZ', 'B1', 'Idk', '2024-03-30', NULL);
+
+
+CREATE TABLE `bilans_files` (
+  `id` VARCHAR(255) NOT NULL,
+  `file` VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

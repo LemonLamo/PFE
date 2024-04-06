@@ -1,5 +1,3 @@
-import { useState } from "react";
-import PatientPage from "..";
 import moment from "moment";
 import Modal from "../../../components/UI/Modal";
 
@@ -29,32 +27,31 @@ export default function DetailsIntervention({
       <div className="grid grid-cols-2 gap-2 mb-1">
         <fieldset className="w-full border-solid border-2 border-slate-400 px-4 pt-0 pb-4">
           <legend className="font-semibold text-gray-900">Patient</legend>
-          <div className="grid grid-cols-6 gap-2 m-0">
-            <div className="col-span-2 font-semibold">NIN:</div>
-            <div className="col-span-4 font-semibold">
+          <div className="grid grid-cols-8 gap-2 m-0">
+            <div className="col-span-3 font-semibold">NIN:</div>
+            <div className="col-span-5 font-semibold">
               {selectedIntervention.patient.NIN}
             </div>
 
-            <div className="col-span-2 font-semibold">Nom complet:</div>
-            <div className="col-span-4">
+            <div className="col-span-3 font-semibold">Nom complet:</div>
+            <div className="col-span-5">
               {selectedIntervention.patient.nom +
                 " " +
                 selectedIntervention.patient.prenom}
             </div>
-            <div className="col-span-2 font-semibold">Date de naissance:</div>
-            <div className="col-span-4">
-              {moment(selectedIntervention.patient.date_de_naissance).format(
-                "YYYY-MM-DD"
-              )}
+            <div className="col-span-3 font-semibold">Date de naissance:</div>
+            <div className="col-span-5">
+              {moment(selectedIntervention.patient.date_de_naissance).format("DD/MM/YYYY")}
+              {" "}
+              {`(${moment(new Date()).diff(moment(selectedIntervention.patient.date_de_naissance), "years")} ans)`}
             </div>
 
-            <div className="col-span-1 font-semibold">Sexe:</div>
-            <div className="col-span-2">
+            <div className="col-span-2 font-semibold">Sexe:</div>
+            <div className="col-span-3">
               {selectedIntervention.patient.sexe}
             </div>
-            <div className="col-span-1 font-semibold">Groupage: </div>
-            <div className="col-span-2">
-              &nbsp; &nbsp;
+            <div className="col-span-2 font-semibold">Groupage: </div>
+            <div className="col-span-1">
               {selectedIntervention.patient.groupage}
             </div>
           </div>
@@ -81,8 +78,7 @@ export default function DetailsIntervention({
             <div className="col-span-5">
               <label className="font-semibold">Spécialité</label>
               <p className="mb-0">
-                {" "}
-                {selectedIntervention.medecin.specialite}{" "}
+                {selectedIntervention.medecin.specialite}
               </p>
             </div>
 
@@ -102,19 +98,15 @@ export default function DetailsIntervention({
       <fieldset className="w-full border-solid border-2 border-slate-400 px-4 py-2 mb-3">
         <legend className="font-semibold">Intervention</legend>
         <div className="grid grid-cols-12 gap-3">
-          <div className="col-span-3">
+          <div className="col-span-9">
             <label className="font-semibold">Intervention</label>
-            <p className="mb-0"> {selectedIntervention.code_intervention}</p>
+            <p className="mb-0"> [{selectedIntervention.code_intervention}] : {selectedIntervention.designation}</p>
           </div>
           <div className="col-span-3">
             <label className="font-semibold">Date </label>
             <p className="mb-0">
-              {moment(selectedIntervention.date).format("YYYY-MM-DD")}
+              {moment(selectedIntervention.date).format("DD/MM/YYYY HH:mm")}
             </p>
-          </div>
-          <div className="col-span-6">
-            <label className="font-semibold">Designation </label>
-            <p className="mb-0">{selectedIntervention.designation} </p>
           </div>
 
           <div className="col-span-12">
@@ -124,8 +116,7 @@ export default function DetailsIntervention({
           <div className="col-span-12">
             <label className="font-semibold">Protocole opératoire</label>
             <p className="mb-0">
-              {" "}
-              {selectedIntervention.protocole_operatoire}{" "}
+              {selectedIntervention.protocole_operatoire}
             </p>
           </div>
         </div>

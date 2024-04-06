@@ -25,6 +25,7 @@ class RendezVousController {
     const { NIN: medecin, hopital } = req.jwt;
 
     await Model.insert(id, patient, medecin, type, title, details, date, duree);
+    console.log(id, patient, medecin, type, title, details, date, duree)
     return res.status(200).json({ success: true });
   }
 }

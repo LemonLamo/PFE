@@ -34,6 +34,7 @@ function MesPatientsPage() {
     },
   });
 
+  console.log(openModal, selectedPatient);
   const tableDefinition = useMemo(
     () => [
       { header: "Patient", id: "patient", cell: (info) => {

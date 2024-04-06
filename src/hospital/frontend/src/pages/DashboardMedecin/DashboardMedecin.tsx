@@ -158,11 +158,11 @@ function DashboardMedecin(){
         </div>
         <div className="grid grid-cols-11 gap-x-4 gap-y-2 w-full">
             <Card title="Prochaines interventions" className="col-span-12 md:col-span-4">
-                <DataTable tableDefinition={tableDefinition2} query={consultations} pageSize={3} searchable={false} />
+                <DataTable tableDefinition={tableDefinition2} query={interventions} pageSize={3} searchable={false} />
             </Card>
 
             <Card title="Prochaines consultations" className="col-span-12 md:col-span-4">
-                <DataTable tableDefinition={tableDefinition2} query={interventions} pageSize={3} searchable={false} />
+                <DataTable tableDefinition={tableDefinition2} query={consultations} pageSize={3} searchable={false} />
             </Card>
             
             <Card className="col-span-12 md:col-span-3 flex justify-center !p-0 aspect-[5/4]">

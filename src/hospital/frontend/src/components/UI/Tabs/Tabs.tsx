@@ -1,9 +1,8 @@
-import { ReactElement, useState } from "react"
-import TabContent from "./TabContent";
+import { ReactNode, useState } from "react"
 
 type TabsProps = {
     type?: string,
-    children: ReactElement<TabContent>[]
+    children: ReactNode
 }
 
 function Tabs({type="vertical", children} : TabsProps) {
@@ -15,6 +14,7 @@ function Tabs({type="vertical", children} : TabsProps) {
         <div className={`${type == "vertical"? "grid grid-cols-5" : ""} mb-3`}>
             <ul className={`${type == "vertical" ? "col-span-1 space-y-2" : "flex items-center justify-start"} mb-3`}>
                 {
+                    Array.isArray(children) &&
                     children.map((tab, i)=>{
                         return <li key={`tab${i}`}>
                             <button className={`${selected == i ? activeStyle : inactiveStyle} pb-4 h-12 flex justify-start items-center text-left w-full ps-2 pe-6 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
@@ -29,7 +29,8 @@ function Tabs({type="vertical", children} : TabsProps) {
                     })
                 }
             </ul>
-            { 
+            {
+                Array.isArray(children) &&
                 children[selected]
             }
         </div>

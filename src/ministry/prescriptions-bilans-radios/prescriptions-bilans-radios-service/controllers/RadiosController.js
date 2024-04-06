@@ -1,6 +1,7 @@
 const Model = require("../models/RadiosModel");
 const { fetchPatients, fetchRadios } = require('../utils/communication');
 const { genID } = require('../utils')
+const path = require('path')
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -32,9 +33,22 @@ class RadiosController {
     return res.status(200).json(result);
   }
 
+  async getResultsList(req, res) {
+    const { id } = req.params;
+    const result = await Model.getResults(id);
+    return res.status(200).json(result);
+  }
+
+  async getResultOne(req, res) {
+    const { id, num } = req.params;
+    const result = await Model.getResultOne(id, num);
+    return res.status(200).sendFile(path.resolve(result.file), {headers: {'Content-Type': 'application/pdf'}})
+  }
+
   async addResults(req, res){
-    console.log(req.files)
-    res.send("response")
+    const { id } = req.params;
+    const result = await Model.mark_as_done(id, req.files);
+    return res.status(200).json(result);
   }
 }
 

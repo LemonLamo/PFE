@@ -11,7 +11,7 @@ type TimelineItemProps = {
 
 function TimelineItem({icon, date, title, children, action} : TimelineItemProps) {
   return (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
             <div className="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
                 <span className="absolute left-9 -translate-x-1/2 rounded-full text-center font-semibold text-sm text-slate-400">
                     <p className="mb-0">{moment(date).format('DD/MM/YYYY')}</p>

@@ -20,7 +20,7 @@ class SoinsModel {
   }
 
   async executer(id, remarque) {
-    await db.execute("UPDATE soins SET fait=1, date_fait=NOW(), details_fait=? WHERE id=?", [remarque, id]);
+    await db.execute("UPDATE soins SET fait=1, date_fait=NOW(), details_fait=? WHERE id=?", [remarque ?? null, id]);
   }
 }
 

@@ -5,14 +5,14 @@ import { useMemo } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import { baseURL } from "../../../config";
 type Props = {
-  NIN: string;
+  reference: string;
 };
 
-function TabPrescription({ NIN }: Props) {
+function TabPrescription({ reference }: Props) {
   const query = useQuery({
-    queryKey: ["patient"],
+    queryKey: ["prescriptions"+reference],
     queryFn: async () => {
-      let data = (await axios.get(`${baseURL}/api/prescription`)).data;
+      let data = (await axios.get(`${baseURL}/api/prescriptions?reference=${reference}`)).data;
       return data;
     },
   });

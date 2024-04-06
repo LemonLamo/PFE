@@ -49,7 +49,8 @@ class SoinsController {
   }
 
   async executer(req, res) {
-    const { id, remarque } = req.params;
+    const { id } = req.params;
+    const { remarque } = req.body;
     try {
       await Model.executer(id, remarque);
       return res.status(200).json({ success: true });

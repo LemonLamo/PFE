@@ -32,32 +32,31 @@ export default function DetailsHospitalisation({
       <div className="grid grid-cols-2 gap-2 mb-1">
         <fieldset className="w-full border-solid border-2 border-slate-400 px-4 pt-0 pb-4">
           <legend className="font-semibold text-gray-900">Patient</legend>
-          <div className="grid grid-cols-6 gap-2 m-0">
-            <div className="col-span-2 font-semibold">NIN:</div>
-            <div className="col-span-4 font-semibold">
-              {selectedHospitalisation.patient.NIN}{" "}
+          <div className="grid grid-cols-8 gap-2 m-0">
+            <div className="col-span-3 font-semibold">NIN:</div>
+            <div className="col-span-5 font-semibold">
+              {selectedHospitalisation.patient.NIN}
             </div>
 
-            <div className="col-span-2 font-semibold">Nom complet:</div>
-            <div className="col-span-4">
+            <div className="col-span-3 font-semibold">Nom complet:</div>
+            <div className="col-span-5">
               {selectedHospitalisation.patient.nom +
                 " " +
                 selectedHospitalisation.patient.prenom}
             </div>
-            <div className="col-span-2 font-semibold">Date de naissance:</div>
-            <div className="col-span-4">
-              {moment(selectedHospitalisation.patient.date_de_naissance).format(
-                "YYYY-MM-DD"
-              )}
+            <div className="col-span-3 font-semibold">Date de naissance:</div>
+            <div className="col-span-5">
+              {moment(selectedHospitalisation.patient.date_de_naissance).format("DD/MM/YYYY")}
+              {" "}
+              {`(${moment(new Date()).diff(moment(selectedHospitalisation.patient.date_de_naissance), "years")} ans)`}
             </div>
 
-            <div className="col-span-1 font-semibold">Sexe:</div>
-            <div className="col-span-2">
+            <div className="col-span-2 font-semibold">Sexe:</div>
+            <div className="col-span-3">
               {selectedHospitalisation.patient.sexe}
             </div>
-            <div className="col-span-1 font-semibold">Groupage: </div>
-            <div className="col-span-2">
-              &nbsp; &nbsp;
+            <div className="col-span-2 font-semibold">Groupage: </div>
+            <div className="col-span-1">
               {selectedHospitalisation.patient.groupage}
             </div>
           </div>
@@ -115,9 +114,7 @@ export default function DetailsHospitalisation({
             <label className="font-semibold">Date entrée</label>
             <p className="mb-0">
               {" "}
-              {moment(selectedHospitalisation.date_entree).format(
-                "YYYY-MM-DD"
-              )}{" "}
+              {moment(selectedHospitalisation.date_entree).format("YYYY-MM-DD")}{" "}
             </p>
           </div>
 
@@ -130,15 +127,13 @@ export default function DetailsHospitalisation({
             <label className="font-semibold">Date sortie </label>
             <p className="mb-0">
               {" "}
-              {moment(selectedHospitalisation.date_sortie).format(
-                "YYYY-MM-DD"
-              )}{" "}
+              {selectedHospitalisation.date_sortie? moment(selectedHospitalisation.date_sortie).format("YYYY-MM-DD") : '-'}
             </p>
           </div>
 
           <div className="col-span-3">
             <label className="font-semibold">Mode sortie </label>
-            <p className="mb-0"> {selectedHospitalisation.mode_sortie}</p>
+            <p className="mb-0"> {selectedHospitalisation.mode_sortie ?? '-'}</p>
           </div>
 
           <div className="col-span-9">
@@ -169,19 +164,19 @@ export default function DetailsHospitalisation({
       </fieldset>
       <Tabs type="horizontal">
         <TabContent icon="fa fa-stethoscope" text="Examens Cliniques">
-          <TabExamenClinique NIN="XXXX" />
+          <TabExamenClinique reference={selectedHospitalisation.id} />
         </TabContent>
 
         <TabContent icon="fa fa-pills" text="Prescriptions">
-          <TabPrescription NIN="XXXX" />
+          <TabPrescription reference={selectedHospitalisation.id} />
         </TabContent>
 
         <TabContent icon="fa fa-x-ray" text="Radios">
-          <TabRadio NIN="XXX" />
+          <TabRadio reference={selectedHospitalisation.id} />
         </TabContent>
 
         <TabContent icon="fa fa-vial" text="Bilans">
-          <TabBilan NIN="XXXX" />
+          <TabBilan reference={selectedHospitalisation.id} />
         </TabContent>
       </Tabs>
 

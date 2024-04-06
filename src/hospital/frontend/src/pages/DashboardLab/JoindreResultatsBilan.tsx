@@ -24,7 +24,7 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } :
   }
   async function submit(){
     const formData = new FormData();
-    bilans.forEach((bilan, i) => formData.append(`bilan${i}`, bilan))
+    bilans.forEach((bilan) => formData.append(`bilans`, bilan))
     
     const config = { headers: {'content-type': 'multipart/form-data'} }
     try{

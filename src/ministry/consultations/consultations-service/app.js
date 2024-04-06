@@ -30,13 +30,11 @@ const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 const ConsultationsController = require("./controllers/ConsultationsController");
 
-// TODO: rework the name of this one
-app.get("/api/ehr/medecin/consultations", auth.requireAuth, ConsultationsController.selectByMedecin);
-
 // Consultations
 app.get ("/api/consultations", ConsultationsController.select);
 app.get ("/api/consultations/count", ConsultationsController.selectCount);
 app.get ("/api/consultations/timeline", ConsultationsController.timeline);
+app.get ("/api/consultations/medecin", auth.requireAuth, ConsultationsController.selectByMedecin);
 app.get ("/api/consultations/:id", ConsultationsController.selectOne);
 app.post("/api/consultations", auth.requireAuth, ConsultationsController.insert);
 
