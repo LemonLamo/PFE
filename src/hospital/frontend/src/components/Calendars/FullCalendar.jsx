@@ -37,8 +37,8 @@ function Calendar({ events }) {
         events={transformRendezVous(events)}
         eventContent={renderEventContent}
         //eventColor="rgb(6 182 212)"
-        eventColor="rgb(255 255 255)"
-        eventClassNames="bg-white hover:bg-white rounded-sm"
+        eventColor="rgba(255 255 255 0)"
+        eventClassNames="bg-transparent hover:bg-transparent rounded-sm"
         locale="fr"
         headerToolbar={
           {left: 'today prev,next', right: 'dayGridDay,dayGridWeek,dayGridMonth'}
@@ -75,7 +75,7 @@ function renderEventContent(eventInfo) {
               leaveTo="opacity-0 translate-y-1">
               <Popover.Panel className="absolute text-slate-600 h-[500px] w-[350px] text-[1rem]">
                 <div className="rounded-lg shadow-xl ring-1 ring-black/5 bg-white p-7">
-                  <h6 className="text-xl font-bold mb-2">
+                  <h6 className="text-xl font-bold mb-2 break-normal">
                     <i className={`fas fa-calendar-alt mr-2 ${COLORS[eventInfo.event.extendedProps.type]}`}/> {eventInfo.event.extendedProps.title}
                   </h6>
                   <p className="text-gray-600 mb-2">

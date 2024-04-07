@@ -36,7 +36,7 @@ CREATE TABLE `services` (
 -- Déchargement des données de la table `soin`
 --
 
-INSERT INTO `services` (`hopital`, `services`) VALUES
+INSERT INTO `services` (`hopital`, `service`) VALUES
 ('CHU Beni Messous', 'Radiologie'),
 ('CHU Beni Messous', 'Cardiologie'),
 ('CHU Beni Messous', 'Pneumologie'),

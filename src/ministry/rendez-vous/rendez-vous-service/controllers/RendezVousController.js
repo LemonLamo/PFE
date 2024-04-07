@@ -1,6 +1,6 @@
 const Model = require("../models/RendezVousModel");
 const { genID } = require("../utils");
-const { fetchPatients } = require("../utils/communication");
+const { fetchPatients, fetchInterventions } = require("../utils/communication");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -21,11 +21,17 @@ class RendezVousController {
 
   async insert(req, res) {
     const id = genID();
-    const { patient, type, title, date, details, duree } = req.body;
+    const { patient, type, date, details, code_intervention } = req.body;
     const { NIN: medecin, hopital } = req.jwt;
 
+    const title = (type === "Consultation")?
+        "Consultation":
+        (await fetchInterventions([{code_intervention: code_intervention}])).get(code_intervention).designation
+    
+    const duree = (type === "Consultation")? 15 : 30
+
+    console.log(title)
     await Model.insert(id, patient, medecin, type, title, details, date, duree);
-    console.log(id, patient, medecin, type, title, details, date, duree)
     return res.status(200).json({ success: true });
   }
 }

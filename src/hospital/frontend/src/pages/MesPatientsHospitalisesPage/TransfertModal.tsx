@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import MedecinsSelect from "../../components/Selects/MedecinsSelect";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
+import axios from "axios";
+import { baseURL } from "../../config";
 
 type Props = {
   isOpen: boolean,
@@ -10,23 +12,34 @@ type Props = {
 }
 
 const theme = "primary"
-const HOPITAUX = [
-    "CHU Beni Messous",
-    "CHU Mustapha",
-]
-const SERVICES = [
-    "Pédiatrie",
-    "Radiologie",
-]
 
 export default function TransfertModal({isOpen, close, selectedHospitalisation, action}: Props) {
     const [transfert, setTransfert] = useState<Transfert>({
-        hospitalisation: selectedHospitalisation.id,
-        hopital: HOPITAUX[0],
-        service: SERVICES[0],
+        hospitalisation: "",
+        hopital: "",
+        service: "",
         medecin: {NIN: "", nom: "", prenom: ""},
         remarques: ""
     })
+    const [hopitaux, setHopitaux] = useState<any[]>([]);
+    const [services, setServices] = useState<any[]>([]);
+    useEffect(()=>{
+        axios.get(`${baseURL}/api/hopitaux/`).then((response)=>{
+            setHopitaux(response.data)
+            if(response.data.length > 0)
+                setTransfert(data => ({...data, hopital: response.data[0].hopital!}))
+        })
+    }, [])
+    useEffect(()=>{
+        if(!transfert.hopital)
+            setServices([])
+        else
+            axios.get(`${baseURL}/api/hopitaux/${transfert.hopital}/services`).then((response)=>{
+                setServices(response.data)
+                if(response.data.length > 0)
+                    setTransfert(data => ({...data, service: response.data[0].service!}))
+            })
+    }, [transfert.hopital])
     useEffect(()=>{
         setTransfert(t => ({...t, hospitalisation: selectedHospitalisation.id}))
     }, [selectedHospitalisation])
@@ -43,12 +56,12 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation, 
             <div className="grid grid-cols-6 gap-2">
                 <label className="font-semibold text-slate-700 text-sm col-span-2">Hôpital:</label>
                 <select className="col-span-4" value={transfert.hopital} onChange={(e) => setTransfert(t => ({...t, hopital: e.target.value}))}>
-                    {HOPITAUX.map((x, i)=> <option key={i}>{x}</option>)}
+                    {hopitaux.map((x, i)=> <option key={i}>{x.hopital}</option>)}
                 </select>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2">Service:</label>
                 <select className="col-span-4" value={transfert.service} onChange={(e) => setTransfert(t => ({...t, service: e.target.value}))}>
-                    {SERVICES.map((x, i)=> <option key={i}>{x}</option>)}
+                    {services.map((x, i)=> <option key={i}>{x.service}</option>)}
                 </select>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2">Médecin:</label>

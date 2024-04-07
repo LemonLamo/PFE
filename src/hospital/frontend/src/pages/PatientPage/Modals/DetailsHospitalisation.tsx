@@ -83,24 +83,21 @@ export default function DetailsHospitalisation({
             <div className="col-span-5">
               <label className="font-semibold">Spécialité</label>
               <p className="mb-0">
-                {" "}
-                {selectedHospitalisation.medecin.specialite}{" "}
+                {selectedHospitalisation.medecin.specialite}
               </p>
             </div>
 
             <div className="col-span-3">
               <label className="font-semibold">Service </label>
               <p className="mb-0">
-                {" "}
-                {selectedHospitalisation.medecin.service}{" "}
+                {selectedHospitalisation.medecin.service}
               </p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Hopital</label>
               <p className="mb-0">
-                {" "}
-                {selectedHospitalisation.medecin.hopital}{" "}
+                {selectedHospitalisation.medecin.hopital}
               </p>
             </div>
           </div>
@@ -113,8 +110,7 @@ export default function DetailsHospitalisation({
           <div className="col-span-3">
             <label className="font-semibold">Date entrée</label>
             <p className="mb-0">
-              {" "}
-              {moment(selectedHospitalisation.date_entree).format("YYYY-MM-DD")}{" "}
+              {moment(selectedHospitalisation.date_entree).format("DD/MM/YYYY HH:mm")}
             </p>
           </div>
 
@@ -126,8 +122,7 @@ export default function DetailsHospitalisation({
           <div className="col-span-3">
             <label className="font-semibold">Date sortie </label>
             <p className="mb-0">
-              {" "}
-              {selectedHospitalisation.date_sortie? moment(selectedHospitalisation.date_sortie).format("YYYY-MM-DD") : '-'}
+              {selectedHospitalisation.date_sortie? moment(selectedHospitalisation.date_sortie).format("DD/MM/YYYY HH:mm") : '-'}
             </p>
           </div>
 
@@ -139,7 +134,6 @@ export default function DetailsHospitalisation({
           <div className="col-span-9">
             <label className="font-semibold">Motif d'hospitalisation</label>
             <p className="mb-0">
-              {" "}
               {selectedHospitalisation.motif_hospitalisation}
             </p>
           </div>
@@ -147,10 +141,7 @@ export default function DetailsHospitalisation({
           <div className="col-span-3">
             <label className="font-semibold">Chambre </label>
             <p className="mb-0">
-              {" "}
-              {selectedHospitalisation.chambre +
-                " Lit" +
-                selectedHospitalisation.lit}
+              {`Chambre ${selectedHospitalisation.chambre}, Lit N°${selectedHospitalisation.lit}`}
             </p>
           </div>
 

@@ -9,6 +9,8 @@ import axios from "axios";
 import { baseURL } from "../../config";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import AjouterRendezVous from "./AjouterRendezVous";
+import { createRendezVous } from "../../hooks/useRendezVous";
 
 const createModal = (
   <>
@@ -108,6 +110,7 @@ function MesPatientsPage() {
   return (
     <Card title="Liste des patients" subtitle="Une liste de tous les patients du service" className="w-full" action={createModal}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
+      <AjouterRendezVous isOpen={openModal==="rendez-vous"} close={()=>setOpenModal("")} selectedPatient={selectedPatient} action={(rdv) => createRendezVous(rdv)} />
     </Card>
   );
 }

@@ -30,15 +30,15 @@ class ConsultationsController {
     try{
       const id = genID();
       const { patient, date, type, motif, symptomes, resume, diagnostique, diagnostique_details } = req.body;
-      const { examens_cliniques, prescriptions, radios, bilans, duree_arret_de_travail, prochaine_consultation} = req.body;
+      const { examens_cliniques, prescriptions, radios, bilans, interventions, duree_arret_de_travail, prochaine_consultation} = req.body;
       const { NIN: medecin, hopital } = req.jwt;
 
       await Model.insert(id, patient, medecin, hopital, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail);
 
       // Other services
       const insert_examens_cliniques = examens_cliniques.map((e) => ExamensCliniquesModel.insert(genID(), patient, id, e.code_examen_clinique, e.resultat, e.remarques))
-      const rdv = {patient, medecin, type: "Consultation", title: "Consultation", details: null, date: prochaine_consultation, duree: 15}
-      const promises = [...insert_examens_cliniques, axios.post('http://rendez-vous-service/api/rendez-vous/insert', rdv, {headers: {'Authorization': req.headers.authorization}})]
+      const rdv = {patient, type: "Consultation", date: prochaine_consultation, details: null}
+      const promises = [...insert_examens_cliniques, axios.post('http://rendez-vous-service/api/rendez-vous', rdv, {headers: {'Authorization': req.headers.authorization}})]
 
       if(prescriptions) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/prescriptions', { patient, prescriptions, reference:id }))
       if(radios) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/radios', { patient, radios, reference:id }))

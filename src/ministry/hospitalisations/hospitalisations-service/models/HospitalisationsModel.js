@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const moment = require('moment');
 
 class ConsultationsModel {
   validationRules = {};
@@ -68,8 +69,10 @@ class ConsultationsModel {
   }
 
   async addRemarque(id, remarque){
-    const timestamp = moment(new Date()).format("DD/MM/YYYY HH:mm")
-    await db.execute("UPDATE hospitalisations SET `resume_hospitalisation`=CONCAT_WS(CHAR(10 using utf8), '[', ?, ']: ', `resume_hospitalisation`, ?) WHERE `id`=?", [remarque, timestamp, id])
+    if(remarque){
+      remarque = '['+moment(new Date()).format("DD/MM/YYYY HH:mm")+']: ' + remarque
+      await db.execute("UPDATE hospitalisations SET `resume_hospitalisation`=CONCAT_WS(CHAR(10 using utf8),`resume_hospitalisation`, ?) WHERE `id`=?", [remarque, id])
+    }
   }
   
   async addSortie(id, mode_sortie, date_sortie){

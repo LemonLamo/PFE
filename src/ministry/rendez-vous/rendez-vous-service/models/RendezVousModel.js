@@ -16,7 +16,7 @@ class RendezVousModel {
   async insert(id, patient, medecin, type, title, details, date, duree) {
     await db.execute(
       "INSERT INTO rendezvous(id, patient, medecin, type, title, details, date, duree) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [id, patient, medecin, type, title, details, new Date(date), duree]);
+      [id, patient, medecin, type, title, details ?? null, new Date(date), duree]);
   }
 }
 
