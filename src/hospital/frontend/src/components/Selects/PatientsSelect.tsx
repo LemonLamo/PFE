@@ -20,7 +20,7 @@ function PatientsSelect({ onChange, placeholder = '', className = '', state }: S
     useEffect(() => {
         if (query.length >= 3){
             setIsLoading(true);
-            axios.get(`${baseURL}/api/patients?search=${query}`).then((response) => {
+            axios.get(`${baseURL}/api/patients/search?search=${query}`).then((response) => {
                 setIsLoading(false);
                 setOptions(response.data);
             });

@@ -18,3 +18,11 @@ spec:
     - name: hospitalisations-service
       kind: Service
       port: 80
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/transferts
+    backendRefs:
+    - name: hospitalisations-service
+      kind: Service
+      port: 80

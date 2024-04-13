@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import InfirmiersSelect from "../../components/Selects/InfirmiersSelect";
+import AuthContext from "../../hooks/AuthContext";
 
 type Props = {
   isOpen: boolean,
@@ -16,6 +17,7 @@ const actes = [
 ]
 
 export default function AjouterSoinsModal({isOpen, close, selectedHospitalisation, action}: Props) {
+    const auth = useContext(AuthContext)
     const [selectedSoin, setSelectedSoin] = useState<Partial<Soin>>({
         hospitalisation: "",
         patient: {NIN: "", nom: "", prenom: ""},
@@ -38,7 +40,7 @@ export default function AjouterSoinsModal({isOpen, close, selectedHospitalisatio
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter un soin à <span className="font-bold">{selectedSoin.patient!.nom} {selectedSoin.patient!.prenom}</span> </p>
             <div className="grid grid-cols-6 gap-2">
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Infirmier: </label>
-                <InfirmiersSelect className="col-span-4" placeholder="Infirmier" onChange={select_infirmier} state={{ NIN: selectedSoin.infirmier!.NIN!, nom: selectedSoin.infirmier!.nom!, prenom: selectedSoin.infirmier!.prenom! }} />
+                <InfirmiersSelect className="col-span-4" placeholder="Infirmier" onChange={select_infirmier} state={{ NIN: selectedSoin.infirmier!.NIN!, nom: selectedSoin.infirmier!.nom!, prenom: selectedSoin.infirmier!.prenom! }} hopital={auth!.hopital} service={auth!.service}/>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2"> Acte: </label>
                 <select className="primary col-span-4" value={selectedSoin.acte} onChange={(e) => setSelectedSoin(s => ({...s, acte: e.target.value}))}>

@@ -2,35 +2,25 @@ const { db } = require("../config/database");
 
 class ConsultationsModel {
   validationRules = {};
-  async getAll() {
-    const [results] = await db.query("SELECT * FROM `consultations`");
-    return results;
-  }
 
-  async insert(id, patient, medecin, hopital, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail){
-    await db.execute(
-      "INSERT INTO consultations(id, patient, medecin, hopital, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [id, patient, medecin, hopital, new Date(date), type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail ?? null]);
-  }
-
-  async getActiveByMedecin(NIN) {
+  async selectByMedecin(NIN) {
     const [results] = await db.query("SELECT * FROM `consultations` WHERE `medecin`=? ORDER BY `date` DESC", [NIN]);
     return results;
   }
-
-  async getByPatient(NIN) {
+  
+  async selectByPatient(NIN) {
     const [results] = await db.query("SELECT * FROM `consultations` WHERE `patient`=? ORDER BY `date` DESC", [NIN]);
     return results;
   }
 
-  async getOne(id) {
+  async selectOne(id) {
     const [results] = await db.query("SELECT * FROM `consultations` WHERE `id`=?", [id]);
     return results;
   }
 
-  async getExamensCliniques(id) {
-    const [results] = await db.query("SELECT * FROM `consultations` WHERE `id`=?", [id]);
-    return results;
+  async insert(id, patient, medecin, hopital, service, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail){
+    await db.execute("INSERT INTO consultations(id, patient, medecin, hopital, service, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [id, patient, medecin, hopital, service, new Date(date), type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail ?? null]);
   }
 
   async countByHopital(hopital){
@@ -43,7 +33,7 @@ class ConsultationsModel {
     return results[0];
   }
   
-  async getTimelinePerMedecin(hopital, medecin, duree){
+  async selectTimelinePerMedecin(hopital, medecin, duree){
     const [results] = await db.query(`SELECT DATE_FORMAT(date, '%Y-%m') AS date_key,
     COUNT(id) AS consultations
     FROM consultations 
@@ -54,7 +44,7 @@ class ConsultationsModel {
 
     return results;
   }
-  async getTimelinePerHopital(hopital, duree){
+  async selectTimelinePerHopital(hopital, duree){
     const [results] = await db.query(`SELECT DATE_FORMAT(date, '%Y-%m') AS date_key,
     COUNT(id) AS consultations
     FROM consultations 

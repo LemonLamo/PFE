@@ -1,43 +1,85 @@
 const Model = require("../models/HospitalisationsModel");
 const { genID } = require("../utils");
-const { fetchPatients } = require("../utils/communication");
+const { fetchPatients, fetchMedecins } = require("../utils/communication");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
 class HospitalisationsController {
   async select(req, res) {
-    const { patient } = req.query;
-    if (patient) {
-      const data = await Model.getByPatient(patient);
-      const patients = await fetchPatients(data);
-      const result = data.map((x) => ({ ...x, patient: patients.get(x.patient) }))
+    const { NIN, role } = req.jwt;
+
+    // If patient, reply with history for that patient.
+    if(role == undefined){
+      const data = await Model.selectByPatient(NIN);
+      return res.status(200).json(data);
+    }
+    
+    // If doctor, reply with history for that doctor.
+    else{
+      const { patient, active } = req.query;
+      const data = patient?
+                  await Model.selectByPatient(patient):
+                  active == 1?
+                  await Model.selectActiveByMedecin(NIN):
+                  await Model.selectByMedecin(NIN);
+      const [patients, medecins] = await Promise.all([fetchPatients(data), fetchMedecins(data)]);
+      const result = data.map((x) => ({ ...x, patient: patients.get(x.patient), medecin: medecins.get(x.medecin) }))
       return res.status(200).json(result);
     }
-    return res.status(400).json({ errorCode: "", errorMessage: "" });
+    return res.status(400).json();
   }
 
   async selectOne(req, res) {
+    const { NIN, role } = req.jwt;
     const { id } = req.params;
-    const result = await Model.getOne(id);
-    return res.status(200).json(result);
-  }
+    const result = await Model.selectOne(id);
 
-  async selectByMedecin(req, res) {
-    const data = await Model.getActiveByMedecin(req.jwt.NIN);
-    const patients = await fetchPatients(data);
-    const result = data.map((x) => ({ ...x, patient: patients.get(x.patient) }))
-    return res.status(200).json(result);
+    // ensure it concerns this user.
+    if(result.medecin == NIN || result.patient == NIN)
+      return res.status(200).json(result);
+
+    return res.status(400).json();
   }
 
   async insert(req, res) {
+    const { NIN: medecin, role, hopital, service } = req.jwt;
+  
     const id = genID();
     const { patient, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation } = req.body;
-    const { NIN: medecin, hopital } = req.jwt;
-    await Model.insert(id, patient, medecin, hopital, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation);
+    await Model.insert(id, patient, medecin, hopital, service, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation);
     return res.status(200).json({ success: true });
   }
 
+  async addRemarque(req, res){
+    const { NIN, role, hopital } = req.jwt;
+    const { id } = req.params;
+    const { remarque } = req.body;
+
+    // Only the doctor for this hospitalisation can update the hospitalisation
+    const precheck = await Model.selectOne(id);
+    if(precheck.medecin != NIN)
+      return res.status(400).json();
+
+    const result = await Model.addRemarque(id, remarque);
+    return res.status(200).json(result);
+  }
+
+  async addSortie(req, res){
+    const { NIN, role, hopital } = req.jwt;
+    const { id } = req.params;
+    const { mode_sortie, date_sortie } = req.body;
+
+    // Only the doctor for this hospitalisation can update the hospitalisation
+    const precheck = await Model.selectOne(id);
+    if(precheck.medecin != NIN)
+      return res.status(400).json();
+
+    const result = await Model.addSortie(id, mode_sortie, date_sortie);
+    return res.status(200).json(result);
+  }
+
   async selectCount(req, res){
+    // TODO: Secure this!
     const { hopital, medecin } = req.query;
     if(hopital && medecin){
       const result = await Model.countByMedecin(hopital, medecin);
@@ -48,36 +90,22 @@ class HospitalisationsController {
     }
     return res.status(403).json({});
   }
-
-  async addRemarque(req, res){
-    const { id } = req.params;
-    const { remarque } = req.body;
-
-    const result = await Model.addRemarque(id, remarque);
-    return res.status(200).json(result);
-  }
-
-  async addSortie(req, res){
-    const { id } = req.params;
-    const { mode_sortie, date_sortie } = req.body;
-
-    const result = await Model.addSortie(id, mode_sortie, date_sortie);
-    return res.status(200).json(result);
-  }
   
   async timeline(req, res){
+    // TODO: Secure this!
     const { hopital, medecin, duree } = req.query;
     if(hopital && medecin){
-      const array = await Model.getTimelinePerMedecin(hopital, medecin, duree);
+      const array = await Model.selectTimelinePerMedecin(hopital, medecin, duree);
       const results = Object.fromEntries(array.map(({ date_key, hospitalisations }) => [date_key, hospitalisations]));
       return res.status(200).json(results);
     }else if(hopital){
-      const array = await Model.getTimelinePerHopital(hopital, duree);
+      const array = await Model.selectTimelinePerHopital(hopital, duree);
       const results = Object.fromEntries(array.map(({ date_key, hospitalisations }) => [date_key, hospitalisations]));
       return res.status(200).json(results);
     }
   }
 
+  // PRIVATE ROUTES
   async hospitalisationsByIDs(req, res){
     const { IDs } = req.body;
     const result = await Model.selectByIDs(IDs);

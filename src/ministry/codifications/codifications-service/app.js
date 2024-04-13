@@ -60,14 +60,14 @@ app.get('/api/codifications/radios/:code_radio', RadiosController.selectOne);
 app.get('/api/codifications/interventions', InterventionsController.select);
 app.get('/api/codifications/interventions/:code_intervention', InterventionsController.selectOne);
 
-app.post('/private/maladiesByCodes', MaladiesController.getByCodes)
-app.post('/private/allergenesByCodes', AllergenesController.getByCodes)
-app.post('/private/vaccinsByCodes', VaccinsController.getByCodes)
-app.post('/private/examens-cliniquesByCodes', ExamensCliniquesController.getByCodes)
-app.post('/private/medicamentsByCodes', MedicamentsController.getByCodes)
-app.post('/private/bilansByCodes', BilansController.getByCodes)
-app.post('/private/radiosByCodes', RadiosController.getByCodes)
-app.post('/private/interventionsByCodes', InterventionsController.getByCodes)
+app.post('/private/maladies', MaladiesController.getByCodes)
+app.post('/private/allergenes', AllergenesController.getByCodes)
+app.post('/private/vaccins', VaccinsController.getByCodes)
+app.post('/private/examens-cliniques', ExamensCliniquesController.getByCodes)
+app.post('/private/medicaments', MedicamentsController.getByCodes)
+app.post('/private/bilans', BilansController.getByCodes)
+app.post('/private/radios', RadiosController.getByCodes)
+app.post('/private/interventions', InterventionsController.getByCodes)
 
 app.use((req, res) => res.sendStatus(404))
 

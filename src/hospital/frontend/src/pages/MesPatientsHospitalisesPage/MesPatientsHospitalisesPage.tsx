@@ -17,6 +17,7 @@ import { ajouterRemarque, ajouterSortie } from "../../hooks/useHospitalisations"
 import { ajouterTransfert } from "../../hooks/useTransferts";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import DetailsHospitalisation from "../PatientPage/Modals/DetailsHospitalisation";
 
 function MesPatientsHospitalisesPage() {
   const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({
@@ -32,7 +33,7 @@ function MesPatientsHospitalisesPage() {
   const query = useQuery({
     queryKey: ["patients_admis"],
     queryFn: async () => {
-      const data = (await axios.get(`${baseURL}/api/hospitalisations/medecin`)).data;
+      const data = (await axios.get(`${baseURL}/api/hospitalisations?active=1`)).data;
       return data;
     },
   });
@@ -76,13 +77,19 @@ function MesPatientsHospitalisesPage() {
                   <div className="">
                     <Menu.Item>
                       {({ active }) => (
-                        <Link to={`/patients/${h.patient.NIN}`}className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`}>
+                        <button onClick={() => {setSelectedHospitalisation(h);setOpenModal("hospitalisation");}} className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`}>
                           <i className="w-5 text-xl mr-2" >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" ></path>
                             </svg>
                           </i> Détails
+                        </button>)}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <Link to={`/patients/${h.patient.NIN}`}className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`}>
+                          <i className="fa fa-folder w-4 mr-2" /> Dossier
                         </Link>)}
                     </Menu.Item>
                     <Menu.Item>
@@ -130,6 +137,7 @@ function MesPatientsHospitalisesPage() {
     <Card title="Liste des  admis" subtitle="Une liste de tous les  admis" className="w-full" action={action}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2"/>
       
+      {selectedHospitalisation ? <DetailsHospitalisation isOpen={openModal === "hospitalisation"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation!} /> : null}
       <AjouterSoinsModal isOpen={openModal === "soin"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation} action={createSoin} />
       <AjouterInterventionModal isOpen={openModal === "intervention"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
       <AjouterRemarqueModal isOpen={openModal === "remarques"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation} action={ajouterRemarque}/>

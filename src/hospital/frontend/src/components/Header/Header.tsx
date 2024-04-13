@@ -29,6 +29,10 @@ function Header({ setOpen } : HeaderProps) {
                         Service:{" "}
                         <span className="mb-0 font-bold capitalize">
                             { auth?.service ?? "undefined" }
+                        </span> /
+                        Role:{" "}
+                        <span className="mb-0 font-bold capitalize">
+                            { auth?.role ?? "undefined" }
                         </span>
                     </span>
                 </div>

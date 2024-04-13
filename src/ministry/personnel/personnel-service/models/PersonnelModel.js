@@ -3,14 +3,38 @@ const logger = require("../utils/logger");
 
 class PersonnelModel {
   validationRules = { sexe: ["required", "in:Homme,Femme"] };
-  async select(search, fonction) {
-    let s = '%'+(search ?? '')+'%'
-    const sql = fonction?
-      "SELECT * FROM `personnel` WHERE `NIN` LIKE ? OR CONCAT(`nom`, ' ', `prenom`) LIKE ? AND `fonction`=?":
-      "SELECT * FROM `personnel` WHERE `NIN` LIKE ? OR CONCAT(`nom`, ' ', `prenom`) LIKE ?"
-    const [results] = await db.query(sql, [s, s, fonction]);
+  async selectAllSnippet(search, hopital, service, fonction) {
+    let whereClause = '';
+    const params = [];
+
+    if (search) {
+      whereClause += "(`NIN` LIKE ? OR CONCAT(`nom`, ' ', `prenom`) LIKE ?)";
+      params.push('%' + search + '%', '%' + search + '%');
+    }
+
+    if (fonction) {
+      whereClause += (whereClause.length > 0 ? ' AND ' : '') + '`fonction` = ?';
+      params.push(fonction);
+    }
+
+    if (hopital && service) {
+      whereClause += (whereClause.length > 0 ? ' AND ' : '') + '`hopital` = ? AND `service` = ?';
+      params.push(hopital, service);
+    }
+    // Construct the final SQL statement
+    const sql = "SELECT `NIN`, `nom`, `prenom` FROM personnel" + (whereClause.length > 0 ? ` WHERE ${whereClause}` : '');
+    console.log(sql, params)
+
+    // Execute the query and return results
+    const [results] = await db.query(sql, params);
     return results;
   }
+
+  async selectAll(hopital){
+    const [results] = await db.query("SELECT * FROM `personnel` WHERE hopital=?", [hopital]);
+    return results;
+  }
+
   async selectOne(NIN) {
     const [results] = await db.query("SELECT * FROM `personnel` WHERE `NIN`=?", [NIN]);
     return results[0];
@@ -51,6 +75,17 @@ class PersonnelModel {
   async countGroupByService(hopital){
     const [results] = await db.query("SELECT `service`, COUNT(*) AS count FROM `personnel` WHERE `hopital`=? GROUP BY `service` ORDER BY `count` DESC", [hopital]);
     return results;
+  }
+
+  // PRIVATE VERSIONS
+  async selectByNINs (NINs){
+      const [results] = await db.query('SELECT * FROM `personnel` WHERE `NIN` IN (?)', [NINs]);
+      return results
+  }
+
+  async selectByNIN (NIN){
+      const [results] = await db.query('SELECT * FROM `personnel` WHERE `NIN`= ?', [NIN]);
+      return results[0];
   }
 }
 

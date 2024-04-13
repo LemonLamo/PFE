@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
+const RabbitConnection = require("./config/amqplib");
+RabbitConnection.connect();
 const app = express();
 
 // database connection
@@ -29,14 +31,15 @@ app.use(bodyParser.json());
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 const ConsultationsController = require("./controllers/ConsultationsController");
+const ExamensCliniquesController = require("./controllers/ExamensCliniquesController");
 
 // Consultations
-app.get ("/api/consultations", ConsultationsController.select);
-app.get ("/api/consultations/count", ConsultationsController.selectCount);
-app.get ("/api/consultations/timeline", ConsultationsController.timeline);
-app.get ("/api/consultations/medecin", auth.requireAuth, ConsultationsController.selectByMedecin);
-app.get ("/api/consultations/:id", ConsultationsController.selectOne);
+app.get ("/api/consultations", auth.requireAuth, ConsultationsController.select);
 app.post("/api/consultations", auth.requireAuth, ConsultationsController.insert);
+app.get ("/api/consultations/count", auth.requireAuth, ConsultationsController.selectCount);
+app.get ("/api/consultations/timeline", auth.requireAuth, ConsultationsController.timeline);
+app.get ("/api/consultations/:id", auth.requireAuth, ConsultationsController.selectOne);
+app.get ("/api/consultations/:id/examens-cliniques", auth.requireAuth, ExamensCliniquesController.selectByReference);
 
 app.use((req, res) => res.sendStatus(404));
 

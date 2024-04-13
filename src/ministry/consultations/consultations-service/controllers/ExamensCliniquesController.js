@@ -3,13 +3,9 @@ const Model = require("../models/ExamensCliniquesModel");
 
 /******** ACTIONS ********/
 class ExamensCliniquesController {
-  async select(req, res) {
-    const result = await Model.getAll();
-    return res.status(200).json(result);
-  }
-  async selectOne(req, res) {
+  async selectByReference(req, res){
     const { id } = req.params;
-    const result = await Model.getOne(id);
+    const result = await Model.getByReference(id);
     return res.status(200).json(result);
   }
 }

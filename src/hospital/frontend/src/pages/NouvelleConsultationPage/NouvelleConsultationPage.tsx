@@ -40,7 +40,7 @@ function NouvelleConsultationPage() {
     radios: [],
     bilans: [],
     interventions: [],
-    prochaine_consultation: moment(new Date()).add(7).toDate(),
+    prochaine_consultation: moment(new Date()).add(7, "d").toDate(),
     duree_arret_de_travail: undefined,
   });
 
@@ -59,7 +59,6 @@ function NouvelleConsultationPage() {
 
   async function submit() {
     try {
-      console.log(state)
       if (!state.prescriptions_active) consultationData.prescriptions = [];
       if (!state.radios_active) consultationData.radios = [];
       if (!state.bilans_active) consultationData.bilans = [];

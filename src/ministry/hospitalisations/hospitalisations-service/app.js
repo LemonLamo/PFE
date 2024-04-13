@@ -29,18 +29,21 @@ app.use(bodyParser.json());
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 const HospitalisationsController = require("./controllers/HospitalisationsController");
+const TransfertsController = require("./controllers/TransfertsController");
 
 // Hospitalisations
-app.get ("/api/hospitalisations", HospitalisationsController.select);
-app.get ("/api/hospitalisations/medecin", auth.requireAuth, HospitalisationsController.selectByMedecin);
-app.get ("/api/hospitalisations/count", HospitalisationsController.selectCount);
-app.get ("/api/hospitalisations/timeline", HospitalisationsController.timeline);
-app.get ("/api/hospitalisations/:id", HospitalisationsController.selectOne);
+app.get ("/api/hospitalisations", auth.requireAuth, HospitalisationsController.select);
+app.get ("/api/hospitalisations/count", auth.requireAuth, HospitalisationsController.selectCount);
+app.get ("/api/hospitalisations/timeline", auth.requireAuth, HospitalisationsController.timeline);
+app.get ("/api/hospitalisations/:id", auth.requireAuth, HospitalisationsController.selectOne);
 app.post("/api/hospitalisations", auth.requireAuth, HospitalisationsController.insert);
-app.post("/api/hospitalisations/:id/remarques", HospitalisationsController.addRemarque);
-app.post("/api/hospitalisations/:id/sortie", HospitalisationsController.addSortie);
+app.post("/api/hospitalisations/:id/remarques", auth.requireAuth, HospitalisationsController.addRemarque);
+app.post("/api/hospitalisations/:id/sortie", auth.requireAuth, HospitalisationsController.addSortie);
 
-app.post("/private/hospitalisationsByIDs", HospitalisationsController.hospitalisationsByIDs)
+// Transferts
+app.post ("/api/transferts", auth.requireAuth, TransfertsController.insert);
+
+app.post("/private/hospitalisations", HospitalisationsController.hospitalisationsByIDs)
 
 app.use((req, res) => res.sendStatus(404));
 

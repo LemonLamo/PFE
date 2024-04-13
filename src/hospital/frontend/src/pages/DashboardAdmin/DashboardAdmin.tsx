@@ -150,7 +150,7 @@ function DashboardAdmin(){
               statistics.isError? "Erreur":
               statistics.isLoading?
                 <TableLoading />:
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.consultations}</h5>
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data?.consultations}</h5>
             }
             </StatisticsCard>
 
@@ -159,7 +159,7 @@ function DashboardAdmin(){
               statistics.isError? "Erreur":
               statistics.isLoading?
                 <TableLoading />:
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.hospitalisations}</h5>
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data?.hospitalisations}</h5>
             }
             </StatisticsCard>
 
@@ -168,7 +168,7 @@ function DashboardAdmin(){
               statistics.isError? "Erreur":
               statistics.isLoading?
                 <TableLoading />:
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.interventions}</h5>
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data?.interventions}</h5>
             }
             </StatisticsCard>
 
@@ -177,7 +177,7 @@ function DashboardAdmin(){
               statistics.isError? "Erreur":
               statistics.isLoading?
                 <TableLoading />:
-                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data.personnel}</h5>
+                <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data?.personnel}</h5>
             }
             </StatisticsCard>
         </div>

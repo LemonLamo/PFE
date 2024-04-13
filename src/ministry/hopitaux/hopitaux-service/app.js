@@ -32,8 +32,11 @@ const HopitauxController = require("./controllers/HopitauxController");
 
 // Hopitaux
 app.get ("/api/hopitaux", HopitauxController.getAll);
-app.get ("/api/hopitaux/:hopital", HopitauxController.getOne);
-app.get ("/api/hopitaux/:hopital/services", HopitauxController.getServices);
+app.get ("/api/hopitaux/:nom_hopital", HopitauxController.getOne);
+app.get ("/api/hopitaux/:nom_hopital/services", HopitauxController.getServices);
+
+app.post("/private/hopitaux", HopitauxController.selectByNomHopitaux);
+app.get ("/private/hopitaux/:nom_hopital", HopitauxController.selectByNomHopital);
 
 app.use((req, res) => res.sendStatus(404));
 

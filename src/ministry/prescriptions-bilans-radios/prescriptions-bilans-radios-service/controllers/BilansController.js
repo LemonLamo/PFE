@@ -1,7 +1,7 @@
 const Model = require("../models/BilansModel");
 const { fetchPatients, fetchBilans } = require("../utils/communication");
 const { genID } = require('../utils');
-const { path } = require("../app");
+const path = require("path");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -9,13 +9,15 @@ class BilansController {
   async select(req, res) {
     const { reference } = req.query
     if(reference){
-      const result = await Model.getByReference(reference);
+      const data = await Model.getByReference(reference);
+      const [patients, bilans] = await Promise.all([fetchPatients(data), fetchBilans(data)]);
+
+      const result = data.map((x) => ({ ...x, patient: patients.get(x.patient), designation: bilans.get(x.code_bilan).designation }))
       return res.status(200).json(result);
     }
     else{
       let data = await Model.getAll();
-      const patients = await fetchPatients(data);
-      const bilans = await fetchBilans(data);
+      const [patients, bilans] = await Promise.all([fetchPatients(data), fetchBilans(data)]);
 
       const result = data.map((x) => ({ ...x, patient: patients.get(x.patient), designation: bilans.get(x.code_bilan).designation }))
       return res.status(200).json(result);

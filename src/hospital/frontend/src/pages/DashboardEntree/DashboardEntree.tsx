@@ -25,11 +25,15 @@ function DashboardEntree(){
             setData((x : any) => ({...x, medecin: {NIN: medecin.NIN, nom: medecin.nom, prenom:medecin.prenom}}))
     }
 
+    function affecter_malade(){
+        console.log(data)
+    }
+
     useEffect(()=>{
         axios.get(`${baseURL}/api/hopitaux/${auth!.hopital}/services`).then((response)=>{
-        setHopitaux(response.data)
-        if(response.data.length > 0)
-            setData((x : any) => ({...x, service: response.data[0].service}))
+            setHopitaux(response.data)
+            if(response.data.length > 0)
+                setData((x : any) => ({...x, service: response.data[0].service}))
         })
     }, [])
     
@@ -40,14 +44,14 @@ function DashboardEntree(){
                 <PatientsSelect className="col-span-3" placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: data.patient!.NIN!, nom: data.patient!.nom!, prenom: data.patient!.prenom! }} />
 
                 <label className="text-sm font-semibold">Service</label>
-                <select className="col-span-3">
+                <select className="col-span-3" value={data.service} onChange={(e) => setData((d: any) => ({...d, service: e.target.value}))}>
                     { hopitaux.map((h, i) => (<option value={h?.service} key={i}> {h?.service}</option>)) }
                 </select>
 
                 <label className="text-sm font-semibold">Medecin</label>
-                <MedecinsSelect className="col-span-3" placeholder="Affecter un medecin" onChange={select_medecin} state={{ NIN: data.medecin!.NIN!, nom: data.medecin!.nom!, prenom: data.medecin!.prenom! }} />
+                <MedecinsSelect className="col-span-3" placeholder="Affecter un medecin" hopital={auth?.hopital!} service={data.service} onChange={select_medecin} state={{ NIN: data.medecin!.NIN!, nom: data.medecin!.nom!, prenom: data.medecin!.prenom! }} />
             </div>
-            <button className="primary ms-3 float-right" onClick={() => console.log(data)}> Affecter </button>
+            <button className="primary ms-3 float-right" onClick={affecter_malade}> Affecter </button>
         </Card>
     </>
 }

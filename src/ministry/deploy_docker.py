@@ -41,6 +41,8 @@ services = [
 
     "soins/soins-db",
     "soins/soins-service",
+
+    "rabbitmq",
 ]
 
 cwd = os.path.dirname(os.path.realpath(__file__)) 

@@ -9,7 +9,10 @@ class RadiosController {
   async select(req, res) {
     const { reference } = req.query
     if(reference){
-      const result = await Model.getByReference(reference);
+      const data = await Model.getByReference(reference);
+      const [patients, radios] = await Promise.all([fetchPatients(data), fetchRadios(data)]);
+
+      const result = data.map((x) => ({ ...x, patient: patients.get(x.patient), designation: radios.get(x.code_radio).designation }))
       return res.status(200).json(result);
     }
     else{

@@ -53,6 +53,14 @@ spec:
   - matches:
     - path:
         type: PathPrefix
+        value: /api/transferts
+    backendRefs:
+    - name: medicalife-api
+      kind: Service
+      port: 443
+  - matches:
+    - path:
+        type: PathPrefix
         value: /api/interventions
     backendRefs:
     - name: medicalife-api

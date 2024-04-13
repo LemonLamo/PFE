@@ -8,11 +8,13 @@ import TableLoading from '../UI/Loading'
 type SelectProps = {
     state: {NIN: string, nom: string, prenom:string},
     onChange: any
+    hopital: string,
+    service: string,
     placeholder?: string,
     className?: string,
 }
 
-function InfirmiersSelect({ onChange, placeholder = '', className = '', state }: SelectProps) {
+function InfirmiersSelect({ onChange, placeholder = '', className = '', state, hopital, service }: SelectProps) {
     const [options, setOptions] = useState<Personnel[]>()
     const [selectedOption, setSelectedOption] = useState(state)
     const [query, setQuery] = useState('')
@@ -20,7 +22,12 @@ function InfirmiersSelect({ onChange, placeholder = '', className = '', state }:
     useEffect(() => {
         if (query.length >= 3){
             setIsLoading(true);
-            axios.get(`${baseURL}/api/personnel?fonction=Infirmier&search=${query}`).then((response) => {
+            const url = (hopital && service)?
+                            `${baseURL}/api/personnel/search?hopital=${hopital}&service=${service}&fonction=Infirmier&search=${query}`:
+                        (hopital)?
+                            `${baseURL}/api/personnel/search?hopital=${hopital}&fonction=Infirmier&search=${query}`:
+                            `${baseURL}/api/personnel/search?fonction=Infirmier&search=${query}`
+            axios.get(url).then((response) => {
                 setIsLoading(false);
                 setOptions(response.data);
             });

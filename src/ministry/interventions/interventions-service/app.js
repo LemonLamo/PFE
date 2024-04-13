@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
+const RabbitConnection = require("./config/amqplib");
+RabbitConnection.connect();
 const app = express();
 
 // database connection
@@ -31,11 +33,12 @@ const logger = require("./utils/logger");
 const InterventionsController = require("./controllers/InterventionsController");
 
 // Interventions
-app.get("/api/interventions", InterventionsController.select);
-app.get("/api/interventions/medecin", auth.requireAuth, InterventionsController.selectByMedecin);
-app.get("/api/interventions/timeline", InterventionsController.timeline);
-app.get("/api/interventions/count", InterventionsController.selectCount);
-app.get("/api/interventions/:id", InterventionsController.selectOne);
+app.get ("/api/interventions", auth.requireAuth, InterventionsController.select);
+app.post("/api/interventions", auth.requireAuth, InterventionsController.insert);
+app.get ("/api/interventions/timeline", auth.requireAuth, InterventionsController.timeline);
+app.get ("/api/interventions/count", auth.requireAuth, InterventionsController.selectCount);
+app.get ("/api/interventions/:id", auth.requireAuth, InterventionsController.selectOne);
+app.post("/api/interventions/:id/executer", auth.requireAuth, InterventionsController.executer);
 
 app.use((req, res) => res.sendStatus(404));
 

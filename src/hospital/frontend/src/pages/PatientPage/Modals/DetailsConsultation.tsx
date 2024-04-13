@@ -6,6 +6,7 @@ import TabBilan from "../Tabs/TabBilan";
 import TabContent from "../../../components/UI/Tabs/TabContent";
 import Tabs from "../../../components/UI/Tabs";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const theme = "primary";
 type Props = {
@@ -89,12 +90,12 @@ export default function DetailsConsultation({
 
             <div className="col-span-3">
               <label className="font-semibold">Service </label>
-              <p className="mb-0"> {selectedConsultation.medecin.service} </p>
+              <p className="mb-0"> {selectedConsultation.service} </p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Hopital</label>
-              <p className="mb-0"> {selectedConsultation.medecin.hopital}</p>
+              <p className="mb-0"> {selectedConsultation.hopital}</p>
             </div>
           </div>
         </fieldset>
@@ -126,9 +127,14 @@ export default function DetailsConsultation({
 
           <div className="col-span-5">
             <label className="font-semibold"> Arrêt de travail </label>
-            <p className="mb-0">
-              {selectedConsultation.duree_arret_de_travail? selectedConsultation.duree_arret_de_travail + " jours" : '-'}
-            </p>
+            <div className="mb-0">
+              {selectedConsultation.duree_arret_de_travail? 
+              <>
+                {selectedConsultation.duree_arret_de_travail + " jours "}
+                <Link to={`/arret_de_travail/${selectedConsultation.id}`} target="_blank" className="underline">(View)</Link>
+              </> : 
+              '-'}
+            </div>
           </div>
           <div className="col-span-12">
             <label className="font-semibold">Diagnostique</label>
@@ -149,7 +155,7 @@ export default function DetailsConsultation({
           <TabExamenClinique reference={selectedConsultation.id} />
         </TabContent>
 
-        <TabContent icon="fa fa-pills" text="Prescriptions">
+        <TabContent icon="fa fa-pills" text="Préscriptions">
           <TabPrescription reference={selectedConsultation.id} />
         </TabContent>
 

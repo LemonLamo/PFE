@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
+const RabbitConnection = require("./config/amqplib");
+RabbitConnection.connect();
 const app = express();
 
 // database connection
@@ -29,9 +31,39 @@ app.use(bodyParser.json());
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 const RendezVousController = require("./controllers/RendezVousController");
+const RendezVousModel = require("./models/RendezVousModel");
+const { genID } = require("./utils");
+const { fetchInterventions } = require("./utils/communication");
 
-app.get ("/api/rendez-vous", auth.requireAuth, RendezVousController.select)
-app.post("/api/rendez-vous", auth.requireAuth, RendezVousController.insert)
+app.get ("/api/rendez-vous", auth.requireAuth, RendezVousController.select);
+app.get ("/api/rendez-vous/:id", auth.requireAuth, RendezVousController.selectOne);
+app.post("/api/rendez-vous", auth.requireAuth, RendezVousController.insert);
+
+RabbitConnection.on("rendez-vous_create", async (rdv) =>{
+  console.log(rdv)
+  const { jwt, patient, type, date, details, code_intervention } = rdv;
+
+  const title = (type === "Consultation")?
+      "Consultation":
+      (await fetchInterventions([{code_intervention: code_intervention}])).get(code_intervention).designation
+  
+  const duree = (type === "Consultation")? 15 : 30
+
+  await RendezVousModel.insert(genID(), patient, jwt.NIN, type, title, details, date, duree);
+})
+
+RabbitConnection.on("rendez-vous_create_bulk", async (rdvs) =>{
+  for (const rdv of rdvs){
+    const { jwt, patient, type, date, details, code_intervention } = rdv;
+    const title = (type === "Consultation")?
+        "Consultation":
+        (await fetchInterventions([{code_intervention: code_intervention}])).get(code_intervention).designation
+    
+    const duree = (type === "Consultation")? 15 : 30
+
+    await RendezVousModel.insert(genID(), patient, jwt.NIN, type, title, details, date, duree);
+  }
+})
 
 app.use((req, res) => res.sendStatus(404));
 

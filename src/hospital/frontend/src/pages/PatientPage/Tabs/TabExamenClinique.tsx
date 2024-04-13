@@ -18,14 +18,12 @@ function TabExamenClinique({ reference }: Props) {
   });
   const tableDefinitionExamenClinique = useMemo(
     () => [
-      { header: "ID", accessorKey: "#" },
-      { header: "Code examen clinique", accessorKey: "code_examen_clinique" },
-      { header: "Designation", accessorKey: "designation" },
+      { header: "#", accessorKey: "id" },
+      { header: "Examen clinique", id: "examen-clinique",
+        cell: (info) => `[${info.row.original.code_examen_clinique}] : ${info.row.original.designation}`},
       { header: "Résultat", accessorKey: "resultat" },
       { header: "Remarques", accessorKey: "remarques" },
-    ],
-    []
-  ) as ColumnDef<ExamenClinique>[];
+    ], []) as ColumnDef<ExamenClinique>[];
 
   return (
     <>

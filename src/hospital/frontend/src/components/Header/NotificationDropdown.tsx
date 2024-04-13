@@ -1,18 +1,14 @@
 import { Menu, Transition } from '@headlessui/react'
 import NotificationEntry from './NotificationEntry';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { baseURL } from '../../config';
 import TableLoading from '../UI/Loading';
 import TableError from '../UI/Tables/TableError';
+import { getNotifiations } from '../../hooks/useNotifications';
 
 function NotificationDropdown() {
     const notifications = useQuery<Notif[]>({
         queryKey: ['notifications'],
-        queryFn: async ()=>{
-            const data = (await axios.get(`${baseURL}/api/notifications`)).data;
-            return data
-        }
+        queryFn: getNotifiations
     })
     return (
         <Menu>

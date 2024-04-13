@@ -1,5 +1,5 @@
 import Modal, { ModalThemes } from "../../components/UI/Modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import moment from "moment";
 import Select from "../../components/Selects/Select";
 
@@ -7,7 +7,7 @@ type Props = {
   isOpen: boolean,
   close: () => void,
   selectedPatient: Partial<Patient>,
-  action: (arg0: Partial<RendezVous & InterventionCode>) => void,
+  action: (arg0: Patient["NIN"], arg1: Partial<RendezVous & InterventionCode>) => void,
 }
 
 const theme = "primary"
@@ -19,9 +19,6 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient, actio
         details: "",
         patient: {}
     })
-    useEffect(()=>{
-        setRendezVous(rdv => ({...rdv, patient:selectedPatient }))
-    }, [selectedPatient])
 
     function select_intervention(intervention: InterventionCode) {
         if(intervention)
@@ -55,7 +52,7 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient, actio
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(rendezVous)}>Ajouter</button>
+                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedPatient.NIN!, rendezVous)}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

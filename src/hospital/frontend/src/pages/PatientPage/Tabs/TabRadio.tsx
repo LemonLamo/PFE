@@ -6,6 +6,8 @@ import DataTable from "../../../components/UI/Tables/DataTable";
 import { baseURL } from "../../../config";
 import { Link } from "react-router-dom";
 import IconButton from "../../../components/UI/Buttons/IconButton";
+import { status_badge } from "../../../hooks/useRadios";
+import moment from "moment";
 type Props = {
   reference: string;
 };
@@ -20,11 +22,14 @@ function TabRadio({ reference }: Props) {
   });
   const tableDefinitionRadio = useMemo(
     () => [
-      { header: "ID", accessorKey: "id" },
-      { header: "Patient", accessorKey: "patient" },
-      { header: "Code radio", accessorKey: "code_radio" },
-      { header: "Designation", accessorKey: "designation" },
-      { header: "Date", accessorKey: "date" },
+      { header: "#", accessorKey: "id" },
+      { header: "Radio", id: "radio",
+        cell: (info) => `[${info.row.original.code_radio}] : ${info.row.original.designation}`},
+      { header: "Date", id: "date",
+        cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm")},
+      { header: "Status", id: "status", cell: (info) => status_badge(info.row.original.date_fait) },
+      { header: "Date (Fait)", id: "date_fait", 
+        cell: (info) => info.row.original.date_fait? moment(info.row.original.date_fait).format("DD/MM/YYYY HH:mm") : '-' },
       {
         header: "",
         id: "actions",

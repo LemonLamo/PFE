@@ -84,12 +84,12 @@ export default function DetailsIntervention({
 
             <div className="col-span-3">
               <label className="font-semibold">Service </label>
-              <p className="mb-0"> {selectedIntervention.medecin.service} </p>
+              <p className="mb-0"> {selectedIntervention.service} </p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Hopital</label>
-              <p className="mb-0"> {selectedIntervention.medecin.hopital} </p>
+              <p className="mb-0"> {selectedIntervention.hopital} </p>
             </div>
           </div>
         </fieldset>

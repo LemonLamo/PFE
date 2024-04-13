@@ -13,6 +13,7 @@ type Consultation = {
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   hopital: string;
+  service: string;
   date: Date;
   type: string;
   motif: string;
@@ -33,6 +34,7 @@ type Hospitalisation = {
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   hopital: string;
+  service: string;
   date_entree: Date;
   mode_entree: string;
   motif_hospitalisation: string;
@@ -49,6 +51,7 @@ type Intervention = {
   patient: Partial<Patient>;
   medecin: Partial<Personnel>;
   hopital: string;
+  service: string;
   date?: Date;
   protocole_operatoire?: string;
   remarques?: string;
@@ -267,3 +270,10 @@ type RendezVous = {
   duree: number;
   details?: string;
 };
+
+type Hopital = {
+  nom_hopital: string;
+  ville: string;
+  email: string;
+  telephone: string;
+}

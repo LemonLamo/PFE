@@ -4,7 +4,10 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require("helmet");
+const node2fa = require('node-2fa');
 const database = require('./config/database');
+const RabbitConnection = require("./config/amqplib");
+RabbitConnection.connect();
 const app = express();
 
 // database connection
@@ -26,6 +29,7 @@ app.use(bodyParser.json());
 const auth = require('./middlewares/auth')
 const logger = require('./utils/logger')
 const AuthController = require('./controllers/AuthController');
+const UsersModel = require('./models/UsersModel');
 
 // public
 app.post('/api/auth/login', AuthController.login);
@@ -39,6 +43,14 @@ app.post('/api/auth/activate', AuthController.activate);
 
 // private
 app.post('/api/auth/signup', AuthController.signup);
+
+// RabitMQ
+RabbitConnection.on("account_create", async (data) =>{
+  const { NIN, role, email } = data;
+  const two_factor_secret = node2fa.generateSecret().secret;
+  await UsersModel.insert(NIN, role, two_factor_secret)
+  await AuthController.send_activation_email(NIN, email);
+})
 
 app.use((req, res) => res.sendStatus(404))
 

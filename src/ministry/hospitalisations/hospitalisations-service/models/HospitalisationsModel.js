@@ -3,25 +3,32 @@ const moment = require('moment');
 
 class ConsultationsModel {
   validationRules = {};
-  async getAll() {
+  async selectAll() {
     const [results] = await db.query("SELECT * FROM `hospitalisations`");
     return results;
   }
 
-  async getOne(id) {
+  async selectOne(id) {
     const [results] = await db.query("SELECT * FROM `hospitalisations` WHERE `id`=?", [id]);
-    return results;
+    return results[0];
   }
 
-  async getByPatient(NIN) {
+  async selectByPatient(NIN) {
     const [results] = await db.query(
       "SELECT * FROM `hospitalisations` WHERE `patient`=? ORDER BY `date_entree` DESC",
       [NIN]
     );
     return results;
   }
+  async selectByMedecin(NIN) {
+    const [results] = await db.query(
+      "SELECT * FROM `hospitalisations` WHERE `medecin`=? ORDER BY `date_entree` DESC",
+      [NIN]
+    );
+    return results;
+  }
 
-  async getActiveByMedecin(NIN) {
+  async selectActiveByMedecin(NIN) {
     const [results] = await db.query(
       "SELECT * FROM `hospitalisations` WHERE `medecin`=? and `date_sortie` IS NULL ORDER BY `date_entree` DESC",
       [NIN]
@@ -34,6 +41,7 @@ class ConsultationsModel {
     patient,
     medecin,
     hopital,
+    service,
     date_entree,
     mode_entree,
     motif_hospitalisation,
@@ -42,12 +50,13 @@ class ConsultationsModel {
     resume_hospitalisation
   ) {
     await db.execute(
-      "INSERT INTO hospitalisations(id, patient, medecin, hopital, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO hospitalisations(id, patient, medecin, hopital, service, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         id,
         patient,
         medecin,
         hopital,
+        service,
         new Date(date_entree),
         mode_entree,
         motif_hospitalisation,
@@ -79,7 +88,7 @@ class ConsultationsModel {
     await db.execute("UPDATE hospitalisations SET `mode_sortie`=?, `date_sortie`=? WHERE `id`=?", [mode_sortie, new Date(date_sortie), id])
   }
 
-  async getTimelinePerMedecin(hopital, medecin, duree){
+  async selectTimelinePerMedecin(hopital, medecin, duree){
     const [results] = await db.query(`SELECT DATE_FORMAT(date_entree, '%Y-%m') AS date_key,
     COUNT(id) AS hospitalisations
     FROM hospitalisations 
@@ -90,7 +99,7 @@ class ConsultationsModel {
     return results;
   }
 
-  async getTimelinePerHopital(hopital, duree){
+  async selectTimelinePerHopital(hopital, duree){
     const [results] = await db.query(`SELECT DATE_FORMAT(date_entree, '%Y-%m') AS date_key,
     COUNT(id) AS hospitalisations
     FROM hospitalisations 

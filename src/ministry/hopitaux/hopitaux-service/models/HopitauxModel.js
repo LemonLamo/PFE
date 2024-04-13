@@ -8,14 +8,24 @@ class Hopitaux {
     return results;
   }
 
-  async selectOne(hopital) {
-    const [results] = await db.query("SELECT * FROM `hopitaux` WHERE `hopital`=?", [hopital]);
+  async selectOne(nom_hopital) {
+    const [results] = await db.query("SELECT * FROM `hopitaux` WHERE `nom_hopital`=?", [nom_hopital]);
     return results;
   }
 
-  async selectServices(hopital) {
-    const [results] = await db.query("SELECT * FROM `services` WHERE `hopital`=?", [hopital]);
+  async selectServices(nom_hopital) {
+    const [results] = await db.query("SELECT * FROM `services` WHERE `nom_hopital`=?", [nom_hopital]);
     return results;
+  }
+
+  async selectByNomHopitaux(nom_hopitaux) {
+    const [results] = await db.query("SELECT * FROM `hopitaux` WHERE `nom_hopital` IN (?)", [nom_hopitaux]);
+    return results;
+  }
+
+  async selectByNomHopital(nom_hopital) {
+    const [results] = await db.query("SELECT * FROM `hopitaux` WHERE `nom_hopital`=?", [nom_hopital]);
+    return results[0];
   }
 }
 

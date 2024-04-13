@@ -1,9 +1,9 @@
 import axios from "axios";
 import { baseURL } from "../config";
 
-export async function createRendezVous(rdv : Partial<RendezVous & InterventionCode>) {
+export async function createRendezVous(NIN: Patient["NIN"], rdv : Partial<RendezVous & InterventionCode>) {
     const data : any = rdv;
-    data.patient = rdv.patient?.NIN
+    data.patient = NIN
     console.log(data)
     try {
         await axios.post(`${baseURL}/api/rendez-vous`, data);

@@ -24,6 +24,10 @@ import ParemetresPage from "./pages/ParametresPage";
 import TestRoute from "./pages/TestRoute";
 import RadioResultPage from "./pages/RadioResultPage";
 import BilanResultPage from "./pages/BilanResultPage";
+import OrdonnanceResultPage from "./pages/OrdonnanceResultPage";
+import ArretDeTravailResultPage from "./pages/ArretDeTravailResultPage";
+import NouvelleInterventionPage from "./pages/NouvelleInterventionPage";
+import MesInterventionsPage from "./pages/MesInterventionsPage/MesInterventionsPage";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -44,11 +48,15 @@ const router = createBrowserRouter([
 
   { path: "/forgot-password", element:(<ForgotPasswordPage />)},
 
+  { path: "/ordonnances/:id", element:(<OrdonnanceResultPage />)},
+
+  { path: "/arret_de_travail/:id", element:(<ArretDeTravailResultPage />)},
+
   { path: "/radios/:id", element:(<RadioResultPage />)},
 
   { path: "/bilans/:id", element:(<BilanResultPage />)},
     
-  { path: "/nouvelle_consultation", element:(
+  { path: "/consultations/new", element:(
     <PrivateRouteOnly>
       <Scaffold> <NouvelleConsultationPage /> </Scaffold>
     </PrivateRouteOnly>)},
@@ -81,6 +89,16 @@ const router = createBrowserRouter([
   { path: "/hospitalisations/new", element:(
     <PrivateRouteOnly>
       <Scaffold> <NouvelleHospitalisationPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+  
+  { path: "/interventions/new", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <NouvelleInterventionPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+  
+  { path: "/interventions", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <MesInterventionsPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
   { path: "/pharmacie", element:(

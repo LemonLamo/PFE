@@ -13,6 +13,28 @@ const NOTIF_SUMMARIES = {
 }
 
 /******** ACTIONS ********/
+async function notifications(req, res){
+    const { NIN } = req.jwt;
+    let result = await Model.selectByNIN(NIN)
+    return res.status(200).json(result)
+}
+
+async function mark_as_read(req, res){
+    const { NIN } = req.jwt;
+    const { id } = req.params
+    const notif = await Model.selectByID(id);
+    
+    if (!notif || notif.notifiable_id != NIN)
+        return res.status(400).json();
+
+    try {
+        await Model.mark_as_read(id)
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
+}
+
 // Private routes, notify
 async function notify(req, res) {
     const { NIN, email, telephone, type, data } = req.body
@@ -30,32 +52,6 @@ async function notify(req, res) {
         if(telephone) await sendSMS(to, summary)
 
         // Respond
-        return res.status(200).json({ success: true })
-    } catch (err) {
-        return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
-    }
-}
-
-async function notifications(req, res){
-    const NIN = req.jwt.NIN;
-    let result = await Model.selectByNIN(NIN)
-    return res.status(200).json(result)
-}
-
-async function mark_as_read(req, res){
-    const NIN = req.jwt.NIN;
-    const { id } = req.params
-    const notif = await Model.selectByID(id);
-    
-    if (!notif || notif.notifiable_id != NIN)
-        return res.status(400).json({
-            errorCode: "not-found",
-            errorMessage: "Notification not found."
-        });
-
-        
-    try {
-        await Model.mark_as_read(id)
         return res.status(200).json({ success: true })
     } catch (err) {
         return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });

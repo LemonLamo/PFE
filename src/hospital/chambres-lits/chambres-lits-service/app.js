@@ -28,12 +28,12 @@ const ChambresController = require("./controllers/ChambresController");
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 
-app.get("/api/chambres", ChambresController.getAll);
-app.post("/api/chambres", ChambresController.insert);
-app.put("/api/chambres", ChambresController.update);
-app.get("/api/chambres/:num", ChambresController.getOne);
-app.get("/api/chambres/:num/lits", ChambresController.getLits);
-app.delete("/api/chambres/:num", ChambresController.remove);
+app.get("/api/chambres", auth.requireAuth, ChambresController.getAll);
+app.post("/api/chambres", auth.requireAuth, ChambresController.insert);
+app.put("/api/chambres", auth.requireAuth, ChambresController.update);
+app.get("/api/chambres/:num", auth.requireAuth, ChambresController.getOne);
+app.get("/api/chambres/:num/lits", auth.requireAuth, ChambresController.getLits);
+app.delete("/api/chambres/:num", auth.requireAuth, ChambresController.remove);
 
 app.use((req, res) => res.sendStatus(404));
 

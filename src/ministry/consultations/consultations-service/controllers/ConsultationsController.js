@@ -1,85 +1,110 @@
 const Model = require("../models/ConsultationsModel");
 const ExamensCliniquesModel = require("../models/ExamensCliniquesModel");
 const { genID } = require("../utils");
-const { fetchPatients } = require("../utils/communication");
+const { fetchPatients, fetchMedecins } = require("../utils/communication");
 const axios = require('axios')
+const RabbitConnection = require('../config/amqplib')
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
 class ConsultationsController {
   async select(req, res) {
-    const { patient } = req.query;
-    if (patient) {
-      const data = await Model.getByPatient(patient);
-      const patients = await fetchPatients(data);
-      const result = data.map((x) => ({ ...x, patient: patients.get(x.patient) }))
+    const { NIN, role } = req.jwt;
+
+    // If patient, reply with history for that patient.
+    if(role == undefined){
+      const data = await Model.selectByPatient(NIN);
+      return res.status(200).json(data);
+    }
+
+    // Else, to be secured later
+    else{
+      const { patient } = req.query;
+      const data = patient?
+                    await Model.selectByPatient(patient):
+                    await Model.selectByMedecin(patient);
+      const [patients, medecins] = await Promise.all([fetchPatients(data), fetchMedecins(data)]);
+      const result = data.map((x) => ({ ...x, patient: patients.get(x.patient), medecin: medecins.get(x.medecin) }))
       return res.status(200).json(result);
     }
-    return res.status(400).json({ errorCode: "", errorMessage: "" });
+    return res.status(400).json();
   }
+  
+  async selectOne(req, res) {
+    const { id } = req.params;
+    const result = await Model.selectOne(id);
 
-  async selectByMedecin(req, res) {
-    const data = await Model.getActiveByMedecin(req.jwt.NIN);
-    const patients = await fetchPatients(data);
-    
-    const result = data.map((x) => ({ ...x, patient: patients.get(x.patient) }))
-    return res.status(200).json(result);
+    // ensure it concerns this user.
+    if(result.medecin == NIN || result.patient == NIN)
+      return res.status(200).json(result);
+
+    return res.status(400).json();
   }
 
   async insert(req, res) {
+    const { NIN: medecin, role, service, hopital} = req.jwt;
+
     try{
       const id = genID();
       const { patient, date, type, motif, symptomes, resume, diagnostique, diagnostique_details } = req.body;
       const { examens_cliniques, prescriptions, radios, bilans, interventions, duree_arret_de_travail, prochaine_consultation} = req.body;
-      const { NIN: medecin, hopital } = req.jwt;
 
-      await Model.insert(id, patient, medecin, hopital, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail);
+      await Model.insert(id, patient, medecin, hopital, service, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail);
 
-      // Other services
+      // Examens cliniques
       const insert_examens_cliniques = examens_cliniques.map((e) => ExamensCliniquesModel.insert(genID(), patient, id, e.code_examen_clinique, e.resultat, e.remarques))
-      const rdv = {patient, type: "Consultation", date: prochaine_consultation, details: null}
-      const promises = [...insert_examens_cliniques, axios.post('http://rendez-vous-service/api/rendez-vous', rdv, {headers: {'Authorization': req.headers.authorization}})]
+      const promises = [...insert_examens_cliniques]
+      await Promise.all(promises)
 
-      if(prescriptions) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/prescriptions', { patient, prescriptions, reference:id }))
-      if(radios) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/radios', { patient, radios, reference:id }))
-      if(bilans) promises.push(axios.post('http://prescriptions-bilans-radios-service/api/bilans', { patient, bilans, reference:id }))
+      const rdv_interventions = interventions.map((x) => ({jwt: req.jwt, patient, type: "Intervention", code_intervention: x.code_intervention, date: x.date, details: x.remarques}))
+      
+      if(prochaine_consultation)
+        RabbitConnection.sendMsg("rendez-vous_create", {jwt: req.jwt, patient, type: "Consultation", date: prochaine_consultation, details: null})
+        
+      if(interventions)
+        RabbitConnection.sendMsg("rendez-vous_create_bulk", rdv_interventions)
 
-      Promise.all(promises)
+      if(prescriptions)
+        RabbitConnection.sendMsg("prescriptions_create", {jwt: req.jwt, patient, prescriptions, reference:id })
+
+      if(duree_arret_de_travail)
+        RabbitConnection.sendMsg("arret_de_travail_create", {jwt: req.jwt, patient, duree_arret_de_travail, reference:id })
+
+      if(radios)
+        RabbitConnection.sendMsg("radios_create", {jwt: req.jwt, patient, radios, reference:id })
+
+      if(bilans)
+        RabbitConnection.sendMsg("bilans_create", {jwt: req.jwt, patient, bilans, reference:id })
+
 
       return res.status(200).json({ success: true });
     }catch(e){
       console.error(e)
     }
   }
-  async selectOne(req, res) {
-    const { id } = req.params;
-    const result = await Model.getOne(id);
-    return res.status(200).json(result);
-  }
-  async selectExamensCliniques(req, res) {
-    const { id } = req.params;
-    const result = await Model.getExamensCliniques(id);
-    return res.status(200).json(result);
-  }
   async selectCount(req, res){
+    // TODO: secure this
     const { hopital, medecin } = req.query;
     if(hopital && medecin){
       const result = await Model.countByMedecin(hopital, medecin);
       return res.status(200).json(result);
-    }else if(hopital){
+    }
+    else if(hopital){
       const result = await Model.countByHopital(hopital);
       return res.status(200).json(result);
     }
     return res.status(403).json({});
   }
   async timeline(req, res){
+    // TODO: secure this
     const { hopital, medecin, duree } = req.query;
     if(hopital && medecin){
-      const array = await Model.getTimelinePerMedecin(hopital, medecin, duree);
+      const array = await Model.selectTimelinePerMedecin(hopital, medecin, duree);
       const results = Object.fromEntries(array.map(({ date_key, consultations }) => [date_key, consultations]));
       return res.status(200).json(results);
-    }else if(hopital){
-      const array = await Model.getTimelinePerHopital(hopital, duree);
+    }
+    else if(hopital){
+      const array = await Model.selectTimelinePerHopital(hopital, duree);
       const results = Object.fromEntries(array.map(({ date_key, consultations }) => [date_key, consultations]));
       return res.status(200).json(results);
     }

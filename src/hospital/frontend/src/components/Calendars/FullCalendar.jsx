@@ -53,7 +53,7 @@ function Calendar({ events }) {
 
 function renderEventContent(eventInfo) {
   return (
-    <Popover className="relative w-full">
+    <Popover className="relative w-full text-slate-600">
         {({ open }) => (
           <>
             <div>

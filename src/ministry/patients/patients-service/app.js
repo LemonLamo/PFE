@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
+const RabbitConnection = require("./config/amqplib");
+RabbitConnection.connect();
 const app = express();
 
 // database connection
@@ -28,29 +30,31 @@ const auth = require("./middlewares/auth");
 const logger = require("./utils/logger")
 const PatientsController = require("./controllers/PatientsController");
 
+app.get ("/api/patients", auth.requireAuth, PatientsController.selectAll);
+app.get ("/api/patients/search", auth.requireAuth, PatientsController.searchAll);
 app.post("/api/patients", auth.requireAuth, PatientsController.insert);
-app.get("/api/patients", PatientsController.getAll);
-app.get("/api/patients/:NIN", PatientsController.getOne);
-app.get("/api/patients/:NIN/historique", PatientsController.getHistorique);
+app.get ("/api/patients/:NIN", auth.requireAuth, PatientsController.selectOne);
+app.get ("/api/patients/:NIN/historique", auth.requireAuth, PatientsController.selectHistorique);
 
-app.get("/api/patients/:NIN/maladies-chroniques", PatientsController.getMaladiesChroniques);
+app.get ("/api/patients/:NIN/maladies-chroniques", auth.requireAuth, PatientsController.selectMaladiesChroniques);
 app.post("/api/patients/:NIN/maladies-chroniques", auth.requireAuth, PatientsController.insertMaladieChronique);
 
-app.get("/api/patients/:NIN/allergies", PatientsController.getAllergies);
-app.post("/api/patients/:NIN/allergies", auth.requireAuth, PatientsController.getAllergies);
+app.get ("/api/patients/:NIN/allergies", auth.requireAuth, PatientsController.selectAllergies);
+app.post("/api/patients/:NIN/allergies", auth.requireAuth, PatientsController.insertAllergie);
 
-app.get("/api/patients/:NIN/antecedents-medicals", PatientsController.getAntecedentsMedicals);
+app.get ("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, PatientsController.selectAntecedentsMedicals);
 app.post("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, PatientsController.insertAntecedentMedical);
 
-app.get("/api/patients/:NIN/antecedents-familiaux", PatientsController.getAntecedentsFamiliaux);
+app.get ("/api/patients/:NIN/antecedents-familiaux", auth.requireAuth, PatientsController.selectAntecedentsFamiliaux);
 app.post("/api/patients/:NIN/antecedents-familiaux", auth.requireAuth, PatientsController.insertAntecedentFamilial);
 
-app.get("/api/patients/:NIN/medicaments", PatientsController.getMedicaments);
+app.get ("/api/patients/:NIN/medicaments", auth.requireAuth, PatientsController.selectMedicaments);
 
-app.get("/api/patients/:NIN/vaccinations", PatientsController.getVaccinations);
+app.get ("/api/patients/:NIN/vaccinations", auth.requireAuth, PatientsController.selectVaccinations);
 app.post("/api/patients/:NIN/vaccinations", auth.requireAuth, PatientsController.insertVaccination);
 
-app.post("/private/patientsByNINs", PatientsController.getByNINs);
+app.post("/private/patients", PatientsController.selectByNINs);
+app.get ("/private/patients/:NIN", PatientsController.selectByNIN);
 
 app.use((req, res) => res.sendStatus(404));
 

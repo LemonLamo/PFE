@@ -1,0 +1,2 @@
+import NouvelleInterventionPage from './NouvelleInterventionPage'
+export default NouvelleInterventionPage

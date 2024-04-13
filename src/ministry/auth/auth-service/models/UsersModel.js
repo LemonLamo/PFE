@@ -43,8 +43,8 @@ class UsersModel {
             throw new Error({ code: "ER_UPDATE_FAIL" })
     }
 
-    async insert (NIN, two_factor_secret){
-        await db.execute('INSERT INTO `users`(NIN, two_factor_secret) VALUES(?, ?)', [NIN, two_factor_secret]);
+    async insert (NIN, role, two_factor_secret){
+        await db.execute('INSERT INTO `users`(NIN, role, two_factor_secret) VALUES(?, ?, ?)', [NIN, role ?? null, two_factor_secret]);
     }
 
     async getPermissions (hopital, role){

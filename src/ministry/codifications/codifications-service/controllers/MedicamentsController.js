@@ -16,8 +16,8 @@ class MedicamentsController {
     }
 
     async getByCodes(req, res){
-        const { code_medicaments } = req.body;
-        const result = await Model.selectByCodes(code_medicaments);
+        const { codes_medicaments } = req.body;
+        const result = await Model.selectByCodes(codes_medicaments);
         return res.status(200).json(result);
     }
 }

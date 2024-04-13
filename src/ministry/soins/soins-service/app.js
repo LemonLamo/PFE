@@ -31,10 +31,10 @@ const logger = require("./utils/logger");
 const SoinsController = require("./controllers/SoinsController");
 
 // Soins
-app.get ("/api/soins", SoinsController.getAll);
+app.get ("/api/soins", auth.requireAuth, SoinsController.getAll);
 app.post("/api/soins", auth.requireAuth, SoinsController.insert);
-app.get ("/api/soins/:id", SoinsController.getOne);
-app.post("/api/soins/:id/executer", SoinsController.executer);
+app.get ("/api/soins/:id", auth.requireAuth, SoinsController.getOne);
+app.post("/api/soins/:id/executer", auth.requireAuth, SoinsController.executer);
 
 app.use((req, res) => res.sendStatus(404));
 

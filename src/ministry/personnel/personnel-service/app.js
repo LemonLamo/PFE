@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
+const RabbitConnection = require("./config/amqplib");
+RabbitConnection.connect();
 const app = express();
 
 // database connection
@@ -28,7 +30,8 @@ const PersonnelController = require("./controllers/PersonnelController");
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 
-app.get("/api/personnel", PersonnelController.getAll);
+app.get("/api/personnel/search", auth.requireAuth, PersonnelController.getAllSnippet);
+app.get("/api/personnel", auth.requireAuth, PersonnelController.getAll);
 app.post("/api/personnel", auth.requireAuth, PersonnelController.insert);
 app.put("/api/personnel", auth.requireAuth, PersonnelController.update);
 app.get("/api/personnel/count", PersonnelController.selectCount);
@@ -36,6 +39,10 @@ app.get("/api/personnel/countBySexe", auth.requireAuth, PersonnelController.sele
 app.get("/api/personnel/countByService", auth.requireAuth, PersonnelController.selectCountGroupByService);
 app.get("/api/personnel/:NIN", PersonnelController.getOne);
 app.delete("/api/personnel/:NIN", PersonnelController.remove);
+
+// PRIVATE ROUTES
+app.post("/private/personnel", PersonnelController.selectByNINs);
+app.get("/private/personnel/:NIN", PersonnelController.selectByNIN);
 
 // graceful shutdown
 process.on("SIGTERM", () =>

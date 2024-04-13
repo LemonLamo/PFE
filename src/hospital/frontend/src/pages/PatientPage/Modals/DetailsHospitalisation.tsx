@@ -90,14 +90,14 @@ export default function DetailsHospitalisation({
             <div className="col-span-3">
               <label className="font-semibold">Service </label>
               <p className="mb-0">
-                {selectedHospitalisation.medecin.service}
+                {selectedHospitalisation.service}
               </p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Hopital</label>
               <p className="mb-0">
-                {selectedHospitalisation.medecin.hopital}
+                {selectedHospitalisation.hopital}
               </p>
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function DetailsHospitalisation({
 
           <div className="col-span-12">
             <label className="font-semibold">Résumé d'hospitalisation</label>
-            <p className="mb-0">
+            <p className="mb-0 whitespace-pre-wrap">
               {selectedHospitalisation.resume_hospitalisation}
             </p>
           </div>
@@ -158,7 +158,7 @@ export default function DetailsHospitalisation({
           <TabExamenClinique reference={selectedHospitalisation.id} />
         </TabContent>
 
-        <TabContent icon="fa fa-pills" text="Prescriptions">
+        <TabContent icon="fa fa-pills" text="Préscriptions">
           <TabPrescription reference={selectedHospitalisation.id} />
         </TabContent>
 

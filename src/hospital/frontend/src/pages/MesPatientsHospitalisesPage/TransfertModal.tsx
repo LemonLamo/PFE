@@ -21,13 +21,13 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation, 
         medecin: {NIN: "", nom: "", prenom: ""},
         remarques: ""
     })
-    const [hopitaux, setHopitaux] = useState<any[]>([]);
+    const [hopitaux, setHopitaux] = useState<Hopital[]>([]);
     const [services, setServices] = useState<any[]>([]);
     useEffect(()=>{
         axios.get(`${baseURL}/api/hopitaux/`).then((response)=>{
             setHopitaux(response.data)
             if(response.data.length > 0)
-                setTransfert(data => ({...data, hopital: response.data[0].hopital!}))
+                setTransfert(data => ({...data, hopital: response.data[0].nom_hopital!}))
         })
     }, [])
     useEffect(()=>{
@@ -56,7 +56,7 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation, 
             <div className="grid grid-cols-6 gap-2">
                 <label className="font-semibold text-slate-700 text-sm col-span-2">Hôpital:</label>
                 <select className="col-span-4" value={transfert.hopital} onChange={(e) => setTransfert(t => ({...t, hopital: e.target.value}))}>
-                    {hopitaux.map((x, i)=> <option key={i}>{x.hopital}</option>)}
+                    {hopitaux.map((x, i)=> <option key={i}>{x.nom_hopital}</option>)}
                 </select>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2">Service:</label>
@@ -65,7 +65,7 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation, 
                 </select>
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2">Médecin:</label>
-                <MedecinsSelect className="col-span-4" placeholder="Médecin" onChange={select_medecin} state={{ NIN: transfert.medecin!.NIN!, nom: transfert.medecin!.nom!, prenom: transfert.medecin!.prenom! }} />
+                <MedecinsSelect className="col-span-4" placeholder="Médecin" hopital={transfert.hopital} service={transfert.service} onChange={select_medecin} state={{ NIN: transfert.medecin!.NIN!, nom: transfert.medecin!.nom!, prenom: transfert.medecin!.prenom! }} />
 
                 <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={transfert.remarques} onChange={(e) => setTransfert(t => ({...t, remarques: e.target.value}))}/>

@@ -29,7 +29,7 @@ const NotificationController = require('./controllers/NotificationController');
 
 // public
 app.get ('/api/notifications/', auth.requireAuth, NotificationController.notifications);
-app.post('/api/notifications/:id/mark-as-read', NotificationController.mark_as_read);
+app.post('/api/notifications/:id/mark-as-read', auth.requireAuth, NotificationController.mark_as_read);
 app.use((req, res) => res.sendStatus(404))
 
 // private

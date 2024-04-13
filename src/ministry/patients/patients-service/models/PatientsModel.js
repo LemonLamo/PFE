@@ -4,16 +4,23 @@ class PatientsModel{
     validationRules = {
 
     }
+
+    async searchAll(search) {
+        const s = '%'+(search ?? '')+'%'
+        const [results] = await db.query("SELECT `NIN`, `nom`, `prenom` FROM `patients` WHERE `NIN` LIKE ? OR CONCAT(`nom`, ' - ', `prenom`) LIKE ? LIMIT 20", [s, s]);
+        return results
+    }
+
+    async selectAll() {
+        const [results] = await db.query("SELECT * FROM `patients`;");
+        return results
+    }
+
     async insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe, NIN_pere, NIN_mere) {
         await db.execute(
             "INSERT INTO patients (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`, `telephone`, `adresse`, `commune`, `code_postale`, `wilaya`, `groupage`, `taille`, `poids`, `donneur_organe`, `NIN_pere`, `NIN_mere`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             [NIN, nom, prenom, new Date(date_de_naissance), lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe, NIN_pere, NIN_mere]
         );
-    }
-    async select(search) {
-        const s = '%'+(search ?? '')+'%'
-        const [results] = await db.query("SELECT * FROM `patients` WHERE `NIN` LIKE ? OR CONCAT(`nom`, ' - ', `prenom`) LIKE ? LIMIT 20", [s, s]);
-        return results
     }
 
     async selectOne (NIN){
@@ -50,11 +57,6 @@ class PatientsModel{
         return results
     }
 
-    async selectByNINs (NINs){
-        const [results] = await db.query('SELECT `NIN`, `nom`, `prenom`, `date_de_naissance`, `sexe`, `groupage` FROM `patients` WHERE `NIN` IN (?)', [NINs]);
-        return results
-    }
-
     async insertMaladieChronique(NIN, code_maladie, date, remarques, medecin){
         await db.execute("INSERT INTO maladies_chroniques (`patient`, `code_maladie`, `date`, `remarques`, `medecin`) VALUES (?, ?, ?, ?, ?)",
             [NIN, code_maladie, new Date(date), remarques ?? null, medecin]);
@@ -78,6 +80,17 @@ class PatientsModel{
     async insertVaccination(NIN, code_vaccin, date, remarques, date_de_prochaine_dose, medecin){
         await db.execute("INSERT INTO vaccinations (`patient`, `code_vaccin`, `date`, `remarques`, `date_de_prochaine_dose`, `medecin`) VALUES (?, ?, ?, ?, ?, ?)",
             [NIN, code_vaccin, new Date(date), remarques ?? null, date_de_prochaine_dose? new Date(date_de_prochaine_dose) : null, medecin]);
+    }
+
+    // PRIVATE VERSIONS
+    async selectByNINs (NINs){
+        const [results] = await db.query('SELECT * FROM `patients` WHERE `NIN` IN (?)', [NINs]);
+        return results
+    }
+
+    async selectByNIN (NIN){
+        const [results] = await db.query('SELECT * FROM `patients` WHERE `NIN`= ?', [NIN]);
+        return results[0];
     }
 }
 module.exports = new PatientsModel();
