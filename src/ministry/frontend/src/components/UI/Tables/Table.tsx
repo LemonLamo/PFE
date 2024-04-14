@@ -17,7 +17,10 @@ function Table({ fields, children, className=''}: TableProps) {
           </tr>
         </thead>
         <tbody className="text-gray-600">
-          {children}
+          {Array.isArray(children) && children.length == 0?
+            <tr><td colSpan={fields.length} className="text-center">Pas de lignes a afficher</td></tr>:
+            children
+          }
         </tbody>
       </table>
     </div>

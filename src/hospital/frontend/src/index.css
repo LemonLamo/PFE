@@ -32,7 +32,18 @@ button.danger-alt{
   @apply focus:ring-0 w-5 h-5 ease-soft text-base -ml-7 rounded-md checked:text-sky-500 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:after:opacity-100
 }
 .active {
-  @apply font-semibold text-slate-700
+  @apply font-semibold text-slate-700 text-cyan-500
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  @apply bg-cyan-400 py-1 rounded-sm
 }
 .active>a>div {
   @apply bg-cyan-400 text-white

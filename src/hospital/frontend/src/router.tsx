@@ -76,7 +76,7 @@ const router = createBrowserRouter([
       <Scaffold> <PatientPage /> </Scaffold>
     </PrivateRouteOnly>)},
 
-  { path: "/rendez_vous", element:(
+  { path: "/rendez-vous", element:(
     <PrivateRouteOnly>
       <Scaffold> <MesRendezVousPage /> </Scaffold>
     </PrivateRouteOnly>)},

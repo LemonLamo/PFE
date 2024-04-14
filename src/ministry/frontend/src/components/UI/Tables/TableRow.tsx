@@ -5,7 +5,9 @@ type TableRowProps = {
 };
 
 function TableRow({ children }: TableRowProps) {
-  return <tr>{children}</tr>;
+  return (<tr>
+    {children}
+    </tr>);
 }
 
 export default TableRow;

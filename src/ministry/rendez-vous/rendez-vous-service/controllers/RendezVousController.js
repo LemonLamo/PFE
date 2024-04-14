@@ -1,6 +1,6 @@
 const Model = require("../models/RendezVousModel");
 const { genID } = require("../utils");
-const { fetchPatients, fetchInterventions } = require("../utils/communication");
+const { fetchPatients, fetchInterventions, fetchMedecins } = require("../utils/communication");
 const RabbitConnection = require("../config/amqplib");
 //const validator = require('../middlewares/validation');
 
@@ -10,7 +10,9 @@ class RendezVousController {
     const { NIN, role } = req.jwt;
     if(role == undefined){
       const data = await Model.getByPatient(req.jwt.NIN);
-      return res.status(200).json(data);
+      const medecins = await fetchMedecins(data);
+      const result = data.map((x) => ({ ...x, medecin: medecins.get(x.patient) }))
+      return res.status(200).json(result);
     }
     else{
       const data = await Model.getByMedecin(req.jwt.NIN);

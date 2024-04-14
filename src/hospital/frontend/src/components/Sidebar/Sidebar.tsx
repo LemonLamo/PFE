@@ -38,7 +38,7 @@ function Sidebar({ setOpen }: SidebarProps) {
           <SidebarHeader text="Consultation" />
           <SidebarButton text="Nouvelle consultation" icon="fa fa-folder-plus" route="/consultations/new" closeSidebar={setOpen}/>
           <SidebarButton text="Mes patients" icon="fa fa-user" route="/patients" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez_vous" closeSidebar={setOpen}/>
+          <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez-vous" closeSidebar={setOpen}/>
 
           <SidebarHeader text="Hospitalisations" />
           <SidebarButton text="Nouvelle hospitalisation" icon="fa fa-folder-plus" route="/hospitalisations/new" closeSidebar={setOpen}/>

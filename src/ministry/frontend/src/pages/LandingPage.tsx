@@ -43,7 +43,7 @@ function LandingPage() {
         </div>
     </div>
     
-        <div id="home" className="relative overflow-hidden bg-gradient-to-r from-[#ecfef5] to-[#fee5d3] pt-[120px] md:pt-[130px] lg:pt-[160px] h-[100vh]">
+        <div id="home" className="relative overflow-hidden bg-gradient-to-r from-[#ecfef5] to-[#fee5d3] pt-[170px] md:pt-[190px] lg:pt-[220px] h-[100vh]">
         <div className="container">
             <div className="-mx-4 flex flex-wrap items-center">
                 <div className="w-full md:w-1/2 px-4">
@@ -611,7 +611,7 @@ function LandingPage() {
                                     davantage.
                                 </p>
                             </div>
-                            <img src={doctor2} alt="image" className="max-w-[720px] mx-auto lg:ml-auto rtl:lg:mr-auto" />
+                            <img src={doctor2} alt="image" className="w-full max-w-[720px] mx-auto lg:ml-auto rtl:lg:mr-auto" />
                         </div>
                     </div>
                 </div>
@@ -623,7 +623,7 @@ function LandingPage() {
         <div className="container">
             <div className="-mx-4 flex flex-wrap">
                 <div className="mx-auto mb-[10px] max-w-full text-center">
-                    <img className="rounded-full object-cover" src={preventive_health_care} alt="" />
+                    <img className="rounded-full w-full" src={preventive_health_care} alt="" />
                 </div>
             </div>
         </div>

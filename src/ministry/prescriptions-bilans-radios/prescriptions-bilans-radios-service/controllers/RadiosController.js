@@ -45,7 +45,7 @@ class RadiosController {
   async getResultOne(req, res) {
     const { id, num } = req.params;
     const result = await Model.getResultOne(id, num);
-    return res.status(200).sendFile(path.resolve(result.file), {headers: {'Content-Type': 'application/pdf'}})
+    return res.status(200).sendFile(path.resolve(result.file), {headers: {'Content-Type': 'image/jpeg'}})
   }
 
   async addResults(req, res){

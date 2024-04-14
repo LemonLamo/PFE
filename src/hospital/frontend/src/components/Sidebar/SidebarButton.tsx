@@ -9,7 +9,7 @@ type SidebarButtonProps = {
 function SidebarButton({icon, text, route, closeSidebar} : SidebarButtonProps){
     const isActive = window.location.pathname === route
     return (
-        <li className={`w-full ${isActive? 'active' : ''}`}>
+        <li className={`w-full relative ${isActive? 'active' : ''}`}>
             <Link className="py-1 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" to={route} onClick={closeSidebar}>
                 <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                     <i className={`cursor-pointer ${icon} text-lg`} />

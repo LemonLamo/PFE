@@ -11,7 +11,7 @@ function Tabs({type="vertical", children} : TabsProps) {
     const activeStyle = 'text-cyan-500 hover:text-cyan-600 border-cyan-500 hover:border-cyan-600'
     const inactiveStyle = 'text-gray-600 hover:text-gray-600 hover:border-gray-300 hover:border-gray-500'
     return (
-        <div className={`${type == "vertical"? "grid grid-cols-5" : ""} mb-3`}>
+        <div className={`${type == "vertical"? "grid grid-cols-5" : ""}`}>
             <ul className={`${type == "vertical" ? "col-span-1 space-y-2" : "flex items-center justify-start"} mb-3`}>
                 {
                     Array.isArray(children) &&

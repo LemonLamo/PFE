@@ -1,23 +1,26 @@
 import { UseQueryResult } from '@tanstack/react-query'
 import { PaginationState, SortingState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TableError from './TableError';
 import TableLoading from '../Loading';
 
 type Props = {
     tableDefinition: any[]
     query: UseQueryResult
-    className?: string
+    searchable?: boolean,
+    pageSize?: number,
+    className?: string,
 }
 
-function DataTable({ tableDefinition, query, className=''} : Props) {
+function DataTable({ tableDefinition, query, searchable=true, pageSize=10, className=''} : Props) {
     const [sorting, setSorting] = useState<SortingState>([])
-    const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: 10 })
+    const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0, pageSize: pageSize })
     const [filtering, setFiltering] = useState('')
+    const [data, setData]= useState<typeof query.data>([])
 
     const table = useReactTable({
         columns: tableDefinition,
-        data: query.data as unknown[],
+        data: data as unknown[],
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -32,14 +35,13 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
         onGlobalFilterChange: setFiltering
     })
 
-    if(query.isLoading)
-        return <TableLoading />
-    
-    if(query.isError || !query.data)
-        return <TableError />
+    useEffect(() => {
+        setData(query.data || []);
+    }, [query.data, setData]);
 
     return(
         <div className={`${className}`}>
+            {searchable &&
             <div className='flex justify-end mb-2'>
                 <div className='relative max-w-64'>
                     <span className="text-sm top-3.5 left-3 absolute flex text-slate-500">
@@ -47,8 +49,8 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
                     </span>
                     <input className="pl-9 w-full primary" type="text" placeholder="Rechercher" value={filtering} onChange={e => setFiltering(e.target.value)} />
                 </div>
-            </div>
-            <div className='block w-full overflow-auto scrolling-touch'>
+            </div>}
+            <div className='block min-w-full divide-y divide-gray-200 overflow-auto'>
                 <table className="w-full max-w-full mb-4">
                     <thead>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -77,8 +79,14 @@ function DataTable({ tableDefinition, query, className=''} : Props) {
                     </thead>
                     <tbody className='text-gray-600'>
                     {
+                    (query.isError)?
+                        <tr><td colSpan={table.getAllColumns().length}><TableError /></td></tr>:
+
+                    query.isLoading?
+                        <tr><td colSpan={table.getAllColumns().length}><TableLoading /></td></tr>:
+
                     table.getRowModel().rows?.length == 0 ?
-                    <tr> <td colSpan={table.getHeaderGroups()[0].headers.length} className="py-2 text-center"> Pas de lignes à afficher </td> </tr> :
+                    <tr><td colSpan={table.getHeaderGroups()[0].headers.length} className="py-2 text-center"> Pas de lignes à afficher </td></tr> :
                     table.getRowModel().rows?.map((row) => (
                         <tr key={row.id}>
                             {row.getVisibleCells().map(cell => (
