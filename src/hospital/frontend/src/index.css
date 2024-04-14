@@ -79,3 +79,7 @@ button.danger-alt{
   --fc-button-hover-border-color: rgb(8 145 178);
   --fc-button-hover-bg-color: rgb(8 145 178);
 }
+
+.markdown p {
+  margin-bottom: 0;
+}

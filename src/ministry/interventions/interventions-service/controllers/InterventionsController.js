@@ -12,8 +12,8 @@ class InterventionsController {
         // If patient, reply with history for that patient.
         if(role == undefined){
             const data = await Model.selectByPatient(NIN);
-            const [interventions] = await Promise.all([fetchInterventions(data)])
-            const result = data.map((x) => ({ ...x, patient: patients.get(x.patient), designation: interventions.get(x.code_intervention).designation }))
+            const [interventions, medecins] = await Promise.all([fetchInterventions(data), fetchMedecins(data)])
+            const result = data.map((x) => ({ ...x, medecin: medecins.get(x.medecin), designation: interventions.get(x.code_intervention).designation }))
             return res.status(200).json(result);
         }
 
