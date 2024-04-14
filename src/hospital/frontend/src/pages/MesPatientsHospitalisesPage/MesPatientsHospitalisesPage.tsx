@@ -23,6 +23,7 @@ function MesPatientsHospitalisesPage() {
   const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({
     id: "",
     hopital: "",
+    service: "",
     medecin: { NIN: "", nom: "", prenom: "" },
     patient: { NIN: "", nom: "", prenom: "" },
     date_entree: new Date(),
