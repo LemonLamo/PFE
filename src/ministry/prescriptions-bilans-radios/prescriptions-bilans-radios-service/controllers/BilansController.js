@@ -2,6 +2,7 @@ const Model = require("../models/BilansModel");
 const { fetchPatients, fetchBilans } = require("../utils/communication");
 const { genID } = require('../utils');
 const path = require("path");
+const RabbitConnection = require('../config/amqplib')
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -51,6 +52,12 @@ class BilansController {
   async addResults(req, res){
     const { id } = req.params;
     const result = await Model.mark_as_done(id, req.files);
+
+    // notify
+    const bilan = await Model.getOne(id);
+    const payload = {notification_type: "BILAN_READY", NIN: bilan.patient, notified_type:"patient", delivery_method: 1, data: {bilan: bilan.id}}
+    RabbitConnection.sendMsg("notification", payload);
+
     return res.status(200).json(result);
   }
 }

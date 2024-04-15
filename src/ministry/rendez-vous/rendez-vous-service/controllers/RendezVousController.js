@@ -1,6 +1,8 @@
 const Model = require("../models/RendezVousModel");
 const { genID } = require("../utils");
 const { fetchPatients, fetchInterventions, fetchMedecins } = require("../utils/communication");
+const moment = require('moment');
+const axios = require('axios');
 const RabbitConnection = require("../config/amqplib");
 //const validator = require('../middlewares/validation');
 
@@ -38,11 +40,9 @@ class RendezVousController {
   }
 
   async insert(req, res) {
-    const { NIN, role } = req.jwt;
-
     const id = genID();
     const { patient, type, date, details, code_intervention } = req.body;
-    const { NIN: medecin, hopital } = req.jwt;
+    const { NIN: medecin, hopital, role } = req.jwt;
 
     const title = (type === "Consultation")?
         "Consultation":
@@ -51,6 +51,14 @@ class RendezVousController {
     const duree = (type === "Consultation")? 15 : 30
 
     await Model.insert(id, patient, medecin, type, title, details, date, duree);
+    
+    // notify
+    const medecin_profile = (await axios.get(`http://personnel-service/private/personnel/${medecin}`)).data
+    const medecin_formatted = `Dr. ${medecin_profile.prenom[0]}. ${medecin_profile.nom}`
+    const date_formatted = moment(date).format('DD/MM/YYYY') + " à " + moment(date).format('HH:mm');
+    const payload = {notification_type: "RENDEZVOUS_PATIENT", NIN: patient, notified_type:"patient", delivery_method: 1, data: {rdv: type, medecin: medecin_formatted, date: date_formatted}}
+    RabbitConnection.sendMsg("notification", payload);
+
     return res.status(200).json({ success: true });
   }
 }

@@ -1,7 +1,7 @@
 const axios = require("axios");
 const Model = require("../models/PatientsModel");
 const RabbitConnection = require('../config/amqplib')
-const { fetchMaladies, fetchAllergies, fetchVaccinations } = require("../utils/communication");
+const { fetchMaladies, fetchAllergies, fetchVaccinations, fetchMedicaments } = require("../utils/communication");
 //const validator = require('../middlewares/validation');
 
 class PatientsController{
@@ -83,7 +83,10 @@ class PatientsController{
   }
   async selectMedicaments(req, res) {
     const { NIN } = req.params;
-    const result = await Model.selectMedicaments(NIN);
+    const data = await Model.selectMedicaments(NIN);
+    const medicaments = await fetchMedicaments(data);
+
+    const result = data.map((x) => ({ ...x, DCI: medicaments.get(x.code_medicament).DCI }));
     return res.status(200).json(result);
   }
   async selectVaccinations(req, res) {
