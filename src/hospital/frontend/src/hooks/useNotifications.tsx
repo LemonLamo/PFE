@@ -5,3 +5,8 @@ export async function getNotifiations (){
     const data = (await axios.get(`${baseURL}/api/notifications`)).data;
     return data
 }
+
+export async function mark_as_read(id: Notif["id"]){
+    const data = (await axios.post(`${baseURL}/api/notifications/${id}/mark-as-read`)).data;
+    return data
+}
