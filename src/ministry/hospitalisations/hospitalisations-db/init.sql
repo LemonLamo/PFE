@@ -28,4 +28,4 @@ CREATE TABLE `hospitalisations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `hospitalisations` (`id`, `patient`, `medecin`, `hopital`, `service`, `date_entree`, `mode_entree`, `motif_hospitalisation`, `chambre`, `lit`, `date_sortie`, `mode_sortie`, `resume_hospitalisation`) VALUES
-('hos-PZR37CU', '100010364027390000', '100010364027390000', 'CHU Beni Messous', 'Cardiologie', '2023-02-18', 'Hospitalisation complète', 'Soupçon de COVID-19', "F1", 1, NULL, NULL, "Le patient s'est présenté avec une fièvre extra-ordinaire, un mal de gorge, un nez qui coule.");
+('hos-PZR37CU', '100010364027390000', '100010364027390000', 'CHU Beni Messous', 'Chirugie Générale', '2023-02-18', 'Hospitalisation complète', 'Soupçon de COVID-19', "F1", 1, NULL, NULL, "Le patient s'est présenté avec une fièvre extra-ordinaire, un mal de gorge, un nez qui coule.");
