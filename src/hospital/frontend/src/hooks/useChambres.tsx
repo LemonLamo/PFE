@@ -22,7 +22,7 @@ export async function editChambre(chambre: Chambre) {
     const response = await axios.put(`${baseURL}/api/chambres`, chambre);
     return response.data;
   } catch (error: any) {
-    console.error(error);
+    return error;
   }
 }
 
@@ -33,7 +33,7 @@ export async function deleteChambre(numChambre: Chambre["num"]) {
     );
     return response.data;
   } catch (error: any) {
-    console.error(error);
+    return error;
   }
 }
 

@@ -35,7 +35,6 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
       .catch((error) => {
         console.log(error);
       });
-    close();
     // console.log(response);
   };
   const watched_nombre_lits = watch("nombre_lits");
