@@ -40,10 +40,10 @@ function DashboardEntree(){
     return <>
         <Card title="Rechercher un patient" subtitle="Vous pouvez l'ajouter s'il n'existe pas encore" className="w-full max-w-[800px]" action={create_patient}>
             <div className="grid grid-cols-4 gap-2 mb-3 mt-3">
-                <label className="text-sm font-semibold">Patient</label>
+                <label className="text-sm font-semibold">Patient<span className="text-red-500">*</span></label>
                 <PatientsSelect className="col-span-3" placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: data.patient!.NIN!, nom: data.patient!.nom!, prenom: data.patient!.prenom! }} />
 
-                <label className="text-sm font-semibold">Service</label>
+                <label className="text-sm font-semibold">Service<span className="text-red-500">*</span></label>
                 <select className="col-span-3" value={data.service} onChange={(e) => setData((d: any) => ({...d, service: e.target.value}))}>
                     { hopitaux.map((h, i) => (<option value={h?.service} key={i}> {h?.service}</option>)) }
                 </select>

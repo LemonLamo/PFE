@@ -31,7 +31,7 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient, actio
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter un nouveau rendez vous </p>
             
             <div className="grid grid-cols-6 gap-2">
-                <label className="font-semibold text-slate-700 text-sm col-span-2"> Type: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Type<span className="text-red-500">*</span> </label>
                 <select className="col-span-4" value={rendezVous.type} onChange={(e)=> setRendezVous(rdv => ({...rdv, type:e.target.value}))}>
                     <option value="Consultation"> Consultation </option>
                     <option value="Intervention"> Intervention </option>
@@ -39,15 +39,15 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient, actio
                 {
                     rendezVous.type === "Intervention" &&
                     <>
-                        <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention: </label>
+                        <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention<span className="text-red-500">*</span> </label>
                         <Select<InterventionCode> url="interventions" code="code_intervention" designation="designation" onChange={select_intervention} className="col-span-4" placeholder="Intervention" />
                     </>
                 }
 
-                <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Date<span className="text-red-500">*</span> </label>
                 <input className="primary col-span-4" type="datetime-local" placeholder="Date" value={moment(rendezVous.date).format('YYYY-MM-DDTHH:mm')} onChange={(e) => setRendezVous({ ...rendezVous, date: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate() })}></input>
 
-                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Détails: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Détails </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={rendezVous.details} onChange={(e) => setRendezVous({ ...rendezVous, details:e.target.value})}></textarea>
             </div>
 

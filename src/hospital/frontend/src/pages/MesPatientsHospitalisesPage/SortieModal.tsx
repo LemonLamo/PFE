@@ -26,13 +26,13 @@ export default function SortieModal({isOpen, close, selectedHospitalisation, act
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Sortie du malade </h3>
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une remarque à cette hospitalisation pour {selectedHospitalisation.patient.nom} {selectedHospitalisation.patient.prenom} </p>
             <div className="grid grid-cols-6 gap-2">
-                <label className="font-semibold text-slate-700 text-sm col-span-6">Mode de sortie: </label>
-                <select className="col-span-6" value={sortie.mode_sortie} onChange={(e) => setSortie(s => ({...s, mode_sortie: e.target.value}))}>
+                <label className="font-semibold text-slate-700 text-sm col-span-2">Mode de sortie<span className="text-red-500">*</span> </label>
+                <select className="col-span-4" value={sortie.mode_sortie} onChange={(e) => setSortie(s => ({...s, mode_sortie: e.target.value}))}>
                     {MODES_SORTIE.map((x, i)=> <option key={i}>{x}</option>)}
                 </select>
 
-                <label className="font-semibold text-slate-700 text-sm col-span-6">Date de sortie:</label>
-                <input className="primary col-span-7" type="datetime-local" value={moment(sortie.date_sortie).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSortie(s => ({...s, date_sortie: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()}))}/>
+                <label className="font-semibold text-slate-700 text-sm col-span-2">Date de sortie<span className="text-red-500">*</span></label>
+                <input className="primary col-span-4" type="datetime-local" value={moment(sortie.date_sortie).format("YYYY-MM-DD HH:mm")} onChange={(e) => setSortie(s => ({...s, date_sortie: moment(e.target.value, "YYYY-MM-DD HH:mm").toDate()}))}/>
             </div>
 
             <div className="flex justify-end gap-3 mt-4">

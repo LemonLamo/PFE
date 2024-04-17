@@ -39,15 +39,15 @@ export default function AjouterSoinsModal({isOpen, close, selectedHospitalisatio
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Affecter un soin </h3>
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter un soin à <span className="font-bold">{selectedSoin.patient!.nom} {selectedSoin.patient!.prenom}</span> </p>
             <div className="grid grid-cols-6 gap-2">
-                <label className="font-semibold text-slate-700 text-sm col-span-2"> Infirmier: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Infirmier<span className="text-red-500">*</span> </label>
                 <InfirmiersSelect className="col-span-4" placeholder="Infirmier" onChange={select_infirmier} state={{ NIN: selectedSoin.infirmier!.NIN!, nom: selectedSoin.infirmier!.nom!, prenom: selectedSoin.infirmier!.prenom! }} hopital={auth!.hopital} service={auth!.service}/>
 
-                <label className="font-semibold text-slate-700 text-sm col-span-2"> Acte: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2"> Acte<span className="text-red-500">*</span> </label>
                 <select className="primary col-span-4" value={selectedSoin.acte} onChange={(e) => setSelectedSoin(s => ({...s, acte: e.target.value}))}>
                     {actes.map((x, i)=> <option key={i}>{x}</option>)}
                 </select>
 
-                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Détails: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Détails<span className="text-red-500">*</span> </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedSoin.details} onChange={(e) => setSelectedSoin(s => ({...s, details: e.target.value}))}/>
             </div>
 

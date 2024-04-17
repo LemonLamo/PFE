@@ -18,7 +18,7 @@ export default function AjouterRemarqueModal({isOpen, close, selectedHospitalisa
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une remarque à cette hospitalisation pour <span className="font-bold">{selectedHospitalisation.patient.nom} {selectedHospitalisation.patient.prenom}</span></p>
 
             <div className="grid grid-cols-6 gap-2">
-                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
+                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques<span className="text-red-500">*</span> </label>
                 <textarea className="col-span-4" rows={5} placeholder="Remarques" value={remarque} onChange={(e) => setRemarque(e.target.value)} />
             </div>
 
