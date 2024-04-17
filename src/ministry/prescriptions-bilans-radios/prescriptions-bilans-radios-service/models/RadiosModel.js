@@ -21,8 +21,8 @@ class RadiosModel {
     return results[0];
   }
 
-  async mark_as_done(id, files){
-    const [results] = await db.query("UPDATE `radios` SET `date_fait`=NOW() WHERE `id`=?", [id]);
+  async mark_as_done(id, files, observations){
+    const [results] = await db.query("UPDATE `radios` SET `date_fait`=NOW(), `observations`=? WHERE `id`=?", [observations, id]);
     for (let file of files)
       await db.query("INSERT `radios_files`(`id`, `file`) VALUES (?, ?)", [id, file.path]);
     return results;

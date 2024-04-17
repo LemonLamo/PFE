@@ -27,12 +27,12 @@ function Sidebar({ setOpen }: SidebarProps) {
         <ul className="flex flex-col pl-0 pt-2 pb-4">
           <SidebarButton text="Dashboard Medecin" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
           <SidebarButton text="Dashboard Admin" icon="fa fa-pie-chart" route="/dashboard_admin" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Inf" icon="fa fa-staff-snake" route="/dashboard_inf" closeSidebar={setOpen}/>
+          <SidebarButton text="Dashboard Infirmier" icon="fa fa-staff-snake" route="/dashboard_inf" closeSidebar={setOpen}/>
           <SidebarButton text="Dashboard Lab" icon="fa fa-vial" route="/dashboard_lab" closeSidebar={setOpen}/>
           <SidebarButton text="Dashboard Radio" icon="fa fa-x-ray" route="/dashboard_radio" closeSidebar={setOpen}/>
 
-          <SidebarHeader text="Bureau d'entrée" />
-          <SidebarButton text="Dashboard Entrée" icon="fa fa-staff-snake" route="/dashboard_entree" closeSidebar={setOpen}/>
+          <SidebarHeader text="Bureau de tri" />
+          <SidebarButton text="Dashboard Réception" icon="fa fa-staff-snake" route="/dashboard_entree" closeSidebar={setOpen}/>
           <SidebarButton text="Nouveau patient" icon="fa fa-user-plus" route="/patients/new" closeSidebar={setOpen}/>
 
           <SidebarHeader text="Consultation" />

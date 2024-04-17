@@ -118,6 +118,7 @@ type Radio = {
   date_fait?: Date;
   remarques?: string;
   fichiers?: File[];
+  observations?: string;
 };
 type RadioCode = {
   code_radio: string;
@@ -132,6 +133,7 @@ type Bilan = {
   date_fait?: Date;
   remarques?: string;
   fichiers?: File[];
+  observations?: string;
 };
 type BilanCode = {
   code_bilan: string;

@@ -51,7 +51,7 @@ class BilansController {
 
   async addResults(req, res){
     const { id } = req.params;
-    const result = await Model.mark_as_done(id, req.files);
+    const result = await Model.mark_as_done(id, req.files, req.observations);
 
     // notify
     const bilan = await Model.getOne(id);

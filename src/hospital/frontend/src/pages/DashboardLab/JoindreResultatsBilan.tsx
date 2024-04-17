@@ -11,20 +11,24 @@ type Props = {
 }
 
 export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } : Props) {
-  const [bilans, setBilans] = useState<File[]>([]);
+  const [ bilans, setBilans ] = useState<File[]>([]);
+  const [ observations, setObservations ]  = useState("");
 
   function handleChange(event : React.ChangeEvent<HTMLInputElement>) {
     if(event.target.files)
       setBilans([...event.target.files])
   }
+
   function deleteUploadedFile(index : number){
     const newBilans = [...bilans];
     newBilans.splice(index, 1);
     setBilans(newBilans)
   }
+
   async function submit(){
     const formData = new FormData();
     bilans.forEach((bilan) => formData.append(`bilans`, bilan))
+    formData.append(`observations`, observations);
     
     const config = { headers: {'content-type': 'multipart/form-data'} }
     try{
@@ -57,6 +61,11 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } :
           <div className="w-1/4 font-bold">Sexe:</div>
           <div className="w-3/4 font-medium">{selectedBilan.patient.sexe}</div>
         </div>
+
+        <div className="flex mb-2">
+          <div className="w-1/4 font-bold">Observations:</div>
+        </div>
+        <textarea className="primary" rows={3} placeholder="Observations" value={observations} onChange={(e) => setObservations(e.target.value)}/>
         
         <div className="border-dashed border-2 border-gray-400 mt-2 py-4 flex flex-col justify-center items-center">
           <label htmlFor="fileupload" className="mb-3 text-center">
@@ -68,22 +77,22 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } :
             <div className="font-semibold text-gray-900">Glissez-déposez vos fichiers n'importe où</div>
             <div className="font-semibold text-gray-900">ou bien</div>
             <div className="mt-2">
-              <span id="button" className="mt-2 rounded-sm px-3 py-1 bg-gray-100 hover:bg-gray-300 focus:shadow-outline focus:outline-none"> Upload a file</span>
+              <span id="button" className="mt-2 rounded-sm px-3 py-1 bg-gray-100 hover:bg-gray-300 focus:shadow-outline focus:outline-none"> Choisir un fichier </span>
             </div>
           </label>
           <input id="fileupload" type="file" multiple accept=".pdf" className="hidden" onChange={handleChange}/>
         </div>
 
         <h1 className="pt-6 pb-3 font-semibold sm:text-lg text-gray-900">Lab reports</h1>
-        <div className="flex flex-1 flex-wrap bg-no-repeat bg-opacity- bg-center min-h-[150px] gap-4" style={{"backgroundImage": "url('https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png')"}}>
+        <div className="flex flex-1 flex-wrap bg-no-repeat bg-opacity- bg-center min-h-40 gap-4" style={{"backgroundImage": "url('https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png')"}}>
           {
             bilans?.map((x, i)=> (
-              <div key={i} className="block h-46 w-32">
+              <div key={i} className="block h-40 w-32">
                 <div className="group w-full h-full rounded-md focus:outline-none focus:shadow-outline elative bg-gray-100 cursor-pointer relative shadow-sm">
                   <div className="text-xs break-words w-full absolute bottom-0">
                     <div className="flex items-center justify-between px-2 pb-1 gap-1">
-                      <i className="fa fa-file text-red-800 text-sm" />
-                      <span className="text-blue-800 text-sm truncate"> {x.name} </span>
+                      <i className="fa fa-file text-red-600 text-sm" />
+                      <span className="text-cyan-700 text-sm truncate"> {x.name} </span>
                       <button className="focus:outline-none text-gray-800 pl-2" onClick={() => deleteUploadedFile(i)}>
                         <i className="fa fa-trash text-sm" />
                       </button>
