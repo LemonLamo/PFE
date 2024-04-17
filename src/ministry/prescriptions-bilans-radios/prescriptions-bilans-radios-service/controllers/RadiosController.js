@@ -2,6 +2,7 @@ const Model = require("../models/RadiosModel");
 const { fetchPatients, fetchRadios } = require('../utils/communication');
 const { genID } = require('../utils')
 const path = require('path')
+const RabbitConnection = require('../config/amqplib')
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -45,12 +46,18 @@ class RadiosController {
   async getResultOne(req, res) {
     const { id, num } = req.params;
     const result = await Model.getResultOne(id, num);
-    return res.status(200).sendFile(path.resolve(result.file), {headers: {'Content-Type': 'application/pdf'}})
+    return res.status(200).sendFile(path.resolve(result.file), {headers: {'Content-Type': 'image/jpeg'}})
   }
 
   async addResults(req, res){
     const { id } = req.params;
     const result = await Model.mark_as_done(id, req.files);
+
+    // notify
+    const radio = await Model.getOne(id);
+    const payload = {notification_type: "RADIO_READY", NIN: radio.patient, notified_type:"patient", delivery_method: 1, data: {radio: radio.id}}
+    RabbitConnection.sendMsg("notification", payload);
+
     return res.status(200).json(result);
   }
 }

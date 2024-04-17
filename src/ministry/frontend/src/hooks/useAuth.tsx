@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Navigate, NavigateFunction } from 'react-router-dom'
 import { jwtDecode } from "jwt-decode";
-type JWTToken = {
+export type JWTToken = {
     NIN: string,
     nom: string,
     prenom: string

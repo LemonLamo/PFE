@@ -18,7 +18,7 @@ class RadiosModel {
 
   async getOne(id) {
     const [results] = await db.query("SELECT * FROM `radios` WHERE `id`=?", [id]);
-    return results;
+    return results[0];
   }
 
   async mark_as_done(id, files){

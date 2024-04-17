@@ -71,7 +71,7 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } :
               <span id="button" className="mt-2 rounded-sm px-3 py-1 bg-gray-100 hover:bg-gray-300 focus:shadow-outline focus:outline-none"> Upload a file</span>
             </div>
           </label>
-          <input id="fileupload" type="file" multiple className="hidden" onChange={handleChange}/>
+          <input id="fileupload" type="file" multiple accept=".pdf" className="hidden" onChange={handleChange}/>
         </div>
 
         <h1 className="pt-6 pb-3 font-semibold sm:text-lg text-gray-900">Lab reports</h1>

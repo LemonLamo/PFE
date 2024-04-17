@@ -28,9 +28,10 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
     const chambre = { ...data, lits: lits };
     // const response = await createChambre(chambre);
     createChambre(chambre)
-      .then((response) => {
+      .then((response : any) => {
         reset();
         close();
+        console.log(response)
       })
       .catch((error) => {
         console.log(error);

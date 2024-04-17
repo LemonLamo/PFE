@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import logo from "../assets/logo.svg"
 type Props = {
     setOpen: () => void,
@@ -25,13 +26,13 @@ function Navbar({ setOpen, className='' } : Props) {
                         <nav id="navbarCollapse" className="absolute right-4 top-full hidden w-full max-w-[250px] rounded-lg bg-white py-5 shadow-lg lg:static lg:block lg:w-full lg:max-w-full lg:bg-transparent lg:py-0 lg:px-4 lg:shadow-none xl:px-6">
                             <ul className="blcok lg:flex">
                                 <li className="group relative active">
-                                    <a href="#home" className="text-cyan-900 hover:text-cyan-600 ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 lg:text-primaryTextColor lg:group-hover:text-primary lg:group-hover:opacity-70"> Accueil </a>
+                                    <Link to="/" className="text-cyan-900 hover:text-cyan-600 ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 lg:text-primaryTextColor lg:group-hover:text-primary lg:group-hover:opacity-70"> Accueil </Link>
                                 </li>
                                 <li className="group relative">
-                                    <a href="#feature" className="text-cyan-900 hover:text-cyan-600 ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-primaryTextColor lg:group-hover:text-primary lg:group-hover:opacity-70 xl:ml-12"> Fonctionalité 2 </a>
+                                    <Link to="/rendez-vous" className="text-cyan-900 hover:text-cyan-600 ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-primaryTextColor lg:group-hover:text-primary lg:group-hover:opacity-70 xl:ml-12"> Mes rendez-vous </Link>
                                 </li>
                                 <li className="group relative">
-                                    <a href="#feature" className="text-cyan-900 hover:text-cyan-600 ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-primaryTextColor lg:group-hover:text-primary lg:group-hover:opacity-70 xl:ml-12"> Fonctionalité 3 </a>
+                                    <Link to="#feature" className="text-cyan-900 hover:text-cyan-600 ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-primaryTextColor lg:group-hover:text-primary lg:group-hover:opacity-70 xl:ml-12"> Doléances </Link>
                                 </li>
                             </ul>
                         </nav>

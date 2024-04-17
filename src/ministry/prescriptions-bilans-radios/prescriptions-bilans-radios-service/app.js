@@ -9,8 +9,10 @@ const database = require("./config/database");
 const RabbitConnection = require("./config/amqplib");
 RabbitConnection.connect();
 const app = express();
+const { genID, imageOnly, pdfOnly } = require('./utils')
 const multer  = require("multer")
-const upload = multer({ dest: "/mnt/data/" })
+const uploadRadio = multer({ dest: "/mnt/data/", fileFilter: imageOnly })
+const uploadBilan = multer({ dest: "/mnt/data/", fileFilter: pdfOnly })
 
 // database connection
 database.connect();
@@ -37,7 +39,6 @@ const PrescriptionsController = require("./controllers/PrescriptionsController")
 const RadiosController = require("./controllers/RadiosController");
 const BilansController = require("./controllers/BilansController");
 const PrescriptionsModel = require("./models/PrescriptionsModel");
-const { genID } = require("./utils");
 const RadiosModel = require("./models/RadiosModel");
 const BilansModel = require("./models/BilansModel");
 
@@ -54,7 +55,7 @@ app.get ("/api/radios/:id", RadiosController.selectOne);
 app.get ("/api/radios/:id/results", RadiosController.getResultsList);
 app.get ("/api/radios/:id/results/:num", RadiosController.getResultOne);
 app.post("/api/radios", RadiosController.insert);
-app.post("/api/radios/:id", upload.array("radios", 5), RadiosController.addResults);
+app.post("/api/radios/:id", uploadRadio.array("radios", 5), RadiosController.addResults);
 
 // Bilans
 app.get ("/api/bilans", BilansController.select);
@@ -62,7 +63,7 @@ app.get ("/api/bilans/:id", BilansController.selectOne);
 app.get ("/api/bilans/:id/results", BilansController.getResultsList);
 app.get ("/api/bilans/:id/results/:num", BilansController.getResultOne);
 app.post("/api/bilans", BilansController.insert);
-app.post("/api/bilans/:id", upload.array("bilans", 5), BilansController.addResults);
+app.post("/api/bilans/:id", uploadBilan.array("bilans", 5), BilansController.addResults);
 
 // RabitMQ
 RabbitConnection.on("prescriptions_create", async (data) =>{

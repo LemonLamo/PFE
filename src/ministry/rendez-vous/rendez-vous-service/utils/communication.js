@@ -9,6 +9,15 @@ exports.fetchPatients = async (data) => {
     return patientsMap;
 }
 
+exports.fetchMedecins = async (data) => {
+    if(data.length==0) return data;
+    const NINs = data.map((x) => x.medecin);
+    const medecins = (await axios.post('http://personnel-service/private/personnel', { NINs })).data;
+    const medecinsMap = new Map(medecins.map((x) => [x.NIN, { ...x }]));
+
+    return medecinsMap;
+}
+
 exports.fetchInterventions = async (data) => {
     if(data.length==0) return data;
     const codes_interventions = data.map((x) => x.code_intervention);

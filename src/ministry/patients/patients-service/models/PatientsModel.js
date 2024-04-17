@@ -49,7 +49,8 @@ class PatientsModel{
     }
 
     async selectMedicaments (NIN){
-        return [{ code_medicament: "AS531", date_debut: "2024-02-16 08:00", posologie: 1000, frequence: 3, duree: 7, remarques: "R.A.S" }]
+        //TODO: script this
+        return [{ code_medicament: "01 A 003", date_debut: "2024-02-16 08:00", posologie: 1000, frequence: 3, duree: 7, remarques: null }]
     }
 
     async selectVaccinations (NIN){
