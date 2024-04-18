@@ -12,9 +12,15 @@ const theme = "primary";
 export default function CreatePersonnelModal({ isOpen, close }: Props) {
   const { register, handleSubmit, reset } = useForm<Personnel>();
   const onSubmit: SubmitHandler<Personnel> = async (data) => {
-    const response = await createPersonnel(data);
-    //TODO: error handling
-    console.log(response);
+    createPersonnel(data)
+      .then((response: any) => {
+        reset();
+        close();
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const onReset = () => {
     reset();

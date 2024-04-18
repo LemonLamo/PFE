@@ -34,8 +34,15 @@ function PharmacyPage() {
       { header: "Code", accessorKey: "code_medicament" },
       { header: "Nom", accessorKey: "DCI" },
       { header: "Quantité en stock", accessorKey: "quantite" },
-      { header: "Niveau de disponibilité", id: "badge", cell: (info) => build_badge(info.row.original.quantite!), },
-      { header: "", id: "actions", cell: (info) => {
+      {
+        header: "Niveau de disponibilité",
+        id: "badge",
+        cell: (info) => build_badge(info.row.original.quantite!),
+      },
+      {
+        header: "",
+        id: "actions",
+        cell: (info) => {
           const m = info.row.original;
           return (
             <div className="flex justify-end gap-2">
@@ -76,12 +83,34 @@ function PharmacyPage() {
   return (
     <>
       <Card title="Gestion des médicaments" action={actions} className="w-full">
-        <DataTable tableDefinition={tableDefinition} query={query} className="mt-2"/>
+        <DataTable
+          tableDefinition={tableDefinition}
+          query={query}
+          className="mt-2"
+        />
 
-        <AjouterMedicamentModal isOpen={openModal==="ajouter"} close={() => setOpenModal("")} />
-        <RetirerMedicamentModal isOpen={openModal==="retirer"} close={() => setOpenModal("")} />
-        <DetailsMedicamentModal isOpen={openModal==="details"} close={() => setOpenModal("")} selectedMedicament={selectedMedicament} />
-        <DeleteMedicamentModal  isOpen={openModal==="delete"} close={() => setOpenModal("")} selectedMedicament={selectedMedicament} />
+        <AjouterMedicamentModal
+          isOpen={openModal === "ajouter"}
+          close={() => setOpenModal("")}
+        />
+        {selectedMedicament !== undefined ? (
+          <>
+            <RetirerMedicamentModal
+              isOpen={openModal === "retirer"}
+              close={() => setOpenModal("")}
+            />
+            <DetailsMedicamentModal
+              isOpen={openModal === "details"}
+              close={() => setOpenModal("")}
+              selectedMedicament={selectedMedicament}
+            />
+            <DeleteMedicamentModal
+              isOpen={openModal === "delete"}
+              close={() => setOpenModal("")}
+              selectedMedicament={selectedMedicament}
+            />
+          </>
+        ) : null}
       </Card>
     </>
   );

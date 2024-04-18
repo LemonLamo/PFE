@@ -1,24 +1,35 @@
 import axios from "axios";
 import { baseURL } from "../config";
 import Badge from "../components/UI/Badge";
-import { CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/outline";
 
-export async function updateMedicamentQuantite(AddOrSubstract=1, medicament : Medicament) {
-    const code_medicament = medicament.code_medicament;
-    const quantite = AddOrSubstract * medicament.quantite!;
-    try {
-        await axios.put(`${baseURL}/api/medicaments/${code_medicament}`, {code_medicament: code_medicament, quantite: quantite});
-    } catch (error) {
-      console.log(error);
-    }
+export async function updateMedicamentQuantite(
+  AddOrSubstract = 1,
+  medicament: Medicament
+) {
+  const code_medicament = medicament.code_medicament;
+  const quantite = AddOrSubstract * medicament.quantite!;
+  try {
+    await axios.put(`${baseURL}/api/medicaments/${code_medicament}`, {
+      code_medicament: code_medicament,
+      quantite: quantite,
+    });
+  } catch (error) {
+    return error;
+  }
 }
 
-export async function deleteMedicament(code_medicament : Medicament["code_medicament"]) {
-    try {
-        await axios.delete(`${baseURL}/api/medicaments/${code_medicament}`);
-    } catch (error) {
-      console.log(error);
-    }
+export async function deleteMedicament(
+  code_medicament: Medicament["code_medicament"]
+) {
+  try {
+    await axios.delete(`${baseURL}/api/medicaments/${code_medicament}`);
+  } catch (error) {
+    return error;
+  }
 }
 
 export const build_badge = (qte: number) => {

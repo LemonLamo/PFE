@@ -124,21 +124,25 @@ function PersonnelPage() {
           isOpen={openModal === "create"}
           close={() => setOpenModal("")}
         />
-        <ViewPersonnelModal
-          isOpen={openModal === "view"}
-          close={() => setOpenModal("")}
-          selectedPersonnel={selectedPersonnel}
-        />
-        <EditPersonnelModal
-          isOpen={openModal === "edit"}
-          close={() => setOpenModal("")}
-          selectedPersonnel={selectedPersonnel}
-        />
-        <DeletePersonnelModal
-          isOpen={openModal === "delete"}
-          close={() => setOpenModal("")}
-          selectedPersonnel={selectedPersonnel}
-        />
+        {selectedPersonnel !== undefined ? (
+          <>
+            <ViewPersonnelModal
+              isOpen={openModal === "view"}
+              close={() => setOpenModal("")}
+              selectedPersonnel={selectedPersonnel}
+            />
+            <EditPersonnelModal
+              isOpen={openModal === "edit"}
+              close={() => setOpenModal("")}
+              selectedPersonnel={selectedPersonnel}
+            />
+            <DeletePersonnelModal
+              isOpen={openModal === "delete"}
+              close={() => setOpenModal("")}
+              selectedPersonnel={selectedPersonnel}
+            />
+          </>
+        ) : null}
       </Card>
     </>
   );
