@@ -125,3 +125,21 @@ CREATE TABLE `vaccinations` (
 
 INSERT INTO `vaccinations` (`patient`, `code_vaccin`, `date`, `remarques`, `date_de_prochaine_dose`, `medecin` ) VALUES
 ('100010364027390000', 'VAC0503', '2023-06-25', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '2023-06-30', '111111111111111111');
+
+-- --------------------------------------------------------
+--
+-- Structure de la table `Medicaments`
+--
+CREATE TABLE `medicaments` (
+  `id` VARCHAR(255) NOT NULL,
+  `patient` VARCHAR(20) NOT NULL,
+  `reference` VARCHAR(255) NOT NULL,
+  `code_medicament` VARCHAR(255) NOT NULL,
+  `posologie` INT(20) NOT NULL,
+  `frequence` float(20) NOT NULL,
+  `duree` INT(20) NOT NULL,
+  `remarques` VARCHAR(255) NOT NULL,
+  `date_debut` timestamp NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

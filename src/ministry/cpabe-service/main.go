@@ -78,6 +78,6 @@ func main() {
 	http.HandleFunc("/gen_key", generateKey)
 	http.HandleFunc("/encrypt", encrypt)
 	http.HandleFunc("/decrypt", decrypt)
-	fmt.Println("Server listening on port 80")
-	http.ListenAndServe(":80", nil)
+	fmt.Println("Server listening on port 8080")
+	http.ListenAndServe(":8080", nil)
 }

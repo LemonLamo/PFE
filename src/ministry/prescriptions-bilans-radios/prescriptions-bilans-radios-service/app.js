@@ -9,10 +9,10 @@ const database = require("./config/database");
 const RabbitConnection = require("./config/amqplib");
 RabbitConnection.connect();
 const app = express();
-const { genID, imageOnly, pdfOnly } = require('./utils')
-const multer  = require("multer")
-const uploadRadio = multer({ dest: "/mnt/data/", fileFilter: imageOnly })
-const uploadBilan = multer({ dest: "/mnt/data/", fileFilter: pdfOnly })
+const { genID, imageOnly, pdfOnly } = require("./utils");
+const multer = require("multer");
+const uploadRadio = multer({ dest: "/mnt/data/", fileFilter: imageOnly });
+const uploadBilan = multer({ dest: "/mnt/data/", fileFilter: pdfOnly });
 
 // database connection
 database.connect();
@@ -43,49 +43,109 @@ const RadiosModel = require("./models/RadiosModel");
 const BilansModel = require("./models/BilansModel");
 
 // Prescriptions
-app.get ("/api/prescriptions", PrescriptionsController.select);
-app.get ("/api/prescriptions/ordonnances/:id", OrdonnancesController.select);
-app.get ("/api/prescriptions/arret-de-travail/:id", OrdonnancesController.select2);
-app.get ("/api/prescriptions/:id", PrescriptionsController.select);
+app.get("/api/prescriptions", PrescriptionsController.select);
+app.get("/api/prescriptions/ordonnances/:id", OrdonnancesController.select);
+app.get(
+  "/api/prescriptions/arret-de-travail/:id",
+  OrdonnancesController.select2
+);
+app.get("/api/prescriptions/:id", PrescriptionsController.select);
 app.post("/api/prescriptions", PrescriptionsController.insert);
 
 // Radios
-app.get ("/api/radios", RadiosController.select);
-app.get ("/api/radios/:id", RadiosController.selectOne);
-app.get ("/api/radios/:id/results", RadiosController.getResultsList);
-app.get ("/api/radios/:id/results/:num", RadiosController.getResultOne);
+app.get("/api/radios", RadiosController.select);
+app.get("/api/radios/:id", RadiosController.selectOne);
+app.get("/api/radios/:id/results", RadiosController.getResultsList);
+app.get("/api/radios/:id/results/:num", RadiosController.getResultOne);
 app.post("/api/radios", RadiosController.insert);
-app.post("/api/radios/:id", uploadRadio.array("radios", 5), RadiosController.addResults);
+app.post(
+  "/api/radios/:id",
+  uploadRadio.array("radios", 5),
+  RadiosController.addResults
+);
 
 // Bilans
-app.get ("/api/bilans", BilansController.select);
-app.get ("/api/bilans/:id", BilansController.selectOne);
-app.get ("/api/bilans/:id/results", BilansController.getResultsList);
-app.get ("/api/bilans/:id/results/:num", BilansController.getResultOne);
+app.get("/api/bilans", BilansController.select);
+app.get("/api/bilans/:id", BilansController.selectOne);
+app.get("/api/bilans/:id/results", BilansController.getResultsList);
+app.get("/api/bilans/:id/results/:num", BilansController.getResultOne);
 app.post("/api/bilans", BilansController.insert);
-app.post("/api/bilans/:id", uploadBilan.array("bilans", 5), BilansController.addResults);
+app.post(
+  "/api/bilans/:id",
+  uploadBilan.array("bilans", 5),
+  BilansController.addResults
+);
 
 // RabitMQ
-RabbitConnection.on("prescriptions_create", async (data) =>{
-  const { jwt, patient, prescriptions, reference} = data;
-  await Promise.all(prescriptions.map((p) => PrescriptionsModel.insert(genID(), patient, reference, p.code_medicament, p.posologie, p.frequence, p.duree, p.remarques)));
-  await PrescriptionsController.generate_ordonnance(reference, jwt.hopital, jwt.service, jwt.NIN, patient, prescriptions);
-})
+RabbitConnection.on("prescriptions_create", async (data) => {
+  const { jwt, patient, prescriptions, reference } = data;
+  const medicaments = prescriptions.map((p) => {
+    return {
+      id: genID(),
+      patient,
+      reference,
+      code_medicament: p.code_medicament,
+      posologie: p.posologie,
+      frequence: p.frequence,
+      duree: p.duree,
+      remarques: p.remarques,
+    };
+  });
+  await Promise.all(medicaments.map((m) => Model.insert()));
+  await RabbitConnection.sendMsg("medicaments_create", medicaments);
+  await PrescriptionsController.generate_ordonnance(
+    reference,
+    jwt.hopital,
+    jwt.service,
+    jwt.NIN,
+    patient,
+    prescriptions
+  );
+});
 
-RabbitConnection.on("arret_de_travail_create", async (data) =>{
-  const { jwt, patient, duree_arret_de_travail, reference} = data;
-  await PrescriptionsController.generate_arret_de_travail(reference, jwt.hopital, jwt.service, jwt.NIN, patient, duree_arret_de_travail);
-})
+RabbitConnection.on("arret_de_travail_create", async (data) => {
+  const { jwt, patient, duree_arret_de_travail, reference } = data;
+  await PrescriptionsController.generate_arret_de_travail(
+    reference,
+    jwt.hopital,
+    jwt.service,
+    jwt.NIN,
+    patient,
+    duree_arret_de_travail
+  );
+});
 
-RabbitConnection.on("radios_create", async (data) =>{
-  const { jwt, patient, radios, reference} = data;
-  await Promise.all(radios.map((r) => RadiosModel.insert(genID(), patient, reference, r.code_radio, r.date, r.remarques)));
-})
+RabbitConnection.on("radios_create", async (data) => {
+  const { jwt, patient, radios, reference } = data;
+  await Promise.all(
+    radios.map((r) =>
+      RadiosModel.insert(
+        genID(),
+        patient,
+        reference,
+        r.code_radio,
+        r.date,
+        r.remarques
+      )
+    )
+  );
+});
 
-RabbitConnection.on("bilans_create", async (data) =>{
-  const { jwt, patient, bilans, reference} = data;
-  await Promise.all(bilans.map((b) => BilansModel.insert( genID(), patient, reference, b.code_bilan, b.date, b.remarques)));
-})
+RabbitConnection.on("bilans_create", async (data) => {
+  const { jwt, patient, bilans, reference } = data;
+  await Promise.all(
+    bilans.map((b) =>
+      BilansModel.insert(
+        genID(),
+        patient,
+        reference,
+        b.code_bilan,
+        b.date,
+        b.remarques
+      )
+    )
+  );
+});
 
 app.use((req, res) => res.sendStatus(404));
 

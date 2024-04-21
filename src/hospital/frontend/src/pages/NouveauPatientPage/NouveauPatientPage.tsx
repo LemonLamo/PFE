@@ -31,7 +31,7 @@ function NewPatientPage() {
     Antecedent[]
   >([]);
 
-  const { register, handleSubmit } = useForm<Patient>();
+  const { register, handleSubmit, reset } = useForm<Patient>();
   const onSubmit: SubmitHandler<Patient> = async (patient) => {
     const data = {
       ...patient,
@@ -40,7 +40,21 @@ function NewPatientPage() {
       antecedents_medicaux,
       antecedents_familiaux,
     };
-    await axios.post(`${baseURL}/api/patients`, data);
+    try {
+      const optionalFields = ["NIN_mere", "NIN_pere", "donneur_organe"];
+      const err = checkForEmptyFields(patient, optionalFields);
+      if (!err) {
+        // seterror(false);
+        await axios.post(`${baseURL}/api/patients`, data);
+        reset();
+      } else {
+        console.log(err);
+        // setmsgError(err);
+        // seterror(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   function ajouter_maladie_chronique(maladie_chronique: Maladie) {
     setMaladiesChroniques((maladies_chroniques) => [
@@ -90,6 +104,26 @@ function NewPatientPage() {
     setAntecedentsFamiliaux(antecedents_familiaux);
     setOpenModal("");
   }
+  const checkForEmptyFields = (object, array) => {
+    let bool = false;
+    for (const key in object) {
+      let trouve = false;
+      if (object.hasOwnProperty(key) && !object[key]) {
+        //if vide il entre
+        array.forEach((element) => {
+          //parcourir array vide optionalfields
+          if (element === key) {
+            trouve = true;
+          }
+        });
+        if (!trouve) {
+          // il doit remplir ce champ sinon skip
+          bool = true;
+        }
+      }
+    }
+    return bool;
+  };
   return (
     <Card
       title="Nouveau patient"
@@ -104,7 +138,9 @@ function NewPatientPage() {
           <h6 className="mb-1"> Informations civiles</h6>
           <div className="grid grid-cols-12 gap-x-2">
             <div className="col-span-12 mb-2">
-              <label className="text-sm font-semibold">NIN<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                NIN<span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 className="primary"
@@ -121,7 +157,9 @@ function NewPatientPage() {
               />
             </div>
             <div className="col-span-6 mb-2">
-              <label className="text-sm font-semibold">Nom<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Nom<span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 className="primary"
@@ -130,7 +168,9 @@ function NewPatientPage() {
               />
             </div>
             <div className="col-span-6 mb-2">
-              <label className="text-sm font-semibold">Prénom<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Prénom<span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 className="primary"
@@ -161,7 +201,9 @@ function NewPatientPage() {
               />
             </div>
             <div className="col-span-6 mb-2">
-              <label className="text-sm font-semibold">Sexe<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Sexe<span className="text-red-500">*</span>
+              </label>
               <select {...register("sexe")}>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -182,7 +224,9 @@ function NewPatientPage() {
 
           <h6 className="mt-4 mb-1"> Information de contact</h6>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Email<span className="text-red-500">*</span></label>
+            <label className="text-sm font-semibold">
+              Email<span className="text-red-500">*</span>
+            </label>
             <input
               type="text"
               className="primary"
@@ -207,7 +251,9 @@ function NewPatientPage() {
           <h6 className="mt-0 mb-1"> Informations d'adresse</h6>
           <div className="grid grid-cols-3 gap-x-2">
             <div className="col-span-3 mb-2">
-              <label className="text-sm font-semibold">Adresse<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Adresse<span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 className="primary"
@@ -216,7 +262,9 @@ function NewPatientPage() {
               />
             </div>
             <div className="mb-2">
-              <label className="text-sm font-semibold">Commune<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Commune<span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 className="primary"
@@ -225,7 +273,9 @@ function NewPatientPage() {
               />
             </div>
             <div className="mb-2">
-              <label className="text-sm font-semibold">Code postale<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Code postale<span className="text-red-500">*</span>
+              </label>
               <input
                 type="number"
                 className="primary"
@@ -234,7 +284,9 @@ function NewPatientPage() {
               />
             </div>
             <div className="mb-6">
-              <label className="text-sm font-semibold">Wilaya<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Wilaya<span className="text-red-500">*</span>
+              </label>
               <select {...register("wilaya")}>
                 <option>01- Adrar</option>
                 <option>02- Chlef</option>
@@ -299,7 +351,9 @@ function NewPatientPage() {
           </div>
           <h6 className="mb-1"> Informations Medicales</h6>
           <div className="mb-2">
-            <label className="text-sm font-semibold">Groupe Sanguin<span className="text-red-500">*</span></label>
+            <label className="text-sm font-semibold">
+              Groupe Sanguin<span className="text-red-500">*</span>
+            </label>
             <select {...register("groupage")}>
               <option>A+</option>
               <option>A-</option>
@@ -313,7 +367,9 @@ function NewPatientPage() {
           </div>
           <div className="grid grid-cols-2 gap-x-2">
             <div className="mb-2">
-              <label className="text-sm font-semibold">Taille<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Taille<span className="text-red-500">*</span>
+              </label>
               <div className="flex items-center">
                 <input
                   className="primary mb-2"
@@ -325,7 +381,9 @@ function NewPatientPage() {
               </div>
             </div>
             <div className="mb-2">
-              <label className="text-sm font-semibold">Poids<span className="text-red-500">*</span></label>
+              <label className="text-sm font-semibold">
+                Poids<span className="text-red-500">*</span>
+              </label>
               <div className="flex items-center">
                 <input
                   className="primary mb-2"
@@ -338,7 +396,12 @@ function NewPatientPage() {
               </div>
             </div>
             <div className="mb-3 pl-7 col-span-2">
-              <input id="chk" type="checkbox" {...register("donneur_organe")}className="checkbox"></input>
+              <input
+                id="chk"
+                type="checkbox"
+                {...register("donneur_organe")}
+                className="checkbox"
+              ></input>
               <label htmlFor="chk" className="select-none text-slate-700">
                 Donneur d'organes?
               </label>
@@ -362,7 +425,7 @@ function NewPatientPage() {
               {...register("NIN_mere")}
               placeholder="ex. 111111111111111111"
             />
-        </div>
+          </div>
         </div>
 
         <div className="col-span-12 md:col-span-4">
