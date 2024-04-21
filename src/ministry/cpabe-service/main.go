@@ -41,12 +41,12 @@ func encrypt(w http.ResponseWriter, r *http.Request) {
 	var data map[string]string
 	var input, _ = io.ReadAll(r.Body)
 	if err := json.Unmarshal([]byte(input), &data); err != nil {
-		panic(err)
+		fmt.Print(err)
 	}
 
 	ct, err := cpabe_cryptosystem.Encrypt(data["msg"], data["policy"])
 	if err != nil {
-		panic(err)
+		fmt.Print(err)
 	}
 
 	encodedText := base64.StdEncoding.EncodeToString([]byte(ct))
@@ -58,7 +58,7 @@ func decrypt(w http.ResponseWriter, r *http.Request) {
 	var data map[string]string
 	var input, _ = io.ReadAll(r.Body)
 	if err := json.Unmarshal([]byte(input), &data); err != nil {
-		panic(err)
+		fmt.Print(err)
 	}
 
 	secret_key, _ := base64.StdEncoding.DecodeString(data["secret_key"])
@@ -66,7 +66,7 @@ func decrypt(w http.ResponseWriter, r *http.Request) {
 
 	pt, err := cpabe_cryptosystem.Decrypt([]byte(secret_key), []byte(ct))
 	if err != nil {
-		panic(err)
+		fmt.Fprintf(w, "%s", "SK cannot decrypt the included CT.")
 	}
 
 	fmt.Fprintf(w, "%s", pt)
@@ -78,6 +78,6 @@ func main() {
 	http.HandleFunc("/gen_key", generateKey)
 	http.HandleFunc("/encrypt", encrypt)
 	http.HandleFunc("/decrypt", decrypt)
-	fmt.Println("Server listening on port 8080")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server listening on port 80")
+	http.ListenAndServe(":80", nil)
 }
