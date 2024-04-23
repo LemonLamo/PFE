@@ -2,18 +2,42 @@ const { db } = require("../config/database");
 
 class RadiosModel {
   async getAll(search) {
-    const [results] = await db.query("SELECT * FROM `radios` WHERE CONCAT(`code_radio`, ' - ', `designation`) LIKE ? LIMIT 20", ['%'+search+'%']);
-    return results
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `radios` WHERE CONCAT(`code_radio`, ' - ', `designation`) LIKE ? LIMIT 20",
+        ["%" + search + "%"]
+      );
+      return results;
+    } catch (error) {
+      console.error("Error fetching radios:", error);
+      throw error;
+    }
   }
 
-  async getOne(code_radio){
-    const [results] = await db.query('SELECT * FROM `radios` WHERE `code_radio`=?', [code_radio]);
-    return results
+  async getOne(code_radio) {
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `radios` WHERE `code_radio`=?",
+        [code_radio]
+      );
+      return results;
+    } catch (error) {
+      console.error("Error fetching radios:", error);
+      throw error;
+    }
   }
 
-  async selectByCodes(codes_radios){
-    const [results] = await db.query('SELECT * FROM `radios` WHERE `code_radio` IN (?)', [codes_radios]);
-    return results
+  async selectByCodes(codes_radios) {
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `radios` WHERE `code_radio` IN (?)",
+        [codes_radios]
+      );
+      return results;
+    } catch (error) {
+      console.error("Error fetching radios:", error);
+      throw error;
+    }
   }
 }
 

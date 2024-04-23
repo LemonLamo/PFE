@@ -11,46 +11,61 @@ class ConsultationsController {
   async select(req, res) {
     const { NIN, role } = req.jwt;
 
-    // If patient, reply with history for that patient.
-    if (role == undefined) {
-      const data = await Model.selectByPatient(NIN);
-      return res.status(200).json(data);
-    }
+    try {
+      // If patient, reply with history for that patient.
+      if (role == undefined) {
+        const data = await Model.selectByPatient(NIN);
+        return res.status(200).json(data);
+      }
 
-    // Else, to be secured later
-    else {
-      const { patient } = req.query;
-      const data = patient
-        ? await Model.selectByPatient(patient)
-        : await Model.selectByMedecin(patient);
-      const [patients, medecins] = await Promise.all([
-        fetchPatients(data),
-        fetchMedecins(data),
-      ]);
-      const result = data.map((x) => ({
-        ...x,
-        patient: patients.get(x.patient),
-        medecin: medecins.get(x.medecin),
-      }));
-      return res.status(200).json(result);
+      // Else, to be secured later
+      else {
+        const { patient } = req.query;
+        const data = patient
+          ? await Model.selectByPatient(patient)
+          : await Model.selectByMedecin(patient);
+        const [patients, medecins] = await Promise.all([
+          fetchPatients(data),
+          fetchMedecins(data),
+        ]);
+        const result = data.map((x) => ({
+          ...x,
+          patient: patients.get(x.patient),
+          medecin: medecins.get(x.medecin),
+        }));
+        return res.status(200).json(result);
+      }
+      // return res.status(400).json();
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+      //TODO: alert
     }
-    return res.status(400).json();
   }
 
   async selectOne(req, res) {
     const { id } = req.params;
-    const result = await Model.selectOne(id);
+    try {
+      const result = await Model.selectOne(id);
+      // ensure it concerns this user.
+      if (result.medecin == NIN || result.patient == NIN)
+        return res.status(200).json(result);
 
-    // ensure it concerns this user.
-    if (result.medecin == NIN || result.patient == NIN)
-      return res.status(200).json(result);
+      return res.status(400).json();
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
 
-    return res.status(400).json();
+      //TODO: alert
+    }
   }
 
   async insert(req, res) {
     const { NIN: medecin, role, service, hopital } = req.jwt;
-
     try {
       const id = genID();
       const {
@@ -157,41 +172,61 @@ class ConsultationsController {
         });
 
       return res.status(200).json({ success: true });
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+      //TODO: alert
     }
   }
   async selectCount(req, res) {
     // TODO: secure this
     const { hopital, medecin } = req.query;
-    if (hopital && medecin) {
-      const result = await Model.countByMedecin(hopital, medecin);
-      return res.status(200).json(result);
-    } else if (hopital) {
-      const result = await Model.countByHopital(hopital);
-      return res.status(200).json(result);
+    try {
+      if (hopital && medecin) {
+        const result = await Model.countByMedecin(hopital, medecin);
+        return res.status(200).json(result);
+      } else if (hopital) {
+        const result = await Model.countByHopital(hopital);
+        return res.status(200).json(result);
+      }
+      return res.status(403).json({});
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+      //TODO: alert
     }
-    return res.status(403).json({});
   }
   async timeline(req, res) {
     // TODO: secure this
     const { hopital, medecin, duree } = req.query;
-    if (hopital && medecin) {
-      const array = await Model.selectTimelinePerMedecin(
-        hopital,
-        medecin,
-        duree
-      );
-      const results = Object.fromEntries(
-        array.map(({ date_key, consultations }) => [date_key, consultations])
-      );
-      return res.status(200).json(results);
-    } else if (hopital) {
-      const array = await Model.selectTimelinePerHopital(hopital, duree);
-      const results = Object.fromEntries(
-        array.map(({ date_key, consultations }) => [date_key, consultations])
-      );
-      return res.status(200).json(results);
+    try {
+      if (hopital && medecin) {
+        const array = await Model.selectTimelinePerMedecin(
+          hopital,
+          medecin,
+          duree
+        );
+        const results = Object.fromEntries(
+          array.map(({ date_key, consultations }) => [date_key, consultations])
+        );
+        return res.status(200).json(results);
+      } else if (hopital) {
+        const array = await Model.selectTimelinePerHopital(hopital, duree);
+        const results = Object.fromEntries(
+          array.map(({ date_key, consultations }) => [date_key, consultations])
+        );
+        return res.status(200).json(results);
+      }
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+      //TODO: alert
     }
   }
 }

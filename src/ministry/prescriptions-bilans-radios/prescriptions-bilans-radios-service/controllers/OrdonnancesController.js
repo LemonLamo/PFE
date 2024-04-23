@@ -5,15 +5,34 @@ const path = require("path");
 /******** ACTIONS ********/
 class OrdonnancesController {
   async select(req, res) {
-    const { id } = req.params;
-    return res.status(200).sendFile(`/mnt/data/ordonnance_${id}.pdf`, {headers: {'Content-Type': 'application/pdf'}})
+    try {
+      const { id } = req.params;
+      return res.status(200).sendFile(`/mnt/data/ordonnance_${id}.pdf`, {
+        headers: { "Content-Type": "application/pdf" },
+      });
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+      //TODO: alert
+    }
   }
   async select2(req, res) {
-    const { id } = req.params;
-    return res.status(200).sendFile(`/mnt/data/arret_de_travail_${id}.pdf`, {headers: {'Content-Type': 'application/pdf'}})
+    try {
+      const { id } = req.params;
+      return res.status(200).sendFile(`/mnt/data/arret_de_travail_${id}.pdf`, {
+        headers: { "Content-Type": "application/pdf" },
+      });
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+      //TODO: alert
+    }
   }
 }
-
 
 /******** EXPORTS ********/
 module.exports = new OrdonnancesController();
