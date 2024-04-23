@@ -8,12 +8,11 @@ export async function ajouter_maladie_chronique(NIN : string, maladie_chronique 
         date: maladie_chronique.date,
         remarques: maladie_chronique.remarques
     }
-    console.log(request)
     try {
         await axios.post(`${baseURL}/api/patients/${NIN}/maladies-chroniques`, request);
-        //window.location.reload();
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
 
@@ -26,9 +25,9 @@ export async function ajouter_allergie(NIN : string, allergie : Allergie) {
     console.log(request)
     try {
         await axios.post(`${baseURL}/api/patients/${NIN}/allergies`, request);
-        //window.location.reload();
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
 
@@ -38,15 +37,14 @@ export async function ajouter_antecedent(NIN : string, antecedent : Antecedent, 
         date: antecedent.date,
         remarques: antecedent.remarques,
     }
-    console.log(request)
     try {
         if(type=="medical")
             await axios.post(`${baseURL}/api/patients/${NIN}/antecedents-medicals`, request);
         else
             await axios.post(`${baseURL}/api/patients/${NIN}/antecedents-familiaux`, request);
-        //window.location.reload();
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
 
@@ -57,11 +55,10 @@ export async function ajouter_vaccination(NIN : string, vaccination : Vaccinatio
         remarques: vaccination.remarques,
         date_de_prochaine_dose: vaccination.date_de_prochaine_dose,
     }
-    console.log(request)
     try {
         await axios.post(`${baseURL}/api/patients/${NIN}/vaccinations`, request);
-        //window.location.reload();
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }

@@ -24,4 +24,4 @@ CREATE TABLE `interventions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `interventions` (`id`, `code_intervention`, `patient`, `medecin`, `hopital`, `service`, `date`, `remarques`, `protocole_operatoire`) VALUES
-('interv-XNDHDBZ', '03120Z0', '100010364027390000', '100010364027390000', 'CHU Beni Messous', 'Cardiologie', '2024-02-18', '-', 'Idk');
+('interv-XNDHDBZ', '03120Z0', '100010364027390000', '100010364027390000', 'CHU Mustapha', 'Chirugie Générale', '2024-02-18', '-', 'Idk');

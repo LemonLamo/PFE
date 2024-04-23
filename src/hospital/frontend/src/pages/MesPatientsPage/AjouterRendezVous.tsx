@@ -1,18 +1,21 @@
 import Modal, { ModalThemes } from "../../components/UI/Modal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import Select from "../../components/Selects/Select";
+import { createRendezVous } from "../../hooks/useRendezVous";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
   close: () => void,
-  selectedPatient: Partial<Patient>,
-  action: (arg0: Patient["NIN"], arg1: Partial<RendezVous & InterventionCode>) => void,
+  selectedPatient: Partial<Patient>
 }
 
 const theme = "primary"
 
-export default function AjouterRendezVous({isOpen, close, selectedPatient, action}: Props) {
+export default function AjouterRendezVous({isOpen, close, selectedPatient}: Props) {
+    const { showAlert } = useContext(AlertsContext);
+
     const [rendezVous, setRendezVous] = useState<Partial<RendezVous & InterventionCode>>({
         type: "Consultation",
         date: new Date(),
@@ -23,6 +26,18 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient, actio
     function select_intervention(intervention: InterventionCode) {
         if(intervention)
             setRendezVous(rdv => ({ ...rdv, code_intervention: intervention.code_intervention, designation: intervention.designation }))
+    }
+    async function submit(){
+      try {
+        await createRendezVous(selectedPatient.NIN!, rendezVous)
+        close();
+      } catch (error: any) {
+        if (error.response)
+            if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+            showAlert("error", error.code + ": " + error.message);
+      }
     }
 
     return (
@@ -52,7 +67,7 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient, actio
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedPatient.NIN!, rendezVous)}>Ajouter</button>
+                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={submit}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

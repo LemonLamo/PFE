@@ -7,6 +7,7 @@ import router from './router';
 import { RouterProvider } from 'react-router-dom'
 import { getJWTContent } from './hooks/useAuth'
 import AuthContext from './hooks/AuthContext'
+import { AlertsProvider } from './hooks/AlertsContext'
 axios.defaults.headers.common.Authorization = "Bearer " + (sessionStorage.getItem('jwt') ?? localStorage.getItem('jwt'))
 
 const queryClient = new QueryClient()
@@ -14,9 +15,11 @@ const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthContext.Provider value={getJWTContent()}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <AlertsProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </AlertsProvider>
     </AuthContext.Provider>
   </React.StrictMode>,
 )

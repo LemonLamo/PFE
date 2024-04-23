@@ -64,7 +64,7 @@ function DashboardRadio(){
         <Card title="Mes radios" subtitle="Liste des radios à faire" className="w-full">
             <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
             <LabelRadio isOpen={openModal==="label"} close={()=>setOpenModal("")} selectedRadio={selectedRadio} />
-            <JoindreResultatsRadio isOpen={openModal==="joindre"} close={()=>setOpenModal("")} selectedRadio={selectedRadio} />
+            <JoindreResultatsRadio isOpen={openModal==="joindre"} close={() => {setOpenModal(""); query.refetch();}} selectedRadio={selectedRadio} />
         </Card>
     </>
 }

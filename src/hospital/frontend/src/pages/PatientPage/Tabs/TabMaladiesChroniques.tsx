@@ -1,18 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import moment from "moment";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterMaladieChronique from "../Modals/AjouterMaladieChronique";
 import { ajouter_maladie_chronique } from "../../../hooks/usePatient";
+import AlertsContext from "../../../hooks/AlertsContext";
 type Props = {
   NIN: string;
 };
 
 function TabMaladiesChroniques({ NIN }: Props) {
+  const { showAlert } = useContext(AlertsContext);
   const [openModal, setOpenModal] = useState("");
   const maladies_chroniques = useQuery<any>({
     queryKey: ["maladies_chroniques" + NIN],
@@ -37,6 +39,21 @@ function TabMaladiesChroniques({ NIN }: Props) {
       <span className="ms-2">Ajouter</span>
     </Button>
   );
+  
+  async function submit(NIN: Patient["NIN"], m: Maladie){
+    try {
+      await ajouter_maladie_chronique(NIN, m);
+      close();
+      maladies_chroniques.refetch();
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
+
   return (
     <>
       <div className="flex justify-between items-center mb-2">
@@ -47,7 +64,7 @@ function TabMaladiesChroniques({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={maladies_chroniquesTableDefinition} query={maladies_chroniques} className="mt-2"/>
-      <AjouterMaladieChronique isOpen={openModal==="ajouter_maladie_chronique"} action={(m)=>ajouter_maladie_chronique(NIN, m)} close={()=>setOpenModal("")}/>
+      <AjouterMaladieChronique isOpen={openModal==="ajouter_maladie_chronique"} action={(m) => submit(NIN, m)} close={()=>setOpenModal("")}/>
     </>
   );
 }

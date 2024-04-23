@@ -24,7 +24,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -38,7 +37,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -143,7 +141,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -157,7 +154,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -177,7 +173,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectAllergies(req, res) {
@@ -196,7 +191,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectAntecedentsMedicals(req, res) {
@@ -209,7 +203,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectAntecedentsFamiliaux(req, res) {
@@ -222,7 +215,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectMedicaments(req, res) {
@@ -241,7 +233,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectVaccinations(req, res) {
@@ -260,7 +251,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectHistorique(req, res) {
@@ -298,7 +288,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -320,7 +309,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -342,7 +330,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -364,7 +351,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -386,7 +372,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -409,7 +394,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -424,7 +408,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -438,7 +421,6 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

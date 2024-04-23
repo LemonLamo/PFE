@@ -22,7 +22,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/downloa
 helm repo add kong https://charts.konghq.com
 helm repo update
 helm install kong kong/ingress -n kong --create-namespace
-cd .kubernetes/certs && kubectl create secret tls kong.ssl --cert=./server.crt --key=./server.key # apply ssl certificates
+kubectl create secret tls kong.ssl --cert=.kubernetes/certs./server.crt --key=.kubernetes/certs./server.key # apply ssl certificates
 ```
 
 ### Deploy microservices

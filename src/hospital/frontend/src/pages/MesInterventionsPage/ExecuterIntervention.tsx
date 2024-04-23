@@ -1,16 +1,31 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
+import AlertsContext from "../../hooks/AlertsContext";
+import { executerIntervention } from "../../hooks/useInterventions";
 
 type Props = {
   isOpen: boolean,
   close: () => void,
   selectedIntervention: Partial<Intervention>,
-  action: (arg0: Intervention["id"], arg1: string) => void
 }
 
 const theme = "primary"
 
-export default function ExecuterIntervention({isOpen, close, selectedIntervention, action}: Props) {
+export default function ExecuterIntervention({isOpen, close, selectedIntervention}: Props) {
+    const { showAlert } = useContext(AlertsContext);
+
+    async function submit(intervention: Intervention["id"], protocole_operatoire : string){
+      try {
+        await executerIntervention(intervention, protocole_operatoire);
+        close();
+      } catch (error: any) {
+        if (error.response)
+            if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+            showAlert("error", error.code + ": " + error.message);
+      }
+    }
     const [protocoleOperatoire, setProtocoleOperatoire] = useState('')
     return (
         <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-2xl">
@@ -22,7 +37,7 @@ export default function ExecuterIntervention({isOpen, close, selectedInterventio
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedIntervention.id!, protocoleOperatoire)}>Executer</button>
+                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => submit(selectedIntervention.id!, protocoleOperatoire)}>Executer</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>

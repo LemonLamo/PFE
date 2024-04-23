@@ -1,8 +1,9 @@
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import { editPersonnel } from "../../hooks/usePersonnel";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import moment from "moment";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
@@ -14,11 +15,20 @@ type Props = {
 const theme = "primary"
 
 export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: Props) {
+  const { showAlert } = useContext(AlertsContext);
   const { register, handleSubmit, reset } = useForm<any>()
   const onSubmit: SubmitHandler<any> = async (data) => {
-    const response = await editPersonnel(data);
-    //TODO: error handling
-    console.log(response);
+    try{
+      await editPersonnel(data);
+      reset();
+      close();
+    }catch(error : any){
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
+    }
   }
 
   useEffect(() => {

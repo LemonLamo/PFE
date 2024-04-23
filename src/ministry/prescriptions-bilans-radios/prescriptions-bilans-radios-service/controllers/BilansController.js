@@ -42,7 +42,6 @@ class BilansController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -67,7 +66,6 @@ class BilansController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -81,7 +79,6 @@ class BilansController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -95,7 +92,6 @@ class BilansController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -111,7 +107,6 @@ class BilansController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -137,7 +132,6 @@ class BilansController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

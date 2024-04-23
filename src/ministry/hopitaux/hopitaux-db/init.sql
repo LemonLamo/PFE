@@ -24,7 +24,7 @@ CREATE TABLE `hopitaux` (
 --
 
 INSERT INTO `hopitaux` (`nom_hopital`, `ville`, `email`, `telephone`) VALUES
-('CHU Beni Messous', 'Alger', 'brahim@chu.beni_messous.dz', '023193700'),
+('CHU Mustapha', 'Alger', 'brahim@chu.beni_messous.dz', '023193700'),
 ('CHU Mustapha', 'Alger', 'nadil@chu.mustapha.dz', '024183601');
 
 
@@ -40,10 +40,10 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`nom_hopital`, `service`) VALUES
-('CHU Beni Messous', 'Radiologie'),
-('CHU Beni Messous', 'Cardiologie'),
-('CHU Beni Messous', 'Pneumologie'),
-('CHU Beni Messous', 'Pédiatrie'),
+('CHU Mustapha', 'Radiologie'),
+('CHU Mustapha', 'Chirugie Générale'),
+('CHU Mustapha', 'Pneumologie'),
+('CHU Mustapha', 'Pédiatrie'),
 ('CHU Mustapha', 'Chirugie Générale'),
 ('CHU Mustapha', 'Pneumologie'),
 ('CHU Mustapha', 'Pédiatrie');

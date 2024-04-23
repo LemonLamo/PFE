@@ -4,7 +4,8 @@ import Table from "../../components/UI/Tables/Table";
 import TableCell from "../../components/UI/Tables/TableCell";
 import TableRow from "../../components/UI/Tables/TableRow";
 import { lits_types, createChambre } from "../../hooks/useChambres";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean;
@@ -22,21 +23,24 @@ function capArray<T>(data: T[], size: number): T[] {
 }
 
 export default function CreateChambreModal({ isOpen, close }: Props) {
+  const { showAlert } = useContext(AlertsContext);
+  
   const { register, handleSubmit, reset, watch } = useForm<Chambre>();
   const [lits, setLits] = useState<Lit[]>([]);
+
   const onSubmit: SubmitHandler<Chambre> = async (data) => {
     const chambre = { ...data, lits: lits };
-    // const response = await createChambre(chambre);
-    createChambre(chambre)
-      .then((response : any) => {
-        reset();
-        close();
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    // console.log(response);
+    try{
+      await createChambre(chambre);
+      reset();
+      close();
+    }catch(error : any){
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
+    }
   };
   const watched_nombre_lits = watch("nombre_lits");
   useEffect(() => {

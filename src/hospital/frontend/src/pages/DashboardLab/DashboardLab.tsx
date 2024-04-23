@@ -64,7 +64,7 @@ function DashboardLab(){
         <Card title="Mes bilans" subtitle="Liste des bilans à faire" className="w-full">
             <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
             <LabelBilan isOpen={openModal==="label"} close={()=>setOpenModal("")} selectedBilan={selectedBilan} />
-            <JoindreResultatsBilan isOpen={openModal==="joindre"} close={()=>setOpenModal("")} selectedBilan={selectedBilan} />
+            <JoindreResultatsBilan isOpen={openModal==="joindre"} close={() => {setOpenModal(""); query.refetch();}} selectedBilan={selectedBilan} />
         </Card>
     </>
 }

@@ -37,7 +37,6 @@ class RendezVousController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -56,7 +55,6 @@ class RendezVousController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -112,7 +110,6 @@ class RendezVousController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

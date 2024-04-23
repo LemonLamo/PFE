@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
+import AlertsContext from "../../hooks/AlertsContext";
 import { createPersonnel } from "../../hooks/usePersonnel";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -10,17 +12,21 @@ type Props = {
 const theme = "primary";
 
 export default function CreatePersonnelModal({ isOpen, close }: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const { register, handleSubmit, reset } = useForm<Personnel>();
   const onSubmit: SubmitHandler<Personnel> = async (data) => {
-    createPersonnel(data)
-      .then((response: any) => {
-        reset();
-        close();
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try{
+      await createPersonnel(data);
+      reset();
+      close();
+    }catch(error : any){
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
+    }
   };
   const onReset = () => {
     reset();
@@ -28,14 +34,8 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
   };
   return (
     <Modal isOpen={isOpen} icon="fa fa-user" theme={theme} size="sm:max-w-5xl">
-      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
-        {" "}
-        Créer un Personnel{" "}
-      </h3>
-      <p className="text-gray-600">
-        {" "}
-        Remplissez ce formulaire pour ajouter un nouveau Personnel{" "}
-      </p>
+      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Créer un Personnel</h3>
+      <p className="text-gray-600">Remplissez ce formulaire pour ajouter un nouveau Personnel</p>
       <form
         className="grid grid-cols-2 gap-2"
         onSubmit={handleSubmit(onSubmit)}

@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterAntecedentMedical from "../Modals/AjouterAntecedentMedical";
 import moment from "moment";
 import { ajouter_antecedent } from "../../../hooks/usePatient";
+import AlertsContext from "../../../hooks/AlertsContext";
 type Props = {
   NIN: string;
 };
 
 function TabAntecedentsMedicales({ NIN }: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const [openModal, setOpenModal] = useState("");
   const antecedents_medicales = useQuery<Antecedent[]>({
     queryKey: ["antecedents_medicales" + NIN],
@@ -38,6 +41,20 @@ function TabAntecedentsMedicales({ NIN }: Props) {
       <span className="ms-2">Ajouter</span>
     </Button>
   );
+
+  async function submit(NIN: Patient["NIN"], a: Antecedent, type: 'familial' | 'medical'){
+    try {
+      await ajouter_antecedent(NIN, a, type);
+      close();
+      antecedents_medicales.refetch();
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
   
   return (
     <>
@@ -49,7 +66,7 @@ function TabAntecedentsMedicales({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={antecedents_medicalesTableDefinition} query={antecedents_medicales} className="mt-2" />
-      <AjouterAntecedentMedical isOpen={openModal==="ajouter_antecedants_medicales"} action={(a) => ajouter_antecedent(NIN, a, 'medical')} close={()=>setOpenModal("")}/>
+      <AjouterAntecedentMedical isOpen={openModal==="ajouter_antecedants_medicales"} action={(a) => submit(NIN, a, 'medical')} close={()=>setOpenModal("")}/>
     </>
   );
 }

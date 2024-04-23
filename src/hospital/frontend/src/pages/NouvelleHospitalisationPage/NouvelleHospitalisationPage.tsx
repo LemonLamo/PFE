@@ -1,19 +1,20 @@
 import Card from "../../components/UI/Card";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PatientsSelect from "../../components/Selects/PatientsSelect";
 import Tabs from "../../components/UI/Tabs/Tabs";
 import TabContent from "../../components/UI/Tabs/TabContent";
 import TabInfoPersonelles from "../PatientPage/Tabs/TabInfoPersonelles";
 import TabHistorique from "../PatientPage/Tabs/TabHistorique";
 import TabHospitalisation from "../NouvelleConsultationPage/Tabs/TabHospitalisation";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { baseURL } from "../../config";
+import AlertsContext from "../../hooks/AlertsContext";
 
 function NouvelleHospitalisationPage() {
+  const { showAlert } = useContext(AlertsContext);
+
   const [validPatient, setValidPatient] = useState(false);
-  const [hospitalisationData, setHospitalisationData] = useState<
-    Partial<Hospitalisation>
-  >({
+  const [hospitalisationData, setHospitalisationData] = useState<Partial<Hospitalisation>>({
     patient: { NIN: "", nom: "", prenom: "" },
     date_entree: new Date(),
     chambre: "",
@@ -37,18 +38,19 @@ function NouvelleHospitalisationPage() {
   }
 
   async function submit() {
+    const data = {
+      ...hospitalisationData,
+      patient: hospitalisationData.patient?.NIN!,
+    };
+    
     try {
-      const data = {
-        ...hospitalisationData,
-        patient: hospitalisationData.patient?.NIN!,
-      };
       await axios.post(`${baseURL}/api/hospitalisations`, data);
-    } catch (err: AxiosError | any) {
-      if (err.response)
-        alert(
-          err.response.data.errorCode + " - " + err.response.data.errorMessage
-        );
-      else alert("Network error!");
+    } catch (error: any) {
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
     }
   }
 

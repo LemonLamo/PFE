@@ -4,7 +4,8 @@ import Table from "../../components/UI/Tables/Table";
 import TableCell from "../../components/UI/Tables/TableCell";
 import TableRow from "../../components/UI/Tables/TableRow";
 import { editChambre } from "../../hooks/useChambres";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
@@ -15,11 +16,21 @@ type Props = {
 const theme = "primary"
 
 export default function EditChambreModal({ isOpen, close, selectedChambre } : Props) {
+    const { showAlert } = useContext(AlertsContext);
+
     const { register, handleSubmit, reset } = useForm<Chambre>()
     const onSubmit: SubmitHandler<Chambre> = async (data) => {
-        const response = await editChambre(data);
-        //TODO: error handling
-        console.log(response);
+        try{
+            await editChambre(data);
+            reset();
+            close();
+        }catch(error : any){
+            if (error.response)
+                if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+            else
+                showAlert("error", error.code + ": " + error.message);
+        }
     }
 
     useEffect(() => {

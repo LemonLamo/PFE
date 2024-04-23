@@ -4,7 +4,7 @@ import TableRow from "../../components/UI/Tables/TableRow";
 import TableCell from "../../components/UI/Tables/TableCell";
 import DeleteButton from "../../components/UI/Buttons/DeleteButton";
 import Button from "../../components/UI/Buttons/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { baseURL } from "../../config";
@@ -17,8 +17,11 @@ import DeleteAntecedentMedical from "../PatientPage/Modals/DeleteAntecedentMedic
 import AjouterAntecedentFamilial from "../PatientPage/Modals/AjouterAntecedentFamilial";
 import DeleteAntecedentFamilial from "../PatientPage/Modals/DeleteAntecedentFamilial";
 import moment from "moment";
+import AlertsContext from "../../hooks/AlertsContext";
 
 function NewPatientPage() {
+  const { showAlert } = useContext(AlertsContext);
+
   const [openModal, setOpenModal] = useState("");
   const [selected, setSelected] = useState(0);
 
@@ -27,9 +30,7 @@ function NewPatientPage() {
   const [antecedents_medicaux, setAntecedentsMedicaux] = useState<Antecedent[]>(
     []
   );
-  const [antecedents_familiaux, setAntecedentsFamiliaux] = useState<
-    Antecedent[]
-  >([]);
+  const [antecedents_familiaux, setAntecedentsFamiliaux] = useState<Antecedent[]>([]);
 
   const { register, handleSubmit, reset } = useForm<Patient>();
   const onSubmit: SubmitHandler<Patient> = async (patient) => {
@@ -41,19 +42,14 @@ function NewPatientPage() {
       antecedents_familiaux,
     };
     try {
-      const optionalFields = ["NIN_mere", "NIN_pere", "donneur_organe"];
-      const err = checkForEmptyFields(patient, optionalFields);
-      if (!err) {
-        // seterror(false);
-        await axios.post(`${baseURL}/api/patients`, data);
-        reset();
-      } else {
-        console.log(err);
-        // setmsgError(err);
-        // seterror(true);
-      }
-    } catch (error) {
-      console.log(error);
+      await axios.post(`${baseURL}/api/patients`, data);
+      reset();
+    } catch (error: any) {
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
     }
   };
   function ajouter_maladie_chronique(maladie_chronique: Maladie) {
@@ -104,36 +100,9 @@ function NewPatientPage() {
     setAntecedentsFamiliaux(antecedents_familiaux);
     setOpenModal("");
   }
-  const checkForEmptyFields = (object, array) => {
-    let bool = false;
-    for (const key in object) {
-      let trouve = false;
-      if (object.hasOwnProperty(key) && !object[key]) {
-        //if vide il entre
-        array.forEach((element) => {
-          //parcourir array vide optionalfields
-          if (element === key) {
-            trouve = true;
-          }
-        });
-        if (!trouve) {
-          // il doit remplir ce champ sinon skip
-          bool = true;
-        }
-      }
-    }
-    return bool;
-  };
   return (
-    <Card
-      title="Nouveau patient"
-      subtitle="Création d'un nouveau dossier médical"
-      className="w-full"
-    >
-      <form
-        className="grid grid-cols-12 gap-x-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <Card title="Nouveau patient" subtitle="Création d'un nouveau dossier médical" className="w-full">
+      <form className="grid grid-cols-12 gap-x-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-12 md:col-span-4">
           <h6 className="mb-1"> Informations civiles</h6>
           <div className="grid grid-cols-12 gap-x-2">

@@ -4,11 +4,11 @@ class RendezVousModel {
   validationRules = {};
   
   async getByMedecin(medecin){
-    const [results] = await db.query("SELECT * FROM `rendezvous` WHERE `medecin`=?", [medecin]);
+    const [results] = await db.query("SELECT * FROM `rendezvous` WHERE `medecin`=? ORDER BY date ASC", [medecin]);
     return results;
   }
   async getByPatient(patient){
-    const [results] = await db.query("SELECT * FROM `rendezvous` WHERE `patient`=?", [patient]);
+    const [results] = await db.query("SELECT * FROM `rendezvous` WHERE `patient`=? ORDER BY date ASC", [patient]);
     return results;
   }
 

@@ -91,13 +91,13 @@ function PharmacyPage() {
 
         <AjouterMedicamentModal
           isOpen={openModal === "ajouter"}
-          close={() => setOpenModal("")}
+          close={() => {setOpenModal(""); query.refetch();}}
         />
         {selectedMedicament !== undefined ? (
           <>
             <RetirerMedicamentModal
               isOpen={openModal === "retirer"}
-              close={() => setOpenModal("")}
+              close={() => {setOpenModal(""); query.refetch();}}
             />
             <DetailsMedicamentModal
               isOpen={openModal === "details"}
@@ -106,7 +106,7 @@ function PharmacyPage() {
             />
             <DeleteMedicamentModal
               isOpen={openModal === "delete"}
-              close={() => setOpenModal("")}
+              close={() => {setOpenModal(""); query.refetch();}}
               selectedMedicament={selectedMedicament}
             />
           </>

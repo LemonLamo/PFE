@@ -34,7 +34,7 @@ export default function AjouterAllergie({isOpen, close, action}: Props) {
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedAllergie)}>Ajouter</button>
+                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => {action(selectedAllergie); close()}}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

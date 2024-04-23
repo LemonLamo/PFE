@@ -1,8 +1,8 @@
 import moment from "moment";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
-import axios from "axios";
-import { baseURL } from "../../config";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AlertsContext from "../../hooks/AlertsContext";
+import { joindre_resultat_radio } from "../../hooks/useRadios";
 
 type Props = {
   isOpen: boolean,
@@ -11,6 +11,8 @@ type Props = {
 }
 
 export default function JoindreResultatsRadio({ isOpen, close, selectedRadio} : Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const [ radios, setRadios ] = useState<File[]>([]);
   const [ observations, setObservations ]  = useState("");
 
@@ -26,16 +28,15 @@ export default function JoindreResultatsRadio({ isOpen, close, selectedRadio} : 
   }
 
   async function submit(){
-    const formData = new FormData();
-    radios.forEach((radio) => formData.append(`radios`, radio))
-    formData.append(`observations`, observations);
-    
-    const config = { headers: {'content-type': 'multipart/form-data'} }
     try{
-      const response = await axios.post(`${baseURL}/api/radios/${selectedRadio.id}`, formData, config);
-      console.log(response.data);
-    }catch(e){
-      console.error(e)
+      await joindre_resultat_radio(selectedRadio.id, radios, observations);
+      close();
+    } catch (error: any) {
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
     }
   }
 

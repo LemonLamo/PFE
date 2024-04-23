@@ -7,6 +7,10 @@ export async function getNotifiations (){
 }
 
 export async function mark_as_read(id: Notif["id"]){
-    const data = (await axios.post(`${baseURL}/api/notifications/${id}/mark-as-read`)).data;
-    return data
+    try{
+        await axios.post(`${baseURL}/api/notifications/${id}/mark-as-read`);
+    } catch (error: any) {
+      console.error(error)
+      throw error;
+    }
 }

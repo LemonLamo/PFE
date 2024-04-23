@@ -44,7 +44,7 @@ class PatientsModel {
         NIN,
         nom,
         prenom,
-        new Date(date_de_naissance),
+        date_de_naissance? new Date(date_de_naissance): null,
         lieu_de_naissance,
         sexe,
         situation_familiale,

@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import { deleteChambre } from "../../hooks/useChambres";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
@@ -10,8 +12,19 @@ type Props = {
 const theme="danger"
 
 export default function DeleteChambreModal({ isOpen, close, selectedChambre} : Props) {
-  function handleSubmit(num : Chambre["num"]){
-    deleteChambre(num);
+  const { showAlert } = useContext(AlertsContext);
+  
+  async function handleSubmit(num : Chambre["num"]){
+    try{
+      await deleteChambre(num);
+      close();
+    }catch(error : any){
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
+    }
   }
   return (
     <Modal isOpen={isOpen} icon="fa fa-bed" theme={theme} size="sm:max-w-xl">

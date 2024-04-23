@@ -6,14 +6,17 @@ import TabMotif from "./Tabs/TabMotif";
 import TabExamenClinique from "./Tabs/TabExamenClinique";
 import TabDiagnostique from "./Tabs/TabDiagnostique";
 import TabPriseEnCharge from "./Tabs/TabPriseEnCharge";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import TabContent from "../../components/UI/Tabs/TabContent";
 import PatientsSelect from "../../components/Selects/PatientsSelect";
 import { baseURL } from "../../config";
 import axios, { AxiosError } from "axios";
+import AlertsContext from "../../hooks/AlertsContext";
 
 function NouvelleConsultationPage() {
+  const { showAlert } = useContext(AlertsContext);
+
   const [validPatient, setValidPatient] = useState(false);
   const [state, setState] = useState<Record<string, boolean>>({
     prescriptions_active: false,
@@ -66,12 +69,21 @@ function NouvelleConsultationPage() {
         consultationData.duree_arret_de_travail = undefined;
       if (!state.prochaine_consultation_active)
         consultationData.prochaine_consultation = undefined;
-
+      
       const data = {
         ...consultationData,
         patient: consultationData.patient?.NIN!,
       };
-      await axios.post(`${baseURL}/api/consultations`, data);
+      
+      try{
+        await axios.post(`${baseURL}/api/consultations`, data);
+      } catch (error: any) {
+        if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+          showAlert("error", error.code + ": " + error.message);
+      }
     } catch (err: AxiosError | any) {
       if (err.response)
         alert(

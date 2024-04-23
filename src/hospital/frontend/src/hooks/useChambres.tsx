@@ -10,29 +10,27 @@ export const lits_types = ["Broncal", "Type A", "Type B"];
 
 export async function createChambre(chambre: Chambre) {
   try {
-    const response = await axios.post(`${baseURL}/api/chambres`, chambre);
-    return response.data;
+    await axios.post(`${baseURL}/api/chambres`, chambre);
   } catch (error: any) {
-    return error;
+    console.error(error);
+    throw error;
   }
 }
 
 export async function editChambre(chambre: Chambre) {
   try {
-    const response = await axios.put(`${baseURL}/api/chambres`, chambre);
-    return response.data;
+    await axios.put(`${baseURL}/api/chambres`, chambre);
   } catch (error: any) {
-    return error;
+    console.error(error);
+    throw error;
   }
 }
 
 export async function deleteChambre(numChambre: Chambre["num"]) {
   try {
-    const response = await axios.delete(
-      `${baseURL}/api/chambres/${numChambre}`
-    );
-    return response.data;
+    await axios.delete(`${baseURL}/api/chambres/${numChambre}`);
   } catch (error: any) {
+    console.error(error);
     return error;
   }
 }

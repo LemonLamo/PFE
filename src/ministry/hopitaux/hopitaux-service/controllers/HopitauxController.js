@@ -11,7 +11,6 @@ class HopitauxController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async getOne(req, res) {
@@ -24,7 +23,6 @@ class HopitauxController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async getServices(req, res) {
@@ -37,7 +35,6 @@ class HopitauxController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -51,7 +48,6 @@ class HopitauxController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -65,7 +61,6 @@ class HopitauxController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

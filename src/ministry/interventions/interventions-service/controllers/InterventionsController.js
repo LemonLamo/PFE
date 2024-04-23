@@ -56,7 +56,6 @@ class InterventionsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectOne(req, res) {
@@ -73,7 +72,6 @@ class InterventionsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -117,7 +115,6 @@ class InterventionsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -152,7 +149,6 @@ class InterventionsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -182,7 +178,6 @@ class InterventionsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

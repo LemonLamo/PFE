@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import moment from "moment";
+import { ajouterSortie } from "../../hooks/useHospitalisations";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
   close: () => void
   selectedHospitalisation: Hospitalisation,
-  action: (arg0: Hospitalisation["id"], arg1: Sortie) => void
 }
 
 const theme = "primary"
@@ -16,11 +17,27 @@ const MODES_SORTIE = [
     "Hôpital du jour"
 ]
 
-export default function SortieModal({isOpen, close, selectedHospitalisation, action}: Props) {
+export default function SortieModal({isOpen, close, selectedHospitalisation,}: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
     const [sortie, setSortie] = useState<Sortie>({
         date_sortie: new Date(),
         mode_sortie: MODES_SORTIE[0],
     })
+
+    async function submit(){
+      try {
+        await ajouterSortie(selectedHospitalisation.id, sortie);
+        close();
+      } catch (error: any) {
+        if (error.response)
+            if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+            showAlert("error", error.code + ": " + error.message);
+      }
+    }
+
     return (
         <Modal isOpen={isOpen} icon="fa fa-person-running" theme={theme} size="sm:max-w-2xl">
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Sortie du malade </h3>
@@ -36,7 +53,7 @@ export default function SortieModal({isOpen, close, selectedHospitalisation, act
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedHospitalisation.id, sortie)}>Ajouter</button>
+                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={submit}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

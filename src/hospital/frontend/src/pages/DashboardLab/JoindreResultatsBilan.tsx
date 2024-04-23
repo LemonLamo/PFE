@@ -1,8 +1,8 @@
 import moment from "moment";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
-import { useState } from "react";
-import axios from "axios";
-import { baseURL } from "../../config";
+import { useContext, useState } from "react";
+import AlertsContext from "../../hooks/AlertsContext";
+import { joindre_resultat_bilan } from "../../hooks/useBilans";
 
 type Props = {
   isOpen: boolean,
@@ -11,6 +11,8 @@ type Props = {
 }
 
 export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } : Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const [ bilans, setBilans ] = useState<File[]>([]);
   const [ observations, setObservations ]  = useState("");
 
@@ -26,16 +28,15 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } :
   }
 
   async function submit(){
-    const formData = new FormData();
-    bilans.forEach((bilan) => formData.append(`bilans`, bilan))
-    formData.append(`observations`, observations);
-    
-    const config = { headers: {'content-type': 'multipart/form-data'} }
     try{
-      const response = await axios.post(`${baseURL}/api/bilans/${selectedBilan.id}`, formData, config);
-      console.log(response.data);
-    }catch(e){
-      console.error(e)
+      await joindre_resultat_bilan(selectedBilan.id, bilans, observations);
+      close();
+    } catch (error: any) {
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
     }
   }
 
