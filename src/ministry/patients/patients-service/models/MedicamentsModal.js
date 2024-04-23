@@ -24,8 +24,8 @@ class MedicamentsModal {
         posologie,
         frequence,
         duree,
-        remarques,
-        date_debut,
+        remarques ?? null,
+        new Date(date_debut),
       ]
     );
   }
@@ -35,7 +35,7 @@ class MedicamentsModal {
       "SELECT * FROM `medicaments` WHERE `patient`= ?",
       [patient]
     );
-    return results[0];
+    return results;
   }
 }
 module.exports = new MedicamentsModal();
