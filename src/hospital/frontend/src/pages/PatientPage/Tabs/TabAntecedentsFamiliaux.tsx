@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterAntecedentFamilial from "../Modals/AjouterAntecedentFamilial";
 import moment from "moment";
 import { ajouter_antecedent } from "../../../hooks/usePatient";
+import AlertsContext from "../../../hooks/AlertsContext";
 type Props = {
   NIN: string;
 };
 
 function TabAntecedentsFamiliaux({ NIN }: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const [openModal, setOpenModal] = useState("");
   const antecedents_familiaux = useQuery<Antecedent[]>({
     queryKey: ["antecedents_familiaux" + NIN],
@@ -38,6 +41,20 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
       <span className="ms-2">Ajouter</span>
     </Button>
   );
+
+  async function submit(NIN: Patient["NIN"], a: Antecedent, type: 'familial' | 'medical'){
+    try {
+      await ajouter_antecedent(NIN, a, type);
+      close();
+      antecedents_familiaux.refetch();
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
   
   return (
     <>
@@ -49,7 +66,7 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={antecedents_familiauxTableDefinition} query={antecedents_familiaux} className="mt-2" />
-      <AjouterAntecedentFamilial isOpen={openModal==="ajouter_antecedants_familiales"} action={(a) => ajouter_antecedent(NIN, a, 'familial')} close={()=>setOpenModal("")}/>
+      <AjouterAntecedentFamilial isOpen={openModal==="ajouter_antecedants_familiales"} action={(a) => submit(NIN, a, 'familial')} close={()=>setOpenModal("")}/>
     </>
   );
 }

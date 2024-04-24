@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import InfirmiersSelect from "../../components/Selects/InfirmiersSelect";
 import AuthContext from "../../hooks/AuthContext";
+import { createSoin } from "../../hooks/useSoins";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
   close: () => void
   selectedHospitalisation?: Hospitalisation,
-  action: (arg0: Partial<Soin>) => void
 }
 
 const theme = "primary"
@@ -16,7 +17,9 @@ const actes = [
     "Mini chirurgie"
 ]
 
-export default function AjouterSoinsModal({isOpen, close, selectedHospitalisation, action}: Props) {
+export default function AjouterSoinsModal({isOpen, close, selectedHospitalisation}: Props) {
+    const { showAlert } = useContext(AlertsContext);
+
     const auth = useContext(AuthContext)
     const [selectedSoin, setSelectedSoin] = useState<Partial<Soin>>({
         hospitalisation: "",
@@ -32,6 +35,19 @@ export default function AjouterSoinsModal({isOpen, close, selectedHospitalisatio
     function select_infirmier(infirmier: Partial<Personnel>) {
         if(infirmier)
             setSelectedSoin(s => ({...s, infirmier:{NIN: infirmier.NIN, nom: infirmier.nom, prenom: infirmier.prenom} }))
+    }
+
+    async function submit(){
+      try {
+        await createSoin(selectedSoin);
+        close();
+      } catch (error: any) {
+        if (error.response)
+            if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+            showAlert("error", error.code + ": " + error.message);
+      }
     }
 
     return (
@@ -52,7 +68,7 @@ export default function AjouterSoinsModal({isOpen, close, selectedHospitalisatio
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedSoin)}>Ajouter</button>
+                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={submit}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

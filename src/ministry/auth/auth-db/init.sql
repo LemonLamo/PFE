@@ -52,7 +52,7 @@ CREATE TABLE `roles_permissions` (
 --
 
 INSERT INTO `roles_permissions` (`hopital`, `role`, `permission`) VALUES
-('CHU Beni Messous', 'admin', 'gestion_personnel'),
-('CHU Beni Messous', 'admin', 'gestion_consultation'),
+('CHU Mustapha', 'admin', 'gestion_personnel'),
+('CHU Mustapha', 'admin', 'gestion_consultation'),
 ('CHU Mustapha', 'admin', 'gestion_pharmacy'),
 ('CHU Mustapha', 'infirmier', 'gestion_soins');

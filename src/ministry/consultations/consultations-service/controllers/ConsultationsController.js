@@ -41,7 +41,6 @@ class ConsultationsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -59,8 +58,6 @@ class ConsultationsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-
-      //TODO: alert
     }
   }
 
@@ -177,7 +174,6 @@ class ConsultationsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectCount(req, res) {
@@ -197,7 +193,6 @@ class ConsultationsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async timeline(req, res) {
@@ -226,7 +221,6 @@ class ConsultationsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

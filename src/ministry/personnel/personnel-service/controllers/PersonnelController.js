@@ -97,14 +97,12 @@ class PersonnelController {
   }
   async selectCountGroupBySexe(req, res){
     // TODO: secure this!
-
     const { hopital } = req.jwt;
     const result = await Model.countGroupBySexe(hopital);
     return res.status(200).json(result);
   }
   async selectCountGroupByService(req, res){
     // TODO: secure this!
-    
     const { hopital } = req.jwt;
     const result = await Model.countGroupByService(hopital);
     return res.status(200).json(result);

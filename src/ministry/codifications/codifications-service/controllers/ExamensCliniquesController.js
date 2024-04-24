@@ -13,7 +13,6 @@ class ExamensCliniquesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectOne(req, res) {
@@ -26,7 +25,6 @@ class ExamensCliniquesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -40,7 +38,6 @@ class ExamensCliniquesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

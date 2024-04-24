@@ -10,11 +10,10 @@ import { baseURL } from "../../config";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import AjouterRendezVous from "./AjouterRendezVous";
-import { createRendezVous } from "../../hooks/useRendezVous";
 
 const createModal = (
   <>
-    <Link className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" to="/patients/new">
+    <Link className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" to="/consultations/new">
       <i className="fa fa-plus" />
       <span className="ms-2">Nouvelle consultation</span>
     </Link>
@@ -104,7 +103,7 @@ function MesPatientsPage() {
   return (
     <Card title="Liste des patients" subtitle="Une liste de tous les patients du service" className="w-full" action={createModal}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
-      <AjouterRendezVous isOpen={openModal==="rendez-vous"} close={()=>setOpenModal("")} selectedPatient={selectedPatient} action={(NIN, rdv) => createRendezVous(NIN, rdv)} />
+      <AjouterRendezVous isOpen={openModal==="rendez-vous"} close={()=>setOpenModal("")} selectedPatient={selectedPatient} />
     </Card>
   );
 }

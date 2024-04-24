@@ -1,0 +1,7 @@
+PeerOrgs:
+  - Name: Hopital1
+    Domain: hopital1.medicalife.com
+    Template:
+      Count: 1
+      SANS:
+        - localhost

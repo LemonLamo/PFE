@@ -55,7 +55,7 @@ class PatientsModel {
           NIN,
           nom,
           prenom,
-          new Date(date_de_naissance),
+          date_de_naissance ? new Date(date_de_naissance) : null,
           lieu_de_naissance,
           sexe,
           situation_familiale,
@@ -77,6 +77,30 @@ class PatientsModel {
       console.error("Error inserting patients:", error);
       throw error;
     }
+    await db.execute(
+      "INSERT INTO patients (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`, `telephone`, `adresse`, `commune`, `code_postale`, `wilaya`, `groupage`, `taille`, `poids`, `donneur_organe`, `NIN_pere`, `NIN_mere`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        NIN,
+        nom,
+        prenom,
+        date_de_naissance ? new Date(date_de_naissance) : null,
+        lieu_de_naissance,
+        sexe,
+        situation_familiale,
+        email,
+        telephone,
+        adresse,
+        commune,
+        code_postale,
+        wilaya,
+        groupage,
+        taille,
+        poids,
+        donneur_organe,
+        NIN_pere,
+        NIN_mere,
+      ]
+    );
   }
 
   async selectOne(NIN) {

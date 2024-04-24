@@ -2,27 +2,50 @@ import { Menu, Transition } from '@headlessui/react'
 import { useQuery } from '@tanstack/react-query';
 import TableLoading from '../UI/Loading';
 import TableError from '../UI/Tables/TableError';
-import { getNotifiations } from '../../hooks/useNotifications';
+import { getNotifiations, mark_as_read } from '../../hooks/useNotifications';
 import NotificationEntry from './NotificationEntry';
-import { useMemo } from 'react';
+import { useContext, useState } from 'react';
+import AlertsContext from '../../hooks/AlertsContext';
 
 function NotificationDropdown() {
+    const { showAlert } = useContext(AlertsContext);
+    const [unreadCount, setUnreadCount] = useState(0);
+
     const notifications = useQuery<Notif[]>({
         queryKey: ['notifications'],
-        queryFn: getNotifiations
+        queryFn: async () => {
+            const notifs = await getNotifiations();
+            setUnreadCount(notifs.filter((x : Notif) => !x.read_at).length);
+            return notifs;
+        }
     })
-    const unread_count = useMemo(()=>{
-        return notifications.data? notifications.data.filter((x) => !x.read_at).length : 0
-    }, [notifications]);
+    
+    async function submit(id: Notif["id"]){
+        try{
+            await mark_as_read(id);
+            notifications.refetch();
+        }catch(error: any){
+            if (error.response)
+                if(error.response?.data?.errorCode != "form-validation")
+                showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+            else
+                showAlert("error", error.code + ": " + error.message);
+        }
+    }
+
     return (
         <Menu>
             <Menu.Button className="relative block p-0 transition-all text-2xl ease-nav-brand text-slate-500">
                 <i className="cursor-pointer fa fa-bell"></i>
                 {
-                    (notifications.data && unread_count >  0) &&
-                    <span className='absolute w-4 h-4 rounded-full bg-red-500 bottom-0 right-[-0.4rem] text-white font-bold text-xs m-0 p-0'>
-                        {unread_count}
-                    </span>
+                    (unreadCount > 0) &&
+                    <>
+                        <span className='absolute w-4 h-4 rounded-full bg-red-500 bottom-0 right-[-0.4rem] text-white font-bold text-xs m-0 p-0 animate-ping'/>
+                        <span className='absolute w-4 h-4 rounded-full bg-red-500 bottom-0 right-[-0.4rem] text-white font-bold text-xs m-0 p-0'>
+                            {unreadCount}
+                        </span>
+                    </>
+                    
                 }
             </Menu.Button>
             <Transition
@@ -38,7 +61,7 @@ function NotificationDropdown() {
                     <TableLoading />:
                     notifications.data?.map((n, i)=>(
                         <Menu.Item key={i}>
-                            <NotificationEntry notification_id={n.id} summary={n.summary} created_at={n.created_at} isRead={n.read_at != null && n.read_at != undefined} query={notifications}/>
+                            <NotificationEntry notification_id={n.id} summary={n.summary} created_at={n.created_at} isRead={n.read_at != null && n.read_at != undefined} action={submit}/>
                         </Menu.Item>
                     ))
                     }

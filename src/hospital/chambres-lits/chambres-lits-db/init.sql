@@ -27,8 +27,8 @@ CREATE TABLE `chambres` (
 --
 
 INSERT INTO `chambres` (`service`, `num`, `etage`, `description`, `nombre_lits`, `nombre_lits_occupe`) VALUES
-('Cardiologie', 'F1', 0, 'Chambre pour les nouveau-nées', 4, 1),
-('Radiologie', 'F2', 1, 'Chambre pour les 1-3ans', 2, 2);
+('Chirugie Générale', 'F1', 0, 'Chambre pour les nouveau-nées', 4, 1),
+('Chirugie Générale', 'F2', 1, 'Chambre pour les 1-3ans', 2, 2);
 
 
 -- --------------------------------------------------------

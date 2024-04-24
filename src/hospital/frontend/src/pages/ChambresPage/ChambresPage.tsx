@@ -106,10 +106,7 @@ function ChambresPage() {
         />
         <CreateChambreModal
           isOpen={openModal === "create"}
-          close={() => {
-            setOpenModal("");
-            query.refetch();
-          }}
+          close={() => {setOpenModal(""); query.refetch();}}
         />
         {selectedChambre !== undefined ? (
           <>
@@ -120,12 +117,12 @@ function ChambresPage() {
             />
             <EditChambreModal
               isOpen={openModal === "edit"}
-              close={() => setOpenModal("")}
+              close={() => {setOpenModal(""); query.refetch();}}
               selectedChambre={selectedChambre}
             />
             <DeleteChambreModal
               isOpen={openModal === "delete"}
-              close={() => setOpenModal("")}
+              close={() => {setOpenModal(""); query.refetch();}}
               selectedChambre={selectedChambre}
             />
           </>

@@ -1,7 +1,8 @@
 import Select from "../../components/Selects/Select";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
+import AlertsContext from "../../hooks/AlertsContext";
 import { updateMedicamentQuantite } from "../../hooks/useMedicaments";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 type Props = {
     isOpen : boolean,
@@ -11,6 +12,8 @@ type Props = {
 const theme = "danger"
 
 export default function RetirerMedicamentModal({isOpen, close}: Props) {
+    const { showAlert } = useContext(AlertsContext);
+
     const [selectedMedicament, setSelectedMedicament] = useState<Medicament>({
         code_medicament: "",
         DCI: "",
@@ -23,7 +26,16 @@ export default function RetirerMedicamentModal({isOpen, close}: Props) {
     }
 
     async function handleSubmit(medicament : Medicament){
-        await updateMedicamentQuantite(-1, medicament)
+        try{
+            await updateMedicamentQuantite(-1, medicament);
+            close();
+        } catch(error : any){
+            if (error.response)
+                if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+            else
+                showAlert("error", error.code + ": " + error.message);
+        }
     }
     
     return (

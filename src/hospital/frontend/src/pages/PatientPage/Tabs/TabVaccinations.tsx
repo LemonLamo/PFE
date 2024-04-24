@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import moment from "moment";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterVaccaination from "../Modals/AjouterVaccaination";
 import { ajouter_vaccination } from "../../../hooks/usePatient";
+import AlertsContext from "../../../hooks/AlertsContext";
 type Props = {
   NIN: string;
 };
 
 function TabVaccinations({ NIN }: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const [openModal, setOpenModal] = useState("");
   const vaccinations = useQuery<Vaccination[]>({
     queryKey: ["vaccinations" + NIN],
@@ -40,6 +43,21 @@ function TabVaccinations({ NIN }: Props) {
       <span className="ms-2">Ajouter</span>
     </Button>
   );
+
+  async function submit(NIN: Patient["NIN"], v: Vaccination){
+    try {
+      await ajouter_vaccination(NIN, v);
+      close();
+      vaccinations.refetch();
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
+
   return (
     <>
       <div className="flex justify-between items-center mb-2">
@@ -50,7 +68,7 @@ function TabVaccinations({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={vaccinationsTableDefinition} query={vaccinations} className="mt-2"/>
-      <AjouterVaccaination isOpen={openModal==="ajouter_vaccinations"} action={(v) => ajouter_vaccination(NIN, v)} close={()=>setOpenModal("")}/>
+      <AjouterVaccaination isOpen={openModal==="ajouter_vaccinations"} action={(v) => submit(NIN, v)} close={()=>setOpenModal("")}/>
     </>
   );
 }

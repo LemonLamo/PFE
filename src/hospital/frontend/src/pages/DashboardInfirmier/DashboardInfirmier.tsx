@@ -10,7 +10,6 @@ import axios from "axios";
 import { baseURL } from "../../config";
 import IconButton from "../../components/UI/Buttons/IconButton";
 import ExecuterSoinModal from "./ExecuterSoinModal";
-import { executerSoin } from "../../hooks/useSoins";
 
 const build_badge = (done: boolean) => {
   return (
@@ -84,7 +83,7 @@ function DashboardInfirmier(){
     return <>
         <Card title="Mes tâches" subtitle="Liste de vos patients" className="w-full">
             <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
-            <ExecuterSoinModal isOpen={openModal==="soin"} close={() => setOpenModal("")} action={executerSoin} selectedSoin={selectedSoin}/>
+            <ExecuterSoinModal isOpen={openModal==="soin"} close={() => {setOpenModal(""); query.refetch();}} selectedSoin={selectedSoin}/>
         </Card>
     </>
 }

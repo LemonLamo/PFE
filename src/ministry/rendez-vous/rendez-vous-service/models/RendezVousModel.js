@@ -6,7 +6,7 @@ class RendezVousModel {
   async getByMedecin(medecin) {
     try {
       const [results] = await db.query(
-        "SELECT * FROM `rendezvous` WHERE `medecin`=?",
+        "SELECT * FROM `rendezvous` WHERE `medecin`=? ORDER BY date ASC",
         [medecin]
       );
       return results;
@@ -18,7 +18,7 @@ class RendezVousModel {
   async getByPatient(patient) {
     try {
       const [results] = await db.query(
-        "SELECT * FROM `rendezvous` WHERE `patient`=?",
+        "SELECT * FROM `rendezvous` WHERE `patient`=? ORDER BY date ASC",
         [patient]
       );
       return results;

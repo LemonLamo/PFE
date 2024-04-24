@@ -2,26 +2,19 @@ import { useEffect, useState } from 'react'
 import user from '../../assets/user.svg'
 import moment from 'moment'
 import ReactMarkdown from 'react-markdown';
-import { mark_as_read } from '../../hooks/useNotifications';
-import { UseQueryResult } from '@tanstack/react-query';
 
 type Props = {
   notification_id: string,
   summary: string,
   created_at: Date,
   isRead: boolean
-  query: UseQueryResult<Notif[], Error>
+  action: (arg0: Notif["id"]) => void
 }
-function NotificationEntry({notification_id, summary, created_at, isRead, query} : Props) {
+function NotificationEntry({notification_id, summary, created_at, isRead, action} : Props) {
   const [time, setTime] = useState(Date.now());
   useEffect(()=>{
     setInterval(() => setTime(() => Date.now()), 1000);
   }, [time]);
-  
-  function action(id: Notif["id"]){
-    mark_as_read(id);
-    query.refetch();
-  }
 
   return (
     <button className={`text-left relative block w-full pl-2 py-2 duration-100 hover:bg-gray-200 lg:transition-colors ${!isRead? 'text-slate-800':'text-slate-400 bg-gray-50/50'}`} onClick={() => action(notification_id)}>

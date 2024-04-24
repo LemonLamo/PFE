@@ -1,24 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import DataTable from "../../../components/UI/Tables/DataTable";
 import moment from "moment";
 import { baseURL } from "../../../config";
 import Button from "../../../components/UI/Buttons/Button";
 import AjouterAllergie from "../Modals/AjouterAllergie";
 import { ajouter_allergie } from "../../../hooks/usePatient";
+import AlertsContext from "../../../hooks/AlertsContext";
 type Props = {
   NIN: string;
 };
 
 function TabAllergies({ NIN }: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const [openModal, setOpenModal] = useState("");
   const allergies = useQuery<Allergie[]>({
     queryKey: ["allergies" + NIN],
     queryFn: async () => {
-      const data = (await axios.get(`${baseURL}/api/patients/${NIN}/allergies`))
-        .data;
+      const data = (await axios.get(`${baseURL}/api/patients/${NIN}/allergies`)).data;
       return data;
     },
   });
@@ -39,6 +41,20 @@ function TabAllergies({ NIN }: Props) {
       <span className="ms-2">Ajouter</span>
     </Button>);
 
+  async function submit(NIN: Patient["NIN"], a: Allergie){
+    try {
+      await ajouter_allergie(NIN, a);
+      close();
+      allergies.refetch();
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
+
   return (
     <>
       <div className="flex justify-between items-center mb-2">
@@ -49,7 +65,7 @@ function TabAllergies({ NIN }: Props) {
             {action}
       </div>
       <DataTable tableDefinition={allergiesTableDefinition} query={allergies} className="mt-2" />
-      <AjouterAllergie isOpen={openModal==="ajouter_allergie"} action={(a) => ajouter_allergie(NIN, a)} close={()=>setOpenModal("")}/>
+      <AjouterAllergie isOpen={openModal==="ajouter_allergie"} action={(a) => submit(NIN, a)} close={()=>setOpenModal("")}/>
     </>
   );
 }

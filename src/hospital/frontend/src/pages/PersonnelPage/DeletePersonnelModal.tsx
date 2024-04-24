@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import { deletePersonnel } from "../../hooks/usePersonnel";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
@@ -10,8 +12,18 @@ type Props = {
 const theme="danger"
 
 export default function DeletePersonnelModal({ isOpen, close, selectedPersonnel} : Props) {
-  function handleSubmit(NIN : Personnel["NIN"]){
-    deletePersonnel(NIN);
+  const { showAlert } = useContext(AlertsContext);
+  async function handleSubmit(NIN : Personnel["NIN"]){
+    try{
+      await deletePersonnel(NIN);
+      close();
+    }catch(error : any){
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
+    }
   }
 
   return (

@@ -4,7 +4,7 @@ import TableRow from "../../components/UI/Tables/TableRow";
 import TableCell from "../../components/UI/Tables/TableCell";
 import DeleteButton from "../../components/UI/Buttons/DeleteButton";
 import Button from "../../components/UI/Buttons/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { baseURL } from "../../config";
@@ -17,9 +17,9 @@ import DeleteAntecedentMedical from "../PatientPage/Modals/DeleteAntecedentMedic
 import AjouterAntecedentFamilial from "../PatientPage/Modals/AjouterAntecedentFamilial";
 import DeleteAntecedentFamilial from "../PatientPage/Modals/DeleteAntecedentFamilial";
 import moment from "moment";
+import AlertsContext from "../../hooks/AlertsContext";
 
 function NewPatientPage() {
-  const [file, setFile] = useState(null);
   const [openModal, setOpenModal] = useState("");
   const [selected, setSelected] = useState(0);
 
@@ -48,22 +48,6 @@ function NewPatientPage() {
       const optionalFields = ["NIN_mere", "NIN_pere", "donneur_organe"];
       const err = checkForEmptyFields(patient, optionalFields);
       if (!err) {
-        Object.entries(patient).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(maladies_chroniques).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(allergies).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(antecedents_medicaux).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(antecedents_familiaux).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        data.append("file", file);
         // seterror(false);
         await axios.post(`${baseURL}/api/patients`, data);
         reset();
@@ -127,26 +111,6 @@ function NewPatientPage() {
     setAntecedentsFamiliaux(antecedents_familiaux);
     setOpenModal("");
   }
-  const checkForEmptyFields = (object, array) => {
-    let bool = false;
-    for (const key in object) {
-      let trouve = false;
-      if (object.hasOwnProperty(key) && !object[key]) {
-        //if vide il entre
-        array.forEach((element) => {
-          //parcourir array vide optionalfields
-          if (element === key) {
-            trouve = true;
-          }
-        });
-        if (!trouve) {
-          // il doit remplir ce champ sinon skip
-          bool = true;
-        }
-      }
-    }
-    return bool;
-  };
   return (
     <Card
       title="Nouveau patient"

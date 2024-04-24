@@ -1,15 +1,18 @@
 import Card from "../../components/UI/Card";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PatientsSelect from "../../components/Selects/PatientsSelect";
 import Tabs from "../../components/UI/Tabs/Tabs";
 import TabContent from "../../components/UI/Tabs/TabContent";
 import TabInfoPersonelles from "../PatientPage/Tabs/TabInfoPersonelles";
 import TabHistorique from "../PatientPage/Tabs/TabHistorique";
 import TabIntervention from "./TabIntervention";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { baseURL } from "../../config";
+import AlertsContext from "../../hooks/AlertsContext";
 
 function NouvelleInterventionPage() {
+  const { showAlert } = useContext(AlertsContext);
+
   const [validPatient, setValidPatient] = useState(false);
   const [interventionData, setInterventionData] = useState<Partial<Intervention>>({
     patient: { NIN: "", nom: "", prenom: "" },
@@ -35,17 +38,14 @@ function NouvelleInterventionPage() {
 
   async function submit() {
     try {
-      const data = {
-        ...interventionData,
-        patient: interventionData.patient?.NIN!,
-      };
+      const data = { ...interventionData, patient: interventionData.patient?.NIN! };
       await axios.post(`${baseURL}/api/interventions`, data);
-    } catch (err: AxiosError | any) {
-      if (err.response)
-        alert(
-          err.response.data.errorCode + " - " + err.response.data.errorMessage
-        );
-      else alert("Network error!");
+    } catch (error: any) {
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
     }
   }
 

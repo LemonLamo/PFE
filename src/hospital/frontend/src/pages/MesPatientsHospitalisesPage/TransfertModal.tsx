@@ -1,19 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MedecinsSelect from "../../components/Selects/MedecinsSelect";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import axios from "axios";
 import { baseURL } from "../../config";
+import { ajouterTransfert } from "../../hooks/useTransferts";
+import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
   isOpen: boolean,
   close: () => void
   selectedHospitalisation: Hospitalisation,
-  action: (arg0: Transfert) => void
 }
 
 const theme = "primary"
 
-export default function TransfertModal({isOpen, close, selectedHospitalisation, action}: Props) {
+export default function TransfertModal({isOpen, close, selectedHospitalisation}: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
     const [transfert, setTransfert] = useState<Transfert>({
         hospitalisation: "",
         hopital: "",
@@ -40,13 +43,23 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation, 
                     setTransfert(data => ({...data, service: response.data[0].service!}))
             })
     }, [transfert.hopital])
-    useEffect(()=>{
-        setTransfert(t => ({...t, hospitalisation: selectedHospitalisation.id}))
-    }, [selectedHospitalisation])
     
     function select_medecin(medecin: Partial<Personnel>) {
         if(medecin)
             setTransfert(t => ({...t, medecin:{NIN: medecin.NIN, nom: medecin.nom, prenom: medecin.prenom} }))
+    }
+
+    async function submit(){
+      try {
+        await ajouterTransfert(transfert);
+        close();
+      } catch (error: any) {
+        if (error.response)
+            if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+            showAlert("error", error.code + ": " + error.message);
+      }
     }
 
     return (
@@ -72,7 +85,7 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation, 
             </div>
 
             <div className="flex justify-end gap-3 mt-4">
-                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(transfert)}>Ajouter</button>
+                <button type="submit" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={submit}>Ajouter</button>
                 <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
             </div>
         </Modal>);

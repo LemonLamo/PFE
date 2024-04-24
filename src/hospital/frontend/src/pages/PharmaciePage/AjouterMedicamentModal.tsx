@@ -1,7 +1,8 @@
 import Select from "../../components/Selects/Select";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
+import AlertsContext from "../../hooks/AlertsContext";
 import { updateMedicamentQuantite } from "../../hooks/useMedicaments";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 type Props = {
   isOpen: boolean;
@@ -11,6 +12,8 @@ type Props = {
 const theme = "primary";
 
 export default function AjouterMedicamentModal({ isOpen, close }: Props) {
+  const { showAlert } = useContext(AlertsContext);
+
   const [selectedMedicament, setSelectedMedicament] = useState<Medicament>({
     code_medicament: "",
     DCI: "",
@@ -27,30 +30,24 @@ export default function AjouterMedicamentModal({ isOpen, close }: Props) {
   }
 
   async function handleSubmit(medicament: Medicament) {
-    updateMedicamentQuantite(1, medicament)
-      .then((response: any) => {
-        close();
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try{
+      await updateMedicamentQuantite(1, medicament);
+      close();
+    }catch(error : any){
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+        showAlert("error", error.code + ": " + error.message);
+    }
   }
 
   return (
     <Modal isOpen={isOpen} icon="fa fa-bed" theme={theme} size="sm:max-w-2xl">
-      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
-        {" "}
-        Ajouter un médicament{" "}
-      </h3>
-      <p className="text-gray-600">
-        {" "}
-        Remplissez ce formulaire pour ajouter une nouvelle chambre{" "}
-      </p>
+      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Ajouter un médicament</h3>
+      <p className="text-gray-600">Remplissez ce formulaire pour ajouter une nouvelle chambre{" "}</p>
       <div className="mb-2">
-        <label className="text-sm font-semibold">
-          Code<span className="text-red-500">*</span>{" "}
-        </label>
+        <label className="text-sm font-semibold">Code<span className="text-red-500">*</span></label>
         <Select<MedicamentCode>
           url="medicaments"
           code="code_medicament"

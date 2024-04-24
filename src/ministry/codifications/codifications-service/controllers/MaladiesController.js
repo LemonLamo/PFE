@@ -13,7 +13,6 @@ class MaladiesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectOne(req, res) {
@@ -26,7 +25,6 @@ class MaladiesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectChroniques(req, res) {
@@ -39,7 +37,6 @@ class MaladiesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async selectOneChronique(req, res) {
@@ -52,7 +49,6 @@ class MaladiesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 
@@ -66,7 +62,6 @@ class MaladiesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

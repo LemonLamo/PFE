@@ -122,7 +122,7 @@ function PersonnelPage() {
         />
         <CreatePersonnelModal
           isOpen={openModal === "create"}
-          close={() => setOpenModal("")}
+          close={() => {setOpenModal(""); query.refetch();}}
         />
         {selectedPersonnel !== undefined ? (
           <>
@@ -133,12 +133,12 @@ function PersonnelPage() {
             />
             <EditPersonnelModal
               isOpen={openModal === "edit"}
-              close={() => setOpenModal("")}
+              close={() => {setOpenModal(""); query.refetch();}}
               selectedPersonnel={selectedPersonnel}
             />
             <DeletePersonnelModal
               isOpen={openModal === "delete"}
-              close={() => setOpenModal("")}
+              close={() => {setOpenModal(""); query.refetch();}}
               selectedPersonnel={selectedPersonnel}
             />
           </>

@@ -15,7 +15,6 @@ class OrdonnancesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
   async select2(req, res) {
@@ -29,7 +28,6 @@ class OrdonnancesController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
-      //TODO: alert
     }
   }
 }

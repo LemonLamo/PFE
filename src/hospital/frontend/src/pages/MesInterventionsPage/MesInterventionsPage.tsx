@@ -9,7 +9,6 @@ import axios from "axios";
 import { baseURL } from "../../config";
 import ExecuterIntervention from "./ExecuterIntervention";
 import IconButton from "../../components/UI/Buttons/IconButton";
-import { executerIntervention } from "../../hooks/useInterventions";
 
 const createModal = (
   <>
@@ -68,7 +67,7 @@ function MesInterventionsPage() {
   return (
     <Card title="Liste des interventions" subtitle="Une liste de tous les interventions du service" className="w-full" action={createModal}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
-      <ExecuterIntervention isOpen={openModal==="executer"} close={()=>setOpenModal("")} selectedIntervention={selectedIntervention} action={(intervention, protocole_operatoire) => executerIntervention(intervention, protocole_operatoire)} />
+      <ExecuterIntervention isOpen={openModal==="executer"} close={()=>{setOpenModal(""); query.refetch()}} selectedIntervention={selectedIntervention}/>
     </Card>
   );
 }

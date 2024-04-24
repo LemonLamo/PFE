@@ -27,9 +27,7 @@ export default function ViewChambreModal({
   const query = useQuery<Lit[]>({
     queryKey: ["lits", selectedChambre.num],
     queryFn: async () => {
-      let data = (
-        await axios.get(`${baseURL}/api/chambres/${selectedChambre.num}/lits`)
-      ).data;
+      let data = (await axios.get(`${baseURL}/api/chambres/${selectedChambre.num}/lits`)).data;
       return data;
     },
   });

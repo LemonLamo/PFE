@@ -6,8 +6,11 @@ import MedecinsSelect from "../../components/Selects/MedecinsSelect";
 import axios from "axios";
 import { baseURL } from "../../config";
 import AuthContext from "../../hooks/AuthContext";
+import AlertsContext from "../../hooks/AlertsContext";
 
 function DashboardEntree(){
+    const { showAlert } = useContext(AlertsContext);
+
     const create_patient = (<Link className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" to="/nouveau_patient">
       <i className="fa fa-plus" />
       <span className="ms-2">Nouveau</span>
@@ -26,7 +29,15 @@ function DashboardEntree(){
     }
 
     function affecter_malade(){
-        console.log(data)
+        try{
+            console.log(data)
+        } catch (error: any) {
+            if (error.response)
+                if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+            else
+                showAlert("error", error.code + ": " + error.message);
+        }
     }
 
     useEffect(()=>{

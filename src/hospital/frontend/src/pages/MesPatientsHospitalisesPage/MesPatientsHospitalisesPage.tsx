@@ -8,13 +8,9 @@ import DataTable from "../../components/UI/Tables/DataTable";
 import axios from "axios";
 import { baseURL } from "../../config";
 import AjouterSoinsModal from "./AjouterSoinsModal";
-import AjouterInterventionModal from "./AjouterInterventionModal";
 import AjouterRemarqueModal from "./AjouterRemarqueModal";
 import TransfertModal from "./TransfertModal";
 import SortieModal from "./SortieModal";
-import { createSoin } from "../../hooks/useSoins";
-import { ajouterRemarque, ajouterSortie } from "../../hooks/useHospitalisations";
-import { ajouterTransfert } from "../../hooks/useTransferts";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import DetailsHospitalisation from "../PatientPage/Modals/DetailsHospitalisation";
@@ -139,11 +135,10 @@ function MesPatientsHospitalisesPage() {
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2"/>
       
       {selectedHospitalisation ? <DetailsHospitalisation isOpen={openModal === "hospitalisation"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation!} /> : null}
-      <AjouterSoinsModal isOpen={openModal === "soin"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation} action={createSoin} />
-      <AjouterInterventionModal isOpen={openModal === "intervention"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
-      <AjouterRemarqueModal isOpen={openModal === "remarques"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation} action={ajouterRemarque}/>
-      <TransfertModal isOpen={openModal === "transfert"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation} action={ajouterTransfert}/>
-      <SortieModal isOpen={openModal === "sortie"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation} action={ajouterSortie}/>
+      <AjouterSoinsModal isOpen={openModal === "soin"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
+      <AjouterRemarqueModal isOpen={openModal === "remarques"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
+      <TransfertModal isOpen={openModal === "transfert"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
+      <SortieModal isOpen={openModal === "sortie"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
     </Card>
   );
 }
