@@ -19,6 +19,7 @@ import DeleteAntecedentFamilial from "../PatientPage/Modals/DeleteAntecedentFami
 import moment from "moment";
 
 function NewPatientPage() {
+  const [file, setFile] = useState(null);
   const [openModal, setOpenModal] = useState("");
   const [selected, setSelected] = useState(0);
 
@@ -33,17 +34,36 @@ function NewPatientPage() {
 
   const { register, handleSubmit, reset } = useForm<Patient>();
   const onSubmit: SubmitHandler<Patient> = async (patient) => {
-    const data = {
-      ...patient,
-      maladies_chroniques,
-      allergies,
-      antecedents_medicaux,
-      antecedents_familiaux,
-    };
+    const data = new FormData();
+    // const data = {
+    //   ...patient,
+    //   maladies_chroniques,
+    //   allergies,
+    //   antecedents_medicaux,
+    //   antecedents_familiaux,
+    //   dataFile,
+    // };
+
     try {
       const optionalFields = ["NIN_mere", "NIN_pere", "donneur_organe"];
       const err = checkForEmptyFields(patient, optionalFields);
       if (!err) {
+        Object.entries(patient).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(maladies_chroniques).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(allergies).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(antecedents_medicaux).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(antecedents_familiaux).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        data.append("file", file);
         // seterror(false);
         await axios.post(`${baseURL}/api/patients`, data);
         reset();
@@ -55,6 +75,9 @@ function NewPatientPage() {
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
   };
   function ajouter_maladie_chronique(maladie_chronique: Maladie) {
     setMaladiesChroniques((maladies_chroniques) => [
@@ -429,6 +452,14 @@ function NewPatientPage() {
         </div>
 
         <div className="col-span-12 md:col-span-4">
+          <div className="mb-0 flex justify-between mb-4">
+            <input
+              type="file"
+              onChange={handleFileChange}
+              accept="image/*"
+            ></input>
+          </div>
+
           <div className="mb-0 flex justify-between">
             <h6 className="mb-1">Maladies chroniques</h6>
             <Button

@@ -89,10 +89,23 @@ RabbitConnection.on("prescriptions_create", async (data) => {
       frequence: p.frequence,
       duree: p.duree,
       remarques: p.remarques,
-      date_debut: new Date()
+      date_debut: new Date(),
     };
   });
-  await Promise.all(medicaments.map((m) => PrescriptionsModel.insert(m.id, m.patient, m.reference, m.code_medicament, m.posologie, m.frequence, m.duree, m.remarques)));
+  await Promise.all(
+    medicaments.map((m) =>
+      PrescriptionsModel.insert(
+        m.id,
+        m.patient,
+        m.reference,
+        m.code_medicament,
+        m.posologie,
+        m.frequence,
+        m.duree,
+        m.remarques
+      )
+    )
+  );
   await RabbitConnection.sendMsg("medicaments_create", medicaments);
   await PrescriptionsController.generate_ordonnance(
     reference,

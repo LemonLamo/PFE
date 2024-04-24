@@ -3,39 +3,94 @@ const { db } = require("../config/database");
 class RadiosModel {
   validationRules = {};
   async getAll() {
-    const [results] = await db.query("SELECT * FROM `radios`");
-    return results;
+    try {
+      const [results] = await db.query("SELECT * FROM `radios`");
+      return results;
+    } catch (error) {
+      console.error("Error fetching radios:", error);
+      throw error;
+    }
   }
 
   async getByReference(NIN) {
-    const [results] = await db.query("SELECT * FROM `radios` WHERE `reference`=?", [NIN]);
-    return results;
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `radios` WHERE `reference`=?",
+        [NIN]
+      );
+      return results;
+    } catch (error) {
+      console.error("Error fetching radios:", error);
+      throw error;
+    }
   }
 
-  async insert(id, patient, reference, code_radio, date, remarques){
-    await db.execute("INSERT INTO `radios` (`id`, `patient`, `reference`, `code_radio`, `date`, `remarques`) VALUES (?, ?, ?, ?, ?, ?)", [id, patient, reference, code_radio, new Date(date), remarques ?? null])
+  async insert(id, patient, reference, code_radio, date, remarques) {
+    try {
+      await db.execute(
+        "INSERT INTO `radios` (`id`, `patient`, `reference`, `code_radio`, `date`, `remarques`) VALUES (?, ?, ?, ?, ?, ?)",
+        [id, patient, reference, code_radio, new Date(date), remarques ?? null]
+      );
+    } catch (error) {
+      console.error("Error inserting radios:", error);
+      throw error;
+    }
   }
 
   async getOne(id) {
-    const [results] = await db.query("SELECT * FROM `radios` WHERE `id`=?", [id]);
-    return results[0];
+    try {
+      const [results] = await db.query("SELECT * FROM `radios` WHERE `id`=?", [
+        id,
+      ]);
+      return results[0];
+    } catch (error) {
+      console.error("Error fetching radios:", error);
+      throw error;
+    }
   }
 
-  async mark_as_done(id, files, observations){
-    const [results] = await db.query("UPDATE `radios` SET `date_fait`=NOW(), `observations`=? WHERE `id`=?", [observations, id]);
-    for (let file of files)
-      await db.query("INSERT `radios_files`(`id`, `file`) VALUES (?, ?)", [id, file.path]);
-    return results;
+  async mark_as_done(id, files, observations) {
+    try {
+      const [results] = await db.query(
+        "UPDATE `radios` SET `date_fait`=NOW(), `observations`=? WHERE `id`=?",
+        [observations, id]
+      );
+      for (let file of files)
+        await db.query("INSERT `radios_files`(`id`, `file`) VALUES (?, ?)", [
+          id,
+          file.path,
+        ]);
+      return results;
+    } catch (error) {
+      console.error("Error updating radios:", error);
+      throw error;
+    }
   }
 
-  async getResults(id){
-    const [results] = await db.query("SELECT * FROM `radios_files` WHERE `id`=?", [id]);
-    return results;
+  async getResults(id) {
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `radios_files` WHERE `id`=?",
+        [id]
+      );
+      return results;
+    } catch (error) {
+      console.error("Error fetching radios files:", error);
+      throw error;
+    }
   }
 
-  async getResultOne(id, num){
-    const [results] = await db.query("SELECT * FROM `radios_files` WHERE `id`=? LIMIT 1 OFFSET ?", [id, (num-1)]);
-    return results[0];
+  async getResultOne(id, num) {
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `radios_files` WHERE `id`=? LIMIT 1 OFFSET ?",
+        [id, num - 1]
+      );
+      return results[0];
+    } catch (error) {
+      console.error("Error fetching radios files:", error);
+      throw error;
+    }
   }
 }
 

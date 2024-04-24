@@ -9,6 +9,7 @@ const database = require("./config/database");
 const RabbitConnection = require("./config/amqplib");
 RabbitConnection.connect();
 const app = express();
+const uploadPhotoProfil = multer({ dest: "/mnt/data/", fileFilter: imageOnly });
 
 // database connection
 database.connect();
@@ -35,8 +36,19 @@ const MedicamentsModal = require("./models/MedicamentsModal");
 
 app.get("/api/patients", auth.requireAuth, PatientsController.selectAll);
 app.get("/api/patients/search", auth.requireAuth, PatientsController.searchAll);
-app.post("/api/patients", auth.requireAuth, PatientsController.insert);
+app.post(
+  "/api/patients",
+  auth.requireAuth,
+  // uploadPhotoProfil.array("file"),
+  PatientsController.insert
+);
+
 app.get("/api/patients/:NIN", auth.requireAuth, PatientsController.selectOne);
+// app.post(
+//   "/api/patients/:NIN",
+//   uploadPhotoProfil.array("photo", 1),
+//   PatientsController.addResults
+// );
 app.get(
   "/api/patients/:NIN/historique",
   auth.requireAuth,

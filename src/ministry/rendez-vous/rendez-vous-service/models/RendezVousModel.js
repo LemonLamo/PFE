@@ -2,25 +2,64 @@ const { db } = require("../config/database");
 
 class RendezVousModel {
   validationRules = {};
-  
-  async getByMedecin(medecin){
-    const [results] = await db.query("SELECT * FROM `rendezvous` WHERE `medecin`=?", [medecin]);
-    return results;
+
+  async getByMedecin(medecin) {
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `rendezvous` WHERE `medecin`=?",
+        [medecin]
+      );
+      return results;
+    } catch (error) {
+      console.error("Error fetching rendezvous:", error);
+      throw error;
+    }
   }
-  async getByPatient(patient){
-    const [results] = await db.query("SELECT * FROM `rendezvous` WHERE `patient`=?", [patient]);
-    return results;
+  async getByPatient(patient) {
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `rendezvous` WHERE `patient`=?",
+        [patient]
+      );
+      return results;
+    } catch (error) {
+      console.error("Error fetching rendezvous:", error);
+      throw error;
+    }
   }
 
   async selectOne(id) {
-    const [results] = await db.query("SELECT * FROM `rendezvous` WHERE `id`=?", [id]);
-    return results[0];
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `rendezvous` WHERE `id`=?",
+        [id]
+      );
+      return results[0];
+    } catch (error) {
+      console.error("Error fetching rendezvous:", error);
+      throw error;
+    }
   }
 
   async insert(id, patient, medecin, type, title, details, date, duree) {
-    await db.execute(
-      "INSERT INTO rendezvous(id, patient, medecin, type, title, details, date, duree) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [id, patient, medecin, type, title, details ?? null, new Date(date), duree]);
+    try {
+      await db.execute(
+        "INSERT INTO rendezvous(id, patient, medecin, type, title, details, date, duree) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          id,
+          patient,
+          medecin,
+          type,
+          title,
+          details ?? null,
+          new Date(date),
+          duree,
+        ]
+      );
+    } catch (error) {
+      console.error("Error inserting rendezvous:", error);
+      throw error;
+    }
   }
 }
 
