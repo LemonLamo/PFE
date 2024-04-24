@@ -1,0 +1,7 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: medicalife.com
+    Template:
+      Count: 1
+      SANS:
+        - localhost

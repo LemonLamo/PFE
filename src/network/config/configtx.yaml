@@ -1,0 +1,156 @@
+Organizations:
+
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererMSP
+        MSPDir: ../crypto-material/ordererOrganizations/medicalife.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
+        OrdererEndpoints:
+            - orderer0.medicalife.com:7050
+
+    - &Hopital1
+        Name: Hopital1
+        ID: Hopital1MSP
+        MSPDir: ../crypto-material/peerOrganizations/hopital1.medicalife.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('Hopital1MSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('Hopital1MSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('Hopital1MSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('Hopital1MSP.member')"
+        AnchorPeers:
+            - Host: peer0.hopital1.medicalife.com
+              Port: 7051
+
+    - &Hopital2
+        Name: Hopital2
+        ID: Hopital2MSP
+        MSPDir: ../crypto-material/peerOrganizations/hopital2.medicalife.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('Hopital2MSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('Hopital2MSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('Hopital2MSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('Hopital2MSP.member')"
+        AnchorPeers:
+            - Host: peer0.hopital2.medicalife.com
+              Port: 8051
+
+Capabilities:
+    Channel: &ChannelCapabilities
+        V2_0: true
+    Orderer: &OrdererCapabilities
+        V2_0: true
+    Application: &ApplicationCapabilities
+        V2_0: true
+
+Application: &ApplicationDefaults
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        LifecycleEndorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+        Endorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+    Capabilities:
+        <<: *ApplicationCapabilities
+
+Orderer: &OrdererDefaults
+    OrdererType: etcdraft
+    EtcdRaft:
+        Consenters:
+        - Host: orderer0.medicalife.com
+          Port: 7050
+          ClientTLSCert: ../crypto-material/ordererOrganizations/medicalife.com/orderers/orderer0.medicalife.com/tls/server.crt
+          ServerTLSCert: ../crypto-material/ordererOrganizations/medicalife.com/orderers/orderer0.medicalife.com/tls/server.crt
+    BatchTimeout: 2s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+    Capabilities:
+        <<: *ChannelCapabilities
+
+Profiles:
+    ApNetworkProfile:
+        <<: *ChannelDefaults
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Consortiums:
+            ApConsortium:
+                Organizations:
+                    - *Hopital1
+                    - *Hopital2
+    ApChannelProfile:
+        Consortium: ApConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Hopital1
+                - *Hopital2
+            Capabilities:
+                <<: *ApplicationCapabilities

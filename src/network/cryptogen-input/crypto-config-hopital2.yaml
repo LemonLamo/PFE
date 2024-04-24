@@ -1,0 +1,7 @@
+PeerOrgs:
+  - Name: Hopital2
+    Domain: hopital2.medicalife.com
+    Template:
+      Count: 1
+      SANS:
+        - localhost
