@@ -138,7 +138,10 @@ function DashboardRadio() {
         />
         <JoindreResultatsRadio
           isOpen={openModal === "joindre"}
-          close={() => setOpenModal("")}
+          close={() => {
+            setOpenModal("");
+            query.refetch();
+          }}
           selectedRadio={selectedRadio}
         />
       </Card>

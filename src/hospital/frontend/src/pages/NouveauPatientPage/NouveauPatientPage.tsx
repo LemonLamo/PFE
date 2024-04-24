@@ -20,7 +20,9 @@ import moment from "moment";
 import AlertsContext from "../../hooks/AlertsContext";
 
 function NewPatientPage() {
+  const { showAlert } = useContext(AlertsContext);
   const [openModal, setOpenModal] = useState("");
+  const [file, setFile] = useState(null);
   const [selected, setSelected] = useState(0);
 
   const [maladies_chroniques, setMaladiesChroniques] = useState<Maladie[]>([]);
@@ -31,7 +33,6 @@ function NewPatientPage() {
   const [antecedents_familiaux, setAntecedentsFamiliaux] = useState<
     Antecedent[]
   >([]);
-
   const { register, handleSubmit, reset } = useForm<Patient>();
   const onSubmit: SubmitHandler<Patient> = async (patient) => {
     const data = new FormData();
@@ -48,7 +49,22 @@ function NewPatientPage() {
       const optionalFields = ["NIN_mere", "NIN_pere", "donneur_organe"];
       const err = checkForEmptyFields(patient, optionalFields);
       if (!err) {
-        // seterror(false);
+        data.append("file", file);
+        Object.entries(patient).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(maladies_chroniques).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(allergies).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(antecedents_medicaux).forEach(([key, value]) => {
+          data.append(key, value);
+        });
+        Object.entries(antecedents_familiaux).forEach(([key, value]) => {
+          data.append(key, value);
+        });
         await axios.post(`${baseURL}/api/patients`, data);
         reset();
       } else {
@@ -56,8 +72,16 @@ function NewPatientPage() {
         // setmsgError(err);
         // seterror(true);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response)
+        if (error.response?.data?.errorCode != "form-validation")
+          showAlert(
+            "error",
+            error.response.data.errorCode +
+              ": " +
+              error.response.data.errorMessage
+          );
+        else showAlert("error", error.code + ": " + error.message);
     }
   };
   const handleFileChange = (event) => {
@@ -111,6 +135,26 @@ function NewPatientPage() {
     setAntecedentsFamiliaux(antecedents_familiaux);
     setOpenModal("");
   }
+  const checkForEmptyFields = (object, array) => {
+    let bool = false;
+    for (const key in object) {
+      let trouve = false;
+      if (object.hasOwnProperty(key) && !object[key]) {
+        //if vide il entre
+        array.forEach((element) => {
+          //parcourir array vide optionalfields
+          if (element === key) {
+            trouve = true;
+          }
+        });
+        if (!trouve) {
+          // il doit remplir ce champ sinon skip
+          bool = true;
+        }
+      }
+    }
+    return bool;
+  };
   return (
     <Card
       title="Nouveau patient"

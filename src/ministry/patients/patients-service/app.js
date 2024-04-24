@@ -39,7 +39,7 @@ app.get("/api/patients/search", auth.requireAuth, PatientsController.searchAll);
 app.post(
   "/api/patients",
   auth.requireAuth,
-  // uploadPhotoProfil.array("file"),
+  uploadPhotoProfil.array("file"),
   PatientsController.insert
 );
 

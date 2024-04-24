@@ -15,6 +15,7 @@ export default function JoindreResultatsRadio({
   close,
   selectedRadio,
 }: Props) {
+  const { showAlert } = useContext(AlertsContext);
   const [radios, setRadios] = useState<File[]>([]);
   const [observations, setObservations] = useState("");
 
@@ -29,20 +30,19 @@ export default function JoindreResultatsRadio({
   }
 
   async function submit() {
-    const formData = new FormData();
-    radios.forEach((radio) => formData.append(`radios`, radio));
-    formData.append(`observations`, observations);
-
-    const config = { headers: { "content-type": "multipart/form-data" } };
     try {
-      const response = await axios.post(
-        `${baseURL}/api/radios/${selectedRadio.id}`,
-        formData,
-        config
-      );
-      console.log(response.data);
-    } catch (e) {
-      console.error(e);
+      await joindre_resultat_radio(selectedRadio.id, radios, observations);
+      close();
+    } catch (error: any) {
+      if (error.response)
+        if (error.response?.data?.errorCode != "form-validation")
+          showAlert(
+            "error",
+            error.response.data.errorCode +
+              ": " +
+              error.response.data.errorMessage
+          );
+        else showAlert("error", error.code + ": " + error.message);
     }
   }
 
