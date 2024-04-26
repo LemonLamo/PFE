@@ -40,6 +40,7 @@ export default function AjouterSoinsModal({isOpen, close, selectedHospitalisatio
     async function submit(){
       try {
         await createSoin(selectedSoin);
+        showAlert("success", "Soin ajouté correctement");
         close();
       } catch (error: any) {
         if (error.response)

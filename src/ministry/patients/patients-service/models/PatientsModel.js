@@ -1,3 +1,4 @@
+const logger = require("../utils/logger");
 const db = require("../config/database").db;
 
 class PatientsModel {
@@ -12,7 +13,7 @@ class PatientsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching patients:", error);
+      logger.error("Error fetching patients:", error);
       throw error;
     }
   }
@@ -22,85 +23,20 @@ class PatientsModel {
       const [results] = await db.query("SELECT * FROM `patients`;");
       return results;
     } catch (error) {
-      console.error("Error fetching patients:", error);
+      logger.error("Error fetching patients:", error);
       throw error;
     }
   }
 
-  async insert(
-    NIN,
-    nom,
-    prenom,
-    date_de_naissance,
-    lieu_de_naissance,
-    sexe,
-    situation_familiale,
-    email,
-    telephone,
-    adresse,
-    commune,
-    code_postale,
-    wilaya,
-    groupage,
-    taille,
-    poids,
-    donneur_organe,
-    NIN_pere,
-    NIN_mere
-  ) {
+  async insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe, NIN_pere, NIN_mere   ) {
     try {
-      await db.execute(
-        "INSERT INTO patients (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`, `telephone`, `adresse`, `commune`, `code_postale`, `wilaya`, `groupage`, `taille`, `poids`, `donneur_organe`, `NIN_pere`, `NIN_mere`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-          NIN,
-          nom,
-          prenom,
-          date_de_naissance ? new Date(date_de_naissance) : null,
-          lieu_de_naissance,
-          sexe,
-          situation_familiale,
-          email,
-          telephone,
-          adresse,
-          commune,
-          code_postale,
-          wilaya,
-          groupage,
-          taille,
-          poids,
-          donneur_organe,
-          NIN_pere,
-          NIN_mere,
-        ]
+      await db.execute("INSERT INTO patients (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`, `telephone`, `adresse`, `commune`, `code_postale`, `wilaya`, `groupage`, `taille`, `poids`, `donneur_organe`, `NIN_pere`, `NIN_mere`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [NIN, nom, prenom, date_de_naissance ? new Date(date_de_naissance) : null, lieu_de_naissance, sexe, situation_familiale, email, telephone, adresse, commune, code_postale, wilaya, groupage, taille, poids, donneur_organe? 1 : 0, NIN_pere, NIN_mere]
       );
     } catch (error) {
-      console.error("Error inserting patients:", error);
+      logger.error("Error inserting patients:", error);
       throw error;
     }
-    await db.execute(
-      "INSERT INTO patients (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`, `telephone`, `adresse`, `commune`, `code_postale`, `wilaya`, `groupage`, `taille`, `poids`, `donneur_organe`, `NIN_pere`, `NIN_mere`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [
-        NIN,
-        nom,
-        prenom,
-        date_de_naissance ? new Date(date_de_naissance) : null,
-        lieu_de_naissance,
-        sexe,
-        situation_familiale,
-        email,
-        telephone,
-        adresse,
-        commune,
-        code_postale,
-        wilaya,
-        groupage,
-        taille,
-        poids,
-        donneur_organe,
-        NIN_pere,
-        NIN_mere,
-      ]
-    );
   }
 
   async selectOne(NIN) {
@@ -111,7 +47,7 @@ class PatientsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching patients:", error);
+      logger.error("Error fetching patients:", error);
       throw error;
     }
   }
@@ -124,7 +60,7 @@ class PatientsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching maladies chroniques:", error);
+      logger.error("Error fetching maladies chroniques:", error);
       throw error;
     }
   }
@@ -137,7 +73,7 @@ class PatientsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching allergies:", error);
+      logger.error("Error fetching allergies:", error);
       throw error;
     }
   }
@@ -150,7 +86,7 @@ class PatientsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching antecedents:", error);
+      logger.error("Error fetching antecedents:", error);
       throw error;
     }
   }
@@ -163,7 +99,7 @@ class PatientsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching antecedents:", error);
+      logger.error("Error fetching antecedents:", error);
       throw error;
     }
   }
@@ -176,7 +112,7 @@ class PatientsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching vaccinations:", error);
+      logger.error("Error fetching vaccinations:", error);
       throw error;
     }
   }
@@ -188,7 +124,7 @@ class PatientsModel {
         [NIN, code_maladie, new Date(date), remarques ?? null, medecin]
       );
     } catch (error) {
-      console.error("Error inserting maladies chroniques:", error);
+      logger.error("Error inserting maladies chroniques:", error);
       throw error;
     }
   }
@@ -200,7 +136,7 @@ class PatientsModel {
         [NIN, code_allergene, new Date(date), remarques ?? null, medecin]
       );
     } catch (error) {
-      console.error("Error inserting allergies:", error);
+      logger.error("Error inserting allergies:", error);
       throw error;
     }
   }
@@ -209,17 +145,10 @@ class PatientsModel {
     try {
       await db.execute(
         "INSERT INTO antecedents (`patient`, `designation`, `date`, `remarques`, `type`, `medecin`) VALUES (?, ?, ?, ?, ?, ?)",
-        [
-          NIN,
-          designation,
-          new Date(date),
-          remarques ?? null,
-          "medical",
-          medecin,
-        ]
+        [ NIN, designation, new Date(date), remarques ?? null, "medical", medecin ]
       );
     } catch (error) {
-      console.error("Error inserting antecedents:", error);
+      logger.error("Error inserting antecedents:", error);
       throw error;
     }
   }
@@ -228,43 +157,22 @@ class PatientsModel {
     try {
       await db.execute(
         "INSERT INTO antecedents (`patient`, `designation`, `date`, `remarques`, `type`, `medecin`) VALUES (?, ?, ?, ?, ?, ?)",
-        [
-          NIN,
-          designation,
-          new Date(date),
-          remarques ?? null,
-          "familial",
-          medecin,
-        ]
+        [NIN, designation, new Date(date), remarques ?? null, "familial", medecin,]
       );
     } catch (error) {
-      console.error("Error inserting antecedents:", error);
+      logger.error("Error inserting antecedents:", error);
       throw error;
     }
   }
 
-  async insertVaccination(
-    NIN,
-    code_vaccin,
-    date,
-    remarques,
-    date_de_prochaine_dose,
-    medecin
-  ) {
+  async insertVaccination(NIN, code_vaccin, date, remarques, date_de_prochaine_dose, medecin) {
     try {
       await db.execute(
         "INSERT INTO vaccinations (`patient`, `code_vaccin`, `date`, `remarques`, `date_de_prochaine_dose`, `medecin`) VALUES (?, ?, ?, ?, ?, ?)",
-        [
-          NIN,
-          code_vaccin,
-          new Date(date),
-          remarques ?? null,
-          date_de_prochaine_dose ? new Date(date_de_prochaine_dose) : null,
-          medecin,
-        ]
+        [ NIN, code_vaccin, new Date(date), remarques ?? null, date_de_prochaine_dose ? new Date(date_de_prochaine_dose) : null, medecin ]
       );
     } catch (error) {
-      console.error("Error inserting vaccinations:", error);
+      logger.error("Error inserting vaccinations:", error);
       throw error;
     }
   }
@@ -278,7 +186,7 @@ class PatientsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching patients:", error);
+      logger.error("Error fetching patients:", error);
       throw error;
     }
   }
@@ -291,7 +199,7 @@ class PatientsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching patients:", error);
+      logger.error("Error fetching patients:", error);
       throw error;
     }
   }

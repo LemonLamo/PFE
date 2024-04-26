@@ -43,45 +43,34 @@ const RadiosModel = require("./models/RadiosModel");
 const BilansModel = require("./models/BilansModel");
 
 // Prescriptions
-app.get("/api/prescriptions", PrescriptionsController.select);
-app.get("/api/prescriptions/ordonnances/:id", OrdonnancesController.select);
-app.get(
-  "/api/prescriptions/arret-de-travail/:id",
-  OrdonnancesController.select2
-);
-app.get("/api/prescriptions/:id", PrescriptionsController.select);
-app.post("/api/prescriptions", PrescriptionsController.insert);
+app.get("/api/prescriptions", auth.requireAuth, PrescriptionsController.select);
+app.get("/api/prescriptions/ordonnances/:id", auth.requireAuth, OrdonnancesController.select);
+app.get("/api/prescriptions/arret-de-travail/:id", auth.requireAuth, OrdonnancesController.select2);
+app.get("/api/prescriptions/:id", auth.requireAuth, PrescriptionsController.select);
+app.post("/api/prescriptions", auth.requireAuth, PrescriptionsController.insert);
 
 // Radios
-app.get("/api/radios", RadiosController.select);
-app.get("/api/radios/:id", RadiosController.selectOne);
-app.get("/api/radios/:id/results", RadiosController.getResultsList);
-app.get("/api/radios/:id/results/:num", RadiosController.getResultOne);
-app.post("/api/radios", RadiosController.insert);
-app.post(
-  "/api/radios/:id",
-  uploadRadio.array("radios", 5),
-  RadiosController.addResults
-);
+app.get("/api/radios", auth.requireAuth, RadiosController.select);
+app.get("/api/radios/:id", auth.requireAuth, RadiosController.selectOne);
+app.get("/api/radios/:id/results", auth.requireAuth, RadiosController.getResultsList);
+app.get("/api/radios/:id/results/:num", auth.requireAuth, RadiosController.getResultOne);
+app.post("/api/radios", auth.requireAuth, RadiosController.insert);
+app.post("/api/radios/:id", auth.requireAuth, uploadRadio.array("radios", 5), RadiosController.addResults);
 
 // Bilans
-app.get("/api/bilans", BilansController.select);
-app.get("/api/bilans/:id", BilansController.selectOne);
-app.get("/api/bilans/:id/results", BilansController.getResultsList);
-app.get("/api/bilans/:id/results/:num", BilansController.getResultOne);
-app.post("/api/bilans", BilansController.insert);
-app.post(
-  "/api/bilans/:id",
-  uploadBilan.array("bilans", 5),
-  BilansController.addResults
-);
+app.get("/api/bilans", auth.requireAuth, BilansController.select);
+app.get("/api/bilans/:id", auth.requireAuth, BilansController.selectOne);
+app.get("/api/bilans/:id/results", auth.requireAuth, BilansController.getResultsList);
+app.get("/api/bilans/:id/results/:num", auth.requireAuth, BilansController.getResultOne);
+app.post("/api/bilans", auth.requireAuth, BilansController.insert);
+app.post("/api/bilans/:id", auth.requireAuth, uploadBilan.array("bilans", 5), BilansController.addResults);
 
 // RabitMQ
 RabbitConnection.on("prescriptions_create", async (data) => {
   const { jwt, patient, prescriptions, reference } = data;
   const medicaments = prescriptions.map((p) => {
     return {
-      id: genID(),
+      id: "med-"+genID(),
       patient,
       reference,
       code_medicament: p.code_medicament,
@@ -134,7 +123,7 @@ RabbitConnection.on("radios_create", async (data) => {
   await Promise.all(
     radios.map((r) =>
       RadiosModel.insert(
-        genID(),
+        "radio-"+genID(),
         patient,
         reference,
         r.code_radio,
@@ -150,7 +139,7 @@ RabbitConnection.on("bilans_create", async (data) => {
   await Promise.all(
     bilans.map((b) =>
       BilansModel.insert(
-        genID(),
+        "bilan-"+genID(),
         patient,
         reference,
         b.code_bilan,

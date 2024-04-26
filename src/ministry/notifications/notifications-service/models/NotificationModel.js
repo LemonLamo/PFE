@@ -1,3 +1,5 @@
+const logger = require("../utils/logger");
+
 const db = require("../config/database").db;
 
 exports.validationRules = {};
@@ -9,7 +11,7 @@ exports.selectByID = async (ID) => {
     );
     return results.length > 0 ? results[0] : {};
   } catch (error) {
-    console.error("Error fetching notifications:", error);
+    logger.error("Error fetching notifications:", error);
     throw error;
   }
 };
@@ -21,7 +23,7 @@ exports.selectPatientNotifsByNIN = async (NIN) => {
     );
     return results;
   } catch (error) {
-    console.error("Error fetching notifications:", error);
+    logger.error("Error fetching notifications:", error);
     throw error;
   }
 };
@@ -33,7 +35,7 @@ exports.selectPersonnelNotifsByNIN = async (NIN) => {
     );
     return results;
   } catch (error) {
-    console.error("Error fetching notifications:", error);
+    logger.error("Error fetching notifications:", error);
     throw error;
   }
 };
@@ -62,7 +64,7 @@ exports.insert = async (
       ]
     );
   } catch (error) {
-    console.error("Error inserting notifications:", error);
+    logger.error("Error inserting notifications:", error);
     throw error;
   }
 };
@@ -74,7 +76,7 @@ exports.mark_as_read = async (id) => {
     );
     if (results.affectedRows < 1) throw new Error({ code: "ER_UPDATE_FAIL" });
   } catch (error) {
-    console.error("Error updating notifications:", error);
+    logger.error("Error updating notifications:", error);
     throw error;
   }
 };

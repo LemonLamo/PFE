@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class RendezVousModel {
   validationRules = {};
@@ -11,7 +12,7 @@ class RendezVousModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching rendezvous:", error);
+      logger.error("Error fetching rendezvous:", error);
       throw error;
     }
   }
@@ -23,7 +24,7 @@ class RendezVousModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching rendezvous:", error);
+      logger.error("Error fetching rendezvous:", error);
       throw error;
     }
   }
@@ -36,7 +37,7 @@ class RendezVousModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching rendezvous:", error);
+      logger.error("Error fetching rendezvous:", error);
       throw error;
     }
   }
@@ -57,7 +58,7 @@ class RendezVousModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting rendezvous:", error);
+      logger.error("Error inserting rendezvous:", error);
       throw error;
     }
   }

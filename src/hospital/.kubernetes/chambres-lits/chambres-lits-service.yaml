@@ -30,6 +30,7 @@ spec:
       containers:
         - image: hospital1307/chambres-lits-service:latest
           name: chambres-lits-service
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

@@ -44,8 +44,9 @@ function TabAllergies({ NIN }: Props) {
   async function submit(NIN: Patient["NIN"], a: Allergie){
     try {
       await ajouter_allergie(NIN, a);
-      close();
       allergies.refetch();
+      showAlert("success", "Allergie enregistrée correctement");
+      close();
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")

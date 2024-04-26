@@ -8,6 +8,7 @@ const {
 const moment = require("moment");
 const axios = require("axios");
 const RabbitConnection = require("../config/amqplib");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -60,7 +61,7 @@ class RendezVousController {
 
   async insert(req, res) {
     try {
-      const id = genID();
+      const id = "rdv-"+genID();
       const { patient, type, date, details, code_intervention } = req.body;
       const { NIN: medecin, hopital, role } = req.jwt;
 

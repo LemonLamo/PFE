@@ -7,7 +7,7 @@ class PrescriptionsModel {
       const [results] = await db.query("SELECT * FROM `prescriptions`");
       return results;
     } catch (error) {
-      console.error("Error fetching prescriptions:", error);
+      logger.error("Error fetching prescriptions:", error);
       throw error;
     }
   }
@@ -20,7 +20,7 @@ class PrescriptionsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching prescriptions:", error);
+      logger.error("Error fetching prescriptions:", error);
       throw error;
     }
   }
@@ -50,7 +50,7 @@ class PrescriptionsModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting prescriptions:", error);
+      logger.error("Error inserting prescriptions:", error);
       throw error;
     }
   }
@@ -63,7 +63,7 @@ class PrescriptionsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching prescriptions:", error);
+      logger.error("Error fetching prescriptions:", error);
       throw error;
     }
   }

@@ -30,6 +30,7 @@ spec:
       containers:
         - image: medicalife/hopitaux-service:latest
           name: hopitaux-service
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

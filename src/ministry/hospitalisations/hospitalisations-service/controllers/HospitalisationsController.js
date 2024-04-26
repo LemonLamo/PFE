@@ -1,6 +1,7 @@
 const Model = require("../models/HospitalisationsModel");
 const { genID } = require("../utils");
 const { fetchPatients, fetchMedecins } = require("../utils/communication");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -66,7 +67,7 @@ class HospitalisationsController {
     try {
       const { NIN: medecin, role, hopital, service } = req.jwt;
 
-      const id = genID();
+      const id = "hos-"+genID();
       const {
         patient,
         date_entree,

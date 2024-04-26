@@ -3,6 +3,7 @@ const { fetchPatients, fetchBilans } = require("../utils/communication");
 const { genID } = require("../utils");
 const path = require("path");
 const RabbitConnection = require("../config/amqplib");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -51,7 +52,7 @@ class BilansController {
       await Promise.all(
         bilans.map((b) =>
           Model.insert(
-            genID(),
+            "bilan-"+genID(),
             patient,
             reference,
             b.code_bilan,

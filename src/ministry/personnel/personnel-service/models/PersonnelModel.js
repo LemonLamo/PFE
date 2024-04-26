@@ -35,7 +35,7 @@ class PersonnelModel {
       const [results] = await db.query(sql, params);
       return results;
     } catch (error) {
-      console.error("Error fetching personnel:", error);
+      logger.error("Error fetching personnel:", error);
       throw error;
     }
   }
@@ -48,7 +48,7 @@ class PersonnelModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching personnel:", error);
+      logger.error("Error fetching personnel:", error);
       throw error;
     }
   }
@@ -61,7 +61,7 @@ class PersonnelModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching personnel:", error);
+      logger.error("Error fetching personnel:", error);
       throw error;
     }
   }
@@ -109,7 +109,7 @@ class PersonnelModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting personnel:", error);
+      logger.error("Error inserting personnel:", error);
       throw error;
     }
   }
@@ -157,7 +157,7 @@ class PersonnelModel {
         ]
       );
     } catch (error) {
-      console.error("Error updating personnel:", error);
+      logger.error("Error updating personnel:", error);
       throw error;
     }
   }
@@ -167,7 +167,7 @@ class PersonnelModel {
       // TODO: do soft-delete
       await db.query("DELETE FROM `personnel` WHERE NIN=?", [NIN]);
     } catch (error) {
-      console.error("Error deleting personnel:", error);
+      logger.error("Error deleting personnel:", error);
       throw error;
     }
   }
@@ -180,7 +180,7 @@ class PersonnelModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting personnel:", error);
+      logger.error("Error counting personnel:", error);
       throw error;
     }
   }
@@ -193,7 +193,7 @@ class PersonnelModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting personnel:", error);
+      logger.error("Error counting personnel:", error);
       throw error;
     }
   }
@@ -205,7 +205,7 @@ class PersonnelModel {
       );
       return results;
     } catch (error) {
-      console.error("Error counting personnel:", error);
+      logger.error("Error counting personnel:", error);
       throw error;
     }
   }
@@ -217,7 +217,7 @@ class PersonnelModel {
       );
       return results;
     } catch (error) {
-      console.error("Error counting personnel:", error);
+      logger.error("Error counting personnel:", error);
       throw error;
     }
   }
@@ -231,7 +231,7 @@ class PersonnelModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching personnel:", error);
+      logger.error("Error fetching personnel:", error);
       throw error;
     }
   }
@@ -244,7 +244,7 @@ class PersonnelModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching patients:", error);
+      logger.error("Error fetching patients:", error);
       throw error;
     }
   }

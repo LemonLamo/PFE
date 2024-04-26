@@ -17,6 +17,7 @@ export default function ExecuterIntervention({isOpen, close, selectedInterventio
     async function submit(intervention: Intervention["id"], protocole_operatoire : string){
       try {
         await executerIntervention(intervention, protocole_operatoire);
+        showAlert("success", "Intervention executé correctement");
         close();
       } catch (error: any) {
         if (error.response)

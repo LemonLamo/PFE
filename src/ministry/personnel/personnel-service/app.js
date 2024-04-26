@@ -9,6 +9,17 @@ const database = require("./config/database");
 const RabbitConnection = require("./config/amqplib");
 RabbitConnection.connect();
 const app = express();
+const { imageOnly } = require("./utils");
+const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/mnt/data/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.body.NIN)
+  }
+});
+const uploadAvatar = multer({ storage: storage, fileFilter: imageOnly });
 
 // database connection
 database.connect();
@@ -32,13 +43,15 @@ const logger = require("./utils/logger");
 
 app.get("/api/personnel/search", auth.requireAuth, PersonnelController.getAllSnippet);
 app.get("/api/personnel", auth.requireAuth, PersonnelController.getAll);
-app.post("/api/personnel", auth.requireAuth, PersonnelController.insert);
+app.post("/api/personnel", auth.requireAuth, uploadAvatar.single("avatar"), PersonnelController.insert);
+
 app.put("/api/personnel", auth.requireAuth, PersonnelController.update);
-app.get("/api/personnel/count", PersonnelController.selectCount);
+app.get("/api/personnel/count", auth.requireAuth, PersonnelController.selectCount);
 app.get("/api/personnel/countBySexe", auth.requireAuth, PersonnelController.selectCountGroupBySexe);
 app.get("/api/personnel/countByService", auth.requireAuth, PersonnelController.selectCountGroupByService);
-app.get("/api/personnel/:NIN", PersonnelController.getOne);
-app.delete("/api/personnel/:NIN", PersonnelController.remove);
+app.get("/api/personnel/:NIN", auth.requireAuth, PersonnelController.getOne);
+app.get("/api/personnel/:NIN/avatar", PersonnelController.serveAvatar);
+app.delete("/api/personnel/:NIN", auth.requireAuth, PersonnelController.remove);
 
 // PRIVATE ROUTES
 app.post("/private/personnel", PersonnelController.selectByNINs);

@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Fragment, useEffect, useState } from 'react'
 import { baseURL } from '../../config'
 import TableLoading from '../UI/Loading'
+import Avatar from '../Avatar'
 
 type SelectProps = {
     state: {NIN: string, nom: string, prenom:string},
@@ -50,15 +51,16 @@ function PatientsSelect({ onChange, placeholder = '', className = '', state }: S
 
                 <Transition
                     enter="transition-opacity duration-25" enterFrom="opacity-0" enterTo="opacity-100"
-                    leave="transition-opacity duration-50" leaveFrom="opacity-100" leaveTo="opacity-0">
-                    <Combobox.Options className={`${(options?.length || 0) > 0? 'border ' : ''}cursor-default absolute w-full overflow-y-scroll max-h-[17.5rem] text-gray-700 border-cyan-600 placeholder:text-gray-500 shadow-soft-2xl focus:transition-shadow focus:ring-0 focus:border-sky-600 rounded-sm bg-white`}>
+                    leave="transition-opacity duration-50" leaveFrom="opacity-100" leaveTo="opacity-0"
+                    className="z-[1]">
+                    <Combobox.Options className={`${(options?.length || 0) > 0? 'border ' : ''}cursor-default absolute w-full overflow-y-scroll max-h-[17.5rem] text-gray-700 border-cyan-600 placeholder:text-gray-500 shadow-soft-2xl focus:transition-shadow focus:ring-0 focus:border-sky-600 rounded-sm bg-white z-[1]`}>
                         {
                             isLoading ? <div className='py-2'><TableLoading /></div> :
                             filteredOptions.map((o, i) => (
                                 <Combobox.Option key={i} value={o} as={Fragment}>
                                     {({ active }) => (
                                         <li className={`flex px-2 py-1 text-md ${active ? 'bg-sky-500' : 'bg-white'}`}>
-                                            <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
+                                            <Avatar src={`${baseURL}/api/patients/${o.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
                                             <div>
                                                 <h6 className={`mb-0 ${active ? 'text-white' : 'text-slate-700'}`}>{o.nom} {o.prenom}</h6>
                                                 <p className={`mb-0 font-semibold mt-[-0.4rem] ${active ? 'text-white' : 'text-gray-500'}`}>NIN: {o.NIN}</p>

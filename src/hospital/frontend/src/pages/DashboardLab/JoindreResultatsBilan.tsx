@@ -30,6 +30,7 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } :
   async function submit(){
     try{
       await joindre_resultat_bilan(selectedBilan.id, bilans, observations);
+      showAlert("success", "Bilan remplit correctement");
       close();
     } catch (error: any) {
       if (error.response)

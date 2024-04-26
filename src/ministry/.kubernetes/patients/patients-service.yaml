@@ -30,10 +30,41 @@ spec:
       containers:
         - image: medicalife/patients-service:latest
           name: patients-service
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP
+          volumeMounts:
+            - name: pv-patients
+              mountPath: /mnt/data
       dnsConfig:
         nameservers:
           - 8.8.8.8
       restartPolicy: Always
+      volumes:
+      - name: pv-patients
+        persistentVolumeClaim:
+          claimName: pvc-prescriptions
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-patients
+spec:
+  capacity:
+    storage: 250Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-patients
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 250Mi

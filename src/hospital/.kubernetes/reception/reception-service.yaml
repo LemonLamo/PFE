@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: reception-service
+  name: reception-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: reception-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: reception-service
+  name: reception-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reception-service
+  template:
+    metadata:
+      labels:
+        app: reception-service
+    spec:
+      containers:
+        - image: hospital1307/reception-service:latest
+          name: reception-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

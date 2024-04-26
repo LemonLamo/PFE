@@ -30,6 +30,7 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient}: Prop
     async function submit(){
       try {
         await createRendezVous(selectedPatient.NIN!, rendezVous)
+        showAlert("success", "Rendez-vous enregistré correctement");
         close();
       } catch (error: any) {
         if (error.response)

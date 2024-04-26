@@ -1,5 +1,6 @@
 const { db } = require("../config/database");
 const moment = require("moment");
+const logger = require("../utils/logger");
 
 class ConsultationsModel {
   validationRules = {};
@@ -8,7 +9,7 @@ class ConsultationsModel {
       const [results] = await db.query("SELECT * FROM `hospitalisations`");
       return results;
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }
@@ -21,7 +22,7 @@ class ConsultationsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }
@@ -34,7 +35,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }
@@ -46,7 +47,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }
@@ -59,7 +60,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }
@@ -95,7 +96,7 @@ class ConsultationsModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting hospitalisations:", error);
+      logger.error("Error inserting hospitalisations:", error);
       throw error;
     }
   }
@@ -108,7 +109,7 @@ class ConsultationsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting hospitalisations:", error);
+      logger.error("Error counting hospitalisations:", error);
       throw error;
     }
   }
@@ -121,7 +122,7 @@ class ConsultationsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting hospitalisations:", error);
+      logger.error("Error counting hospitalisations:", error);
       throw error;
     }
   }
@@ -144,7 +145,7 @@ class ConsultationsModel {
         [mode_sortie, new Date(date_sortie), id]
       );
     } catch (error) {
-      console.error("Error updating hospitalisations:", error);
+      logger.error("Error updating hospitalisations:", error);
       throw error;
     }
   }
@@ -163,7 +164,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }
@@ -181,7 +182,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }
@@ -194,7 +195,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hospitalisations:", error);
+      logger.error("Error fetching hospitalisations:", error);
       throw error;
     }
   }

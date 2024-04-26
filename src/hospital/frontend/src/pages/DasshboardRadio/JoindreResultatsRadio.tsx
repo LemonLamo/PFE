@@ -32,6 +32,7 @@ export default function JoindreResultatsRadio({
   async function submit() {
     try {
       await joindre_resultat_radio(selectedRadio.id, radios, observations);
+      showAlert("success", "Radio remplit correctement");
       close();
     } catch (error: any) {
       if (error.response)

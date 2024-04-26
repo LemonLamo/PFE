@@ -1,5 +1,5 @@
 const mysql = require("mysql2/promise");
-const logger = require('../utils/logger');
+const logger = require('../utils/logger')
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -9,7 +9,15 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   supportBigNumbers: true,
 });
+
 exports.connect = async () => {
-  logger.info("[SERVER] Database connection established...");
+  try {
+    await pool.getConnection();
+    logger.info("[SERVER] Database connection established...");
+  } catch (error) {
+    logger.error("[SERVER] Unable to connect to the database:", error);
+    setTimeout(() => this.connect(), 5000);
+  }
 };
+
 exports.db = pool;

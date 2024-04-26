@@ -8,6 +8,7 @@ const { ToWords } = require("to-words");
 const toWords = new ToWords({ localeCode: "fr-FR" });
 const RabbitConnection = require("../config/amqplib");
 const PrescriptionsModel = require("../models/PrescriptionsModel");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -43,7 +44,7 @@ class PrescriptionsController {
       await Promise.all(
         prescriptions.map((p) =>
           PrescriptionsModel.insert(
-            genID(),
+            "med-"+genID(),
             patient,
             reference,
             p.code_medicament,

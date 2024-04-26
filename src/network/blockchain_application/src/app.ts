@@ -5,7 +5,7 @@
  */
 
 import * as grpc from '@grpc/grpc-js';
-import { connect, Contract, Identity, Signer, signers } from '@hyperledger/fabric-gateway';
+import { connect, Identity, Signer, signers } from '@hyperledger/fabric-gateway';
 import * as crypto from 'crypto';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -34,7 +34,6 @@ const peerEndpoint = envOrDefault('PEER_ENDPOINT', 'localhost:7051');
 const peerHostAlias = envOrDefault('PEER_HOST_ALIAS', 'peer0.hopital1.medicalife.com');
 
 const utf8Decoder = new TextDecoder();
-const assetId = `asset${Date.now()}`;
 
 async function main(): Promise<void> {
 
@@ -70,12 +69,10 @@ async function main(): Promise<void> {
         const contract = network.getContract(chaincodeName);
 
         // Add to ledger
-        await contract.submitTransaction('AddEntry',
-            "asset3",
-            'green',
-            '6',
-            'BRAHIM',
-            '69420',
+        await contract.submitTransaction('AddEntry', 
+            "cons-XNDHDBZ",
+            '67b69634f9880a282c14a0f0cb7ba20cf5d677e9',
+            new Date().toISOString(),
         );
 
         // Get All

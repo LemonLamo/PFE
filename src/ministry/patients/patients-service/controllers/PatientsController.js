@@ -1,13 +1,9 @@
 const axios = require("axios");
 const Model = require("../models/PatientsModel");
 const RabbitConnection = require("../config/amqplib");
-const {
-  fetchMaladies,
-  fetchAllergies,
-  fetchVaccinations,
-  fetchMedicaments,
-} = require("../utils/communication");
+const { fetchMaladies, fetchAllergies, fetchVaccinations, fetchMedicaments } = require("../utils/communication");
 const MedicamentsModal = require("../models/MedicamentsModal");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 class PatientsController {
@@ -29,21 +25,18 @@ class PatientsController {
 
   async selectAll(req, res) {
     try {
-      // TODO: Secure this
-      const result = await Model.selectAll();
+      const { NINs } = req.body;
+      const result = await Model.selectByNINs(NINs);
       return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);
-      return res
-        .status(400)
-        .json({ errorCode: "database-error", errorMessage: err.code });
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 
   async insert(req, res) {
     try {
       const { role } = req.jwt;
-
       // TODO: secure this further!
       const {
         NIN,
@@ -141,6 +134,18 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
+  async serveAvatar(req, res) {
+    try {
+      const { NIN } = req.params;
+      return res.status(200).sendFile(`/mnt/data/${NIN}`, {
+        headers: { "Content-Type": "image/jpeg" },
+      });
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 

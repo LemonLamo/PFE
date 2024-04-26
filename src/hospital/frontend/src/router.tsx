@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import Dashboard from "./pages/DashboardMedecin";
 import DashboardAdmin from "./pages/DashboardAdmin";
-import DashboardEntree from "./pages/DashboardEntree";
+import DashboardReception from "./pages/DashboardReception";
 import DashboardLab from "./pages/DashboardLab";
 import DashboardRadio from "./pages/DasshboardRadio";
 import DashboardInfirmier from "./pages/DashboardInfirmier";
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
 
   { path: "/dashboard_admin", element:(<Scaffold> <DashboardAdmin /> </Scaffold>)},
 
-  { path: "/dashboard_entree", element:(<Scaffold> <DashboardEntree /> </Scaffold>)},
+  { path: "/dashboard_entree", element:(<Scaffold> <DashboardReception /> </Scaffold>)},
 
   { path: "/dashboard_lab", element:(<Scaffold> <DashboardLab /> </Scaffold>)},
 

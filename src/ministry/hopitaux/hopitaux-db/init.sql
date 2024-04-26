@@ -24,7 +24,7 @@ CREATE TABLE `hopitaux` (
 --
 
 INSERT INTO `hopitaux` (`nom_hopital`, `ville`, `email`, `telephone`) VALUES
-('CHU Mustapha', 'Alger', 'brahim@chu.beni_messous.dz', '023193700'),
+('CHU Beni Messous', 'Alger', 'brahim@chu.beni_messous.dz', '023193700'),
 ('CHU Mustapha', 'Alger', 'nadil@chu.mustapha.dz', '024183601');
 
 

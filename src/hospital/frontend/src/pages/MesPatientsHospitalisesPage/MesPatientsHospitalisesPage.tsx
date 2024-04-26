@@ -14,6 +14,7 @@ import SortieModal from "./SortieModal";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import DetailsHospitalisation from "../PatientPage/Modals/DetailsHospitalisation";
+import Avatar from "../../components/Avatar";
 
 function MesPatientsHospitalisesPage() {
   const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({
@@ -38,8 +39,8 @@ function MesPatientsHospitalisesPage() {
   const tableDefinition = useMemo(() => [
     { header: "Patient", id: "patient", cell: (info) => {
         const p = info.row.original;
-        return <div className="flex w-68">
-          <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
+        return <div className="flex min-w-72">
+          <Avatar src={`${baseURL}/api/patients/${p.patient?.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
           <div>
             <h6 className="mb-0">{p.patient?.nom} {p.patient?.prenom}</h6>
             <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.patient?.NIN}</p>

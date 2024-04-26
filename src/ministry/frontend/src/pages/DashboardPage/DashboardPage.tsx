@@ -10,6 +10,7 @@ import axios from "axios";
 import { baseURL } from "../../config";
 import moment from "moment";
 import AlertCard from "./AlertCard";
+import Avatar from "../../components/Avatar";
 
 const today = new Date()
 
@@ -52,7 +53,7 @@ function DashboardPage(){
                             <TableError />:
                             <>
                                 <div className="flex flex-col justify-between items-center">
-                                    <img className="w-36 mb-2 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" />
+                                    <Avatar className="w-36 mb-2 rounded-full" src={`${baseURL}/api/patients/${profile.data.NIN}/avatar`} alt="profile_picture"/>
                                     <h2 className="text-xl font-bold mb-0">{profile.data.nom} {profile.data.prenom}</h2>
                                     <p className="text-cyan-500 mb-0">NIN: {profile.data.NIN}</p>
                                 </div>

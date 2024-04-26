@@ -3,6 +3,7 @@ const { fetchPatients, fetchRadios } = require("../utils/communication");
 const { genID } = require("../utils");
 const path = require("path");
 const RabbitConnection = require("../config/amqplib");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -51,7 +52,7 @@ class RadiosController {
       await Promise.all(
         radios.map((r) =>
           Model.insert(
-            genID(),
+            "radio-"+genID(),
             patient,
             reference,
             r.code_radio,

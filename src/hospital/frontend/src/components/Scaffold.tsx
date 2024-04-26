@@ -20,13 +20,13 @@ function Scaffold({ children } : ScaffoldProps) {
 
   return (
     <>
-      <Sidebar setOpen={() => setSidebarOpen(!sidebarOpen)}></Sidebar>
-      <Header setOpen={() => setSidebarOpen(!sidebarOpen)}></Header>
+      <Sidebar setOpen={() => setSidebarOpen(!sidebarOpen)} />
+      <Header setOpen={() => setSidebarOpen(!sidebarOpen)} />
       <main className='min-h-[90.75vh] flex flex-col justify-between'>
         <div className='w-full px-2 sm:px-6 py-6 mx-auto max-w-8xl flex justify-center flex-wrap'>
           { children }
         </div>
-        <Footer></Footer>
+        <Footer />
       </main>
     </>
   )

@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class ConsultationsModel {
   validationRules = {};
@@ -11,7 +12,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching consultations:", error);
+      logger.error("Error fetching consultations:", error);
       throw error;
     }
   }
@@ -24,7 +25,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching consultations:", error);
+      logger.error("Error fetching consultations:", error);
       throw error;
     }
   }
@@ -37,7 +38,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching consultations:", error);
+      logger.error("Error fetching consultations:", error);
       throw error;
     }
   }
@@ -77,7 +78,7 @@ class ConsultationsModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting consultations:", error);
+      logger.error("Error inserting consultations:", error);
       throw error;
     }
   }
@@ -90,7 +91,7 @@ class ConsultationsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting consultations:", error);
+      logger.error("Error counting consultations:", error);
       throw error;
     }
   }
@@ -103,7 +104,7 @@ class ConsultationsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting consultations:", error);
+      logger.error("Error counting consultations:", error);
       throw error;
     }
   }
@@ -123,7 +124,7 @@ class ConsultationsModel {
 
       return results;
     } catch (error) {
-      console.error("Error fetching consultations:", error);
+      logger.error("Error fetching consultations:", error);
       throw error;
     }
   }
@@ -140,7 +141,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching consultations:", error);
+      logger.error("Error fetching consultations:", error);
       throw error;
     }
   }

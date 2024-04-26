@@ -77,6 +77,7 @@ function NouvelleConsultationPage() {
       
       try{
         await axios.post(`${baseURL}/api/consultations`, data);
+        showAlert("success", "Consultation ajouté correctement");
       } catch (error: any) {
         if (error.response)
           if(error.response?.data?.errorCode != "form-validation")

@@ -1,10 +1,11 @@
 import { Menu, Transition } from '@headlessui/react'
-import user from '../../assets/user.svg'
 import NotificationDropdown from './NotificationDropdown';
 import { logout } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import AuthContext from '../../hooks/AuthContext';
+import { baseURL } from '../../config';
+import Avatar from '../Avatar';
 type HeaderProps = {
     setOpen: () => void
 }
@@ -45,7 +46,7 @@ function Header({ setOpen } : HeaderProps) {
                     <li className="relative flex items-center">
                         <Menu>
                             <Menu.Button className="block p-0 transition-all text-2xl ease-nav-brand text-slate-500">
-                                <img src={user} width="32px" />
+                                <Avatar src={`${baseURL}/api/personnel/${auth?.NIN}/avatar`} alt="profile_picture" width="32px" className="rounded-full"/>
                             </Menu.Button>
                             <Transition
                                 className={"z-50"}

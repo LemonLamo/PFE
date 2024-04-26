@@ -17,6 +17,7 @@ export default function DeleteChambreModal({ isOpen, close, selectedChambre} : P
   async function handleSubmit(num : Chambre["num"]){
     try{
       await deleteChambre(num);
+      showAlert("success", "Chambre supprimé correctement");
       close();
     }catch(error : any){
       if (error.response)

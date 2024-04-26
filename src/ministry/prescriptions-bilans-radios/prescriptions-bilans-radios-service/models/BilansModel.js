@@ -7,7 +7,7 @@ class BilansModel {
       const [results] = await db.query("SELECT * FROM `bilans`");
       return results;
     } catch (error) {
-      console.error("Error fetching bilans:", error);
+      logger.error("Error fetching bilans:", error);
       throw error;
     }
   }
@@ -20,7 +20,7 @@ class BilansModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching bilans:", error);
+      logger.error("Error fetching bilans:", error);
       throw error;
     }
   }
@@ -32,7 +32,7 @@ class BilansModel {
         [id, patient, reference, code_bilan, new Date(date), remarques ?? null]
       );
     } catch (error) {
-      console.error("Error inserting bilans:", error);
+      logger.error("Error inserting bilans:", error);
       throw error;
     }
   }
@@ -44,7 +44,7 @@ class BilansModel {
       ]);
       return results[0];
     } catch (error) {
-      console.error("Error fetching bilans:", error);
+      logger.error("Error fetching bilans:", error);
       throw error;
     }
   }
@@ -62,7 +62,7 @@ class BilansModel {
         ]);
       return results;
     } catch (error) {
-      console.error("Error fetching bilans files:", error);
+      logger.error("Error fetching bilans files:", error);
       throw error;
     }
   }
@@ -75,7 +75,7 @@ class BilansModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching bilans files:", error);
+      logger.error("Error fetching bilans files:", error);
       throw error;
     }
   }
@@ -88,7 +88,7 @@ class BilansModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching bilans files:", error);
+      logger.error("Error fetching bilans files:", error);
       throw error;
     }
   }

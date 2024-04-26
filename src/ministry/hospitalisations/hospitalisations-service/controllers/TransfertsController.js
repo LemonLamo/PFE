@@ -1,6 +1,7 @@
 const HospitalisationsModel = require("../models/HospitalisationsModel");
 const { genID } = require("../utils");
 const { fetchPatients, fetchMedecins } = require("../utils/communication");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/

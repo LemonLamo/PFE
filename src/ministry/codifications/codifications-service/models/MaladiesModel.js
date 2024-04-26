@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class MaladiesModel {
   async getAll(search) {
@@ -9,7 +10,7 @@ class MaladiesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching maladies:", error);
+      logger.error("Error fetching maladies:", error);
       throw error;
     }
   }
@@ -22,7 +23,7 @@ class MaladiesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching maladies:", error);
+      logger.error("Error fetching maladies:", error);
       throw error;
     }
   }
@@ -35,7 +36,7 @@ class MaladiesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching maladies:", error);
+      logger.error("Error fetching maladies:", error);
       throw error;
     }
   }
@@ -48,7 +49,7 @@ class MaladiesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching maladies:", error);
+      logger.error("Error fetching maladies:", error);
       throw error;
     }
   }
@@ -61,7 +62,7 @@ class MaladiesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching maladies:", error);
+      logger.error("Error fetching maladies:", error);
       throw error;
     }
   }

@@ -1,9 +1,14 @@
 import axios from "axios";
 import { baseURL } from "../config";
 
-export async function createPersonnel(personnel: Personnel) {
+export async function createPersonnel(personnel: Personnel, avatar: File) {
   try {
-    await axios.post(`${baseURL}/api/personnel`, personnel);
+    const formData = new FormData();
+    Object.keys(personnel).forEach((key) => formData.append(key, personnel[key as keyof Personnel] as string));
+    formData.append('avatar', avatar!);
+  
+    const config = { headers: {'content-type': 'multipart/form-data'} }
+    await axios.post(`${baseURL}/api/personnel`, formData, config);
   } catch (error) {
     console.error(error)
     throw error;

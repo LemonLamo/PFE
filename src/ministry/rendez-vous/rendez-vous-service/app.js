@@ -70,7 +70,7 @@ RabbitConnection.on("rendez-vous_create_bulk", async (rdvs) =>{
     
     const duree = (type === "Consultation")? 15 : 30
 
-    promises.push(RendezVousModel.insert(genID(), patient, jwt.NIN, type, title, details, date, duree));
+    promises.push(RendezVousModel.insert("rdv-"+genID(), patient, jwt.NIN, type, title, details, date, duree));
 
     // notify
     const medecin_profile = (await axios.get(`http://personnel-service/private/personnel/${jwt.NIN}`)).data

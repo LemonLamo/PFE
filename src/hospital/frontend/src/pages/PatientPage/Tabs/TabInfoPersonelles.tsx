@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import TableError from "../../../components/UI/Tables/TableError";
 import TableLoading from "../../../components/UI/Loading";
 import { baseURL } from "../../../config";
+import Avatar from "../../../components/Avatar";
 
 type Props = {
   NIN: string;
@@ -34,10 +35,7 @@ function TabInfoPersonelles({ NIN }: Props) {
         ) : (
           <>
             <div className="">
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                style={{ width: "9.25rem", aspectRatio: 3.5 / 4.5 }}
-              />
+              <Avatar src={`${baseURL}/api/patients/${NIN}/avatar`} alt="profile_picture" style={{ width: "9.25rem", aspectRatio: 3.5 / 4.5 }}/>
             </div>
             <div className="grid grid-cols-12 gap-x-2">
               <div className="col-span-3">

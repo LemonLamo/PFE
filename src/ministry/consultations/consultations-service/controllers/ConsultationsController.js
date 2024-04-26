@@ -4,6 +4,7 @@ const { genID } = require("../utils");
 const { fetchPatients, fetchMedecins } = require("../utils/communication");
 const axios = require("axios");
 const RabbitConnection = require("../config/amqplib");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -64,7 +65,7 @@ class ConsultationsController {
   async insert(req, res) {
     const { NIN: medecin, role, service, hopital } = req.jwt;
     try {
-      const id = genID();
+      const id = "cons-"+genID();
       const {
         patient,
         date,

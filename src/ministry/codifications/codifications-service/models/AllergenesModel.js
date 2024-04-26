@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class AllergenesModel {
   async getAll(search) {
@@ -9,7 +10,7 @@ class AllergenesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching allergenes:", error);
+      logger.error("Error fetching allergenes:", error);
       throw error;
     }
   }
@@ -22,7 +23,7 @@ class AllergenesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching allergenes:", error);
+      logger.error("Error fetching allergenes:", error);
       throw error;
     }
   }
@@ -35,7 +36,7 @@ class AllergenesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching allergenes:", error);
+      logger.error("Error fetching allergenes:", error);
       throw error;
     }
   }

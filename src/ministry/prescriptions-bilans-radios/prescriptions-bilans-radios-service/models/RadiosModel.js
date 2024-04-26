@@ -7,7 +7,7 @@ class RadiosModel {
       const [results] = await db.query("SELECT * FROM `radios`");
       return results;
     } catch (error) {
-      console.error("Error fetching radios:", error);
+      logger.error("Error fetching radios:", error);
       throw error;
     }
   }
@@ -20,7 +20,7 @@ class RadiosModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching radios:", error);
+      logger.error("Error fetching radios:", error);
       throw error;
     }
   }
@@ -32,7 +32,7 @@ class RadiosModel {
         [id, patient, reference, code_radio, new Date(date), remarques ?? null]
       );
     } catch (error) {
-      console.error("Error inserting radios:", error);
+      logger.error("Error inserting radios:", error);
       throw error;
     }
   }
@@ -44,7 +44,7 @@ class RadiosModel {
       ]);
       return results[0];
     } catch (error) {
-      console.error("Error fetching radios:", error);
+      logger.error("Error fetching radios:", error);
       throw error;
     }
   }
@@ -62,7 +62,7 @@ class RadiosModel {
         ]);
       return results;
     } catch (error) {
-      console.error("Error updating radios:", error);
+      logger.error("Error updating radios:", error);
       throw error;
     }
   }
@@ -75,7 +75,7 @@ class RadiosModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching radios files:", error);
+      logger.error("Error fetching radios files:", error);
       throw error;
     }
   }
@@ -88,7 +88,7 @@ class RadiosModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching radios files:", error);
+      logger.error("Error fetching radios files:", error);
       throw error;
     }
   }

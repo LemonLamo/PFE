@@ -43,7 +43,10 @@ function TabPrescription({ reference }: Props) {
             <div className="border-black/12.5 mb-0 rounded-lg border-b-0 border-solid bg-white pb-0">
                 <h2 className="mb-0 text-xl">Préscriptions</h2>
             </div>
-            {action}
+            {
+              query.data && query.data.length > 0 && 
+              action
+            }
       </div>
       <DataTable tableDefinition={tableDefinitionPrescription} query={query} className="mt-2" searchable={false}/>
     </>

@@ -36,7 +36,6 @@ function Calendar({ events }) {
         weekends={true}
         events={transformRendezVous(events)}
         eventContent={renderEventContent}
-        //eventColor="rgb(6 182 212)"
         eventColor="rgba(255 255 255 0)"
         eventClassNames="bg-transparent hover:bg-transparent rounded-sm"
         locale="fr"

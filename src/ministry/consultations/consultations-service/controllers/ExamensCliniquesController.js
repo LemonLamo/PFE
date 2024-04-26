@@ -1,4 +1,5 @@
 const Model = require("../models/ExamensCliniquesModel");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/

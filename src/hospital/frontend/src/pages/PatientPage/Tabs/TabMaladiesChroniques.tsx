@@ -43,8 +43,9 @@ function TabMaladiesChroniques({ NIN }: Props) {
   async function submit(NIN: Patient["NIN"], m: Maladie){
     try {
       await ajouter_maladie_chronique(NIN, m);
-      close();
+      showAlert("success", "Maladie chronique enregistrée correctement");
       maladies_chroniques.refetch();
+      close();
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")

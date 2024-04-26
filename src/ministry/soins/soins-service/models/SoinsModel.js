@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class SoinsModel {
   validationRules = {};
@@ -8,7 +9,7 @@ class SoinsModel {
       const [results] = await db.query("SELECT * FROM `soins`;");
       return results;
     } catch (error) {
-      console.error("Error fetching soins:", error);
+      logger.error("Error fetching soins:", error);
       throw error;
     }
   }
@@ -20,7 +21,7 @@ class SoinsModel {
       ]);
       return results;
     } catch (error) {
-      console.error("Error fetching soins:", error);
+      logger.error("Error fetching soins:", error);
       throw error;
     }
   }
@@ -52,7 +53,7 @@ class SoinsModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting soins:", error);
+      logger.error("Error inserting soins:", error);
       throw error;
     }
   }
@@ -64,7 +65,7 @@ class SoinsModel {
         [remarque ?? null, id]
       );
     } catch (error) {
-      console.error("Error updating soins:", error);
+      logger.error("Error updating soins:", error);
       throw error;
     }
   }

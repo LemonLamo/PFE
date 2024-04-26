@@ -30,10 +30,41 @@ spec:
       containers:
         - image: medicalife/personnel-service:latest
           name: personnel-service
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP
+          volumeMounts:
+            - name: pv-personel
+              mountPath: /mnt/data
       dnsConfig:
         nameservers:
           - 8.8.8.8
       restartPolicy: Always
+      volumes:
+      - name: pv-personel
+        persistentVolumeClaim:
+          claimName: pvc-personel
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-personel
+spec:
+  capacity:
+    storage: 250Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-personel
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 250Mi

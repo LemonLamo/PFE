@@ -18,11 +18,12 @@ const theme = "primary"
 export default function EditChambreModal({ isOpen, close, selectedChambre } : Props) {
     const { showAlert } = useContext(AlertsContext);
 
-    const { register, handleSubmit, reset } = useForm<Chambre>()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<Chambre>()
     const onSubmit: SubmitHandler<Chambre> = async (data) => {
         try{
             await editChambre(data);
             reset();
+            showAlert("success", "Chambre modifié correctement");
             close();
         }catch(error : any){
             if (error.response)
@@ -46,12 +47,12 @@ export default function EditChambreModal({ isOpen, close, selectedChambre } : Pr
         <form className="grid grid-cols-12 gap-2" onSubmit={handleSubmit(onSubmit)}>
             <div className="col-span-4">
                 <label className="text-sm font-semibold">Numéro de chambre<span className="text-red-500">*</span></label>
-                <input type="text" className="primary" placeholder="Num"  {...register('num')} />
+                <input type="text"  placeholder="Num" className={`primary ${errors.num && 'has-error'}`} {...register("num", {required: true})}/>
             </div>
 
             <div className="col-span-4">
                 <label className="text-sm font-semibold">Etage<span className="text-red-500">*</span> </label>
-                <select className="primary" {...register('etage')} >
+                <select className={`primary ${errors.etage && 'has-error'}`} {...register('etage', {required: true})} >
                     <option value={0}>RDC</option>
                     <option value={1}>1er</option>
                     <option value={2}>2éme</option>
@@ -64,7 +65,7 @@ export default function EditChambreModal({ isOpen, close, selectedChambre } : Pr
 
             <div className="col-span-4">
             <label className="text-sm font-semibold">Nombre de lits<span className="text-red-500">*</span> </label>
-            <input type="number" min="0" className="primary" placeholder="Nombre"  {...register('nombre_lits')} />
+            <input type="number" min="0"  placeholder="Nombre" className={`primary ${errors.nombre_lits && 'has-error'}`} {...register("nombre_lits", {required: true})}/>
             </div>
             
             <div className="col-span-12">

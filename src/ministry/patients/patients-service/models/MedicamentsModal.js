@@ -1,3 +1,5 @@
+const logger = require("../utils/logger");
+
 const db = require("../config/database").db;
 
 class MedicamentsModal {
@@ -30,7 +32,7 @@ class MedicamentsModal {
         ]
       );
     } catch (error) {
-      console.error("Error fetching medicaments:", error);
+      logger.error("Error fetching medicaments:", error);
       throw error;
     }
   }
@@ -43,7 +45,7 @@ class MedicamentsModal {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching medicaments:", error);
+      logger.error("Error fetching medicaments:", error);
       throw error;
     }
   }

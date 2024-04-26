@@ -19,6 +19,7 @@ export default function ExecuterSoinModal({isOpen, close, selectedSoin}: Props) 
     async function submit(){
       try {
         await executerSoin(selectedSoin.id, remarque);
+        showAlert("success", "Soin executé correctement");
         close();
       } catch (error: any) {
         if (error.response)

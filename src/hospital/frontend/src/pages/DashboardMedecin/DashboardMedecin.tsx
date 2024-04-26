@@ -13,6 +13,7 @@ import { baseURL } from "../../config";
 import StatisticsCard from "../../components/StatisticsCard";
 import AuthContext from "../../hooks/AuthContext";
 import TableLoading from "../../components/UI/Loading";
+import Avatar from "../../components/Avatar";
 
 const today = new Date();
 function DashboardMedecin(){
@@ -48,16 +49,23 @@ function DashboardMedecin(){
     const patients = useQuery({
         queryKey: ['patients'],
         queryFn: async () => {
-            const data = (await axios.get(`${baseURL}/api/patients`)).data;
-            return data;
+            const reception = (await axios.get(`${baseURL}/api/reception?service=${auth?.service}&medecin=${auth?.NIN}`)).data;
+            const NINs = reception.map((x : any) => x.patient);
+
+            if(NINs.length > 0){
+                const data = (await axios.post(`${baseURL}/api/patients/bulk-select`, {NINs: NINs})).data;
+                return data;
+            }else
+                return [];
         }
     });
     
     const tableDefinition = useMemo(() => [
         { header: "Patient", id: "patient", cell: (info) => {
                 const p = info.row.original;
-                return <div className="flex w-68">
-                    <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
+                console.log(p)
+                return <div className="flex">
+                    <Avatar src={`${baseURL}/api/patients/${p.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
                     <div>
                         <h6 className="mb-0">{p.nom} {p.prenom}</h6>
                         <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.NIN}</p>
@@ -92,7 +100,7 @@ function DashboardMedecin(){
         { header: "Patient", id: "patient", cell: (info) => {
                 const x = info.row.original;
                 return <div className="flex gap-x-2">
-                    <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                    <Avatar src={`${baseURL}/api/patients/${x.patient.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
                     <div className="min-w-0 flex-auto">
                         <p className="text-sm font-semibold leading-6 text-gray-900 mb-0">
                             {x.patient.nom} {x.patient.prenom}

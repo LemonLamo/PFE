@@ -45,6 +45,7 @@ function NouvelleHospitalisationPage() {
     
     try {
       await axios.post(`${baseURL}/api/hospitalisations`, data);
+      showAlert("success", "Hospitalisation ajouté correctement");
     } catch (error: any) {
       if (error.response)
         if(error.response?.data?.errorCode != "form-validation")

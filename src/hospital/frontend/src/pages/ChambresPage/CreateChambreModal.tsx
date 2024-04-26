@@ -25,7 +25,7 @@ function capArray<T>(data: T[], size: number): T[] {
 export default function CreateChambreModal({ isOpen, close }: Props) {
   const { showAlert } = useContext(AlertsContext);
   
-  const { register, handleSubmit, reset, watch } = useForm<Chambre>();
+  const { register, handleSubmit, reset, formState:{errors}, watch } = useForm<Chambre>();
   const [lits, setLits] = useState<Lit[]>([]);
 
   const onSubmit: SubmitHandler<Chambre> = async (data) => {
@@ -33,6 +33,7 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
     try{
       await createChambre(chambre);
       reset();
+      showAlert("success", "Chambre ajouté correctement");
       close();
     }catch(error : any){
       if (error.response)
@@ -58,28 +59,18 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
 
   return (
     <Modal isOpen={isOpen} icon="fa fa-bed" theme={theme} size="sm:max-w-2xl">
-      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
-        {" "}
-        Créer une chambre{" "}
-      </h3>
-      <p className="text-gray-600">
-        {" "}
-        Remplissez ce formulaire pour ajouter une nouvelle chambre{" "}
-      </p>
-      <form
-        className="grid grid-cols-12 gap-2"
-        onSubmit={handleSubmit(onSubmit)}
-        onReset={onReset}
-      >
+      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Créer une chambre</h3>
+      <p className="text-gray-600">Remplissez ce formulaire pour ajouter une nouvelle chambre</p>
+      <form className="grid grid-cols-12 gap-2" onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
         <div className="col-span-4">
           <label className="text-sm font-semibold">
             Numéro de chambre<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
-            className="primary"
             placeholder="Num"
-            {...register("num")}
+            className={`primary ${errors.num && 'has-error'}`}
+            {...register("num", {required: true})}
           />
         </div>
 
@@ -87,7 +78,7 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
           <label className="text-sm font-semibold">
             Etage<span className="text-red-500">*</span>{" "}
           </label>
-          <select className="primary" {...register("etage")}>
+          <select {...register("etage", {required: true})} className={`primary ${errors.etage && 'has-error'}`}>
             <option value={0}>RDC</option>
             <option value={1}>1er</option>
             <option value={2}>2éme</option>
@@ -105,9 +96,9 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
           <input
             type="number"
             min="0"
-            className="primary"
             placeholder="Nombre"
-            {...register("nombre_lits")}
+            className={`primary ${errors.nombre_lits && 'has-error'}`}
+            {...register("nombre_lits", {required: true})}
           />
         </div>
 

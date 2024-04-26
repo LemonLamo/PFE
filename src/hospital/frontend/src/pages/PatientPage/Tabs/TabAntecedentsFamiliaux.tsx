@@ -45,8 +45,9 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
   async function submit(NIN: Patient["NIN"], a: Antecedent, type: 'familial' | 'medical'){
     try {
       await ajouter_antecedent(NIN, a, type);
-      close();
+      showAlert("success", "Antécédent enregistré correctement");
       antecedents_familiaux.refetch();
+      close();
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")

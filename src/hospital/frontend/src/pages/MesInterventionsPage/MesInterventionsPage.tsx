@@ -9,6 +9,7 @@ import axios from "axios";
 import { baseURL } from "../../config";
 import ExecuterIntervention from "./ExecuterIntervention";
 import IconButton from "../../components/UI/Buttons/IconButton";
+import Avatar from "../../components/Avatar";
 
 const createModal = (
   <>
@@ -39,8 +40,8 @@ function MesInterventionsPage() {
       { header: "Patient", id: "patient", cell: (info) => {
           const p = info.row.original;
           return (
-            <div className="flex w-68">
-              <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
+            <div className="flex min-w-72">
+              <Avatar src={`${baseURL}/api/patients/${p.patient!.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
               <div>
                 <h6 className="mb-0">
                   {p.patient!.nom} {p.patient!.prenom}

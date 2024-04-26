@@ -18,6 +18,7 @@ export default function AjouterRemarqueModal({isOpen, close, selectedHospitalisa
     async function submit(){
       try {
         await ajouterRemarque(selectedHospitalisation.id, remarque);
+        showAlert("success", "Remarque ajouté correctement");
         close();
       } catch (error: any) {
         if (error.response)

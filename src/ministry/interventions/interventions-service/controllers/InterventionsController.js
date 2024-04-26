@@ -6,6 +6,7 @@ const {
 } = require("../utils/communication");
 const { genID } = require("../utils");
 const RabbitConnection = require("../config/amqplib");
+const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -79,7 +80,7 @@ class InterventionsController {
     try {
       const { NIN: medecin, role, hopital, service } = req.jwt;
 
-      const id = genID();
+      const id = "interv-"+genID();
       const {
         patient,
         date,

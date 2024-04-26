@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class Hopitaux {
   validationRules = {};
@@ -8,7 +9,7 @@ class Hopitaux {
       const [results] = await db.query("SELECT * FROM `hopitaux`;");
       return results;
     } catch (error) {
-      console.error("Error fetching hopitaux:", error);
+      logger.error("Error fetching hopitaux:", error);
       throw error;
     }
   }
@@ -21,7 +22,7 @@ class Hopitaux {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hopitaux:", error);
+      logger.error("Error fetching hopitaux:", error);
       throw error;
     }
   }
@@ -34,7 +35,7 @@ class Hopitaux {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching services:", error);
+      logger.error("Error fetching services:", error);
       throw error;
     }
   }
@@ -47,7 +48,7 @@ class Hopitaux {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching hopitaux:", error);
+      logger.error("Error fetching hopitaux:", error);
       throw error;
     }
   }
@@ -60,7 +61,7 @@ class Hopitaux {
       );
       return results[0];
     } catch (error) {
-      console.error("Error fetching hopitaux:", error);
+      logger.error("Error fetching hopitaux:", error);
       throw error;
     }
   }

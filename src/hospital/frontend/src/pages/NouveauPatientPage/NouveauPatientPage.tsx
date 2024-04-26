@@ -22,71 +22,42 @@ import AlertsContext from "../../hooks/AlertsContext";
 function NewPatientPage() {
   const { showAlert } = useContext(AlertsContext);
   const [openModal, setOpenModal] = useState("");
-  const [file, setFile] = useState(null);
   const [selected, setSelected] = useState(0);
-
+  
+  const { register, handleSubmit, reset, formState: {errors} } = useForm<Patient>();
+  const [avatar, setAvatar] = useState<File>();
   const [maladies_chroniques, setMaladiesChroniques] = useState<Maladie[]>([]);
   const [allergies, setAllergies] = useState<Allergie[]>([]);
-  const [antecedents_medicaux, setAntecedentsMedicaux] = useState<Antecedent[]>(
-    []
-  );
-  const [antecedents_familiaux, setAntecedentsFamiliaux] = useState<
-    Antecedent[]
-  >([]);
-  const { register, handleSubmit, reset } = useForm<Patient>();
+  const [antecedents_medicaux, setAntecedentsMedicaux] = useState<Antecedent[]>([]);
+  const [antecedents_familiaux, setAntecedentsFamiliaux] = useState<Antecedent[]>([]);
+  
   const onSubmit: SubmitHandler<Patient> = async (patient) => {
-    const data = new FormData();
-    // const data = {
-    //   ...patient,
-    //   maladies_chroniques,
-    //   allergies,
-    //   antecedents_medicaux,
-    //   antecedents_familiaux,
-    //   dataFile,
-    // };
+    const data : Record<string, any> = {
+      ...patient,
+      maladies_chroniques,
+      allergies,
+      antecedents_medicaux,
+      antecedents_familiaux
+    };
 
     try {
-      const optionalFields = ["NIN_mere", "NIN_pere", "donneur_organe"];
-      const err = checkForEmptyFields(patient, optionalFields);
-      if (!err) {
-        data.append("file", file);
-        Object.entries(patient).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(maladies_chroniques).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(allergies).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(antecedents_medicaux).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        Object.entries(antecedents_familiaux).forEach(([key, value]) => {
-          data.append(key, value);
-        });
-        await axios.post(`${baseURL}/api/patients`, data);
-        reset();
-      } else {
-        console.log(err);
-        // setmsgError(err);
-        // seterror(true);
-      }
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => formData.append(key, data[key] as string));
+      formData.append('avatar', avatar!);
+
+      const config = { headers: {'content-type': 'multipart/form-data'} }
+      await axios.post(`${baseURL}/api/patients`, formData, config);
+      reset();
+      showAlert("success", "Patient ajouté correctement");
     } catch (error: any) {
       if (error.response)
         if (error.response?.data?.errorCode != "form-validation")
-          showAlert(
-            "error",
-            error.response.data.errorCode +
-              ": " +
-              error.response.data.errorMessage
-          );
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
         else showAlert("error", error.code + ": " + error.message);
     }
   };
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
+  const handleFileChange = (event : any) => setAvatar(event.target.files[0])
+
   function ajouter_maladie_chronique(maladie_chronique: Maladie) {
     setMaladiesChroniques((maladies_chroniques) => [
       ...maladies_chroniques!,
@@ -135,47 +106,23 @@ function NewPatientPage() {
     setAntecedentsFamiliaux(antecedents_familiaux);
     setOpenModal("");
   }
-  const checkForEmptyFields = (object, array) => {
-    let bool = false;
-    for (const key in object) {
-      let trouve = false;
-      if (object.hasOwnProperty(key) && !object[key]) {
-        //if vide il entre
-        array.forEach((element) => {
-          //parcourir array vide optionalfields
-          if (element === key) {
-            trouve = true;
-          }
-        });
-        if (!trouve) {
-          // il doit remplir ce champ sinon skip
-          bool = true;
-        }
-      }
-    }
-    return bool;
-  };
   return (
-    <Card
-      title="Nouveau patient"
-      subtitle="Création d'un nouveau dossier médical"
-      className="w-full"
-    >
-      <form
-        className="grid grid-cols-12 gap-x-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <Card title="Nouveau patient" subtitle="Création d'un nouveau dossier médical" className="w-full">
+      <form className="grid grid-cols-12 gap-x-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-12 md:col-span-4">
           <h6 className="mb-1"> Informations civiles</h6>
           <div className="grid grid-cols-12 gap-x-2">
+            <div className="col-span-12 mb-1">
+              <label className="text-sm font-semibold">Avatar</label>
+              <input className="primary" type="file" onChange={handleFileChange} accept="image/*" />
+            </div>
             <div className="col-span-12 mb-2">
-              <label className="text-sm font-semibold">
-                NIN<span className="text-red-500">*</span>
+              <label className="text-sm font-semibold"> NIN<span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                className="primary"
-                {...register("NIN")}
+                className={`primary ${errors.NIN && 'has-error'}`}
+                {...register("NIN", {required: true})}
                 placeholder="ex. 111111111111111111"
               />
             </div>
@@ -193,8 +140,8 @@ function NewPatientPage() {
               </label>
               <input
                 type="text"
-                className="primary"
-                {...register("nom")}
+                className={`primary ${errors.nom && 'has-error'}`}
+                {...register("nom", {required: true})}
                 placeholder="ex. Bouguerra"
               />
             </div>
@@ -204,8 +151,8 @@ function NewPatientPage() {
               </label>
               <input
                 type="text"
-                className="primary"
-                {...register("prenom")}
+                className={`primary ${errors.prenom && 'has-error'}`}
+                {...register("prenom", {required: true})}
                 placeholder="ex. Mohammed"
               />
             </div>
@@ -215,8 +162,8 @@ function NewPatientPage() {
               </label>
               <input
                 type="date"
-                className="primary"
-                {...register("date_de_naissance")}
+                className={`primary ${errors.date_de_naissance && 'has-error'}`}
+                {...register("date_de_naissance", {required: true})}
                 placeholder="Date"
               />
             </div>
@@ -226,8 +173,8 @@ function NewPatientPage() {
               </label>
               <input
                 type="text"
-                className="primary"
-                {...register("lieu_de_naissance")}
+                className={`primary ${errors.lieu_de_naissance && 'has-error'}`}
+                {...register("lieu_de_naissance", {required: true})}
                 placeholder="ex. Alger"
               />
             </div>
@@ -235,7 +182,7 @@ function NewPatientPage() {
               <label className="text-sm font-semibold">
                 Sexe<span className="text-red-500">*</span>
               </label>
-              <select {...register("sexe")}>
+              <select {...register("sexe", {required: true})} className={`primary ${errors.sexe && 'has-error'}`}>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -244,7 +191,7 @@ function NewPatientPage() {
               <label className="text-sm font-semibold">
                 Situation Familiale<span className="text-red-500">*</span>
               </label>
-              <select {...register("situation_familiale")}>
+              <select {...register("situation_familiale", {required: true})} className={`primary ${errors.situation_familiale && 'has-error'}`}>
                 <option value="Célébataire">Célébataire</option>
                 <option value="Marrié(e)">Marrié(e)</option>
                 <option value="Divorcé(e)">Divorcé(e)</option>
@@ -260,9 +207,9 @@ function NewPatientPage() {
             </label>
             <input
               type="text"
-              className="primary"
+              className={`primary ${errors.email && 'has-error'}`}
               placeholder="ex. bouguera.med@gmail.com"
-              {...register("email")}
+              {...register("email", {required: true})}
             />
           </div>
           <div className="mb-2">
@@ -271,9 +218,9 @@ function NewPatientPage() {
             </label>
             <input
               type="text"
-              className="primary"
+              className={`primary ${errors.telephone && 'has-error'}`}
               placeholder="+213 549297666"
-              {...register("telephone")}
+              {...register("telephone", {required: true})}
             />
           </div>
         </div>
@@ -287,8 +234,8 @@ function NewPatientPage() {
               </label>
               <input
                 type="text"
-                className="primary"
-                {...register("adresse")}
+                className={`primary ${errors.adresse && 'has-error'}`}
+                {...register("adresse", {required: true})}
                 placeholder="ex. 22 BD Laichi Abdellah"
               />
             </div>
@@ -296,87 +243,83 @@ function NewPatientPage() {
               <label className="text-sm font-semibold">
                 Commune<span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                className="primary"
-                {...register("commune")}
-                placeholder="ex. Bouarfa"
-              />
+              <input type="text"
+                className={`primary ${errors.commune && 'has-error'}`}
+                {...register("commune", {required: true})}
+                placeholder="ex. Bouarfa" />
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">
                 Code postale<span className="text-red-500">*</span>
               </label>
-              <input
-                type="number"
-                className="primary"
-                {...register("code_postale")}
-                placeholder="ex. 09000"
-              />
+              <input type="number"
+                className={`primary ${errors.code_postale && 'has-error'}`}
+                {...register("code_postale", {required: true})}
+                placeholder="ex. 09000"/>
             </div>
             <div className="mb-6">
               <label className="text-sm font-semibold">
                 Wilaya<span className="text-red-500">*</span>
               </label>
-              <select {...register("wilaya")}>
-                <option>01- Adrar</option>
-                <option>02- Chlef</option>
-                <option>03- Laghouat</option>
-                <option>04- Oum El Bouaghi</option>
-                <option>05- Batna</option>
-                <option>06- Béjaïa</option>
-                <option>07- Biskra</option>
-                <option>08- Béchar</option>
-                <option>09- Blida</option>
-                <option>10- Bouira</option>
-                <option>11- Tamanrasset</option>
-                <option>12- Tébessa</option>
-                <option>13- Tlemcen</option>
-                <option>14- Tiaret</option>
-                <option>15- Tizi Ouzou</option>
-                <option>16- Alger</option>
-                <option>17- Djelfa</option>
-                <option>18- Jijel</option>
-                <option>19- Sétif</option>
-                <option>20- Saïda</option>
-                <option>21- Skikda</option>
-                <option>22- Sidi Bel Abbès</option>
-                <option>23- Annaba</option>
-                <option>24- Guelma</option>
-                <option>25- Constantine</option>
-                <option>26- Médéa</option>
-                <option>27- Mostaganem</option>
-                <option>28- M'Sila</option>
-                <option>29- Mascara</option>
-                <option>30- Ouargla</option>
-                <option>31- Oran</option>
-                <option>32- El Bayadh</option>
-                <option>33- Illizi</option>
-                <option>34- Bordj Bou Arréridj</option>
-                <option>35- Boumerdès</option>
-                <option>36- El Tarf</option>
-                <option>37- Tindouf</option>
-                <option>38- Tissemsilt</option>
-                <option>39- El Oued</option>
-                <option>40- Khenchela</option>
-                <option>41- Souk Ahras</option>
-                <option>42- Tipaza</option>
-                <option>43- Mila</option>
-                <option>44- Aïn Defla</option>
-                <option>45- Naâma</option>
-                <option>46- Aïn Témouchent</option>
-                <option>47- Ghardaïa</option>
-                <option>48- Relizane</option>
-                <option>49- Timimoun</option>
-                <option>50- Bordj Badji Mokhtar</option>
-                <option>51- Béni Abbès</option>
-                <option>52- Ouled Djellal</option>
-                <option>53- In Salah</option>
-                <option>54- In Guezzam</option>
-                <option>55- Touggourt</option>
-                <option>56- Djanet</option>
-                <option>57- El M'Ghair</option>
-                <option>58- El Meniaa</option>
+              <select {...register("wilaya", {required: true})} className={`primary ${errors.wilaya && 'has-error'}`}>
+                <option>01 - Adrar</option>
+                <option>02 - Chlef</option>
+                <option>03 - Laghouat</option>
+                <option>04 - Oum El Bouaghi</option>
+                <option>05 - Batna</option>
+                <option>06 - Béjaïa</option>
+                <option>07 - Biskra</option>
+                <option>08 - Béchar</option>
+                <option>09 - Blida</option>
+                <option>10 - Bouira</option>
+                <option>11 - Tamanrasset</option>
+                <option>12 - Tébessa</option>
+                <option>13 - Tlemcen</option>
+                <option>14 - Tiaret</option>
+                <option>15 - Tizi Ouzou</option>
+                <option>16 - Alger</option>
+                <option>17 - Djelfa</option>
+                <option>18 - Jijel</option>
+                <option>19 - Sétif</option>
+                <option>20 - Saïda</option>
+                <option>21 - Skikda</option>
+                <option>22 - Sidi Bel Abbès</option>
+                <option>23 - Annaba</option>
+                <option>24 - Guelma</option>
+                <option>25 - Constantine</option>
+                <option>26 - Médéa</option>
+                <option>27 - Mostaganem</option>
+                <option>28 - M'Sila</option>
+                <option>29 - Mascara</option>
+                <option>30 - Ouargla</option>
+                <option>31 - Oran</option>
+                <option>32 - El Bayadh</option>
+                <option>33 - Illizi</option>
+                <option>34 - Bordj Bou Arréridj</option>
+                <option>35 - Boumerdès</option>
+                <option>36 - El Tarf</option>
+                <option>37 - Tindouf</option>
+                <option>38 - Tissemsilt</option>
+                <option>39 - El Oued</option>
+                <option>40 - Khenchela</option>
+                <option>41 - Souk Ahras</option>
+                <option>42 - Tipaza</option>
+                <option>43 - Mila</option>
+                <option>44 - Aïn Defla</option>
+                <option>45 - Naâma</option>
+                <option>46 - Aïn Témouchent</option>
+                <option>47 - Ghardaïa</option>
+                <option>48 - Relizane</option>
+                <option>49 - Timimoun</option>
+                <option>50 - Bordj Badji Mokhtar</option>
+                <option>51 - Béni Abbès</option>
+                <option>52 - Ouled Djellal</option>
+                <option>53 - In Salah</option>
+                <option>54 - In Guezzam</option>
+                <option>55 - Touggourt</option>
+                <option>56 - Djanet</option>
+                <option>57 - El M'Ghair</option>
+                <option>58 - El Meniaa</option>
               </select>
             </div>
           </div>
@@ -385,7 +328,7 @@ function NewPatientPage() {
             <label className="text-sm font-semibold">
               Groupe Sanguin<span className="text-red-500">*</span>
             </label>
-            <select {...register("groupage")}>
+            <select {...register("groupage", {required: true})} className={`primary ${errors.groupage && 'has-error'}`}>
               <option>A+</option>
               <option>A-</option>
               <option>B+</option>
@@ -403,8 +346,8 @@ function NewPatientPage() {
               </label>
               <div className="flex items-center">
                 <input
-                  className="primary mb-2"
-                  {...register("taille")}
+                  className={`primary mb-2 ${errors.taille && 'has-error'}`}
+                  {...register("taille", {required: true})}
                   placeholder="170"
                   type="number"
                 />
@@ -417,8 +360,8 @@ function NewPatientPage() {
               </label>
               <div className="flex items-center">
                 <input
-                  className="primary mb-2"
-                  {...register("poids")}
+                  className={`primary mb-2 ${errors.poids && 'has-error'}`}
+                  {...register("poids", {required: true})}
                   placeholder="72.8"
                   type="number"
                   step="0.01"
@@ -430,8 +373,8 @@ function NewPatientPage() {
               <input
                 id="chk"
                 type="checkbox"
-                {...register("donneur_organe")}
                 className="checkbox"
+                {...register("donneur_organe")}
               ></input>
               <label htmlFor="chk" className="select-none text-slate-700">
                 Donneur d'organes?
@@ -443,7 +386,7 @@ function NewPatientPage() {
             <label className="text-sm font-semibold">Père</label>
             <input
               type="text"
-              className="primary"
+              className={`primary ${errors.NIN_pere && 'has-error'}`}
               {...register("NIN_pere")}
               placeholder="ex. 111111111111111111"
             />
@@ -452,7 +395,7 @@ function NewPatientPage() {
             <label className="text-sm font-semibold">Mère</label>
             <input
               type="text"
-              className="primary"
+              className={`primary ${errors.NIN_mere && 'has-error'}`}
               {...register("NIN_mere")}
               placeholder="ex. 111111111111111111"
             />
@@ -460,22 +403,13 @@ function NewPatientPage() {
         </div>
 
         <div className="col-span-12 md:col-span-4">
-          <div className="mb-0 flex justify-between mb-4">
-            <input
-              type="file"
-              onChange={handleFileChange}
-              accept="image/*"
-            ></input>
-          </div>
-
           <div className="mb-0 flex justify-between">
             <h6 className="mb-1">Maladies chroniques</h6>
             <Button
               type="button"
               className="h-8"
               onClick={() => setOpenModal("ajouter_maladie_chronique")}
-              theme="primary-alternate"
-            >
+              theme="primary-alternate">
               <i className="fa fa-plus" />
               <span className="ms-2">Ajouter</span>
             </Button>

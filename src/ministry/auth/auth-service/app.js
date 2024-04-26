@@ -49,7 +49,7 @@ RabbitConnection.on("account_create", async (data) =>{
   const { NIN, role, email } = data;
   const two_factor_secret = node2fa.generateSecret().secret;
   await UsersModel.insert(NIN, role, two_factor_secret)
-  await AuthController.send_activation_email(NIN, email);
+  //await AuthController.send_activation_email(NIN, email); //TODO: uncomment this
 })
 
 app.use((req, res) => res.sendStatus(404))

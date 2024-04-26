@@ -16,6 +16,7 @@ export default function DeletePersonnelModal({ isOpen, close, selectedPersonnel}
   async function handleSubmit(NIN : Personnel["NIN"]){
     try{
       await deletePersonnel(NIN);
+      showAlert("success", "Personnel supprimé correctement");
       close();
     }catch(error : any){
       if (error.response)

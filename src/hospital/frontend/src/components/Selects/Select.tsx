@@ -46,8 +46,9 @@ function Select<T>({url, code, designation, onChange, placeholder = '', classNam
 
                 <Transition
                     enter="transition-opacity duration-25" enterFrom="opacity-0" enterTo="opacity-100"
-                    leave="transition-opacity duration-50" leaveFrom="opacity-100" leaveTo="opacity-0">
-                    <Combobox.Options className={`${(options?.length || 0) > 0? 'border ' : ''}cursor-default absolute w-full overflow-y-scroll max-h-[17.5rem] text-gray-700 border-cyan-600 placeholder:text-gray-500 shadow-soft-2xl focus:transition-shadow focus:ring-0 focus:border-sky-600 rounded-sm bg-white`}>
+                    leave="transition-opacity duration-50" leaveFrom="opacity-100" leaveTo="opacity-0"
+                    className="z-[1]">
+                    <Combobox.Options className={`${(options?.length || 0) > 0? 'border ' : ''}cursor-default absolute w-full overflow-y-scroll max-h-[17.5rem] text-gray-700 border-cyan-600 placeholder:text-gray-500 shadow-soft-2xl focus:transition-shadow focus:ring-0 focus:border-sky-600 rounded-sm bg-white z-[1]`}>
                         {
                             isLoading ? <div className='py-2'><TableLoading /></div> :
                             filteredOptions.map((o, i) => (

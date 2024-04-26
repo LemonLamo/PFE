@@ -40,6 +40,7 @@ function NouvelleInterventionPage() {
     try {
       const data = { ...interventionData, patient: interventionData.patient?.NIN! };
       await axios.post(`${baseURL}/api/interventions`, data);
+      showAlert("success", "Intervention ajouté correctement");
     } catch (error: any) {
       if (error.response)
         if(error.response?.data?.errorCode != "form-validation")

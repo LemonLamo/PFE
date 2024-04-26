@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class ExamensCliniquesModel {
   validationRules = {};
@@ -7,7 +8,7 @@ class ExamensCliniquesModel {
       const [results] = await db.query("SELECT * FROM `examens_cliniques`");
       return results;
     } catch (error) {
-      console.error("Error fetching examens cliniques:", error);
+      logger.error("Error fetching examens cliniques:", error);
       throw error;
     }
   }
@@ -20,7 +21,7 @@ class ExamensCliniquesModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching examens cliniques:", error);
+      logger.error("Error fetching examens cliniques:", error);
       throw error;
     }
   }
@@ -46,7 +47,7 @@ class ExamensCliniquesModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting examens cliniques:", error);
+      logger.error("Error inserting examens cliniques:", error);
       throw error;
     }
   }

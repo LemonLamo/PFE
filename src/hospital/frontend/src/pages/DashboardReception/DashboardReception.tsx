@@ -11,7 +11,7 @@ import AlertsContext from "../../hooks/AlertsContext";
 function DashboardEntree(){
     const { showAlert } = useContext(AlertsContext);
 
-    const create_patient = (<Link className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" to="/nouveau_patient">
+    const create_patient = (<Link className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" to="/patients/new">
       <i className="fa fa-plus" />
       <span className="ms-2">Nouveau</span>
     </Link>)
@@ -28,9 +28,12 @@ function DashboardEntree(){
             setData((x : any) => ({...x, medecin: {NIN: medecin.NIN, nom: medecin.nom, prenom:medecin.prenom}}))
     }
 
-    function affecter_malade(){
+    async function affecter_malade(){
         try{
+            data.patient = data.patient.NIN;
+            data.medecin = data.medecin.NIN;
             console.log(data)
+            await axios.post(`${baseURL}/api/reception`, data);
         } catch (error: any) {
             if (error.response)
                 if(error.response?.data?.errorCode != "form-validation")

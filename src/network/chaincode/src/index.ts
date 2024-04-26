@@ -2,8 +2,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {LogEntryContract} from './logEntryContract';
+import {HashEntryContract} from './hashEntryContract';
 
-export {LogEntryContract} from './logEntryContract';
+export {HashEntryContract} from './hashEntryContract';
 
-export const contracts: any[] = [LogEntryContract];
+export const contracts: any[] = [HashEntryContract];

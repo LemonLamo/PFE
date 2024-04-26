@@ -26,11 +26,15 @@ function BilanResultPage() {
                 bilans.isLoading?
                 <TableLoading />:
                 bilans.data.map((_ : any, i : number)=>{
-                    return <TabContent icon='fa fa-x-ray' text={`Pièce jointe N°${i+1}`} key={i} className="!p-0 !mb-0">
-                                <iframe className='w-full h-[100vh]' src={`${baseURL}/api/bilans/${id}/results/${i+1}`}>
+                return <TabContent icon='fa fa-x-ray' text={`Pièce jointe N°${i+1}`} key={i} className="!p-0 !mb-0">
+                            <iframe className='w-full h-[100vh]' src={`${baseURL}/api/bilans/${id}/results/${i+1}`}>
 
-                                </iframe>
-                            </TabContent>
+                            </iframe>
+                            <div className='bg-gray-50/100 absolute bottom-0 left-[19vw] right-0 p-4'>
+                                <div className="w-1/4 font-bold">Observations:</div>
+                                <textarea className="primary" rows={3} placeholder="Observations" value={"Sdqsd"} disabled/>
+                            </div>
+                        </TabContent>
                 })
             }
         </Tabs>

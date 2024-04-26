@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class ConsultationsModel {
   validationRules = {};
@@ -7,7 +8,7 @@ class ConsultationsModel {
       const [results] = await db.query("SELECT * FROM `interventions`");
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -20,7 +21,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -33,7 +34,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -46,7 +47,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -59,7 +60,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -91,7 +92,7 @@ class ConsultationsModel {
         ]
       );
     } catch (error) {
-      console.error("Error inserting interventions:", error);
+      logger.error("Error inserting interventions:", error);
       throw error;
     }
   }
@@ -103,7 +104,7 @@ class ConsultationsModel {
         [protocole_operatoire, id]
       );
     } catch (error) {
-      console.error("Error updating interventions:", error);
+      logger.error("Error updating interventions:", error);
       throw error;
     }
   }
@@ -116,7 +117,7 @@ class ConsultationsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting interventions:", error);
+      logger.error("Error counting interventions:", error);
       throw error;
     }
   }
@@ -129,7 +130,7 @@ class ConsultationsModel {
       );
       return results[0];
     } catch (error) {
-      console.error("Error counting interventions:", error);
+      logger.error("Error counting interventions:", error);
       throw error;
     }
   }
@@ -148,7 +149,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -166,7 +167,7 @@ class ConsultationsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }

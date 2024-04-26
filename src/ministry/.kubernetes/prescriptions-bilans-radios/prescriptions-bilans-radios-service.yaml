@@ -30,25 +30,26 @@ spec:
       containers:
         - image: medicalife/prescriptions-bilans-radios-service:latest
           name: prescriptions-bilans-radios-service
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP
           volumeMounts:
-            - name: storage
+            - name: pv-prescriptions
               mountPath: /mnt/data
       dnsConfig:
         nameservers:
           - 8.8.8.8
       restartPolicy: Always
       volumes:
-      - name: storage
+      - name: pv-prescriptions
         persistentVolumeClaim:
-          claimName: pv-claim
+          claimName: pvc-prescriptions
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-volume
+  name: pv-prescriptions
 spec:
   capacity:
     storage: 250Mi
@@ -60,7 +61,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pv-claim
+  name: pvc-prescriptions
 spec:
   accessModes:
     - ReadWriteOnce

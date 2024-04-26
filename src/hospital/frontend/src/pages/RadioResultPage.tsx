@@ -28,6 +28,10 @@ function RadioResultPage() {
                 radios.data.map((_ : any, i : number)=>{
                     return <TabContent icon='fa fa-x-ray' text={`Pièce jointe N°${i+1}`} key={i} className="!p-0">
                                 <img className='w-full aspect-[16/9]' src={`${baseURL}/api/radios/${id}/results/${i+1}`} />
+                                <div className='bg-gray-50/100 absolute bottom-0 left-[19vw] right-0 p-4'>
+                                    <div className="w-1/4 font-bold">Observations:</div>
+                                    <textarea className="primary" rows={3} placeholder="Observations" value={"Sdqsd"} disabled/>
+                                </div>
                             </TabContent>
                 })
             }

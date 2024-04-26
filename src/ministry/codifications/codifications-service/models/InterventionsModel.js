@@ -1,4 +1,5 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class InterventionsModel {
   async getAll(search) {
@@ -9,7 +10,7 @@ class InterventionsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -22,7 +23,7 @@ class InterventionsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }
@@ -35,7 +36,7 @@ class InterventionsModel {
       );
       return results;
     } catch (error) {
-      console.error("Error fetching interventions:", error);
+      logger.error("Error fetching interventions:", error);
       throw error;
     }
   }

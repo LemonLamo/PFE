@@ -9,6 +9,7 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   supportBigNumbers: true,
 });
+
 exports.connect = async () => {
   try {
     await pool.getConnection();
@@ -18,4 +19,5 @@ exports.connect = async () => {
     setTimeout(() => this.connect(), 5000);
   }
 };
+
 exports.db = pool;

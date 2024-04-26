@@ -18,19 +18,21 @@ export default function ViewPersonnelModal({ isOpen, close, selectedPersonnel} :
             <label className="text-sm font-semibold">NIN<span className="text-red-500">*</span> </label>
             <input type="text" className="primary" placeholder="NIN" disabled value={selectedPersonnel.NIN} />
           </div>
-          <div className="mb-2">
-            <label className="text-sm font-semibold">Nom<span className="text-red-500">*</span> </label>
-            <input type="text" className="primary" placeholder="Nom" disabled value={selectedPersonnel.nom} />
-          </div>
-          <div className="mb-2">
-            <label className="text-sm font-semibold">Prénom<span className="text-red-500">*</span> </label>
-            <input type="text" className="primary" placeholder="Prénom" disabled value={selectedPersonnel.prenom} />
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            <div>
+              <label className="text-sm font-semibold">Nom<span className="text-red-500">*</span> </label>
+              <input type="text" className="primary" placeholder="Nom" disabled value={selectedPersonnel.nom} />
+            </div>
+            <div>
+              <label className="text-sm font-semibold">Prénom<span className="text-red-500">*</span> </label>
+              <input type="text" className="primary" placeholder="Prénom" disabled value={selectedPersonnel.prenom} />
+            </div>
           </div>
           <div className="mb-2">
             <label className="text-sm font-semibold">Sexe<span className="text-red-500">*</span> </label>
             <input type="text" className="primary" placeholder="Sexe" disabled value={selectedPersonnel.sexe} />
           </div>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 mb-2">
             <div>
               <label className="text-sm font-semibold">Date de naissance<span className="text-red-500">*</span> </label>
               <input type="date" className="primary" placeholder="Date de naissance" disabled value={moment(selectedPersonnel.date_de_naissance).format( "YYYY-MM-DD")} />

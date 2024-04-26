@@ -28,6 +28,7 @@ export default function SortieModal({isOpen, close, selectedHospitalisation,}: P
     async function submit(){
       try {
         await ajouterSortie(selectedHospitalisation.id, sortie);
+        showAlert("success", "Sortie enregistrée correctement");
         close();
       } catch (error: any) {
         if (error.response)

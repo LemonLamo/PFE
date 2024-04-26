@@ -34,6 +34,19 @@ class PersonnelController {
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
+
+  async serveAvatar(req, res) {
+    try {
+      const { NIN } = req.params;
+      return res.status(200).sendFile(`/mnt/data/${NIN}`, {
+        headers: { "Content-Type": "image/jpeg" },
+      });
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
   async insert(req, res) {
     const { role, hopital } = req.jwt
 

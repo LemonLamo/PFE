@@ -22,11 +22,10 @@ export default function DetailsMedicamentModal({isOpen, close, selectedMedicamen
     const query2 = useQuery<Transaction[]>({
         queryKey: ["transactions", selectedMedicament.code_medicament],
         queryFn: async () => {
-        let data = (
-            await axios.get(`${baseURL}/api/medicaments/${selectedMedicament.code_medicament}/transactions`)
-        ).data;
-        return data;
+            let data = (await axios.get(`${baseURL}/api/medicaments/${selectedMedicament.code_medicament}/transactions`)).data;
+            return data;
         },
+        enabled: !!selectedMedicament.code_medicament,
     });
     
     return (

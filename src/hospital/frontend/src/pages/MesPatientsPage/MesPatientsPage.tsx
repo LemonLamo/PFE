@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useContext, useMemo, useState } from "react";
 import moment from "moment";
 import Card from "../../components/UI/Card";
 import { Link } from "react-router-dom";
@@ -10,6 +10,8 @@ import { baseURL } from "../../config";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import AjouterRendezVous from "./AjouterRendezVous";
+import Avatar from "../../components/Avatar";
+import AuthContext from "../../hooks/AuthContext";
 
 const createModal = (
   <>
@@ -21,6 +23,7 @@ const createModal = (
 );
 
 function MesPatientsPage() {
+  const auth = useContext(AuthContext);
   const [selectedPatient, setSelectedPatient] = useState<Partial<Patient>>({
     NIN: "",
     nom: "",
@@ -30,8 +33,14 @@ function MesPatientsPage() {
   const query = useQuery({
     queryKey: ["patients"],
     queryFn: async () => {
-      const data = (await axios.get(`${baseURL}/api/patients`)).data;
-      return data;
+      const reception = (await axios.get(`${baseURL}/api/reception?service=${auth?.service}&medecin=${auth?.NIN}`)).data;
+      const NINs = reception.map((x : any) => x.patient);
+
+      if(NINs.length > 0){
+        const data = (await axios.post(`${baseURL}/api/patients/bulk-select`, {NINs: NINs})).data;
+        return data;
+      }else
+        return [];
     },
   });
 
@@ -40,8 +49,8 @@ function MesPatientsPage() {
       { header: "Patient", id: "patient", cell: (info) => {
           const p = info.row.original;
           return (
-            <div className="flex w-68">
-              <img className="rounded-full w-12 me-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"></img>
+            <div className="flex min-w-72">
+              <Avatar src={`${baseURL}/api/patients/${p.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
               <div>
                 <h6 className="mb-0">
                   {p.nom} {p.prenom}
@@ -101,7 +110,7 @@ function MesPatientsPage() {
   ) as ColumnDef<Partial<Patient>>[];
 
   return (
-    <Card title="Liste des patients" subtitle="Une liste de tous les patients du service" className="w-full" action={createModal}>
+    <Card title="Liste des patients en attente" subtitle="Une liste des patients présents pour la consultation d'aujourd'hui" className="w-full" action={createModal}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
       <AjouterRendezVous isOpen={openModal==="rendez-vous"} close={()=>setOpenModal("")} selectedPatient={selectedPatient} />
     </Card>

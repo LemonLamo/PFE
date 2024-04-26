@@ -47,8 +47,9 @@ function TabVaccinations({ NIN }: Props) {
   async function submit(NIN: Patient["NIN"], v: Vaccination){
     try {
       await ajouter_vaccination(NIN, v);
-      close();
+      showAlert("success", "Vaccination enregistrée correctement");
       vaccinations.refetch();
+      close();
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")
