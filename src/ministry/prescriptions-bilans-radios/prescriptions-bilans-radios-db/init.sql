@@ -14,16 +14,16 @@ CREATE TABLE `prescriptions` (
   `patient` VARCHAR(20) NOT NULL,
   `reference` VARCHAR(255) NOT NULL,
   `code_medicament` VARCHAR(255) NOT NULL,
-  `posologie` INT(20) NOT NULL,
-  `frequence` float(20) NOT NULL,
-  `duree` INT(20) NOT NULL,
-  `remarques` VARCHAR(255) NOT NULL,
+  `posologie` VARCHAR(255) NOT NULL,
+  `frequence` VARCHAR(255) NOT NULL,
+  `duree` VARCHAR(255) NOT NULL,
+  `remarques` TEXT,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `prescriptions` (`id`, `patient`, `reference`, `code_medicament`, `posologie`, `frequence`, `duree`, `remarques`) VALUES
-('ordd-25831', '100010364027390000', 'cons-XNDHDBZ', '01 A 003', 23 , 2, 7, 'Idk');
+('ordd-25831', '100010364027390000', 'cons-XNDHDBZ', '01 A 003', "23", "2", "7", 'Idk');
 
 -- --------------------------------------------------------
 --

@@ -9,22 +9,21 @@ import DeleteExamenClinique from "../Modals/DeleteExamenClinique";
 
 let index=0;
 type TabProps = {
-  consultationData: Partial<Consultation>,
-  setConsultationData: React.Dispatch<React.SetStateAction<Partial<Consultation>>>,
+  examens_cliniques: ExamenClinique[],
+  setExamensCliniques: React.Dispatch<React.SetStateAction<ExamenClinique[]>>,
 }
 
-function TabExamenClinique({ consultationData, setConsultationData }: TabProps) {
+function TabExamenClinique({ examens_cliniques, setExamensCliniques }: TabProps) {
   const [openModal, setOpenModal] = useState('');
 
-  function add_examen_clinique(examen_clinique : ExamenClinique) {
-    let examens_cliniques = [...consultationData.examens_cliniques!, examen_clinique]
-    setConsultationData({ ...consultationData, examens_cliniques })
+  async function add_examen_clinique(examen_clinique : ExamenClinique) {
+    setExamensCliniques([...examens_cliniques, examen_clinique])
     setOpenModal("")
   }
 
   function delete_examen_clinique(index: number) {
-    consultationData.examens_cliniques!.splice(index, 1)
-    setConsultationData({ ...consultationData, examens_cliniques: consultationData.examens_cliniques })
+    examens_cliniques.splice(index, 1)
+    setExamensCliniques(examens_cliniques)
     setOpenModal("")
   }
 
@@ -42,7 +41,7 @@ function TabExamenClinique({ consultationData, setConsultationData }: TabProps) 
         </div>
         <div className="col-span-6">
           <Table fields={['#', 'Examen clinique', 'Résultat', 'Remarques', '']}>
-            {consultationData.examens_cliniques!.map((e, i) => (
+            {examens_cliniques.map((e : ExamenClinique, i : number) => (
               <TableRow key={i}>
                 <TableCell> {e.code_examen_clinique} </TableCell>
                 <TableCell> {e.designation} </TableCell>

@@ -7,6 +7,6 @@ export async function createRendezVous(NIN: Patient["NIN"], rdv : Partial<Rendez
     try {
         await axios.post(`${baseURL}/api/rendez-vous`, data);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }

@@ -1,0 +1,60 @@
+{
+	"name": "medicalife",
+	"version": "1.0.0",
+	"client": {
+		"tlsEnable": true,
+		"adminCredential": {
+			"id": "exploreradmin",
+			"password": "exploreradminpw"
+		},
+		"enableAuthentication": true,
+		"organization": "Hopital1MSP",
+		"connection": {
+			"timeout": {
+				"peer": {
+					"endorser": "300"
+				},
+				"orderer": "300"
+			}
+		}
+	},
+	"channels": {
+		"mychannel": {
+			"peers": {
+				"peer0.hopital1.medicalife.com": {}
+			},
+			"connection": {
+				"timeout": {
+					"peer": {
+						"endorser": "6000",
+						"eventHub": "6000",
+						"eventReg": "6000"
+					}
+				}
+			}
+		}
+	},
+	"organizations": {
+		"Hopital1MSP": {
+			"mspid": "Hopital1MSP",
+			"adminPrivateKey": {
+				"path": "/tmp/crypto/peerOrganizations/hopital1.medicalife.com/users/Admin@hopital1.medicalife.com/msp/keystore/priv_sk"
+			},
+			"peers": ["peer0.hopital1.medicalife.com"],
+			"signedCert": {
+				"path": "/tmp/crypto/peerOrganizations/hopital1.medicalife.com/users/Admin@hopital1.medicalife.com/msp/signcerts/Admin@hopital1.medicalife.com-cert.pem"
+			}
+		}
+	},
+	"peers": {
+		"peer0.hopital1.medicalife.com": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/hopital1.medicalife.com/peers/peer0.hopital1.medicalife.com/tls/ca.crt"
+			},
+			"url": "grpcs://peer0.hopital1.medicalife.com:7051",
+			"grpcOptions": {
+				"ssl-target-name-override": "peer0.hopital1.medicalife.com"
+			}
+		}
+	}
+}

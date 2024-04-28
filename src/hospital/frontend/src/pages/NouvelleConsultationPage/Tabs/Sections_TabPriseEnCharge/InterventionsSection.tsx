@@ -6,28 +6,27 @@ import moment from "moment";
 import Button from "../../../../components/UI/Buttons/Button";
 import DeleteButton from "../../../../components/UI/Buttons/DeleteButton";
 import DeleteIntervention from "../../Modals/DeleteIntervention";
-import AjouterIntervention from "../../../PatientPage/Modals/AjouterIntervention";
+import AjouterIntervention from "../../Modals/AjouterIntervention";
 
 type SectionProps = {
     state: Record<string, boolean>,
     updateState: (id: string, value: boolean) => void
-    consultationData: Partial<Consultation>,
-    updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
+    interventions: Partial<Intervention>[],
+    setInterventions: React.Dispatch<React.SetStateAction<Partial<Intervention>[]>>,
 }
 
 let index = 0;
-function InterventionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+function InterventionsSection({ state, updateState, interventions, setInterventions }: SectionProps) {
     const [openModal, setOpenModal] = useState('')
     
-    function add_interventions(intervention: Partial<Intervention>) {
-        let interventions = [...consultationData.interventions!, intervention]
-        updateConsultationData('interventions', interventions)
+    async function add_interventions(intervention: Partial<Intervention>) {
+        setInterventions([...interventions, intervention])
         setOpenModal("")
     }
 
     function delete_intervention(index: number) {
-        consultationData.interventions!.splice(index, 1)
-        updateConsultationData('interventions', consultationData.interventions!)
+        interventions.splice(index, 1)
+        setInterventions(interventions)
         setOpenModal("")
     }
 
@@ -48,7 +47,7 @@ function InterventionsSection({ state, updateState, consultationData, updateCons
             <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
                 {state.interventions_active &&
                     <Table fields={['#', 'Intervention', 'Date', 'Remarques']}>
-                        {consultationData.interventions!.map((a, i) => (
+                        {interventions.map((a, i) => (
                             <TableRow key={i}>
                                 <TableCell> {a.code_intervention} </TableCell>
                                 <TableCell> {a.designation} </TableCell>

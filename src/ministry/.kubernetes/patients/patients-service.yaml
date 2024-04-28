@@ -35,21 +35,21 @@ spec:
             - containerPort: 80
               protocol: TCP
           volumeMounts:
-            - name: pv-patients
+            - name: pv-profile
               mountPath: /mnt/data
       dnsConfig:
         nameservers:
           - 8.8.8.8
       restartPolicy: Always
       volumes:
-      - name: pv-patients
+      - name: pv-profile
         persistentVolumeClaim:
-          claimName: pvc-prescriptions
+          claimName: pvc-profile
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-patients
+  name: pv-profile
 spec:
   capacity:
     storage: 250Mi
@@ -61,7 +61,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-patients
+  name: pvc-profile
 spec:
   accessModes:
     - ReadWriteOnce

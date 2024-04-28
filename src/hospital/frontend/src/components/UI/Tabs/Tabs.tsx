@@ -2,10 +2,11 @@ import { ReactNode, useState } from "react"
 
 type TabsProps = {
     type?: string,
-    children: ReactNode
+    children: ReactNode,
+    keepVisible?: boolean,
 }
 
-function Tabs({type="vertical", children} : TabsProps) {
+function Tabs({type="vertical", children, keepVisible=false} : TabsProps) {
     const [selected, setSelected] = useState(0);
     
     const activeStyle = 'text-cyan-500 hover:text-cyan-600 border-cyan-500 hover:border-cyan-600'
@@ -17,7 +18,7 @@ function Tabs({type="vertical", children} : TabsProps) {
                     Array.isArray(children) &&
                     children.map((tab, i)=>{
                         return <li key={`tab${i}`}>
-                            <button className={`${selected == i ? activeStyle : inactiveStyle} pb-4 h-12 flex justify-start items-center text-left w-full ps-2 pe-6 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
+                            <button type="button" className={`${selected == i ? activeStyle : inactiveStyle} pb-4 h-12 flex justify-start items-center text-left w-full ps-2 pe-6 py-3 border-b-2 text-sm`} onClick={() => setSelected(i)}>
                                 {tab.props.icon && <i className={`${tab.props.icon} text-[1rem] w-5 sm:me-2`} />}
                                 {
                                     type=="horizontal"?
@@ -30,8 +31,12 @@ function Tabs({type="vertical", children} : TabsProps) {
                 }
             </ul>
             {
-                Array.isArray(children) &&
-                children[selected]
+                Array.isArray(children) && 
+                (
+                    keepVisible?
+                    children.map((x, i) => <div key={i} className={`${i==selected? "" : "hidden"} w-full col-span-4`}>{x}</div>) :
+                    children
+                )
             }
         </div>
 

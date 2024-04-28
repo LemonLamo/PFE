@@ -8,6 +8,7 @@ rm -rf basic.tar.gz
 
 printSeparator "Building chaincode"
 cd chaincode
+npm install
 npm run build
 cd ..
 

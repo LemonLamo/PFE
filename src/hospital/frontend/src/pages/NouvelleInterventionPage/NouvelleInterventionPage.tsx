@@ -1,5 +1,5 @@
 import Card from "../../components/UI/Card";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PatientsSelect from "../../components/Selects/PatientsSelect";
 import Tabs from "../../components/UI/Tabs/Tabs";
 import TabContent from "../../components/UI/Tabs/TabContent";
@@ -9,45 +9,55 @@ import TabIntervention from "./TabIntervention";
 import axios from "axios";
 import { baseURL } from "../../config";
 import AlertsContext from "../../hooks/AlertsContext";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function NouvelleInterventionPage() {
   const { showAlert } = useContext(AlertsContext);
+  const navigate = useNavigate();
+  const [ NIN ] = useState(useLocation().state);
+  useEffect(()=>{
+    if(!NIN)
+      return;
+
+    setPatient({NIN: NIN, nom:"", prenom:""})
+    setValidPatient(true);
+    setValue('patient', NIN)
+  }, [NIN])
 
   const [validPatient, setValidPatient] = useState(false);
-  const [interventionData, setInterventionData] = useState<Partial<Intervention>>({
-    patient: { NIN: "", nom: "", prenom: "" },
-    date: new Date(),
-    code_intervention: "",
-    designation: "",
-    remarques: "",
-    protocole_operatoire: ""
-  });
+  const [patient, setPatient] = useState({NIN:"", nom:"", prenom:""});
+
+  const { register, handleSubmit, getValues, setValue, reset, formState:{errors} } = useForm<Partial<Intervention>>();
+  register('patient', {required: true});
+  register('code_intervention', {required: true})
+  const onSubmit: SubmitHandler<Partial<Hospitalisation>> = async (data : Partial<Intervention>) => {
+    try{
+        await axios.post(`${baseURL}/api/interventions`, data);
+        showAlert("success", "Intervention ajouté correctement");
+        if(!getValues('protocole_operatoire'))
+          navigate(`/interventions`)
+        else
+          navigate(`/interventions/new`)
+    } catch (error: any) {
+        if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+            showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+            showAlert("error", error.code + ": " + error.message);
+    }
+  }
 
   function select_patient(patient: any) {
-    if (patient)
-      setInterventionData((data) => ({
-        ...data,
-        patient: { NIN: patient.NIN, nom: patient.nom, prenom: patient.prenom },
-      }));
+    if (patient){
+      setPatient({NIN: patient.NIN!, nom: patient.nom!, prenom:patient.prenom!})
+      setValue('patient', patient.NIN);
+    }
   }
 
   function choosePatient() {
-    if (interventionData.patient!.NIN !== "") setValidPatient(true);
+    if (patient.NIN !== "") setValidPatient(true);
     else setValidPatient(false);
-  }
-
-  async function submit() {
-    try {
-      const data = { ...interventionData, patient: interventionData.patient?.NIN! };
-      await axios.post(`${baseURL}/api/interventions`, data);
-      showAlert("success", "Intervention ajouté correctement");
-    } catch (error: any) {
-      if (error.response)
-        if(error.response?.data?.errorCode != "form-validation")
-          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
-      else
-        showAlert("error", error.code + ": " + error.message);
-    }
   }
 
   return (
@@ -59,9 +69,9 @@ function NouvelleInterventionPage() {
               placeholder="Rechercher un patient"
               onChange={select_patient}
               state={{
-                NIN: interventionData.patient!.NIN!,
-                nom: interventionData.patient!.nom!,
-                prenom: interventionData.patient!.prenom!,
+                NIN: patient.NIN!,
+                nom: patient.nom!,
+                prenom: patient.prenom!,
               }}
             />
             <button className="primary ms-3" onClick={choosePatient}>
@@ -73,23 +83,25 @@ function NouvelleInterventionPage() {
 
       {validPatient && (
         <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
-          <Tabs>
-            <TabContent icon="fa fa-user" text="Informations Personnelles">
-              <TabInfoPersonelles NIN={interventionData.patient!.NIN!} />
-            </TabContent>
+          <form onSubmit={handleSubmit(onSubmit)} onReset={() => reset()}>
+            <Tabs keepVisible={true}>
+              <TabContent icon="fa fa-user" text="Informations Personnelles">
+                <TabInfoPersonelles NIN={patient.NIN!} />
+              </TabContent>
 
-            <TabContent icon="fa fa-timeline" text="Historique Médicale">
-              <TabHistorique NIN={interventionData.patient!.NIN!} />
-            </TabContent>
+              <TabContent icon="fa fa-timeline" text="Historique Médicale">
+                <TabHistorique NIN={patient.NIN!} />
+              </TabContent>
 
-            <TabContent icon="fa fa-bed-pulse" text="Intervention">
-              <TabIntervention interventionData={interventionData} setInterventionData={setInterventionData}/>
-            </TabContent>
-          </Tabs>
+              <TabContent icon="fa fa-bed-pulse" text="Intervention">
+                <TabIntervention form={{register, getValues, setValue, errors}}/>
+              </TabContent>
+            </Tabs>
 
-          <div className="w-full flex justify-end">
-            <button className="flex items-center justify-center py-2 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" onClick={submit}> Submit </button>
-          </div>
+            <div className="w-full flex justify-end">
+              <button className="flex items-center justify-center py-2 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"> Submit </button>
+            </div>
+          </form>
         </Card>
       )}
     </>

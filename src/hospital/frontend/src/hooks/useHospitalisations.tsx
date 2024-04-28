@@ -5,7 +5,7 @@ export async function ajouterRemarque(hospitalisation: Hospitalisation["id"], re
   try {
     await axios.post(`${baseURL}/api/hospitalisations/${hospitalisation}/remarques`, {remarque: remarque});
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }
@@ -14,7 +14,7 @@ export async function ajouterSortie(hospitalisation: Hospitalisation["id"], sort
   try {
     await axios.post(`${baseURL}/api/hospitalisations/${hospitalisation}/sortie`, sortie);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }

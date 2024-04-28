@@ -1,7 +1,7 @@
 const Model = require("../models/ConsultationsModel");
 const ExamensCliniquesModel = require("../models/ExamensCliniquesModel");
 const { genID } = require("../utils");
-const { fetchPatients, fetchMedecins } = require("../utils/communication");
+const { fetchPatients, fetchMedecins, fetchExamensCliniques } = require("../utils/communication");
 const axios = require("axios");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
@@ -16,7 +16,12 @@ class ConsultationsController {
       // If patient, reply with history for that patient.
       if (role == undefined) {
         const data = await Model.selectByPatient(NIN);
-        return res.status(200).json(data);
+        const examens_cliniques = await fetchExamensCliniques(data);
+        const result = data.map((x) => ({
+          ...x,
+          designation: examens_cliniques.get(x.code_examen_clinique).designation,
+        }));
+        return res.status(200).json(result);
       }
 
       // Else, to be secured later
@@ -25,15 +30,19 @@ class ConsultationsController {
         const data = patient
           ? await Model.selectByPatient(patient)
           : await Model.selectByMedecin(patient);
-        const [patients, medecins] = await Promise.all([
+
+        const [patients, medecins, examens_cliniques] = await Promise.all([
           fetchPatients(data),
           fetchMedecins(data),
+          fetchExamensCliniques(data)
         ]);
         const result = data.map((x) => ({
           ...x,
           patient: patients.get(x.patient),
           medecin: medecins.get(x.medecin),
+          designation: examens_cliniques.get(x.code_examen_clinique).designation,
         }));
+        
         return res.status(200).json(result);
       }
       // return res.status(400).json();

@@ -52,7 +52,7 @@ function MedecinsSelect({ onChange, placeholder = '', className = '', state, hop
                     <i className="fas fa-user" aria-hidden="true"></i>
                 </span>
                 <Combobox.Button className="w-full">
-                    <Combobox.Input displayValue={(o: any) => o && o.nom && `${o.nom} ${o.prenom}`} onChange={(event) => setQuery(event.target.value)} className="pl-8 w-full select cursor-default" placeholder={placeholder} autoComplete="off"/>
+                    <Combobox.Input displayValue={(o: any) => o && o.nom && `${o.nom} ${o.prenom}`} onChange={(event) => setQuery(event.target.value)} className={`pl-8 w-full select cursor-default ${className}`} placeholder={placeholder} autoComplete="off"/>
                     <ChevronDownIcon className="absolute right-3 top-3 h-4 w-4 text-gray-600 curious-pointer" aria-hidden="true" />
                 </Combobox.Button>
 

@@ -1,21 +1,21 @@
 import axios from "axios";
-import moment from "moment";
 import { baseURL } from "../../../config";
 import { useEffect, useState } from "react";
 
 type TabProps = {
   hospitalisationData: Partial<Hospitalisation>,
-  setHospitalisationData: React.Dispatch<React.SetStateAction<Partial<Hospitalisation>>>,
+  form: any
 }
 
-function TabHospitalisation({ hospitalisationData, setHospitalisationData } : TabProps) {
+function TabHospitalisation({ hospitalisationData, form } : TabProps) {
   const [chambres, setChambres] = useState<Chambre[]>([]);
   const [lits, setLits] = useState<Lit[]>([]);
+
   useEffect(()=>{
     axios.get(`${baseURL}/api/chambres/`).then((response)=>{
       setChambres(response.data)
       if(response.data.length > 0)
-        setHospitalisationData(data => ({...data, chambre: response.data[0].num}))
+        form.setValue("chambre", response.data[0].num)
     })
   }, [])
   useEffect(()=>{
@@ -25,13 +25,9 @@ function TabHospitalisation({ hospitalisationData, setHospitalisationData } : Ta
       axios.get(`${baseURL}/api/chambres/${hospitalisationData.chambre}/lits?occupe=0`).then((response)=>{
         setLits(response.data)
         if(response.data.length > 0)
-          setHospitalisationData(data => ({...data, lit: response.data[0].num}))
+          form.setValue("lit", response.data[0].num)
       })
   }, [hospitalisationData.chambre])
-
-  function updateHospitalisationData(id: keyof Hospitalisation, value: Hospitalisation[typeof id]) {
-    setHospitalisationData((hospitalisationData) => ({ ...hospitalisationData, [id]: value }))
-  }
 
   return (
     <>
@@ -39,30 +35,30 @@ function TabHospitalisation({ hospitalisationData, setHospitalisationData } : Ta
       <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
       <div className="grid grid-cols-9 gap-x-2 gap-y-3 items-center">
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Date d'entrée<span className="text-red-500">*</span> </label>
-        <input className="primary col-span-7" type="datetime-local" value={moment(hospitalisationData.date_entree).format('YYYY-MM-DDTHH:mm')} onChange={(e) => updateHospitalisationData('date_entree', moment(e.target.value).format('YYYY-MM-DDTHH:mm'))}></input>
+        <input type="datetime-local" className={`col-span-7 primary ${form.errors.date_entree && 'has-error'}`} {...form.register("date_entree", {required: true})} />
 
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Mode d'entrée<span className="text-red-500">*</span> </label>
-        <select className="col-span-7" value={hospitalisationData.mode_entree} onChange={(e) => updateHospitalisationData('mode_entree', e.target.value)}>
+        <select className={`col-span-7 primary ${form.errors.mode_entree && 'has-error'}`} {...form.register("mode_entree", {required: true})}>
           <option>Hospitalisation complète</option>
           <option>Hospitalisation partielle</option>
           <option>Hôpital du jour</option>
         </select>
 
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Chambre<span className="text-red-500">*</span> </label>
-        <select className="col-span-3" value={hospitalisationData.chambre} onChange={(e) => updateHospitalisationData('chambre', e.target.value)}>
+        <select className={`col-span-3 primary ${form.errors.chambres && 'has-error'}`} {...form.register("chambre", {required: true})}>
           { chambres.map((c, i) => (<option value={c?.num} key={i}> Chambre {c?.num}</option>)) }
         </select>
 
         <label className="font-semibold text-slate-700 text-sm col-span-1"> Lit<span className="text-red-500">*</span> </label>
-        <select className="col-span-3" value={hospitalisationData.lit} onChange={(e) => updateHospitalisationData('lit', e.target.value)}>
+        <select className={`col-span-3 primary ${form.errors.lit && 'has-error'}`} {...form.register("lit", {required: true})}>
           { lits.map((l, i) => (<option value={l?.num} key={i}> Lit N°{l?.num}</option>)) }
         </select>
 
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Motif d'hospitalisation<span className="text-red-500">*</span> </label>
-        <input className="primary col-span-7" type="text" placeholder="Motif" value={hospitalisationData.motif_hospitalisation} onChange={(e) => updateHospitalisationData('motif_hospitalisation', e.target.value)}></input>
+        <input type="text" placeholder="Motif" className={`col-span-7 primary ${form.errors.motif_hospitalisation && 'has-error'}`} {...form.register("motif_hospitalisation", {required: true})} />
 
         <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Résumé d'hospitalisation </label>
-        <textarea rows={2} placeholder="Résumé" className="col-span-7" value={hospitalisationData.resume_hospitalisation} onChange={(e) => updateHospitalisationData('resume_hospitalisation', e.target.value)}></textarea>
+        <textarea rows={2} placeholder="Résumé" className={`col-span-7 primary ${form.errors.resume_hospitalisation && 'has-error'}`} {...form.register("resume_hospitalisation", {required: false})} />
       </div>
     </>
   );

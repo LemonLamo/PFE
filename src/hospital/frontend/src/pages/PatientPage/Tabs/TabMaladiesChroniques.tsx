@@ -45,7 +45,7 @@ function TabMaladiesChroniques({ NIN }: Props) {
       await ajouter_maladie_chronique(NIN, m);
       showAlert("success", "Maladie chronique enregistrée correctement");
       maladies_chroniques.refetch();
-      close();
+      setOpenModal("");
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")

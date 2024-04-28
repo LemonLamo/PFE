@@ -47,7 +47,7 @@ function TabAntecedentsMedicales({ NIN }: Props) {
       await ajouter_antecedent(NIN, a, type);
       showAlert("success", "Antécédent enregistré correctement");
       antecedents_medicales.refetch();
-      close();
+      setOpenModal("");
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")

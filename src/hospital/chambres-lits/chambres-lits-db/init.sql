@@ -51,9 +51,9 @@ CREATE TABLE `lits` (
 -- Déchargement des données de la table `lits`
 --
 INSERT INTO `lits` (`service`, `numChambre`, `num`, `type`, `occupe`, `remarques`) VALUES
-('Cardiologie', 'F1', 1, 'Type A', 1, 'Chambre pour les nouveau-nées'),
-('Cardiologie', 'F1', 2, 'Type A', 0, 'Chambre pour les 1-3ans'),
-('Cardiologie', 'F1', 3, 'Type B', 0, 'Chambre pour les 1-3ans'),
-('Cardiologie', 'F1', 4, 'Type A', 0, 'Chambre pour les 1-3ans'),
-('Radiologie', 'F2', 1, 'Type A', 1, 'Chambre pour les 1-3ans'),
-('Radiologie', 'F2', 2, 'Type A', 1, 'Chambre pour les 1-3ans');
+('Chirugie Générale', 'F1', 1, 'Type A', 1, 'Chambre pour les nouveau-nées'),
+('Chirugie Générale', 'F1', 2, 'Type A', 0, 'Chambre pour les 1-3ans'),
+('Chirugie Générale', 'F1', 3, 'Type B', 0, 'Chambre pour les 1-3ans'),
+('Chirugie Générale', 'F1', 4, 'Type A', 0, 'Chambre pour les 1-3ans'),
+('Chirugie Générale', 'F2', 1, 'Type A', 1, 'Chambre pour les 1-3ans'),
+('Chirugie Générale', 'F2', 2, 'Type A', 1, 'Chambre pour les 1-3ans');

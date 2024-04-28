@@ -4,7 +4,7 @@ class RadiosModel {
   validationRules = {};
   async getAll() {
     try {
-      const [results] = await db.query("SELECT * FROM `radios`");
+      const [results] = await db.query("SELECT * FROM `radios` ORDER BY `date` DESC");
       return results;
     } catch (error) {
       logger.error("Error fetching radios:", error);
@@ -69,10 +69,7 @@ class RadiosModel {
 
   async getResults(id) {
     try {
-      const [results] = await db.query(
-        "SELECT * FROM `radios_files` WHERE `id`=?",
-        [id]
-      );
+      const [results] = await db.query("SELECT * FROM `radios_files` WHERE `id`=?", [id]);
       return results;
     } catch (error) {
       logger.error("Error fetching radios files:", error);

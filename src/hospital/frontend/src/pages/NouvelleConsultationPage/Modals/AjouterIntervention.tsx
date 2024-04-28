@@ -1,52 +1,62 @@
 import Modal, { ModalThemes } from "../../../components/UI/Modal";
-import { useState } from "react";
-import moment from "moment";
+import { useContext } from "react";
 import Select from "../../../components/Selects/Select";
+import { createPortal } from "react-dom";
+import AlertsContext from "../../../hooks/AlertsContext";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 type Props = {
   isOpen: boolean,
   close: () => void,
-  action: (arg0: Intervention) => void,
+  action: (arg0: Intervention) => Promise<void>,
 }
 
 const theme = "primary"
 
 export default function AjouterIntervention({isOpen, close, action}: Props) {
-    const [selectedIntervention, setSelectedIntervention] = useState<Intervention>({
-        id: '',
-        code_intervention: '',
-        designation: '',
-        hopital: '',
-        service: "",
-        medecin: {},
-        patient: {},
-        date: new Date(),
-        remarques: ''
-    })
+    const { showAlert } = useContext(AlertsContext);
+
+    const { register, handleSubmit, reset, setValue, formState:{errors} } = useForm<any>();
+    register('code_intervention', {required: true});
 
     function select_intervention(intervention: InterventionCode) {
-        if(intervention)
-            setSelectedIntervention({ ...selectedIntervention, code_intervention: intervention.code_intervention, designation: intervention.designation })
+        setValue("code_intervention", intervention?.code_intervention ?? null)
+        setValue("designation", intervention?.designation ?? null)
+    }
+    const onSubmit: SubmitHandler<any> = async (data : any) => {
+        try{
+            await action(data);
+        } catch (error: any) {
+            if (error.response)
+                if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+            else
+                showAlert("error", error.code + ": " + error.message);
+        }
     }
 
     return (
+        createPortal(
         <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-2xl">
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Ajouter une allergie </h3>
             <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une nouvelle allergie </p>
-            <div className="grid grid-cols-6 gap-2">
-                <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention: </label>
-                        <Select<InterventionCode> url="interventions" code="code_intervention" designation="designation" onChange={select_intervention} className="col-span-4" placeholder="Intervention" />
+            <form onReset={reset}>
+                <div className="grid grid-cols-6 gap-2">
+                    <label className="font-semibold text-slate-700 text-sm col-span-2">Intervention<span className="text-red-500">*</span></label>
+                    <Select<InterventionCode> url="interventions" code="code_intervention" designation="designation" placeholder="Intervention" onChange={select_intervention} className={`col-span-4 primary ${errors.code_intervention && 'has-error'}`}/>
 
-                        <label className="font-semibold text-slate-700 text-sm col-span-2"> Date: </label>
-                        <input className="primary col-span-4" type="datetime-local" placeholder="Date" value={moment(selectedIntervention.date).format('YYYY-MM-DDTHH:mm')} onChange={(e) => setSelectedIntervention({ ...selectedIntervention, date: moment(e.target.value, 'YYYY-MM-DDTHH:mm').toDate() })}></input>
+                    <label className="font-semibold text-slate-700 text-sm col-span-2">Date<span className="text-red-500">*</span></label>
+                    <input type="datetime-local" placeholder="Date" className={`col-span-4 primary ${errors.date && 'has-error'}`} {...register("date", {required: true})} />
 
-                        <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Remarques: </label>
-                        <textarea className="col-span-4" rows={5} placeholder="Remarques" value={selectedIntervention.remarques} onChange={(e) => setSelectedIntervention({ ...selectedIntervention, remarques:e.target.value})}></textarea>
-            </div>
+                    <label className="font-semibold text-slate-700 text-sm col-span-2 self-start">Remarques</label>
+                    <textarea rows={5} placeholder="Remarques" className={`col-span-4 primary ${errors.remarques && 'has-error'}`} {...register("remarques", {required: false})} />
+                </div>
 
-            <div className="flex justify-end gap-3 mt-4">
-                <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={() => action(selectedIntervention)}>Ajouter</button>
-                <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
-            </div>
-        </Modal>);
+                <div className="flex justify-end gap-3 mt-4">
+                    <button type="button" className={`${ModalThemes[theme].color} rounded-md px-4 py-2 font-semibold text-white`} onClick={handleSubmit(onSubmit)}>Ajouter</button>
+                    <button type="button" className="bg-white px-3 font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50" onClick={close}>Annuler</button>
+                </div>
+            </form>
+        </Modal>, document.body)
+    );
 }

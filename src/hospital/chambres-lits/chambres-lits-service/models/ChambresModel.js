@@ -15,13 +15,23 @@ class ChambresService {
     const [results] = await db.query("SELECT * FROM `lits` WHERE service=? AND `numChambre`=?", [service, num]);
     return results;
   }
+
   async selectLitsOccupe(service, num) {
     const [results] = await db.query("SELECT * FROM `lits` WHERE service=? AND `numChambre`=? AND occupe=1", [service, num]);
     return results;
   }
+
   async selectLitsDisponible(service, num) {
     const [results] = await db.query("SELECT * FROM `lits` WHERE service=? AND `numChambre`=? AND occupe=0", [service, num]);
     return results;
+  }
+
+  async occuper(service, numChambre, num) {
+    await db.query("UPDATE `lits` SET occupe=1 WHERE service=? AND numChambre=? AND num=?", [service, numChambre, num]);
+  }
+
+  async liberer(service, numChambre, num) {
+    await db.query("UPDATE `lits` SET occupe=0 WHERE service=? AND numChambre=? AND num=?", [service, numChambre, num]);
   }
 
   async insert(service, num, etage, description, nombre_lits) {

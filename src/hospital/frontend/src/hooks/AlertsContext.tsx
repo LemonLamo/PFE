@@ -33,7 +33,7 @@ export const AlertsProvider = (({children} : Props) => {
 
     const showAlert = (theme: Alert['theme'], message: Alert["message"]) => {
         setAlert({show:true, theme, message})
-        setTimeout(clearAlert, 5000)
+        setTimeout(clearAlert, 3000)
     }
     const clearAlert = () => {
         setAlert(a => ({...a, show:false}))
@@ -49,7 +49,7 @@ export const AlertsProvider = (({children} : Props) => {
                 leaveFrom="translate-y-0"
                 leaveTo="-translate-y-24"
                 show={alert.show}>
-                <Alert color={THEMES[alert.theme]} className="!m-0">
+                <Alert color={THEMES[alert.theme]} className="!m-0 font-semibold">
                     {alert?.message}
                     <button className="text-white absolute right-4" onClick={clearAlert}>
                         <i className="fa fa-close text-xl"/>

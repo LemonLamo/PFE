@@ -1,0 +1,8 @@
+{
+	"network-configs": {
+		"medica-life": {
+			"name": "MedicaLife Blockchain Network",
+			"profile": "./connection-profile/medica-life.json"
+		}
+	}
+}

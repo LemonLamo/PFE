@@ -10,23 +10,22 @@ import DeletePrescription from "../../Modals/DeletePrescription";
 type SectionProps = {
   state: Record<string, boolean>,
   updateState: (id: string, value: boolean) => void
-  consultationData: Partial<Consultation>,
-  updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
+  prescriptions: Prescription[],
+  setPrescriptions: React.Dispatch<React.SetStateAction<Prescription[]>>,
 }
 
 let index = 0;
-function PerscriptionsSection({ state, updateState, consultationData, updateConsultationData }: SectionProps){
+function PerscriptionsSection({ state, updateState, prescriptions, setPrescriptions }: SectionProps){
   const [openModal, setOpenModal] = useState('')
 
-  function add_prescription(prescription: Prescription) {
-    let prescriptions = [...consultationData.prescriptions!, prescription]
-    updateConsultationData('prescriptions', prescriptions)
+  async function add_prescription(prescription: Prescription) {
+    setPrescriptions([...prescriptions, prescription])
     setOpenModal("")
   }
 
   function delete_prescription(index: number) {
-    consultationData.prescriptions!.splice(index, 1)
-    updateConsultationData('prescriptions', consultationData.prescriptions!)
+    prescriptions.splice(index, 1)
+    setPrescriptions(prescriptions)
     setOpenModal("")
   }
 
@@ -47,7 +46,7 @@ function PerscriptionsSection({ state, updateState, consultationData, updateCons
     <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
     {state.prescriptions_active &&
       <Table fields={['#', 'Médicament', 'Posologie', 'Fréquence', 'Durée', 'Remarques', '']}>
-        {consultationData.prescriptions!.map((p, i) =>
+        {prescriptions!.map((p, i) =>
           <TableRow key={i}>
             <TableCell> {p.code_medicament} </TableCell>
             <TableCell> {p.DCI} </TableCell>

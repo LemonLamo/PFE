@@ -86,8 +86,9 @@ class BilansController {
   async getResultsList(req, res) {
     try {
       const { id } = req.params;
+      const bilan = await Model.getOne(id);
       const result = await Model.getResults(id);
-      return res.status(200).json(result);
+      return res.status(200).json({observations: bilan.observations, results: result});
     } catch (err) {
       logger.error("database-error: " + err);
       return res
@@ -114,7 +115,7 @@ class BilansController {
   async addResults(req, res) {
     try {
       const { id } = req.params;
-      const result = await Model.mark_as_done(id, req.files, req.observations);
+      const result = await Model.mark_as_done(id, req.files, req.body.observations);
 
       // notify
       const bilan = await Model.getOne(id);

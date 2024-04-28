@@ -58,7 +58,7 @@ function NewPatientPage() {
   };
   const handleFileChange = (event : any) => setAvatar(event.target.files[0])
 
-  function ajouter_maladie_chronique(maladie_chronique: Maladie) {
+  async function ajouter_maladie_chronique(maladie_chronique: Maladie) {
     setMaladiesChroniques((maladies_chroniques) => [
       ...maladies_chroniques!,
       maladie_chronique,
@@ -71,7 +71,7 @@ function NewPatientPage() {
     setOpenModal("");
   }
 
-  function ajouter_allergie(allergie: Allergie) {
+  async function ajouter_allergie(allergie: Allergie) {
     setAllergies((allergies) => [...allergies!, allergie]);
     setOpenModal("");
   }
@@ -81,7 +81,7 @@ function NewPatientPage() {
     setOpenModal("");
   }
 
-  function ajouter_antecedants_medicales(antecedent_medical: Antecedent) {
+  async function ajouter_antecedants_medicales(antecedent_medical: Antecedent) {
     setAntecedentsMedicaux((antecedents_medicaux) => [
       ...antecedents_medicaux!,
       antecedent_medical,
@@ -94,7 +94,7 @@ function NewPatientPage() {
     setOpenModal("");
   }
 
-  function ajouter_antecedants_familiales(antecedent_familial: Antecedent) {
+  async function ajouter_antecedants_familiales(antecedent_familial: Antecedent) {
     setAntecedentsFamiliaux((antecedent_familiaux) => [
       ...antecedent_familiaux!,
       antecedent_familial,

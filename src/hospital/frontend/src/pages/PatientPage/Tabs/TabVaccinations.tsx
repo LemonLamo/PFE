@@ -32,10 +32,9 @@ function TabVaccinations({ NIN }: Props) {
       { header: "Désignation", accessorKey: "designation" },
       { header: "Date", id: "date", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm") },
       { header: "Remarques", accessorKey: "remarques" },
-      { header: "Prochaine dose", id: "date_de_prochaine_dose", cell: (info) => moment(info.row.original.date_de_prochaine_dose).format("DD/MM/YYYY HH:mm"),},
-    ],
-    []
-  ) as ColumnDef<Vaccination>[];
+      { header: "Prochaine dose", id: "date_de_prochaine_dose", cell: (info) =>
+          info.row.original.date_de_prochaine_dose? moment(info.row.original.date_de_prochaine_dose).format("DD/MM/YYYY HH:mm") : '-',},
+    ], []) as ColumnDef<Vaccination>[];
 
   const action = (
     <Button onClick={() => setOpenModal("ajouter_vaccinations")} theme="primary">
@@ -49,7 +48,7 @@ function TabVaccinations({ NIN }: Props) {
       await ajouter_vaccination(NIN, v);
       showAlert("success", "Vaccination enregistrée correctement");
       vaccinations.refetch();
-      close();
+      setOpenModal("");
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")

@@ -8,7 +8,7 @@ export async function ajouterTransfert(transfert: Transfert) {
   try {
     await axios.post(`${baseURL}/api/transferts`, transfert);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }

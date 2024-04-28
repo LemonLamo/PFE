@@ -23,8 +23,8 @@ type Consultation = {
   diagnostique: string;
   diagnostique_details: string;
   prescriptions: Prescription[];
-  radios: Radio[];
-  bilans: Bilan[];
+  radios: Partial<Radio>[];
+  bilans: Partial<Bilan>[];
   interventions: Partial<Intervention>[];
   prochaine_consultation: Date | null;
   duree_arret_de_travail?: number;
@@ -143,9 +143,9 @@ type Prescription = {
   code_medicament: string;
   DCI?: string;
   date_debut: Date;
-  posologie: number;
-  frequence: number;
-  duree: number;
+  posologie: string;
+  frequence: string;
+  duree: string;
   remarques?: string;
 };
 type MedicamentCode = {

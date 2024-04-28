@@ -1,11 +1,10 @@
 type SectionProps = {
     state: Record<string, boolean>,
-    updateState: (id: string, value: boolean) => void
-    consultationData: Partial<Consultation>,
-    updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
+    updateState: (id: string, value: boolean) => void,
+    form: any
 }
 
-function ArretDeTravailSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+function ArretDeTravailSection({ state, updateState, form }: SectionProps) {
     return (
         <>
             <div className="block pl-7 py-2 border-b-2 flex justify-between">
@@ -18,7 +17,7 @@ function ArretDeTravailSection({ state, updateState, consultationData, updateCon
                 <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
                     <div className="grid grid-cols-12 mt-2 mb-2">
                         <div className="text-sm font-semibold col-span-2 flex items-center">Durée:</div>
-                        <input className="primary col-span-10" type="number" value={consultationData.duree_arret_de_travail} onChange={(e) => updateConsultationData('duree_arret_de_travail', e.target.valueAsNumber)} placeholder="Durée (en jours)" />
+                        <input type="number" className={`col-span-10 primary ${form.errors.duree_arret_de_travail && 'has-error'}`} {...form.register("duree_arret_de_travail", {required: true})} />
                     </div>
                     
                 </div>

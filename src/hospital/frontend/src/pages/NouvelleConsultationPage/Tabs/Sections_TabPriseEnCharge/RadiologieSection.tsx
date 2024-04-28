@@ -10,23 +10,22 @@ import DeleteRadio from "../../Modals/DeleteRadio";
 type SectionProps = {
     state: Record<string, boolean>,
     updateState: (id: string, value: boolean) => void
-    consultationData: Partial<Consultation>,
-    updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
+    radios: Partial<Radio>[],
+    setRadios: React.Dispatch<React.SetStateAction<Partial<Radio>[]>>,
 }
 
 let index = 0;
-function RadiologieSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+function RadiologieSection({ state, updateState, radios, setRadios }: SectionProps) {
     const [openModal, setOpenModal] = useState('')
     
-    function add_radio(radio: Partial<Radio>) {
-        let radios = [...consultationData.radios!, radio]
-        updateConsultationData('radios', radios)
+    async function add_radio(radio: Partial<Radio>) {
+        setRadios([...radios, radio])
         setOpenModal("")
     }
 
     function delete_radio(index: number) {
-        consultationData.radios!.splice(index, 1)
-        updateConsultationData('radios', consultationData.radios!)
+        radios.splice(index, 1)
+        setRadios(radios)
         setOpenModal("")
     }
 
@@ -47,7 +46,7 @@ function RadiologieSection({ state, updateState, consultationData, updateConsult
             <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
                 {state.radios_active &&
                     <Table fields={['#', 'Radio', 'Remarques']}>
-                        {consultationData.radios!.map((r, i) => (
+                        {radios!.map((r, i) => (
                             <TableRow key={i}>
                                 <TableCell> {r.code_radio} </TableCell>
                                 <TableCell> {r.designation} </TableCell>

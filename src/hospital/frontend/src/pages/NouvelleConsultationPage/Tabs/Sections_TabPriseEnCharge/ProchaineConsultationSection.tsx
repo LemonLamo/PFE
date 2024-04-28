@@ -1,13 +1,10 @@
-import moment from "moment";
-
 type SectionProps = {
     state: Record<string, boolean>,
-    updateState: (id: string, value: boolean) => void
-    consultationData: Partial<Consultation>,
-    updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
+    updateState: (id: string, value: boolean) => void,
+    form: any
 }
 
-function ProchaineConsultationSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+function ProchaineConsultationSection({ state, updateState, form }: SectionProps) {
     return (
         <>
             <div className="block pl-7 py-2 flex justify-between">
@@ -18,7 +15,7 @@ function ProchaineConsultationSection({ state, updateState, consultationData, up
             </div>
             {state.prochaine_consultation_active &&
                 <div className={"overflow-hidden transition-all ease-soft-in-out duration-350 mb-2"}>
-                    <input className="primary" type="datetime-local" value={moment(consultationData.prochaine_consultation).format('YYYY-MM-DDTHH:mm')} onChange={(e) => updateConsultationData('prochaine_consultation', moment(e.target.value).format('YYYY-MM-DDTHH:mm'))}></input>
+                    <input type="datetime-local" className={`col-span-10 primary ${form.errors.prochaine_consultation && 'has-error'}`} {...form.register("prochaine_consultation", {required: true})} />
                 </div>
             }
         </>

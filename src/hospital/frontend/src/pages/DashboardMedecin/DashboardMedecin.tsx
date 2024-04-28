@@ -63,7 +63,6 @@ function DashboardMedecin(){
     const tableDefinition = useMemo(() => [
         { header: "Patient", id: "patient", cell: (info) => {
                 const p = info.row.original;
-                console.log(p)
                 return <div className="flex">
                     <Avatar src={`${baseURL}/api/patients/${p.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
                     <div>

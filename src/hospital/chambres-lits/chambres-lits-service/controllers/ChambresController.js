@@ -23,6 +23,35 @@ class ChambresController {
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
+
+  async occuper(req, res) {
+    const { num, numChambre } = req.params;
+    const { service } = req.jwt;
+    try {
+      await Model.occuper(service, numChambre, num);
+      return res.status(200).json({ success: true });
+    } catch (err) {
+      logger.error("database-error: " + err.code);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
+  async liberer(req, res) {
+    const { num, numChambre } = req.params;
+    const { service } = req.jwt;
+    try {
+      await Model.liberer(service, numChambre, num);
+      return res.status(200).json({ success: true });
+    } catch (err) {
+      logger.error("database-error: " + err.code);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
   async getLits(req, res){
     try {
       const { num } = req.params;

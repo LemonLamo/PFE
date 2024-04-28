@@ -4,7 +4,7 @@ class BilansModel {
   validationRules = {};
   async getAll() {
     try {
-      const [results] = await db.query("SELECT * FROM `bilans`");
+      const [results] = await db.query("SELECT * FROM `bilans` ORDER BY `date` DESC");
       return results;
     } catch (error) {
       logger.error("Error fetching bilans:", error);

@@ -10,23 +10,22 @@ import DeleteBilan from "../../Modals/DeleteBilan";
 type SectionProps = {
     state: Record<string, boolean>,
     updateState: (id: string, value: boolean) => void
-    consultationData: Partial<Consultation>,
-    updateConsultationData: (id: keyof Consultation, value: Consultation[typeof id]) => void,
+    bilans: Partial<Bilan>[],
+    setBilans: React.Dispatch<React.SetStateAction<Partial<Bilan>[]>>,
 }
 
 let index = 0;
-function BilansSection({ state, updateState, consultationData, updateConsultationData }: SectionProps) {
+function BilansSection({ state, updateState, bilans, setBilans }: SectionProps) {
     const [openModal, setOpenModal] = useState('')
 
-    function add_bilans(bilan : Partial<Bilan>) {
-        let bilans = [...consultationData.bilans!, bilan]
-        updateConsultationData('bilans', bilans)
+    async function add_bilans(bilan : Partial<Bilan>) {
+        setBilans([...bilans, bilan])
         setOpenModal("")
     }
 
     function delete_bilans(index: number) {
-        consultationData.bilans!.splice(index, 1)
-        updateConsultationData('bilans', consultationData.bilans!)
+        bilans.splice(index, 1)
+        setBilans(bilans)
         setOpenModal("")
     }
 
@@ -47,7 +46,7 @@ function BilansSection({ state, updateState, consultationData, updateConsultatio
             <div className="overflow-hidden transition-all ease-soft-in-out duration-350 mb-2">
                 {state.bilans_active &&
                     <Table fields={['#', 'Bilan', 'Remarques']}>
-                        {consultationData.bilans!.map((a, i) => (
+                        {bilans!.map((a, i) => (
                             <TableRow key={i}>
                                 <TableCell> {a.code_bilan} </TableCell>
                                 <TableCell> {a.designation} </TableCell>

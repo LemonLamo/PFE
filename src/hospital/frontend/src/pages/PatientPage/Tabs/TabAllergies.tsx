@@ -46,7 +46,7 @@ function TabAllergies({ NIN }: Props) {
       await ajouter_allergie(NIN, a);
       allergies.refetch();
       showAlert("success", "Allergie enregistrée correctement");
-      close();
+      setOpenModal("");
     } catch (error: any) {
       if (error.response)
           if(error.response?.data?.errorCode != "form-validation")
