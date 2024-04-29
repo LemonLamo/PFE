@@ -60,7 +60,7 @@ class ChambresController {
 
       const result = (occupe == 1)? await Model.selectLitsOccupe(service, num):
                      (occupe == 0)? await Model.selectLitsDisponible(service, num):
-                     await Model.selectLits(num)
+                     await Model.selectLits(service, num)
                       
       return res.status(200).json(result);
     } catch (err) {
