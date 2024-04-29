@@ -39,11 +39,12 @@ class ChambresService {
   }
   
   async insertLit(service, num, numChambre, type, remarques) {
+    console.log(service, num, numChambre, type, remarques)
     await db.execute("INSERT INTO lits(service, num, numChambre, type, remarques) VALUES (?, ?, ?, ?, ?)", [service, num, numChambre, type, remarques ?? null]);
   }
 
   async update(service, num, etage, nombre_lits, description) {
-    await db.query("UPDATE chambres SET etage=?, nombre_lits=?, description=? WHERE service=? AND num=?", [etage, nombre_lits, description, serivce, num]);
+    await db.query("UPDATE chambres SET etage=?, nombre_lits=?, description=? WHERE service=? AND num=?", [etage, nombre_lits, description, service, num]);
   }
 
   async remove(service, num) {

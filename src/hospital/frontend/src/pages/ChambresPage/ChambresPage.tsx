@@ -3,13 +3,11 @@ import Card from "../../components/UI/Card";
 import DataTable from "../../components/UI/Tables/DataTable";
 import CreateChambreModal from "./CreateChambreModal";
 import ViewChambreModal from "./ViewChambreModal";
-import EditChambreModal from "./EditChambreModal";
 import DeleteChambreModal from "./DeleteChambreModal";
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import Button from "../../components/UI/Buttons/Button";
 import ViewButton from "../../components/UI/Buttons/ViewButton";
-import EditButton from "../../components/UI/Buttons/EditButton";
 import DeleteButton from "../../components/UI/Buttons/DeleteButton";
 import axios from "axios";
 import { baseURL } from "../../config";
@@ -69,12 +67,6 @@ function ChambresPage() {
                   setOpenModal("view");
                 }}
               />
-              <EditButton
-                onClick={() => {
-                  setSelectedChambre(c);
-                  setOpenModal("edit");
-                }}
-              />
               <DeleteButton
                 onClick={() => {
                   setSelectedChambre(c);
@@ -113,11 +105,6 @@ function ChambresPage() {
             <ViewChambreModal
               isOpen={openModal === "view"}
               close={() => setOpenModal("")}
-              selectedChambre={selectedChambre}
-            />
-            <EditChambreModal
-              isOpen={openModal === "edit"}
-              close={() => {setOpenModal(""); query.refetch();}}
               selectedChambre={selectedChambre}
             />
             <DeleteChambreModal

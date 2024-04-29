@@ -31,11 +31,12 @@ const logger = require("./utils/logger");
 app.get("/api/chambres", auth.requireAuth, ChambresController.getAll);
 app.post("/api/chambres", auth.requireAuth, ChambresController.insert);
 app.put("/api/chambres", auth.requireAuth, ChambresController.update);
+app.delete("/api/chambres/:num", auth.requireAuth, ChambresController.remove);
+
 app.get("/api/chambres/:num", auth.requireAuth, ChambresController.getOne);
 app.get("/api/chambres/:num/lits", auth.requireAuth, ChambresController.getLits);
 app.post("/api/chambres/:numChambre/lits/:num/occuper", auth.requireAuth, ChambresController.occuper);
 app.post("/api/chambres/:numChambre/lits/:num/liberer", auth.requireAuth, ChambresController.liberer);
-app.delete("/api/chambres/:num", auth.requireAuth, ChambresController.remove);
 
 app.use((req, res) => res.sendStatus(404));
 

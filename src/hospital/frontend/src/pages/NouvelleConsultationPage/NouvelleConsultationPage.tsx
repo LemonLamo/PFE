@@ -68,7 +68,6 @@ function NouvelleConsultationPage() {
       if (!state.prochaine_consultation_active)
         data.prochaine_consultation = undefined;
 	
-      console.log(data);
       await axios.post(`${baseURL}/api/consultations`, data);
       showAlert("success", "Consultation ajouté correctement");
       navigate(`/patients/${data.patient}`)

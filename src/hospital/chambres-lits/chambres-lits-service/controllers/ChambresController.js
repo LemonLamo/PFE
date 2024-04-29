@@ -73,7 +73,7 @@ class ChambresController {
     const { lits } = req.body;
     const { service } = req.jwt;
     try {
-      const insertLits = lits.map((lit, i) => Model.insertLit(service, i, num, lit.type, lit.remarques))
+      const insertLits = lits.map((lit, i) => Model.insertLit(service, i+1, num, lit.type, lit.remarques))
       await Model.insert(service, num, etage, description, nombre_lits);
       await Promise.all(insertLits);
       return res.status(200).json({ success: true });

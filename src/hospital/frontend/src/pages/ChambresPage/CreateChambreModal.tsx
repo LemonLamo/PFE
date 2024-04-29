@@ -1,10 +1,10 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import Table from "../../components/UI/Tables/Table";
 import TableCell from "../../components/UI/Tables/TableCell";
 import TableRow from "../../components/UI/Tables/TableRow";
 import { lits_types, createChambre } from "../../hooks/useChambres";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AlertsContext from "../../hooks/AlertsContext";
 
 type Props = {
@@ -13,24 +13,18 @@ type Props = {
 };
 const theme = "primary";
 
-function capArray<T>(data: T[], size: number): T[] {
-  if (data.length <= size)
-    return [
-      ...data,
-      ...Array(size - data.length).fill({ type: "", description: "" }),
-    ];
-  else return data.slice(0, size);
-}
-
 export default function CreateChambreModal({ isOpen, close }: Props) {
   const { showAlert } = useContext(AlertsContext);
-  
-  const { register, handleSubmit, reset, formState:{errors}, watch } = useForm<Chambre>();
-  const [lits, setLits] = useState<Lit[]>([]);
+  const { control, register, handleSubmit, reset, formState:{errors}, watch } = useForm<any>();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "lits",
+  });
 
-  const onSubmit: SubmitHandler<Chambre> = async (data) => {
-    const chambre = { ...data, lits: lits };
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    const chambre = { ...data };
     try{
+      console.log(chambre)
       await createChambre(chambre);
       reset();
       showAlert("success", "Chambre ajouté correctement");
@@ -45,16 +39,16 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
   };
   const watched_nombre_lits = watch("nombre_lits");
   useEffect(() => {
-    setLits(capArray<Lit>(lits, watched_nombre_lits!));
+    if(fields.length < watched_nombre_lits)
+      for(let i=fields.length; i<watched_nombre_lits; i++)
+        append("");
+    else
+      for(let i=watched_nombre_lits; i<fields.length; i++)
+        remove(i);
   }, [watched_nombre_lits]);
   const onReset = () => {
     reset();
     close();
-  };
-
-  const updateLit = (i: number, name: keyof Lit, value: Lit[typeof name]) => {
-    lits[i] = { ...lits[i], [name]: value };
-    setLits(lits);
   };
 
   return (
@@ -113,33 +107,19 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
 
         <div className="col-span-12">
           <label className="text-sm font-semibold">Lits </label>
-          <Table
-            fields={["#", "Type", "Description"]}
-            className="mb-4 col-span-12 max-h-72"
-          >
-            {lits.map((_, i) => (
-              <TableRow key={i}>
-                <TableCell className="font-bold">{i + 1}</TableCell>
+          <Table fields={["#", "Type", "Description"]} className="mb-4 col-span-12 max-h-72">
+            {fields.map((field: any, index: number) => (
+              <TableRow key={field.id}>
+                <TableCell className="font-bold">{index + 1}</TableCell>
                 <TableCell>
-                  <select
-                    className="primary"
-                    value={lits[i].type}
-                    onChange={(e) => updateLit(i, "type", e.target.value)}
-                  >
+                  <select className="primary" {...register(`lits.${index}.type`, {required: true})}>
                     {lits_types.map((type, j) => (
                       <option key={j}> {type} </option>
                     ))}
                   </select>
                 </TableCell>
                 <TableCell>
-                  <input
-                    className="primary"
-                    placeholder="Description..."
-                    value={lits[i].description}
-                    onChange={(e) =>
-                      updateLit(i, "description", e.target.value)
-                    }
-                  />
+                  <input className="primary"placeholder="Description..." {...register(`lits.${index}.remarques`)}/>
                 </TableCell>
               </TableRow>
             ))}
