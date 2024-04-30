@@ -37,9 +37,9 @@ export default function AjouterRadio({isOpen, close, action}: Props) {
 
     return (
         createPortal(
-        <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-2xl">
-            <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Ajouter une allergie </h3>
-            <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une nouvelle allergie </p>
+        <Modal isOpen={isOpen} icon="fa fa-x-ray" theme={theme} size="sm:max-w-2xl">
+            <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Ajouter un radio</h3>
+            <p className="text-gray-600"> Remplissez ce formulaire pour ajouter un radio.</p>
             <form onReset={reset}>
                 <div className="grid grid-cols-6 gap-2">
                     <label className="font-semibold text-slate-700 text-sm col-span-2">Radio<span className="text-red-500">*</span></label>

@@ -31,10 +31,10 @@ export default function ExecuterIntervention({isOpen, close, selectedInterventio
     return (
         <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-2xl">
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Executer une intervention </h3>
-            <p className="text-gray-600"> Marquer l'intervention "{selectedIntervention.designation}" pour {selectedIntervention.patient!.nom} {selectedIntervention.patient!.prenom} comme executé. Cette action ne peut pas être annulée. </p>
+            <p className="text-gray-600"> Marquer l'intervention <span className="font-bold">{selectedIntervention.designation} ({selectedIntervention.code_intervention})</span> pour <span className="font-bold">{selectedIntervention.patient!.nom} {selectedIntervention.patient!.prenom}</span> comme executé. Cette action ne peut pas être annulée. </p>
             <div className="grid grid-cols-6 gap-2">
-                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Protocole opératoire: </label>
-        <textarea rows={5} placeholder="Résumé" className="col-span-7" value={protocoleOperatoire} onChange={(e) => setProtocoleOperatoire(e.target.value)}></textarea>
+                <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Protocole opératoire<span className="text-red-500">*</span></label>
+                <textarea rows={5} placeholder="Résumé" className="col-span-7" value={protocoleOperatoire} onChange={(e) => setProtocoleOperatoire(e.target.value)}></textarea>
             </div>
 
             <div className="flex justify-end gap-3 mt-4">

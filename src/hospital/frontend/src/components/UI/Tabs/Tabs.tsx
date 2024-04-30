@@ -35,7 +35,7 @@ function Tabs({type="vertical", children, keepVisible=false} : TabsProps) {
                 (
                     keepVisible?
                     children.map((x, i) => <div key={i} className={`${i==selected? "" : "hidden"} w-full col-span-4`}>{x}</div>) :
-                    children
+                    children[selected]
                 )
             }
         </div>

@@ -28,7 +28,7 @@ export default function DeleteMedicamentModal({isOpen, close, selectedMedicament
     }
 
     return (
-        <Modal isOpen={isOpen} icon="fa fa-bed" theme={theme} size="sm:max-w-xl">
+        <Modal isOpen={isOpen} icon="fa fa-pills" theme={theme} size="sm:max-w-xl">
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Supprimer le médicament "{selectedMedicament.DCI} ({selectedMedicament.code_medicament})" </h3>
             <p className="text-gray-600"> Êtes-vous sûr de vouloir supprimer cet enregistrement? Toutes vos données seront définitivement supprimées. Cette action ne peut pas être annulée. </p>
             <div className="flex justify-end gap-3">

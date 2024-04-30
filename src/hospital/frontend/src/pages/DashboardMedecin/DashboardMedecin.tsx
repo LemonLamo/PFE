@@ -156,10 +156,10 @@ function DashboardMedecin(){
 
             <StatisticsCard icon="fa fa-user" title="Patients en attente">
             {
-                statistics.isError? "Erreur":
-                statistics.isLoading?
+                patients.isError? "Erreur":
+                patients.isLoading?
                     <TableLoading />:
-                    <h5 className="text-2xl mb-0 font-bold dark:text-white">{statistics.data?.patients_attente}</h5>
+                    <h5 className="text-2xl mb-0 font-bold dark:text-white">{patients.data.length}</h5>
             }
             </StatisticsCard>
         </div>
@@ -176,7 +176,7 @@ function DashboardMedecin(){
                 <SmallCalendar />
             </Card>
         </div>
-        <Card title="Mes patients" subtitle="Liste de vos patients" className="w-full">
+        <Card title="Patients en attente" subtitle="Liste de patients qui vous attend" className="w-full">
             <DataTable tableDefinition={tableDefinition} query={patients} className="mt-2" />
         </Card>
     </>

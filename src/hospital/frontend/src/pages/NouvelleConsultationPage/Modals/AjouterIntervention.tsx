@@ -38,8 +38,8 @@ export default function AjouterIntervention({isOpen, close, action}: Props) {
     return (
         createPortal(
         <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-2xl">
-            <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Ajouter une allergie </h3>
-            <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une nouvelle allergie </p>
+            <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Plannifier une intervention</h3>
+            <p className="text-gray-600"> Remplissez ce formulaire pour ajouter une intervention.</p>
             <form onReset={reset}>
                 <div className="grid grid-cols-6 gap-2">
                     <label className="font-semibold text-slate-700 text-sm col-span-2">Intervention<span className="text-red-500">*</span></label>

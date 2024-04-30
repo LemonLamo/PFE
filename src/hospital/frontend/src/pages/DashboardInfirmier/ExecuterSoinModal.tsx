@@ -30,9 +30,9 @@ export default function ExecuterSoinModal({isOpen, close, selectedSoin}: Props) 
       }
     }
     return (
-        <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-2xl">
+        <Modal isOpen={isOpen} icon="fa fa-briefcase-medical" theme={theme} size="sm:max-w-2xl">
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Executer un soin </h3>
-            <p className="text-gray-600"> Marquer le soin "{selectedSoin.acte}" pour {selectedSoin.patient.nom} {selectedSoin.patient.prenom} comme executé. Cette action ne peut pas être annulée. </p>
+            <p className="text-gray-600"> Marquer le soin <span className="font-bold">{selectedSoin.id}</span> pour <span className="font-bold">{selectedSoin.patient.nom} {selectedSoin.patient.prenom}</span> comme executé. Cette action ne peut pas être annulée. </p>
             <div className="grid grid-cols-6 gap-2">
                 <label className="font-semibold text-slate-700 text-sm col-span-1 self-start"> Détails: </label>
                 <textarea className="col-span-5" rows={5} placeholder="Remarques" value={remarque} onChange={(e) => setRemarque(e.target.value)} />

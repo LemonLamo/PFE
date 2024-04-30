@@ -66,7 +66,7 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation}:
     return (
         <Modal isOpen={isOpen} icon="fa fa-truck-medical" theme={theme} size="sm:max-w-2xl">
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Transfert de patient </h3>
-            <p className="text-gray-600"> Remplissez ce formulaire pour transferer {selectedHospitalisation.patient.nom} {selectedHospitalisation.patient.prenom} </p>
+            <p className="text-gray-600"> Remplissez ce formulaire pour transferer <span className="font-bold">{selectedHospitalisation.patient.nom} {selectedHospitalisation.patient.prenom}</span>.</p>
             <div className="grid grid-cols-6 gap-2">
                 <label className="font-semibold text-slate-700 text-sm col-span-2">Hôpital<span className="text-red-500">*</span></label>
                 <select className="col-span-4" value={transfert.hopital} onChange={(e) => setTransfert(t => ({...t, hopital: e.target.value}))}>

@@ -43,9 +43,9 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
   const onReset = () => {reset(); close()}
 
   return (
-      <Modal isOpen={isOpen} icon="fa fa-bed" theme={theme} size="sm:max-w-5xl">
-        <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Modifier une chambre </h3>
-        <p className="text-gray-600"> Remplissez ce formulaire pour modifier une nouvelle chambre </p>
+      <Modal isOpen={isOpen} icon="fa fa-user" theme={theme} size="sm:max-w-5xl">
+        <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3"> Modifier un personnel</h3>
+        <p className="text-gray-600"> Remplissez ce formulaire pour modifier un personnel.</p>
         <form className="grid grid-cols-2 gap-2" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div className="mb-1">

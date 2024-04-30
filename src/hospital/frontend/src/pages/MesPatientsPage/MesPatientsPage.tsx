@@ -94,25 +94,25 @@ function MesPatientsPage() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link to="/consultations/new" className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                            <i className="fa fa-briefcase-medical w-4 mr-2" /> Consultation
+                            <i className="fa fa-folder-plus w-4 mr-2" /> Consultation
                           </Link>)}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
                           <Link to="/hospitalisations/new" className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                            <i className="fa fa-briefcase-medical w-4 mr-2" /> Hospitalisation
+                            <i className="fa fa-bed-pulse w-4 mr-2" /> Hospitalisation
                           </Link>)}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
                           <Link to="/interventions/new" className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                            <i className="fa fa-briefcase-medical w-4 mr-2" /> Intervention
+                            <i className="fa fa-syringe w-4 mr-2" /> Intervention
                           </Link>)}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
                           <button className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedPatient(a); setOpenModal('rendez-vous')}}>
-                            <i className="fa fa-briefcase-medical w-4 mr-2" /> Rendez vous
+                            <i className="fa fa-calendar w-4 mr-2" /> Rendez vous
                           </button>)}
                       </Menu.Item>
                     </div>
