@@ -3,11 +3,10 @@ import { baseURL } from "../../../config";
 import { useEffect, useState } from "react";
 
 type TabProps = {
-  hospitalisationData: Partial<Hospitalisation>,
   form: any
 }
 
-function TabHospitalisation({ hospitalisationData, form } : TabProps) {
+function TabHospitalisation({ form } : TabProps) {
   const [chambres, setChambres] = useState<Chambre[]>([]);
   const [lits, setLits] = useState<Lit[]>([]);
 
@@ -18,16 +17,18 @@ function TabHospitalisation({ hospitalisationData, form } : TabProps) {
         form.setValue("chambre", response.data[0].num)
     })
   }, [])
-  useEffect(()=>{
-    if(!hospitalisationData.chambre)
+
+  const watched_chambre = form.watch("chambre");
+  useEffect(() => {
+    if(!watched_chambre)
       setLits([])
     else
-      axios.get(`${baseURL}/api/chambres/${hospitalisationData.chambre}/lits?occupe=0`).then((response)=>{
+      axios.get(`${baseURL}/api/chambres/${watched_chambre}/lits?occupe=0`).then((response)=>{
         setLits(response.data)
         if(response.data.length > 0)
           form.setValue("lit", response.data[0].num)
       })
-  }, [hospitalisationData.chambre])
+  }, [watched_chambre]);
 
   return (
     <>

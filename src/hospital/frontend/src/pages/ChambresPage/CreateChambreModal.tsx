@@ -24,7 +24,6 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
   const onSubmit: SubmitHandler<any> = async (data) => {
     const chambre = { ...data };
     try{
-      console.log(chambre)
       await createChambre(chambre);
       reset();
       showAlert("success", "Chambre ajouté correctement");
@@ -37,14 +36,15 @@ export default function CreateChambreModal({ isOpen, close }: Props) {
         showAlert("error", error.code + ": " + error.message);
     }
   };
-  const watched_nombre_lits = watch("nombre_lits");
+  const watched_nombre_lits = Number(watch("nombre_lits"));
   useEffect(() => {
+    console.log(fields.length, watched_nombre_lits)
     if(fields.length < watched_nombre_lits)
       for(let i=fields.length; i<watched_nombre_lits; i++)
-        append("");
+        append(i+1);
     else
       for(let i=watched_nombre_lits; i<fields.length; i++)
-        remove(i);
+        remove(watched_nombre_lits);
   }, [watched_nombre_lits]);
   const onReset = () => {
     reset();

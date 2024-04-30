@@ -28,7 +28,7 @@ function NouvelleHospitalisationPage() {
   const [validPatient, setValidPatient] = useState(false);
   const [patient, setPatient] = useState({NIN:"", nom:"", prenom:""});
 
-  const { register, handleSubmit, getValues, setValue, formState:{errors} } = useForm<Partial<Hospitalisation>>();
+  const { register, handleSubmit, getValues, setValue, formState:{errors}, watch } = useForm<Partial<Hospitalisation>>();
   register('patient', {required: true});
   const onSubmit: SubmitHandler<Partial<Hospitalisation>> = async (data : Partial<Hospitalisation>) => {
     try{
@@ -92,7 +92,7 @@ function NouvelleHospitalisationPage() {
               </TabContent>
 
               <TabContent icon="fa fa-bed-pulse" text="Hospitalisation">
-                <TabHospitalisation hospitalisationData={getValues()} form={{register, getValues, setValue, errors}}/>
+                <TabHospitalisation form={{register, getValues, setValue, errors, watch}}/>
               </TabContent>
             </Tabs>
 
