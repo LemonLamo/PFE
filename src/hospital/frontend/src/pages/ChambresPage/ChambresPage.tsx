@@ -46,10 +46,7 @@ function ChambresPage() {
           return (
             <>
               {c.nombre_lits_occupe} / {c.nombre_lits}
-              {taux_occupation_badge(
-                Number(c.nombre_lits_occupe!),
-                Number(c.nombre_lits)
-              )}
+              {taux_occupation_badge( Number(c.nombre_lits_occupe!), Number(c.nombre_lits))}
             </>
           );
         },
@@ -61,25 +58,13 @@ function ChambresPage() {
           const c = info.row.original;
           return (
             <div className="flex justify-end gap-2">
-              <ViewButton
-                onClick={() => {
-                  setSelectedChambre(c);
-                  setOpenModal("view");
-                }}
-              />
-              <DeleteButton
-                onClick={() => {
-                  setSelectedChambre(c);
-                  setOpenModal("delete");
-                }}
-              />
+              <ViewButton onClick={() => { setSelectedChambre(c); setOpenModal("view"); }} />
+              <DeleteButton onClick={() => { setSelectedChambre(c); setOpenModal("delete"); }} />
             </div>
           );
         },
       },
-    ],
-    []
-  ) as ColumnDef<Chambre>[];
+    ], []) as ColumnDef<Chambre>[];
 
   const action = (
     <Button theme="primary" onClick={() => setOpenModal("create")}>
@@ -90,28 +75,13 @@ function ChambresPage() {
 
   return (
     <>
-      <Card title="Chambres" className="w-full" action={action}>
-        <DataTable
-          tableDefinition={tableDefinition}
-          query={query}
-          className="mt-2"
-        />
-        <CreateChambreModal
-          isOpen={openModal === "create"}
-          close={() => {setOpenModal(""); query.refetch();}}
-        />
+      <Card title="Gestion des chambres" className="w-full" action={action}>
+        <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
+        <CreateChambreModal isOpen={openModal === "create"} close={() => {setOpenModal(""); query.refetch();}}/>
         {selectedChambre !== undefined ? (
           <>
-            <ViewChambreModal
-              isOpen={openModal === "view"}
-              close={() => setOpenModal("")}
-              selectedChambre={selectedChambre}
-            />
-            <DeleteChambreModal
-              isOpen={openModal === "delete"}
-              close={() => {setOpenModal(""); query.refetch();}}
-              selectedChambre={selectedChambre}
-            />
+            <ViewChambreModal isOpen={openModal === "view"} close={() => setOpenModal("")} selectedChambre={selectedChambre}/>
+            <DeleteChambreModal isOpen={openModal === "delete"} close={() => {setOpenModal(""); query.refetch();}} selectedChambre={selectedChambre}/>
           </>
         ) : null}
       </Card>

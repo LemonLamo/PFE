@@ -30,29 +30,18 @@ export default function ViewChambreModal({
       let data = (await axios.get(`${baseURL}/api/chambres/${selectedChambre.num}/lits`)).data;
       return data;
     },
+    enabled: !!selectedChambre.num
   });
   return (
     <Modal isOpen={isOpen} icon="fa fa-bed" theme="primary" size="sm:max-w-2xl">
-      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
-        {" "}
-        Visualiser une chambre{" "}
-      </h3>
-      <p className="text-gray-600">
-        {" "}
-        Remplissez ce formulaire pour ajouter une nouvelle chambre{" "}
-      </p>
+      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Visualiser une chambre</h3>
+      <p className="text-gray-600">Remplissez ce formulaire pour ajouter une nouvelle chambre</p>
       <div className="grid grid-cols-12 gap-2">
         <div className="col-span-4">
           <label className="text-sm font-semibold">
             Numéro de chambre<span className="text-red-500">*</span>{" "}
           </label>
-          <input
-            type="text"
-            className="primary"
-            placeholder="Num"
-            value={selectedChambre.num}
-            disabled
-          />
+          <input type="text" className="primary" placeholder="Num" value={selectedChambre.num} disabled/>
         </div>
 
         <div className="col-span-4">
@@ -72,26 +61,14 @@ export default function ViewChambreModal({
 
         <div className="col-span-4">
           <label className="text-sm font-semibold">
-            Nombre de lits<span className="text-red-500">*</span>{" "}
+            Nombre de lits<span className="text-red-500">*</span>
           </label>
-          <input
-            type="number"
-            min="0"
-            className="primary"
-            placeholder="Nombre"
-            value={selectedChambre.nombre_lits}
-            disabled
-          />
+          <input type="number" min="0" className="primary" placeholder="Nombre" value={selectedChambre.nombre_lits} disabled/>
         </div>
 
         <div className="col-span-12">
           <label className="text-sm font-semibold">Description </label>
-          <textarea
-            className="primary"
-            placeholder="Description"
-            value={selectedChambre.description}
-            disabled
-          />
+          <textarea className="primary" placeholder="Description" value={selectedChambre.description} disabled />
         </div>
 
         <div className="col-span-12">
@@ -109,7 +86,7 @@ export default function ViewChambreModal({
               fields={["#", "Type", "Status", "Description"]}
               className="mb-4 col-span-12 max-h-72"
             >
-              {query.data!.map((t, i) => (
+              {query.data?.map((t, i) => (
                 <TableRow key={i}>
                   <TableCell className="font-bold">{t.num}</TableCell>
                   <TableCell> {t.type} </TableCell>

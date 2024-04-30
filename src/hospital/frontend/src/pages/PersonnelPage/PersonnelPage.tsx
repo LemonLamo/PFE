@@ -112,7 +112,7 @@ function PersonnelPage() {
 
   return (
     <>
-      <Card title="Personnel" action={action} className="w-full">
+      <Card title="Gestion du personnel" action={action} className="w-full">
         <DataTable
           tableDefinition={tableDefinition}
           query={query}

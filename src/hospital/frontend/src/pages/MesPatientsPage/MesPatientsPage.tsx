@@ -13,15 +13,6 @@ import AjouterRendezVous from "./AjouterRendezVous";
 import Avatar from "../../components/Avatar";
 import AuthContext from "../../hooks/AuthContext";
 
-const createModal = (
-  <>
-    <Link className="flex items-center justify-center py-2 h-10 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0" to="/consultations/new">
-      <i className="fa fa-plus" />
-      <span className="ms-2">Nouvelle consultation</span>
-    </Link>
-  </>
-);
-
 function MesPatientsPage() {
   const auth = useContext(AuthContext);
   const [selectedPatient, setSelectedPatient] = useState<Partial<Patient>>({
@@ -128,7 +119,7 @@ function MesPatientsPage() {
   ) as ColumnDef<Partial<Patient>>[];
 
   return (
-    <Card title="Liste des patients en attente" subtitle="Une liste des patients présents pour la consultation d'aujourd'hui" className="w-full" action={createModal}>
+    <Card title="Liste des patients en attente" subtitle="Une liste des patients présents pour la consultation d'aujourd'hui" className="w-full">
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
       <AjouterRendezVous isOpen={openModal==="rendez-vous"} close={()=>setOpenModal("")} selectedPatient={selectedPatient} />
     </Card>
