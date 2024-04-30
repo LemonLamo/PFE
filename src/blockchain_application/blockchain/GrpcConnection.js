@@ -1,8 +1,6 @@
 const grpc = require('@grpc/grpc-js');
 const { signers } = require('@hyperledger/fabric-gateway');
 const crypto = require('crypto');
-const path = require('path');
-const fs = require('fs').promises;
 
 class GrpcConnection{
     newGrpcConnection = async (tlsRootCert, peerEndpoint, peerHostAlias) => {
@@ -12,22 +10,14 @@ class GrpcConnection{
         });
     }
 
-    newIdentity = async (certDirectoryPath, mspId) => {
-        const certPath = await getFirstDirFileName(certDirectoryPath);
-        const credentials = await fs.readFile(certPath);
+    newIdentity = async (credentials, mspId) => {
         return { mspId, credentials };
     }
     
-    newSigner = async (keyDirectoryPath) => {
-        const keyPath = await getFirstDirFileName(keyDirectoryPath);
-        const privateKeyPem = await fs.readFile(keyPath);
+    newSigner = async (privateKeyPem) => {
         const privateKey = crypto.createPrivateKey(privateKeyPem);
         return signers.newPrivateKeySigner(privateKey);
     }
 }
 
-getFirstDirFileName = async (dirPath) => {
-    const files = await fs.readdir(dirPath);
-    return path.join(dirPath, files[0]);
-}
 module.exports = new GrpcConnection();

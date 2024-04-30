@@ -1,20 +1,19 @@
-const path = require('path');
-const fs = require('fs').promises;
 const { TextDecoder } = require('util');
 const { connect } = require('@hyperledger/fabric-gateway');
 const { newGrpcConnection, newIdentity, newSigner } = require('./GrpcConnection');
 
 // Path to peer tls certificate.
-const tlsCertPath = path.resolve('blockchain', 'peer0.hopital1.medicalife.com', 'tls', 'ca.crt');
 const peerEndpoint = 'localhost:7051';
 const peerHostAlias = 'peer0.hopital1.medicalife.com';
 
-// Path to user private & public key directories.
-const keyDirectoryPath = path.resolve('blockchain', 'Admin@hopital1.medicalife.com', 'msp', 'keystore');
-const certDirectoryPath = path.resolve('blockchain', 'Admin@hopital1.medicalife.com', 'msp', 'signcerts');
+// Make sure these env variables are set.
+// BLOCKCHAIN_MSPID = 'Hopita1MSP'
+// BLOCKCHAIN_PeerHostAlias = 'peer0.hopital1.medicalife.com'
+// BLOCKCHAIN_PeerTLSCACert
+// BLOCKCHAIN_UserSecretKey
+// BLOCKCHAIN_UserPublicKey
 
-// Gateway peer endpoint.
-const mspId = 'Hopital1MSP';
+// Variables
 const channelName = 'mychannel';
 const chaincodeName = 'basic';
 
@@ -26,13 +25,12 @@ class HFConnection{
     connect = async () => {
         try{
             // The gRPC client connection should be shared by all Gateway connections to this endpoint.
-            const tlsRootCert = await fs.readFile(tlsCertPath);
-            const client = await newGrpcConnection(tlsRootCert, peerEndpoint, peerHostAlias);
+            const client = await newGrpcConnection(process.env.BLOCKCHAIN_PeerTLSCert, peerEndpoint, peerHostAlias);
 
             this.gateway = connect({
                 client,
-                identity: await newIdentity(certDirectoryPath, mspId),
-                signer: await newSigner(keyDirectoryPath),
+                identity: await newIdentity(process.env.BLOCKCHAIN_UserPublicKey, process.env.BLOCKCHAIN_MSPID),
+                signer: await newSigner(process.env.BLOCKCHAIN_UserSecretKey),
                 // Default timeouts for different gRPC calls
                 evaluateOptions: () => ({ deadline: Date.now() + 5000 }),
                 endorseOptions: () => ({ deadline: Date.now() + 15000 }),
@@ -66,14 +64,12 @@ class HFConnection{
     }
 
     displayInputParameters = () => {
-        console.log(`mspId:             ${mspId}`);
-        console.log(`channelName:       ${channelName}`);
-        console.log(`chaincodeName:     ${chaincodeName}`);
-        console.log(`keyDirectoryPath:  ${keyDirectoryPath}`);
-        console.log(`certDirectoryPath: ${certDirectoryPath}`);
-        console.log(`tlsCertPath:       ${tlsCertPath}`);
+        console.log(`MSPID:             ${process.env.BLOCKCHAIN_MSPID}`);
         console.log(`peerEndpoint:      ${peerEndpoint}`);
         console.log(`peerHostAlias:     ${peerHostAlias}`);
+        console.log(`user:              Admin`);
+        console.log(`channelName:       ${channelName}`);
+        console.log(`chaincodeName:     ${chaincodeName}`);
     }
 
     decode = (bytes) => {
