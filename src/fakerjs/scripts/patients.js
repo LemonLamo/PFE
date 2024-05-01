@@ -33,14 +33,14 @@ exports.fillup = async (NUMBER_OF_RECORDS) => {
                 NIN_mere: "1000"+Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join(''),
             }
             
-            const form_data = new FormData();
-            Object.keys(patient).forEach((key) => form_data.append(key, patient[key]));
-            form_data.append("avatar", fs.createReadStream('./scripts/100010364027390000.jpg'));
+            const data = new FormData();
+            Object.keys(patient).forEach((key) => data.append(key, patient[key].toString()));
+            data.append("avatar", fs.createReadStream('./scripts/100010364027390000.jpg'));
             
             await axios.post(
                 `https://localhost/api/patients`,
-                form_data,
-                {httpsAgent: agent, headers: {"Content-Type": `multipart/form-data; boundary=${data._boundary}`, "Authorization": "Bearer " + random_valid_jwt()}}
+                data,
+                {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt(), 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
             );
             console.log(`Added ${patient.nom} ${patient.prenom} (${patient.NIN})`)
             patients.push(patient.NIN);

@@ -3,6 +3,7 @@
 ## Basics
 
 ```bash
+curl -sSL https://bit.ly/2ysbOFE | bash -s # Install binaries and then move ./fabric-samples/bin to ./
 ./init.sh # Generates crypto-material (certificates).
 ./start.sh # Ensures the containers are up and running.
 ./stop.sh # To stop the current running network (does not tear it down)
@@ -10,13 +11,24 @@
 ./test.sh # Queries the chaincode "GetAll" function.
 ```
 
-### DEV Sequence
+### How to use?
+
+First time setup:
 
 ```bash
-./stop.sh
-./init.sh
+./start.sh
+./create_channel.sh
 ./deploy_cc.sh
-./test.sh
+# <use>
+./stop.sh
+```
+
+Afterwards:
+
+```bash
+./start.sh
+# <use>
+./stop.sh
 ```
 
 ## Advanced

@@ -4,7 +4,7 @@ exports.validationRules = {
 };
 
 exports.select = async (service, medecin) => {
-  const [results] = await db.query("SELECT * FROM `reception` WHERE `service`=? AND (`medecin`=? OR `medecin` IS NULL OR `medecin`='')", [service, medecin]);
+  const [results] = await db.query("SELECT * FROM `reception` WHERE `service`=? AND (`medecin`=? OR `medecin` IS NULL OR `medecin`='') ORDER BY created_at DESC", [service, medecin]);
   return results;
 };
 

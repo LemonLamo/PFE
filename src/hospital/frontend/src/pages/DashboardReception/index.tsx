@@ -1,2 +1,2 @@
-import DashboardEntree from './DashboardReception'
-export default DashboardEntree
+import DashboardReception from './DashboardReception'
+export default DashboardReception

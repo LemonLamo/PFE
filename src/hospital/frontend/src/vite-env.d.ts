@@ -112,6 +112,7 @@ type MaladieCode = {
 type Radio = {
   id: string;
   patient: Partial<Patient>;
+  medecin?: Partial<Personnel>;
   code_radio: string;
   designation?: string;
   date: Date;
@@ -127,6 +128,7 @@ type RadioCode = {
 type Bilan = {
   id: string;
   patient: Partial<Patient>;
+  medecin?: Partial<Personnel>;
   code_bilan: string;
   designation?: string;
   date: Date;

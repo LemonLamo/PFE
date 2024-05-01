@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-   name: blockchain-service
+   name: blockchain-node
 spec:
    clusterIP: None
    type: ClusterIP

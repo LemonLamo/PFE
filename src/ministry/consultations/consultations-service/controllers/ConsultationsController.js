@@ -2,9 +2,9 @@ const Model = require("../models/ConsultationsModel");
 const ExamensCliniquesModel = require("../models/ExamensCliniquesModel");
 const { genID } = require("../utils");
 const { fetchPatients, fetchMedecins, fetchExamensCliniques } = require("../utils/communication");
-const axios = require("axios");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
+const blockchain = require("../utils/blockchain");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -16,31 +16,24 @@ class ConsultationsController {
       // If patient, reply with history for that patient.
       if (role == undefined) {
         const data = await Model.selectByPatient(NIN);
-        const examens_cliniques = await fetchExamensCliniques(data);
-        const result = data.map((x) => ({
-          ...x,
-          designation: examens_cliniques.get(x.code_examen_clinique).designation,
-        }));
-        return res.status(200).json(result);
+        return res.status(200).json(data);
       }
 
-      // Else, to be secured later
+      // else, to be secured later
       else {
         const { patient } = req.query;
         const data = patient
           ? await Model.selectByPatient(patient)
           : await Model.selectByMedecin(patient);
 
-        const [patients, medecins, examens_cliniques] = await Promise.all([
+        const [patients, medecins] = await Promise.all([
           fetchPatients(data),
-          fetchMedecins(data),
-          fetchExamensCliniques(data)
+          fetchMedecins(data)
         ]);
         const result = data.map((x) => ({
           ...x,
           patient: patients.get(x.patient),
           medecin: medecins.get(x.medecin),
-          designation: examens_cliniques.get(x.code_examen_clinique).designation,
         }));
         
         return res.status(200).json(result);
@@ -75,52 +68,15 @@ class ConsultationsController {
     const { NIN: medecin, role, service, hopital } = req.jwt;
     try {
       const id = "cons-"+genID();
-      const {
-        patient,
-        date,
-        type,
-        motif,
-        symptomes,
-        resume,
-        diagnostique,
-        diagnostique_details,
-      } = req.body;
-      const {
-        examens_cliniques,
-        prescriptions,
-        radios,
-        bilans,
-        interventions,
-        duree_arret_de_travail,
-        prochaine_consultation,
-      } = req.body;
+      const { patient, date, type, motif, symptomes, resume, diagnostique, diagnostique_details } = req.body;
+      const { examens_cliniques, prescriptions, radios, bilans, interventions, duree_arret_de_travail, prochaine_consultation } = req.body;
 
-      await Model.insert(
-        id,
-        patient,
-        medecin,
-        hopital,
-        service,
-        date,
-        type,
-        motif,
-        symptomes,
-        resume,
-        diagnostique,
-        diagnostique_details,
-        duree_arret_de_travail
-      );
+      await Model.insert(id, patient, medecin, hopital, service, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail);
+      await blockchain.AddEntry(id, await Model.selectOne(id))
 
       // Examens cliniques
       const insert_examens_cliniques = examens_cliniques.map((e) =>
-        ExamensCliniquesModel.insert(
-          genID(),
-          patient,
-          id,
-          e.code_examen_clinique,
-          e.resultat,
-          e.remarques
-        )
+        ExamensCliniquesModel.insert(genID(), patient, id, e.code_examen_clinique, e.resultat, e.remarques)
       );
       const promises = [...insert_examens_cliniques];
       await Promise.all(promises);

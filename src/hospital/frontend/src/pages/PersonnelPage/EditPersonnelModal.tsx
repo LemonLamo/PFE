@@ -84,8 +84,8 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
           <div className="mb-2">
             <label className="text-sm font-semibold">Sexe<span className="text-red-500">*</span></label>
             <select {...register("sexe", {required: true})} className={`primary ${errors.sexe && 'has-error'}`}>
-              <option value="Homme">Male</option>
-              <option value="Femme">Female</option>
+              <option value="Homme">Homme</option>
+              <option value="Femme">Femme</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-2 mb-2">

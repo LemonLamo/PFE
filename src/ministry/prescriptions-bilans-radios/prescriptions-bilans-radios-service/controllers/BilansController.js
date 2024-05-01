@@ -13,27 +13,31 @@ class BilansController {
       const { reference } = req.query;
       if (reference) {
         const data = await Model.getByReference(reference);
-        const [patients, bilans] = await Promise.all([
+        const [patients, bilans, medecins] = await Promise.all([
           fetchPatients(data),
           fetchBilans(data),
+          fetchMedecins(data)
         ]);
 
         const result = data.map((x) => ({
           ...x,
           patient: patients.get(x.patient),
+          medecin: medecins.get(x.medecin),
           designation: bilans.get(x.code_bilan).designation,
         }));
         return res.status(200).json(result);
       } else {
         let data = await Model.getAll();
-        const [patients, bilans] = await Promise.all([
+        const [patients, bilans, medecins] = await Promise.all([
           fetchPatients(data),
           fetchBilans(data),
+          fetchMedecins(data)
         ]);
 
         const result = data.map((x) => ({
           ...x,
           patient: patients.get(x.patient),
+          medecin: medecins.get(x.medecin),
           designation: bilans.get(x.code_bilan).designation,
         }));
         return res.status(200).json(result);

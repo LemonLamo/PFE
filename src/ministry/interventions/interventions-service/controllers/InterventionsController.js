@@ -7,6 +7,7 @@ const {
 const { genID } = require("../utils");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
+const blockchain = require("../utils/blockchain");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -81,24 +82,9 @@ class InterventionsController {
       const { NIN: medecin, role, hopital, service } = req.jwt;
 
       const id = "interv-"+genID();
-      const {
-        patient,
-        date,
-        code_intervention,
-        remarques,
-        protocole_operatoire,
-      } = req.body;
-      await Model.insert(
-        id,
-        patient,
-        medecin,
-        hopital,
-        service,
-        date,
-        code_intervention,
-        remarques,
-        protocole_operatoire
-      );
+      const { patient, date, code_intervention, remarques, protocole_operatoire } = req.body;
+      await Model.insert(id, patient, medecin, hopital, service, date, code_intervention, remarques, protocole_operatoire);
+      await blockchain.AddEntry(id, await Model.selectOne(id))
 
       if (!protocole_operatoire)
         RabbitConnection.sendMsg("rendez-vous_create", {

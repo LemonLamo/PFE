@@ -1,7 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Card from "../../components/UI/Card";
 import { Link } from "react-router-dom";
-import ViewButton from "../../components/UI/Buttons/ViewButton";
 import { useContext, useMemo } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -14,6 +13,7 @@ import StatisticsCard from "../../components/StatisticsCard";
 import AuthContext from "../../hooks/AuthContext";
 import TableLoading from "../../components/UI/Loading";
 import Avatar from "../../components/Avatar";
+import Dropdown from "../../components/UI/Dropdown";
 
 const today = new Date();
 function DashboardMedecin(){
@@ -76,24 +76,31 @@ function DashboardMedecin(){
         { header: "Date et lieu de naissance", id: "date_lieu_naissance", cell: (info) => <> {moment(info.row.original.date_de_naissance).format('DD/MM/YYYY')}, {info.row.original.lieu_de_naissance}</> },
         { header: "Email", accessorKey: "email" },
         { header: "Telephone", accessorKey: "telephone" },
-        {
-            header: "", id: "actions", cell: (info) => {
-                const a = info.row.original
-                return (
-                    <div className="flex justify-end gap-2">
-                        <Link to={`/patients/${a.NIN}`} className="w-4 transform text-green-500 hover:text-green-700 hover:scale-110">
-                            <ViewButton onClick={() => null} />
-                        </Link>
-                        <Link to={`/patients/${a.NIN}`} className="w-4 transform text-green-500 hover:text-green-700 hover:scale-110">
-                            <button onClick={() => null} className="w-4 text-green-500 hover:text-green-700 hover:scale-110">
-                                <i className="fa fa-envelope text-xs"></i>
-                            </button>
-                        </Link>
-                    </div>
-                )
-            }
+        { header: "Arrivée", id: "arrive", cell: (info) => <> {moment(info.row.original.created_at).fromNow()}</>  },
+        { header: "", id: "actions", cell: (info) => {
+          const a = info.row.original;
+          return (
+            <>
+              <Dropdown text="Actions">
+                <div className="bg-white rounded-md overflow-hidden">
+                  <Link to={`/patients/${a.patient.NIN}`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
+                    <i className="fa fa-folder w-4 mr-2" /> Dossier
+                  </Link>
+                  <Link to={`/consultations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
+                    <i className="fa fa-folder w-4 mr-2" /> Dossier
+                  </Link>
+                  <Link to={`/hospitalisations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
+                    <i className="fa fa-folder w-4 mr-2" /> Dossier
+                  </Link>
+                  <Link to={`/interventions/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
+                    <i className="fa fa-folder w-4 mr-2" /> Dossier
+                  </Link>
+                </div>
+              </Dropdown>
+          </>);
         },
-    ], []) as ColumnDef<Partial<Patient>>[];
+      },
+    ], []) as ColumnDef<any>[];
 
     const tableDefinition2 = useMemo(() => [
         { header: "Patient", id: "patient", cell: (info) => {
@@ -118,7 +125,7 @@ function DashboardMedecin(){
                 <p className="text-center mb-0">{moment(x.date).format("HH:mm")}</p>
             </div>
         } },
-        { header: "État", id: "etat", cell: (info) => {
+        { header: "Durée", id: "duree", cell: (info) => {
             const x = info.row.original;
             return <div className="text-center">
                 <Badge textColor="#0891b2" bgColor="#cffafe">{x.duree}m</Badge>
@@ -159,7 +166,7 @@ function DashboardMedecin(){
                 patients.isError? "Erreur":
                 patients.isLoading?
                     <TableLoading />:
-                    <h5 className="text-2xl mb-0 font-bold dark:text-white">{patients.data.length}</h5>
+                    <h5 className="text-2xl mb-0 font-bold dark:text-white">{patients.data?.length}</h5>
             }
             </StatisticsCard>
         </div>

@@ -1,6 +1,12 @@
 import { ReactNode } from "react";
 import { Navigate, NavigateFunction } from 'react-router-dom'
 import { jwtDecode } from "jwt-decode";
+import DashboardMedecin from "../pages/DashboardMedecin";
+import DashboardAdmin from "../pages/DashboardAdmin";
+import DashboardInfirmier from "../pages/DashboardInfirmier";
+import DashboardLab from "../pages/DashboardLab";
+import DashboardRadio from "../pages/DasshboardRadio";
+import Scaffold from "../components/Scaffold";
 export type JWTToken = {
     NIN: string,
     nom: string,
@@ -40,6 +46,46 @@ export function hasPermissions(permissions: string[]){
             return false;
 
     return true;
+}
+
+export function Dashboard() {
+    switch(getJWTContent()?.role){
+        case 'admin':
+            return <Scaffold> <DashboardAdmin /> </Scaffold>
+        case 'medecin':
+            return <Scaffold>  <DashboardMedecin /> </Scaffold>
+        case 'infirmier':
+            return <Scaffold>  <DashboardInfirmier /> </Scaffold>
+        case 'lab':
+            return <Scaffold>  <DashboardLab /> </Scaffold>
+        case 'radio':
+            return <Scaffold>  <DashboardRadio /> </Scaffold>
+    }
+}
+
+type RequireRoleProps = {
+    roles: string[],
+    children: ReactNode
+}
+
+export function RequireRole({ roles, children } : RequireRoleProps) {
+    if(!isAuthenticated())
+        return <Navigate to="/" />
+    
+    if(!roles.includes(getJWTContent()?.role!))
+        return <Navigate to="/" />
+    
+    return children;
+}
+
+export function ShowOnlyIfRole({ roles, children } : RequireRoleProps) {
+    if(!isAuthenticated())
+        return null
+    
+    if(!roles.includes(getJWTContent()?.role!))
+        return null
+    
+    return children;
 }
 
 type Props = {

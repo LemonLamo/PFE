@@ -4,6 +4,7 @@ import SidebarButton from "./SidebarButton";
 import SidebarHeader from "./SidebarHeader";
 import AuthContext from "../../hooks/AuthContext";
 import { useContext } from "react";
+import { ShowOnlyIfRole } from "../../hooks/useAuth";
 
 type SidebarProps = {
   setOpen: () => void;
@@ -25,35 +26,53 @@ function Sidebar({ setOpen }: SidebarProps) {
       <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
       <div className="items-center block w-auto max-h-screen">
         <ul className="flex flex-col pl-0 pt-2 pb-4">
-          <SidebarButton text="Dashboard Medecin" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Admin" icon="fa fa-pie-chart" route="/dashboard_admin" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Infirmier" icon="fa fa-staff-snake" route="/dashboard_inf" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Lab" icon="fa fa-vial" route="/dashboard_lab" closeSidebar={setOpen}/>
-          <SidebarButton text="Dashboard Radio" icon="fa fa-x-ray" route="/dashboard_radio" closeSidebar={setOpen}/>
+          <ShowOnlyIfRole roles={['medecin']}>
+            <SidebarButton text="Dashboard" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
 
-          <SidebarHeader text="Bureau de tri" />
-          <SidebarButton text="Dashboard Réception" icon="fa fa-staff-snake" route="/dashboard_entree" closeSidebar={setOpen}/>
+          <ShowOnlyIfRole roles={['admin']}>
+            <SidebarButton text="Dashboard" icon="fa fa-pie-chart" route="/" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
+
+          <ShowOnlyIfRole roles={['infirmier']}>
+            <SidebarButton text="Dashboard" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
+
+          <ShowOnlyIfRole roles={['lab']}>
+            <SidebarButton text="Dashboard" icon="fa fa-vial" route="/" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
+
+          <ShowOnlyIfRole roles={['radio']}>
+            <SidebarButton text="Dashboard" icon="fa fa-x-ray" route="/" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
+
+          <SidebarHeader text="Reception" />
+          <SidebarButton text="Rechercher un patient" icon="fa fa-staff-snake" route="/reception" closeSidebar={setOpen}/>
           <SidebarButton text="Nouveau patient" icon="fa fa-user-plus" route="/patients/new" closeSidebar={setOpen}/>
 
-          <SidebarHeader text="Consultation" />
-          <SidebarButton text="Nouvelle consultation" icon="fa fa-folder-plus" route="/consultations/new" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes patients" icon="fa fa-user" route="/patients" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez-vous" closeSidebar={setOpen}/>
+          <ShowOnlyIfRole roles={['medecin']}>
+            <SidebarHeader text="Consultation" />
+            <SidebarButton text="Nouvelle consultation" icon="fa fa-folder-plus" route="/consultations/new" closeSidebar={setOpen}/>
+            <SidebarButton text="Mes patients" icon="fa fa-user" route="/patients" closeSidebar={setOpen}/>
+            <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez-vous" closeSidebar={setOpen}/>
 
-          <SidebarHeader text="Hospitalisations" />
-          <SidebarButton text="Nouvelle hospitalisation" icon="fa fa-folder-plus" route="/hospitalisations/new" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes patients hospitalisés" icon="fa fa-bed-pulse" route="/hospitalisations" closeSidebar={setOpen}/>
+            <SidebarHeader text="Hospitalisations" />
+            <SidebarButton text="Nouvelle hospitalisation" icon="fa fa-folder-plus" route="/hospitalisations/new" closeSidebar={setOpen}/>
+            <SidebarButton text="Mes patients hospitalisés" icon="fa fa-bed-pulse" route="/hospitalisations" closeSidebar={setOpen}/>
 
-          <SidebarHeader text="Interventions" />
-          <SidebarButton text="Nouvelle intervention" icon="fa fa-folder-plus" route="/interventions/new" closeSidebar={setOpen}/>
-          <SidebarButton text="Mes interventions" icon="fa fa-bed-pulse" route="/interventions" closeSidebar={setOpen}/>
+            <SidebarHeader text="Interventions" />
+            <SidebarButton text="Nouvelle intervention" icon="fa fa-folder-plus" route="/interventions/new" closeSidebar={setOpen}/>
+            <SidebarButton text="Mes interventions" icon="fa fa-bed-pulse" route="/interventions" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
 
           <SidebarHeader text="Pharmacie" />
           <SidebarButton text="Gestion des médicaments" icon="fa fa-prescription-bottle-medical" route="/pharmacie" closeSidebar={setOpen}/>
 
-          <SidebarHeader text="Administration" />
-          <SidebarButton text="Gestion du personnel" icon="fa fa-users" route="/personnel" closeSidebar={setOpen}/>
-          <SidebarButton text="Gestion des chambres" icon="fa fa-bed" route="/chambres" closeSidebar={setOpen}/>
+          <ShowOnlyIfRole roles={['admin']}>
+            <SidebarHeader text="Administration" />
+            <SidebarButton text="Gestion du personnel" icon="fa fa-users" route="/personnel" closeSidebar={setOpen}/>
+            <SidebarButton text="Gestion des chambres" icon="fa fa-bed" route="/chambres" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
         </ul>
       </div>
     </aside>

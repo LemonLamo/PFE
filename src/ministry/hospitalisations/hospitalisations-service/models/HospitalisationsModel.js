@@ -190,7 +190,7 @@ class ConsultationsModel {
   async selectByIDs(IDs) {
     try {
       const [results] = await db.query(
-        "SELECT * FROM `hospitalisations` WHERE `id` IN (?)",
+        "SELECT id, chambre, lit FROM `hospitalisations` WHERE `id` IN (?)",
         [IDs]
       );
       return results;

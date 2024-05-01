@@ -57,7 +57,7 @@ RabbitConnection.on("notification", async (msg) =>{
           (await axios.get(`http://personnel-service/private/personnel/${NIN}`)).data;
       // Insert
       const summary = format(NOTIF_SUMMARIES[notification_type], data)
-      await NotificationModel.insert(notification_type, NIN, notified_type, delivery_method, profile.email, profile.telephone, summary, data)
+      await NotificationModel.insert(notification_type, NIN, notified_type, delivery_method, profile.email, profile.telephone, summary, JSON.stringify(data))
 
       // Extract notification methods from bitmask
       const sendSMS = (delivery_method & 0b0100) > 0; // Check bit 2 for SMS

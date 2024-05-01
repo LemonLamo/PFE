@@ -12,7 +12,7 @@ exports.fetchPatients = async (data) => {
 exports.fetchExamensCliniques = async (data) => {
     if(data.length==0) return data;
     const codes_examens_cliniques = data.map((x) => x.code_examen_clinique);
-    const examens_cliniques = (await axios.post('http://codifications-service/private/bilans', { codes_examens_cliniques })).data;
+    const examens_cliniques = (await axios.post('http://codifications-service/private/examens-cliniques', { codes_examens_cliniques })).data;
     const codesMap = new Map(examens_cliniques.map((x) => [x.code_examen_clinique, { ...x }]));
 
     return codesMap;

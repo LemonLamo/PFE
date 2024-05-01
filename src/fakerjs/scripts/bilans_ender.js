@@ -24,7 +24,6 @@ exports.fillup = async () => {
             data,
             {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt(), 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
         );
-        console.log(bilans[i])
     }
     
 }

@@ -38,7 +38,7 @@ export default function LabelRadio({ isOpen, close, selectedRadio} : Props) {
 
         <div className="flex mb-2">
           <div className="w-1/4 font-bold">Demandé par:</div>
-          <div className="w-3/4 font-medium"> </div>
+          <div className="w-3/4 font-medium">Dr. {selectedRadio.medecin?.nom} {selectedRadio.medecin?.prenom}</div>
         </div>
 
         <div className="text-center text-xl font-bold mt-2 mb-2">{selectedRadio.designation}</div>

@@ -183,8 +183,8 @@ function NewPatientPage() {
                 Sexe<span className="text-red-500">*</span>
               </label>
               <select {...register("sexe", {required: true})} className={`primary ${errors.sexe && 'has-error'}`}>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
               </select>
             </div>
             <div className="col-span-6 mb-2">

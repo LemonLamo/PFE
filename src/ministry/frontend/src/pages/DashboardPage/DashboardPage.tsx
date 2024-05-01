@@ -11,6 +11,7 @@ import { baseURL } from "../../config";
 import moment from "moment";
 import AlertCard from "./AlertCard";
 import Avatar from "../../components/Avatar";
+import { getNotifiations } from "../../hooks/useNotifications";
 
 const today = new Date()
 
@@ -26,11 +27,7 @@ function DashboardPage(){
 
     const alerts = useQuery<any[]>({
         queryKey: ["alerts"],
-        queryFn: () => ([
-            {"title": "**Bilan XSD5489S** est maintenant prêt", "date": "2024-04-17T00:00:00.000Z", action:"/ordonnances/1531"},
-            {"title": "**Radio SDQZEEZS** est maintenant prêt", "date": "2024-04-17T00:00:00.000Z"},
-            {"title": "**Bilan QSDSQDDD** est maintenant prêt", "date": "2024-04-17T00:00:00.000Z"}
-        ])
+        queryFn: async () => await getNotifiations()
     });
 
     const profile = useQuery<Patient>({
@@ -83,7 +80,7 @@ function DashboardPage(){
                     </Card>
                 </div>
                 <div className="col-span-5">
-                    <Card title="Dernier rapports" subtitle="Les alertes les plus pertinentes" className="w-full">
+                    <Card title="Dernier alertes" subtitle="Les alertes les plus pertinentes" className="w-full">
                         <ul className="flex flex-col gap-y-4 mt-4">
                         {
                             alerts.isLoading?

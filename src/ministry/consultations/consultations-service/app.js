@@ -6,12 +6,16 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
+const blockchain = require("./blockchain");
 const RabbitConnection = require("./config/amqplib");
 RabbitConnection.connect();
 const app = express();
 
 // database connection
 database.connect();
+
+// blockchain
+blockchain.connect();
 
 // configure express app
 app.set("trust proxy", 1); // trust first proxy

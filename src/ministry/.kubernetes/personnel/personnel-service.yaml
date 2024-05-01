@@ -45,26 +45,3 @@ spec:
       - name: pv-profile
         persistentVolumeClaim:
           claimName: pvc-profile
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-profile
-spec:
-  capacity:
-    storage: 250Mi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-profile
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 250Mi

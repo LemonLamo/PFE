@@ -38,7 +38,7 @@ export default function LabelBilan({ isOpen, close, selectedBilan} : Props) {
 
         <div className="flex mb-2">
           <div className="w-1/4 font-bold">Demandé par:</div>
-          <div className="w-3/4 font-medium"> </div>
+          <div className="w-3/4 font-medium">Dr. {selectedBilan.medecin?.nom} {selectedBilan.medecin?.prenom}</div>
         </div>
 
         <div className="text-center text-xl font-bold mt-2 mb-2">{selectedBilan.designation}</div>

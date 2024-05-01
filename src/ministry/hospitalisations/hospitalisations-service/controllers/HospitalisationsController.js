@@ -2,6 +2,7 @@ const Model = require("../models/HospitalisationsModel");
 const { genID } = require("../utils");
 const { fetchPatients, fetchMedecins } = require("../utils/communication");
 const logger = require("../utils/logger");
+const blockchain = require("../utils/blockchain");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -77,19 +78,8 @@ class HospitalisationsController {
         lit,
         resume_hospitalisation,
       } = req.body;
-      await Model.insert(
-        id,
-        patient,
-        medecin,
-        hopital,
-        service,
-        date_entree,
-        mode_entree,
-        motif_hospitalisation,
-        chambre,
-        lit,
-        resume_hospitalisation
-      );
+      await Model.insert(id, patient, medecin, hopital, service, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation);
+      await blockchain.AddEntry(id, await Model.selectOne(id))
       return res.status(200).json({ success: true });
     } catch (err) {
       logger.error("database-error: " + err);

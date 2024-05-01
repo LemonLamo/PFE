@@ -13,27 +13,31 @@ class RadiosController {
       const { reference } = req.query;
       if (reference) {
         const data = await Model.getByReference(reference);
-        const [patients, radios] = await Promise.all([
+        const [patients, radios, medecins] = await Promise.all([
           fetchPatients(data),
           fetchRadios(data),
+          fetchMedecins(data)
         ]);
 
         const result = data.map((x) => ({
           ...x,
           patient: patients.get(x.patient),
+          medecin: medecins.get(x.medecin),
           designation: radios.get(x.code_radio).designation,
         }));
         return res.status(200).json(result);
       } else {
         let data = await Model.getAll();
-        const [patients, radios] = await Promise.all([
+        const [patients, radios, medecins] = await Promise.all([
           fetchPatients(data),
           fetchRadios(data),
+          fetchMedecins(data)
         ]);
 
         const result = data.map((x) => ({
           ...x,
           patient: patients.get(x.patient),
+          medecin: medecins.get(x.medecin),
           designation: radios.get(x.code_radio).designation,
         }));
         return res.status(200).json(result);

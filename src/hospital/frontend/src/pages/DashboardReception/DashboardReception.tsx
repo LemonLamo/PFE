@@ -9,7 +9,7 @@ import AuthContext from "../../hooks/AuthContext";
 import AlertsContext from "../../hooks/AlertsContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-function DashboardEntree(){
+function DashboardReception(){
     const { showAlert } = useContext(AlertsContext);
   
     const { register, handleSubmit, getValues, setValue, reset, formState:{errors} } = useForm<any>();
@@ -82,4 +82,4 @@ function DashboardEntree(){
     </>
 }
 
-export default DashboardEntree;
+export default DashboardReception;

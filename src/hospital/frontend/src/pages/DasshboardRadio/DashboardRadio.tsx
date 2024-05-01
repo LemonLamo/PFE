@@ -54,59 +54,24 @@ function DashboardRadio() {
       },
       { header: "Radio", accessorKey: "designation" },
       { header: "Remarques", accessorKey: "remarques" },
-      {
-        header: "Date",
-        id: "date",
-        cell: (info) =>
-          moment(info.row.original.date).format("DD/MM/YYYY HH:mm"),
-      },
-      {
-        header: "Status",
-        id: "status",
-        cell: (info) => status_badge(info.row.original.date_fait),
-      },
-      {
-        header: "Date (Fait)",
-        id: "date_fait",
-        cell: (info) =>
-          info.row.original.date_fait
-            ? moment(info.row.original.date_fait).format("DD/MM/YYYY HH:mm")
-            : "-",
-      },
-      {
-        header: "",
-        id: "actions",
+      { header: "Date", id: "date", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm") },
+      { header: "Status", id: "status", cell: (info) => status_badge(info.row.original.date_fait) },
+      { header: "Date (Fait)", id: "date_fait", cell: (info) => info.row.original.date_fait ? moment(info.row.original.date_fait).format("DD/MM/YYYY HH:mm") : "-", },
+      { header: "", id: "actions",
         cell: (info) => {
           const radio = info.row.original;
           return !info.row.original.date_fait ? (
             <div className="flex justify-end gap-2">
-              <Button
-                onClick={() => {
-                  setSelectedRadio(radio);
-                  setOpenModal("label");
-                }}
-                theme="success"
-              >
+              <Button onClick={() => { setSelectedRadio(radio); setOpenModal("label"); }} theme="success">
                 Label
               </Button>
-              <Button
-                onClick={() => {
-                  setSelectedRadio(radio);
-                  setOpenModal("joindre");
-                }}
-                theme="primary"
-              >
+              <Button onClick={() => { setSelectedRadio(radio); setOpenModal("joindre"); }} theme="primary">
                 Joindre
               </Button>
             </div>
           ) : (
             <div className="flex justify-end gap-2">
-              <Link
-                to={`/radios/${radio.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center py-2 px-4 font-semibold transition border text-cyan-500 border-cyan-500 rounded hover:bg-cyan-500 hover:text-white"
-              >
+              <Link to={`/radios/${radio.id}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center py-2 px-4 font-semibold transition border text-cyan-500 border-cyan-500 rounded hover:bg-cyan-500 hover:text-white">
                 Résultats
               </Link>
             </div>
@@ -119,29 +84,10 @@ function DashboardRadio() {
 
   return (
     <>
-      <Card
-        title="Mes radios"
-        subtitle="Liste des radios à faire"
-        className="w-full"
-      >
-        <DataTable
-          tableDefinition={tableDefinition}
-          query={query}
-          className="mt-2"
-        />
-        <LabelRadio
-          isOpen={openModal === "label"}
-          close={() => setOpenModal("")}
-          selectedRadio={selectedRadio}
-        />
-        <JoindreResultatsRadio
-          isOpen={openModal === "joindre"}
-          close={() => {
-            setOpenModal("");
-            query.refetch();
-          }}
-          selectedRadio={selectedRadio}
-        />
+      <Card title="Mes radios" subtitle="Liste des radios à faire" className="w-full" >
+        <DataTable tableDefinition={tableDefinition} query={query} className="mt-2"/>
+        <LabelRadio isOpen={openModal === "label"} close={() => setOpenModal("")} selectedRadio={selectedRadio} />
+        <JoindreResultatsRadio isOpen={openModal === "joindre"} close={() => {setOpenModal(""); query.refetch(); }} selectedRadio={selectedRadio} />
       </Card>
     </>
   );

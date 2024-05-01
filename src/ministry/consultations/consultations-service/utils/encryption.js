@@ -11,10 +11,11 @@ exports.encrypt = (key, msg) => {
 
   return encoded;
 };
-exports.decrypt = (encoded) => {
+exports.decrypt = (key, encoded) => {
+  const BUFFER_SECRET = Buffer.from(key, "hex");
   const cipher = crypto.createDecipheriv("aes-256-ecb", BUFFER_SECRET, "");
-  let decoded = cipher.update(encoded, "hex", "utf8");
-  decoded += cipher.final("utf8");
+  let msg = cipher.update(encoded, "hex", "utf8");
+  msg += cipher.final("utf8");
 
-  return decoded;
+  return msg;
 };

@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import moment from "moment";
 import Card from "../../components/UI/Card";
 import { Link } from "react-router-dom";
@@ -11,10 +11,9 @@ import AjouterSoinsModal from "./AjouterSoinsModal";
 import AjouterRemarqueModal from "./AjouterRemarqueModal";
 import TransfertModal from "./TransfertModal";
 import SortieModal from "./SortieModal";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import DetailsHospitalisation from "../PatientPage/Modals/DetailsHospitalisation";
 import Avatar from "../../components/Avatar";
+import Dropdown from "../../components/UI/Dropdown";
 
 function MesPatientsHospitalisesPage() {
   const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({
@@ -57,68 +56,33 @@ function MesPatientsHospitalisesPage() {
         const h = info.row.original
         return (
         <>
-           <Menu>
-            <Menu.Button className="flex w-34 w-full items-center justify-between rounded-md bg-cyan-400 px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 font-semibold">
-              Actions
-              <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5 text-white" aria-hidden="true"/>
-            </Menu.Button>
-            <div className="relative">
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95">
-                <Menu.Items className="fixed w-full divide-y divide-gray-100 rounded-b-sm bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-                  <div className="">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button onClick={() => {setSelectedHospitalisation(h);setOpenModal("hospitalisation");}} className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`}>
-                          <i className="w-5 text-xl mr-2" >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" ></path>
-                            </svg>
-                          </i> Détails
-                        </button>)}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link to={`/patients/${h.patient.NIN}`}className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`}>
-                          <i className="fa fa-folder w-4 mr-2" /> Dossier
-                        </Link>)}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('soin')}}>
-                          <i className="fa fa-briefcase-medical w-4 mr-2" /> Soin
-                        </button>)}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('remarques')}}>
-                          <i className="fa fa-edit w-4 mr-2" /> Remarques
-                        </button>)}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('transfert')}}>
-                          <i className="fa fa-truck-medical w-4 mr-2" /> Transfert
-                        </button>)}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button className={`${active ? 'bg-cyan-400 text-white' : 'text-gray-900'} group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('sortie')}}>
-                          <i className="fa fa-person-running w-4 mr-2" /> Sortie
-                        </button>)}
-                    </Menu.Item>
-                  </div>
-                </Menu.Items>
-              </Transition>
+          <Dropdown text="Actions">
+            <div className="bg-white rounded-md overflow-hidden">
+              <button onClick={() => {setSelectedHospitalisation(h); setOpenModal("hospitalisation");}} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
+                <i className="w-5 text-xl mr-2" >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" ></path>
+                  </svg>
+                </i> Détails
+              </button>
+              <Link to={`/patients/${h.patient.NIN}`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
+                <i className="fa fa-folder w-4 mr-2" /> Dossier
+              </Link>
+              <button className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('soin')}}>
+                <i className="fa fa-briefcase-medical w-4 mr-2" /> Soin
+              </button>
+              <button className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('remarques')}}>
+                <i className="fa fa-edit w-4 mr-2" /> Remarques
+              </button>
+              <button className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('transfert')}}>
+                <i className="fa fa-truck-medical w-4 mr-2" /> Transfert
+              </button>
+              <button className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedHospitalisation(h); setOpenModal('sortie')}}>
+                <i className="fa fa-person-running w-4 mr-2" /> Sortie
+              </button>
             </div>
-          </Menu>
+          </Dropdown>
         </>)
       }
     },
