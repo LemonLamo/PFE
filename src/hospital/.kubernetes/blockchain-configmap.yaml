@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: blockchain-config
 data:
-  BLOCKCHAIN_MSPID: 'Hopita1MSP'
+  BLOCKCHAIN_MSPID: 'Hopital1MSP'
   BLOCKCHAIN_PeerHostAlias: 'peer0.hopital1.medicalife.com'
   BLOCKCHAIN_PeerHostEndpoint: 'blockchain-node:7051'
   BLOCKCHAIN_PeerTLSCACert: |
