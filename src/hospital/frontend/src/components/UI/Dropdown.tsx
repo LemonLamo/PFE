@@ -23,7 +23,7 @@ export default function Dropdown({children, text} : Props) {
   }, [])
 
   const button = (
-    <button onClick={toggleDropDown} className="flex w-34 w-full items-center justify-between rounded-md bg-cyan-400 px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 font-semibold">
+    <button onClick={toggleDropDown} className="flex w-full w-[8.5rem] items-center justify-between rounded-md bg-cyan-400 px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 font-semibold">
         {text}
         <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5 text-white" aria-hidden="true"/>
     </button>

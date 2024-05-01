@@ -82,18 +82,18 @@ function DashboardMedecin(){
           return (
             <>
               <Dropdown text="Actions">
-                <div className="bg-white rounded-md overflow-hidden">
-                  <Link to={`/patients/${a.patient.NIN}`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
+                <div className="bg-white rounded-md overflow-hidden w-[8.5rem]">
+                  <Link to={`/patients/${a.NIN}`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
                     <i className="fa fa-folder w-4 mr-2" /> Dossier
                   </Link>
                   <Link to={`/consultations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Dossier
+                    <i className="fa fa-folder w-4 mr-2" /> Consultation
                   </Link>
                   <Link to={`/hospitalisations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Dossier
+                    <i className="fa fa-folder w-4 mr-2" /> Hospitalisation
                   </Link>
                   <Link to={`/interventions/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Dossier
+                    <i className="fa fa-folder w-4 mr-2" /> Intervention
                   </Link>
                 </div>
               </Dropdown>

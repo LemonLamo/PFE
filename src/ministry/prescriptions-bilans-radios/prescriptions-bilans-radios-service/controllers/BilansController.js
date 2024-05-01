@@ -1,5 +1,5 @@
 const Model = require("../models/BilansModel");
-const { fetchPatients, fetchBilans } = require("../utils/communication");
+const { fetchPatients, fetchBilans, fetchMedecins } = require("../utils/communication");
 const { genID } = require("../utils");
 const path = require("path");
 const RabbitConnection = require("../config/amqplib");

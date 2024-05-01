@@ -57,7 +57,7 @@ function MesPatientsHospitalisesPage() {
         return (
         <>
           <Dropdown text="Actions">
-            <div className="bg-white rounded-md overflow-hidden">
+            <div className="bg-white rounded-md overflow-hidden w-[8.5rem]">
               <button onClick={() => {setSelectedHospitalisation(h); setOpenModal("hospitalisation");}} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
                 <i className="w-5 text-xl mr-2" >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

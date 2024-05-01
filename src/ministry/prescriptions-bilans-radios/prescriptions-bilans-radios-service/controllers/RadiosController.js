@@ -4,6 +4,7 @@ const { genID } = require("../utils");
 const path = require("path");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
+const { fetchMedecins } = require('../utils/communication')
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
