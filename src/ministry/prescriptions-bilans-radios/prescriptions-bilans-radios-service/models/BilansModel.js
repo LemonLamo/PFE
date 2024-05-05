@@ -33,7 +33,7 @@ class BilansModel {
   async insert(id, patient, medecin, service, hopital, reference, code_bilan, date, remarques) {
     try {
       await db.execute(
-        "INSERT INTO `bilans` (`id`, `patient`, `medecin`, `service`, `hopital`, `reference`, `code_bilan`, `date`, `remarques`) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO `bilans` (`id`, `patient`, `medecin`, `service`, `hopital`, `reference`, `code_bilan`, `date`, `remarques`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [id, patient, medecin, service, hopital, reference, code_bilan, new Date(date), remarques ?? null]
       );
     } catch (error) {
