@@ -23,12 +23,17 @@ function MesPatientsPage() {
   const query = useQuery({
     queryKey: ["patients"],
     queryFn: async () => {
-      const reception = (await axios.get(`${baseURL}/api/reception?service=${auth?.service}&medecin=${auth?.NIN}`)).data;
-      const NINs = reception.map((x : any) => x.patient);
+      const data = (await axios.get(`${baseURL}/api/reception?service=${auth?.service}&medecin=${auth?.NIN}`)).data;
+      const NINs = data.map((x : any) => x.patient);
 
       if(NINs.length > 0){
-        const data = (await axios.post(`${baseURL}/api/patients/bulk-select`, {NINs: NINs})).data;
-        return data;
+        const patients = (await axios.post(`${baseURL}/api/patients/bulk-select`, {NINs: NINs})).data;
+        const patientsMap : Map<string, Patient> = new Map(patients.map((x : Patient) => [x.NIN, { ...x }]));
+        const result = data.map((x : any) => ({
+          ...patientsMap.get(x.patient),
+          ...x,
+        }));
+        return result;
       }else
         return [];
     },

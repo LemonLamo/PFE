@@ -42,8 +42,8 @@ CREATE TABLE `services` (
 INSERT INTO `services` (`nom_hopital`, `service`) VALUES
 ('CHU Mustapha', 'Radiologie'),
 ('CHU Mustapha', 'Chirugie Générale'),
-('CHU Mustapha', 'Pneumologie'),
-('CHU Mustapha', 'Pédiatrie'),
+('CHU Mustapha', 'Biologie'),
+('CHU Mustapha', 'Radiologie'),
 ('CHU Beni Messous', 'Chirugie Générale'),
 ('CHU Beni Messous', 'Pneumologie'),
 ('CHU Beni Messous', 'Pédiatrie');

@@ -49,12 +49,17 @@ function DashboardMedecin(){
     const patients = useQuery({
         queryKey: ['patients'],
         queryFn: async () => {
-            const reception = (await axios.get(`${baseURL}/api/reception?service=${auth?.service}&medecin=${auth?.NIN}`)).data;
-            const NINs = reception.map((x : any) => x.patient);
+            const data = (await axios.get(`${baseURL}/api/reception?service=${auth?.service}&medecin=${auth?.NIN}`)).data;
+            const NINs = data.map((x : any) => x.patient);
 
             if(NINs.length > 0){
-                const data = (await axios.post(`${baseURL}/api/patients/bulk-select`, {NINs: NINs})).data;
-                return data;
+                const patients = (await axios.post(`${baseURL}/api/patients/bulk-select`, {NINs: NINs})).data;
+                const patientsMap : Map<string, Patient> = new Map(patients.map((x : Patient) => [x.NIN, { ...x }]));
+                const result = data.map((x : any) => ({
+                ...patientsMap.get(x.patient),
+                ...x,
+                }));
+                return result;
             }else
                 return [];
         }
@@ -107,7 +112,7 @@ function DashboardMedecin(){
                 const x = info.row.original;
                 return <div className="flex gap-x-2">
                     <Avatar src={`${baseURL}/api/patients/${x.patient.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
-                    <div className="min-w-0 flex-auto">
+                    <div className="min-w-0 flex-auto max-w-44">
                         <p className="text-sm font-semibold leading-6 text-gray-900 mb-0">
                             {x.patient.nom} {x.patient.prenom}
                         </p>

@@ -1,21 +1,43 @@
 apiVersion: v1
 kind: Service
 metadata:
-   name: blockchain-node
+  labels:
+    app: blockchain-service
+  name: blockchain-service
 spec:
-   clusterIP: None
-   type: ClusterIP
-   ports:
-   - protocol: TCP
-     port: 7051
-     targetPort: 7051
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: blockchain-service
 ---
-apiVersion: v1
-kind: Endpoints
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: blockchain-node
-subsets:
-  - addresses:
-    - ip: 192.168.43.200
-    ports:
-      - port: 7051
+  labels:
+    app: blockchain-service
+  name: blockchain-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blockchain-service
+  template:
+    metadata:
+      labels:
+        app: blockchain-service
+    spec:
+      containers:
+        - image: medicalife/blockchain-service:latest
+          name: blockchain-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: blockchain-config
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

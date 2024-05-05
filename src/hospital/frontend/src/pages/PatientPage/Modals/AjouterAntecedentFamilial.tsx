@@ -18,6 +18,8 @@ export default function AjouterAntecedentFamilial({isOpen, close, action}: Props
     const { register, handleSubmit, reset, formState:{errors} } = useForm<any>();
     const onSubmit: SubmitHandler<any> = async (data : any) => {
         try{
+            if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+                return;
             await action(data);
             reset();
         } catch (error: any) {

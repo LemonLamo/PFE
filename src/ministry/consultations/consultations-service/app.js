@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
-const blockchain = require("./blockchain");
 const RabbitConnection = require("./config/amqplib");
 RabbitConnection.connect();
 const app = express();
@@ -14,8 +13,6 @@ const app = express();
 // database connection
 database.connect();
 
-// blockchain
-blockchain.connect();
 
 // configure express app
 app.set("trust proxy", 1); // trust first proxy
@@ -41,6 +38,8 @@ const ExamensCliniquesController = require("./controllers/ExamensCliniquesContro
 app.get ("/api/consultations", auth.requireAuth, ConsultationsController.select);
 app.post("/api/consultations", auth.requireAuth, ConsultationsController.insert);
 app.get ("/api/consultations/count", auth.requireAuth, ConsultationsController.selectCount);
+app.get ("/api/consultations/countToday", auth.requireAuth, ConsultationsController.selectCountToday);
+app.get ("/api/consultations/countByService", auth.requireAuth, ConsultationsController.selectCountByService);
 app.get ("/api/consultations/timeline", auth.requireAuth, ConsultationsController.timeline);
 app.get ("/api/consultations/:id", auth.requireAuth, ConsultationsController.selectOne);
 app.get ("/api/consultations/:id/examens-cliniques", auth.requireAuth, ExamensCliniquesController.selectByReference);

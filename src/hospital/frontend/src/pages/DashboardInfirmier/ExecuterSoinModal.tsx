@@ -18,6 +18,8 @@ export default function ExecuterSoinModal({isOpen, close, selectedSoin}: Props) 
     const [remarque, setRemarque] = useState('')
     async function submit(){
       try {
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ne pourra plus être annulée."))
+          return;
         await executerSoin(selectedSoin.id, remarque);
         showAlert("success", "Soin executé correctement");
         close();

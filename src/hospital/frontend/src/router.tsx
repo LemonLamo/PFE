@@ -3,11 +3,7 @@ import { PublicOrPrivateRoute, PrivateRouteOnly, Dashboard, RequireRole } from "
 import Scaffold from "./components/Scaffold";
 import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import DashboardAdmin from "./pages/DashboardAdmin";
 import DashboardReception from "./pages/DashboardReception";
-import DashboardLab from "./pages/DashboardLab";
-import DashboardRadio from "./pages/DasshboardRadio";
-import DashboardInfirmier from "./pages/DashboardInfirmier";
 import NouveauPatientPage from "./pages/NouveauPatientPage";
 import NouvelleConsultationPage from "./pages/NouvelleConsultationPage";
 import MesPatientsPage from "./pages/MesPatientsPage/MesPatientsPage";
@@ -25,6 +21,9 @@ import OrdonnanceResultPage from "./pages/OrdonnanceResultPage";
 import ArretDeTravailResultPage from "./pages/ArretDeTravailResultPage";
 import NouvelleInterventionPage from "./pages/NouvelleInterventionPage";
 import MesInterventionsPage from "./pages/MesInterventionsPage/MesInterventionsPage";
+import SoinsArchivesPage from "./pages/SoinsArchivesPage";
+import BilansArchivesPage from "./pages/BilansArchivesPage";
+import RadiosArchivesPage from "./pages/RadiosArchivesPage";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -39,21 +38,6 @@ const router = createBrowserRouter([
       <Scaffold> <DashboardReception/> </Scaffold>
     </PrivateRouteOnly>
   )},
-
-  /* TODO: Remove these when done testing */
-  { path: "/dashboard_inf", element:(<Scaffold> <DashboardInfirmier /> </Scaffold>)},
-  
-  { path: "/dashboard_admin", element:(<Scaffold> <DashboardAdmin /> </Scaffold>)},
-
-
-  { path: "/dashboard_entree", element:(<Scaffold> <DashboardReception /> </Scaffold>)},
-  
-  { path: "/dashboard_entree", element:(<Scaffold> <DashboardReception /> </Scaffold>)},
-  
-  { path: "/dashboard_lab", element:(<Scaffold> <DashboardLab /> </Scaffold>)},
-  
-  { path: "/dashboard_radio", element:(<Scaffold> <DashboardRadio /> </Scaffold>)},
-  /* END */
 
   { path: "/forgot-password", element:(
     <PublicOrPrivateRoute 
@@ -73,12 +57,21 @@ const router = createBrowserRouter([
     </RequireRole>
   )},
 
+  { path: "/radios", element:(
+    <RequireRole roles={['radio']}>
+      <Scaffold> <RadiosArchivesPage /> </Scaffold>
+    </RequireRole>)},
+
   { path: "/radios/:id", element:(
     <RequireRole roles={['medecin', 'radio']}>
       <RadioResultPage />
     </RequireRole>
   )},
 
+  { path: "/bilans", element:(
+    <RequireRole roles={['lab']}>
+      <Scaffold> <BilansArchivesPage /> </Scaffold>
+    </RequireRole>)},
   
   { path: "/bilans/:id", element:(
     <RequireRole roles={['medecin', 'lab']}>
@@ -149,6 +142,11 @@ const router = createBrowserRouter([
     <PrivateRouteOnly>
       <Scaffold> <ParemetresPage /> </Scaffold>
     </PrivateRouteOnly>)},
+
+  { path: "/soins", element:(
+    <RequireRole roles={['infirmier']}>
+      <Scaffold> <SoinsArchivesPage /> </Scaffold>
+    </RequireRole>)},
 ]);
 
 export default router;

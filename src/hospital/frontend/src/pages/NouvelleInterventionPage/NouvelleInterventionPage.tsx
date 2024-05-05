@@ -33,6 +33,9 @@ function NouvelleInterventionPage() {
   register('code_intervention', {required: true})
   const onSubmit: SubmitHandler<Partial<Hospitalisation>> = async (data : Partial<Intervention>) => {
     try{
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+          return;
+        
         await axios.post(`${baseURL}/api/interventions`, data);
         showAlert("success", "Intervention ajouté correctement");
         if(!getValues('protocole_operatoire'))

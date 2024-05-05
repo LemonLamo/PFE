@@ -31,6 +31,8 @@ export default function JoindreResultatsRadio({
 
   async function submit() {
     try {
+      if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+        return;
       await joindre_resultat_radio(selectedRadio.id, radios, observations);
       showAlert("success", "Radio remplit correctement");
       close();

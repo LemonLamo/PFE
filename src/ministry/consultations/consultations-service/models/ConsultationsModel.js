@@ -96,6 +96,32 @@ class ConsultationsModel {
     }
   }
 
+  async countToday(hopital) {
+    try {
+      const [results] = await db.query(
+        "SELECT COUNT(*) AS count FROM `consultations` WHERE `hopital`=? AND date >= CURDATE() AND date < CURDATE() + INTERVAL 1 DAY",
+        [hopital]
+      );
+      return results[0];
+    } catch (error) {
+      logger.error("Error counting consultations:", error);
+      throw error;
+    }
+  }
+
+  async countByService(hopital) {
+    try {
+      const [results] = await db.query(
+        "SELECT service, COUNT(*) AS count FROM `consultations` WHERE `hopital`=? GROUP BY service",
+        [hopital]
+      );
+      return results;
+    } catch (error) {
+      logger.error("Error counting consultations:", error);
+      throw error;
+    }
+  }
+
   async countByMedecin(hopital, medecin) {
     try {
       const [results] = await db.query(

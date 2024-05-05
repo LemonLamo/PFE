@@ -47,22 +47,21 @@ app.get("/api/prescriptions", auth.requireAuth, PrescriptionsController.select);
 app.get("/api/prescriptions/ordonnances/:id", OrdonnancesController.select); //TODO: add requireauth back
 app.get("/api/prescriptions/arret-de-travail/:id", OrdonnancesController.select2);
 app.get("/api/prescriptions/:id", auth.requireAuth, PrescriptionsController.select);
-app.post("/api/prescriptions", auth.requireAuth, PrescriptionsController.insert);
 
 // Radios
 app.get("/api/radios", auth.requireAuth, RadiosController.select);
+app.get("/api/radios/countToday", auth.requireAuth, RadiosController.selectCountToday);
 app.get("/api/radios/:id", auth.requireAuth, RadiosController.selectOne);
 app.get("/api/radios/:id/results", auth.requireAuth, RadiosController.getResultsList);
 app.get("/api/radios/:id/results/:num", RadiosController.getResultOne);
-app.post("/api/radios", auth.requireAuth, RadiosController.insert);
 app.post("/api/radios/:id", auth.requireAuth, uploadRadio.array("radios", 5), RadiosController.addResults);
 
 // Bilans
 app.get("/api/bilans", auth.requireAuth, BilansController.select);
+app.get("/api/bilans/countToday", auth.requireAuth, BilansController.selectCountToday);
 app.get("/api/bilans/:id", auth.requireAuth, BilansController.selectOne);
 app.get("/api/bilans/:id/results", auth.requireAuth, BilansController.getResultsList);
 app.get("/api/bilans/:id/results/:num", BilansController.getResultOne);
-app.post("/api/bilans", auth.requireAuth, BilansController.insert);
 app.post("/api/bilans/:id", auth.requireAuth, uploadBilan.array("bilans", 5), BilansController.addResults);
 
 // RabitMQ
@@ -125,6 +124,9 @@ RabbitConnection.on("radios_create", async (data) => {
       RadiosModel.insert(
         "radio-"+genID(),
         patient,
+        jwt.NIN,
+        jwt.service,
+        jwt.hopital,
         reference,
         r.code_radio,
         r.date,
@@ -141,6 +143,9 @@ RabbitConnection.on("bilans_create", async (data) => {
       BilansModel.insert(
         "bilan-"+genID(),
         patient,
+        jwt.NIN,
+        jwt.service,
+        jwt.hopital,
         reference,
         b.code_bilan,
         b.date,

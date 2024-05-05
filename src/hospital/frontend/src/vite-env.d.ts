@@ -113,6 +113,8 @@ type Radio = {
   id: string;
   patient: Partial<Patient>;
   medecin?: Partial<Personnel>;
+  hopital?: string;
+  service?: string;
   code_radio: string;
   designation?: string;
   date: Date;
@@ -129,6 +131,8 @@ type Bilan = {
   id: string;
   patient: Partial<Patient>;
   medecin?: Partial<Personnel>;
+  hopital?: string;
+  service?: string;
   code_bilan: string;
   designation?: string;
   date: Date;
@@ -231,7 +235,8 @@ type Soin = {
   medecin: Partial<Personnel>;
   infirmier: Partial<Personnel>;
   hospitalisation?: Partial<Hospitalisation> | string;
-  hopital: string;
+  hopital?: string;
+  service?: string;
   acte: string;
   date_soin: Date;
   details: string;

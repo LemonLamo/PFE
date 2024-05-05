@@ -45,6 +45,8 @@ services = [
     "rabbitmq",
 
     "cpabe-service",
+
+    "blockchain-service"
 ]
 
 cwd = os.path.dirname(os.path.realpath(__file__)) 

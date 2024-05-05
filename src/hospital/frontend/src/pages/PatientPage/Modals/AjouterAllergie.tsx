@@ -25,6 +25,9 @@ export default function AjouterAllergie({isOpen, close, action}: Props) {
     }
     const onSubmit: SubmitHandler<any> = async (data : any) => {
         try{
+            if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+                return;
+
             await action(data);
             reset();
         } catch (error: any) {

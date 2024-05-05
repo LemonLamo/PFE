@@ -41,6 +41,9 @@ function NewPatientPage() {
     };
 
     try {
+      if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+        return;
+
       const formData = new FormData();
       Object.keys(data).forEach((key) => formData.append(key, data[key] as string));
       formData.append('avatar', avatar!);

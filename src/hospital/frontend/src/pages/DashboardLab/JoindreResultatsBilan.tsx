@@ -29,6 +29,8 @@ export default function JoindreResultatsBilan({ isOpen, close, selectedBilan } :
 
   async function submit(){
     try{
+      if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+        return;
       await joindre_resultat_bilan(selectedBilan.id, bilans, observations);
       showAlert("success", "Bilan remplit correctement");
       close();

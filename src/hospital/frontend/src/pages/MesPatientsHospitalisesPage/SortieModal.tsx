@@ -27,6 +27,8 @@ export default function SortieModal({isOpen, close, selectedHospitalisation,}: P
 
     async function submit(){
       try {
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+          return;
         await ajouterSortie(selectedHospitalisation.id, sortie);
         showAlert("success", "Sortie enregistrée correctement");
         close();

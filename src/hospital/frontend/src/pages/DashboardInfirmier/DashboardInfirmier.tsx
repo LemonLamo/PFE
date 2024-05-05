@@ -4,28 +4,12 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "../../components/UI/Tables/DataTable";
 import moment from "moment";
-import Badge from "../../components/UI/Badge";
-import { CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { baseURL } from "../../config";
 import IconButton from "../../components/UI/Buttons/IconButton";
 import ExecuterSoinModal from "./ExecuterSoinModal";
 import Avatar from "../../components/Avatar";
-
-const build_badge = (done: boolean) => {
-  return (
-      done?
-        <Badge bgColor="#dcfce7" textColor="#267142">
-            <CheckCircleIcon className="h-4 mr-1" />
-            Fait
-        </Badge> :
-
-        <Badge bgColor="#fee2e2" textColor="#991b1b">
-            <ExclamationTriangleIcon className="h-4 mr-1" />
-            Pas encore
-        </Badge>
-    );
-};
+import { build_badge } from "../../hooks/useSoins";
 
 function DashboardInfirmier(){
     const [openModal, setOpenModal] = useState("");
@@ -44,7 +28,7 @@ function DashboardInfirmier(){
     const query = useQuery<Soin[]>({
         queryKey: ['soins'],
         queryFn: async () => {
-            const data = (await axios.get(`${baseURL}/api/soins`)).data
+            const data = (await axios.get(`${baseURL}/api/soins?fait=0`)).data
             return data;
         }
     });
@@ -66,6 +50,17 @@ function DashboardInfirmier(){
                 `Chambre ${(info.row.original.hospitalisation as Partial<Hospitalisation>).chambre}, Lit N°${(info.row.original.hospitalisation as Partial<Hospitalisation>).lit}`:
                 "-"
         )},
+        { header: "Demandé par", id: "medecin", cell: (info) => {
+              const p = info.row.original;
+              return <div className="flex min-w-72">
+                  <Avatar src={`${baseURL}/api/personnel/${p.medecin.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
+                  <div>
+                      <h6 className="mb-0">{p.medecin.nom} {p.medecin.prenom}</h6>
+                      <p className="mb-0 font-semibold mt-[-0.4rem]">Service: {p.service}</p>
+                  </div>
+              </div>
+          }
+        },
         { header: "Date", id: "date", cell: (info) => moment(info.row.original.date_soin).format("DD/MM/YYYY HH:mm") },
         { header: "Acte", accessorKey: "acte" },
         { header: "Détails", accessorKey: "details" },

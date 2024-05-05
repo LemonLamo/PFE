@@ -16,6 +16,8 @@ export default function ExecuterIntervention({isOpen, close, selectedInterventio
 
     async function submit(intervention: Intervention["id"], protocole_operatoire : string){
       try {
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+          return;
         await executerIntervention(intervention, protocole_operatoire);
         showAlert("success", "Intervention executé correctement");
         close();

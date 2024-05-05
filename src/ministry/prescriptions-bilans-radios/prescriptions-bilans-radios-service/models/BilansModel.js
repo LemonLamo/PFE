@@ -1,10 +1,15 @@
 const { db } = require("../config/database");
+const logger = require("../utils/logger");
 
 class BilansModel {
   validationRules = {};
-  async getAll() {
+  async getAll(hopital, fait) {
     try {
-      const [results] = await db.query("SELECT * FROM `bilans` ORDER BY `date` DESC");
+      const [results] = !fait?
+                        await db.query("SELECT * FROM `bilans` WHERE `hopital`=? ORDER BY `date` DESC", [hopital]):
+                        (fait == 1)?
+                        await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND `date_fait` IS NOT NULL ORDER BY `date` DESC", [hopital]):
+                        await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND `date_fait` IS NULL ORDER BY `date` DESC", [hopital]);
       return results;
     } catch (error) {
       logger.error("Error fetching bilans:", error);
@@ -25,11 +30,11 @@ class BilansModel {
     }
   }
 
-  async insert(id, patient, reference, code_bilan, date, remarques) {
+  async insert(id, patient, medecin, service, hopital, reference, code_bilan, date, remarques) {
     try {
       await db.execute(
-        "INSERT INTO `bilans` (`id`, `patient`, `reference`, `code_bilan`, `date`, `remarques`) VALUES (?, ?, ?, ?, ?, ?)",
-        [id, patient, reference, code_bilan, new Date(date), remarques ?? null]
+        "INSERT INTO `bilans` (`id`, `patient`, `medecin`, `service`, `hopital`, `reference`, `code_bilan`, `date`, `remarques`) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [id, patient, medecin, service, hopital, reference, code_bilan, new Date(date), remarques ?? null]
       );
     } catch (error) {
       logger.error("Error inserting bilans:", error);
@@ -89,6 +94,19 @@ class BilansModel {
       return results[0];
     } catch (error) {
       logger.error("Error fetching bilans files:", error);
+      throw error;
+    }
+  }
+
+  async countToday(hopital) {
+    try {
+      const [results] = await db.query(
+        "SELECT COUNT(*) AS count FROM `bilans` WHERE `hopital`=? AND date >= CURDATE() AND date < CURDATE() + INTERVAL 1 DAY",
+        [hopital]
+      );
+      return results[0];
+    } catch (error) {
+      logger.error("Error counting consultations:", error);
       throw error;
     }
   }

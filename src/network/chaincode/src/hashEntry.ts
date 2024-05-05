@@ -9,5 +9,8 @@ export class HashEntry {
     public hash: string;
 
     @Property()
+    public author: string;
+
+    @Property()
     public timestamp: string;
 }

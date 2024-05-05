@@ -4,7 +4,6 @@ const { genID } = require("../utils");
 const { fetchPatients, fetchMedecins, fetchExamensCliniques } = require("../utils/communication");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
-const blockchain = require("../utils/blockchain");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -72,7 +71,9 @@ class ConsultationsController {
       const { examens_cliniques, prescriptions, radios, bilans, interventions, duree_arret_de_travail, prochaine_consultation } = req.body;
 
       await Model.insert(id, patient, medecin, hopital, service, date, type, motif, symptomes, resume, diagnostique, diagnostique_details, duree_arret_de_travail);
-      await blockchain.AddEntry(id, await Model.selectOne(id))
+
+      // blockchain
+      await RabbitConnection.sendMsg("blockchain_insert", {id: id, obj: await Model.selectOne(id), author: medecin })
 
       // Examens cliniques
       const insert_examens_cliniques = examens_cliniques.map((e) =>
@@ -161,6 +162,31 @@ class ConsultationsController {
         .json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
+
+  async selectCountToday(req, res) {
+    // TODO: secure this
+    const { hopital } = req.jwt;
+    try {
+      const result = await Model.countToday(hopital);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
+  async selectCountByService(req, res) {
+    // TODO: secure this
+    const { hopital } = req.jwt;
+    try {
+      const result = await Model.countByService(hopital);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
   async timeline(req, res) {
     // TODO: secure this
     const { hopital, medecin, duree } = req.query;

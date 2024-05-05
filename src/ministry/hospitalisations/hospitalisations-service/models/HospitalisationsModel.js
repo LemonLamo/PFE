@@ -154,12 +154,12 @@ class ConsultationsModel {
     try {
       const [results] = await db.query(
         `SELECT DATE_FORMAT(date_entree, '%Y-%m') AS date_key,
-    COUNT(id) AS hospitalisations
-    FROM hospitalisations 
-    WHERE hopital = ?
-    AND medecin = ?
-    AND date_entree >= DATE_SUB(NOW(), INTERVAL ? MONTH)
-    GROUP BY date_key ORDER BY date_key;`,
+        COUNT(id) AS hospitalisations
+        FROM hospitalisations 
+        WHERE hopital = ?
+        AND medecin = ?
+        AND date_entree >= DATE_SUB(NOW(), INTERVAL ? MONTH)
+        GROUP BY date_key ORDER BY date_key;`,
         [hopital, medecin, duree]
       );
       return results;
@@ -173,11 +173,11 @@ class ConsultationsModel {
     try {
       const [results] = await db.query(
         `SELECT DATE_FORMAT(date_entree, '%Y-%m') AS date_key,
-    COUNT(id) AS hospitalisations
-    FROM hospitalisations 
-    WHERE hopital = ?
-    AND date_entree >= DATE_SUB(NOW(), INTERVAL ? MONTH)
-    GROUP BY date_key ORDER BY date_key;`,
+          COUNT(id) AS hospitalisations
+          FROM hospitalisations 
+          WHERE hopital = ?
+          AND date_entree >= DATE_SUB(NOW(), INTERVAL ? MONTH)
+          GROUP BY date_key ORDER BY date_key;`,
         [hopital, duree]
       );
       return results;
@@ -196,6 +196,32 @@ class ConsultationsModel {
       return results;
     } catch (error) {
       logger.error("Error fetching hospitalisations:", error);
+      throw error;
+    }
+  }
+
+  async countToday(hopital) {
+    try {
+      const [results] = await db.query(
+        "SELECT COUNT(*) AS count FROM `hospitalisations` WHERE `hopital`=? AND date_entree >= CURDATE() AND date_entree < CURDATE() + INTERVAL 1 DAY",
+        [hopital]
+      );
+      return results[0];
+    } catch (error) {
+      logger.error("Error counting consultations:", error);
+      throw error;
+    }
+  }
+
+  async countByService(hopital) {
+    try {
+      const [results] = await db.query(
+        "SELECT service, COUNT(*) AS count FROM `hospitalisations` WHERE `hopital`=? GROUP BY service",
+        [hopital]
+      );
+      return results;
+    } catch (error) {
+      logger.error("Error counting consultations:", error);
       throw error;
     }
   }

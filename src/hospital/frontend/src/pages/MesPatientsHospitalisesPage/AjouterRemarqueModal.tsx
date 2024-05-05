@@ -17,6 +17,8 @@ export default function AjouterRemarqueModal({isOpen, close, selectedHospitalisa
     const [remarque, setRemarque] = useState("");
     async function submit(){
       try {
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+          return;
         await ajouterRemarque(selectedHospitalisation.id, remarque);
         showAlert("success", "Remarque ajouté correctement");
         close();

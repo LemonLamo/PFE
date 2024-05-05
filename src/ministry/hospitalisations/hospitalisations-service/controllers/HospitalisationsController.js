@@ -2,7 +2,7 @@ const Model = require("../models/HospitalisationsModel");
 const { genID } = require("../utils");
 const { fetchPatients, fetchMedecins } = require("../utils/communication");
 const logger = require("../utils/logger");
-const blockchain = require("../utils/blockchain");
+const RabbitConnection = require("../config/amqplib");
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -69,17 +69,12 @@ class HospitalisationsController {
       const { NIN: medecin, role, hopital, service } = req.jwt;
 
       const id = "hos-"+genID();
-      const {
-        patient,
-        date_entree,
-        mode_entree,
-        motif_hospitalisation,
-        chambre,
-        lit,
-        resume_hospitalisation,
-      } = req.body;
+      const { patient, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation } = req.body;
       await Model.insert(id, patient, medecin, hopital, service, date_entree, mode_entree, motif_hospitalisation, chambre, lit, resume_hospitalisation);
-      await blockchain.AddEntry(id, await Model.selectOne(id))
+
+      // blockchain
+      await RabbitConnection.sendMsg("blockchain_insert", {id: id, obj: await Model.selectOne(id), author: medecin })
+
       return res.status(200).json({ success: true });
     } catch (err) {
       logger.error("database-error: " + err);
@@ -146,6 +141,30 @@ class HospitalisationsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
+  async selectCountToday(req, res) {
+    // TODO: secure this
+    const { hopital } = req.jwt;
+    try {
+      const result = await Model.countToday(hopital);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
+  async selectCountByService(req, res) {
+    // TODO: secure this
+    const { hopital } = req.jwt;
+    try {
+      const result = await Model.countByService(hopital);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 

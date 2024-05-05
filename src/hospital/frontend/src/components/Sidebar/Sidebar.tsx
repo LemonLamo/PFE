@@ -28,6 +28,7 @@ function Sidebar({ setOpen }: SidebarProps) {
         <ul className="flex flex-col pl-0 pt-2 pb-4">
           <ShowOnlyIfRole roles={['medecin']}>
             <SidebarButton text="Dashboard" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
+            <SidebarButton text="Nouveau patient" icon="fa fa-user-plus" route="/patients/new" closeSidebar={setOpen}/>
           </ShowOnlyIfRole>
 
           <ShowOnlyIfRole roles={['admin']}>
@@ -36,22 +37,24 @@ function Sidebar({ setOpen }: SidebarProps) {
 
           <ShowOnlyIfRole roles={['infirmier']}>
             <SidebarButton text="Dashboard" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
+            <SidebarButton text="Soins archivés" icon="fa fa-staff-snake" route="/soins" closeSidebar={setOpen}/>
+            <SidebarHeader text="Reception" />
+            <SidebarButton text="Rechercher un patient" icon="fa fa-staff-snake" route="/reception" closeSidebar={setOpen}/>
+            <SidebarButton text="Nouveau patient" icon="fa fa-user-plus" route="/patients/new" closeSidebar={setOpen}/>
           </ShowOnlyIfRole>
 
           <ShowOnlyIfRole roles={['lab']}>
             <SidebarButton text="Dashboard" icon="fa fa-vial" route="/" closeSidebar={setOpen}/>
+            <SidebarButton text="Bilans archivés" icon="fa fa-vial" route="/bilans" closeSidebar={setOpen}/>
           </ShowOnlyIfRole>
 
           <ShowOnlyIfRole roles={['radio']}>
             <SidebarButton text="Dashboard" icon="fa fa-x-ray" route="/" closeSidebar={setOpen}/>
+            <SidebarButton text="Radios archivés" icon="fa fa-x-ray" route="/radios" closeSidebar={setOpen}/>
           </ShowOnlyIfRole>
 
-          <SidebarHeader text="Reception" />
-          <SidebarButton text="Rechercher un patient" icon="fa fa-staff-snake" route="/reception" closeSidebar={setOpen}/>
-          <SidebarButton text="Nouveau patient" icon="fa fa-user-plus" route="/patients/new" closeSidebar={setOpen}/>
-
           <ShowOnlyIfRole roles={['medecin']}>
-            <SidebarHeader text="Consultation" />
+            <SidebarHeader text="Consultations" />
             <SidebarButton text="Nouvelle consultation" icon="fa fa-folder-plus" route="/consultations/new" closeSidebar={setOpen}/>
             <SidebarButton text="Mes patients" icon="fa fa-user" route="/patients" closeSidebar={setOpen}/>
             <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez-vous" closeSidebar={setOpen}/>

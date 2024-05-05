@@ -32,6 +32,9 @@ function NouvelleHospitalisationPage() {
   register('patient', {required: true});
   const onSubmit: SubmitHandler<Partial<Hospitalisation>> = async (data : Partial<Hospitalisation>) => {
     try{
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+          return;
+        
         await axios.post(`${baseURL}/api/hospitalisations`, data);
         showAlert("success", "Hospitalisation ajouté correctement");
         navigate(`/hospitalisations`)

@@ -39,6 +39,8 @@ export default function AjouterSoinsModal({isOpen, close, selectedHospitalisatio
 
     async function submit(){
       try {
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+          return;
         await createSoin(selectedSoin);
         showAlert("success", "Soin ajouté correctement");
         close();

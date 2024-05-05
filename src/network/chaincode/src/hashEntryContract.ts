@@ -54,12 +54,12 @@ export class HashEntryContract extends Contract {
 
     // AddEntry associates a hash to 'ID' and saves it to the world state.
     @Transaction()
-    public async AddEntry(ctx: Context, ID: string, hash: string, timestamp: string): Promise<void> {
+    public async AddEntry(ctx: Context, ID: string, hash: string, author: string, timestamp: string): Promise<void> {
         const exists = await this.EntryExists(ctx, ID);
         if (exists)
             throw new Error(`The hash for ${ID} already exists`);
 
-        const entry : HashEntry = { ID, hash, timestamp };
+        const entry : HashEntry = { ID, hash, author, timestamp };
         await ctx.stub.putState(ID, Buffer.from(stringify(sortKeysRecursive(entry))));
     }
 }

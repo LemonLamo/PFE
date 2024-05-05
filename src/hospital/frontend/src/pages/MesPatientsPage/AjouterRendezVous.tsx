@@ -29,6 +29,8 @@ export default function AjouterRendezVous({isOpen, close, selectedPatient}: Prop
     }
     async function submit(){
       try {
+        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+          return;
         await createRendezVous(selectedPatient.NIN!, rendezVous)
         showAlert("success", "Rendez-vous enregistré correctement");
         close();

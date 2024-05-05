@@ -6,14 +6,12 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const database = require("./config/database");
-const blockchain = require("./blockchain");
+const RabbitConnection = require("./config/amqplib");
+RabbitConnection.connect();
 const app = express();
 
 // database connection
 database.connect();
-
-// blockchain
-blockchain.connect();
 
 // configure express app
 app.set("trust proxy", 1); // trust first proxy
@@ -38,6 +36,8 @@ const TransfertsController = require("./controllers/TransfertsController");
 // Hospitalisations
 app.get ("/api/hospitalisations", auth.requireAuth, HospitalisationsController.select);
 app.get ("/api/hospitalisations/count", auth.requireAuth, HospitalisationsController.selectCount);
+app.get ("/api/hospitalisations/countToday", auth.requireAuth, HospitalisationsController.selectCountToday);
+app.get ("/api/hospitalisations/countByService", auth.requireAuth, HospitalisationsController.selectCountByService);
 app.get ("/api/hospitalisations/timeline", auth.requireAuth, HospitalisationsController.timeline);
 app.get ("/api/hospitalisations/:id", auth.requireAuth, HospitalisationsController.selectOne);
 app.post("/api/hospitalisations", auth.requireAuth, HospitalisationsController.insert);

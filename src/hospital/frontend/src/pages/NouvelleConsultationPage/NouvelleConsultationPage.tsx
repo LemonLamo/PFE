@@ -56,6 +56,9 @@ function NouvelleConsultationPage() {
 
   const onSubmit: SubmitHandler<Partial<Consultation>> = async (data : Partial<Consultation>) => {
     try{
+      if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+        return;
+      
       data.examens_cliniques = examens_cliniques;
       data.prescriptions = state.prescriptions_active? prescriptions : [];
       data.radios = state.radios_active? radios : [];
