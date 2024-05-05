@@ -12,7 +12,7 @@ function TabDiagnostique({ form } : TabProps) {
         <input type="text" placeholder="Diagnostique" className={`col-span-5 primary ${form.errors.diagnostique && 'has-error'}`} {...form.register("diagnostique", {required: true})} />
 
         <label className="font-semibold text-slate-700 text-sm col-span-1 self-start"> Détails </label>
-        <textarea rows={5} placeholder="Détails" className={`col-span-5 primary ${form.errors.diagnostique_details && 'has-error'}`} {...form.register("diagnostique_details", {required: true})} />
+        <textarea rows={5} placeholder="Détails" className={`col-span-5 primary ${form.errors.diagnostique_details && 'has-error'}`} {...form.register("diagnostique_details", {required: false})} />
       </div>
     </>
   );

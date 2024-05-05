@@ -5,7 +5,7 @@ import Tabs from "../../components/UI/Tabs/Tabs";
 import TabContent from "../../components/UI/Tabs/TabContent";
 import TabInfoPersonelles from "../PatientPage/Tabs/TabInfoPersonelles";
 import TabHistorique from "../PatientPage/Tabs/TabHistorique";
-import TabHospitalisation from "../NouvelleConsultationPage/Tabs/TabHospitalisation";
+import TabHospitalisation from "./TabHospitalisation";
 import axios from "axios";
 import { baseURL } from "../../config";
 import AlertsContext from "../../hooks/AlertsContext";
