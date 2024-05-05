@@ -6,6 +6,8 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "../../components/UI/Tables/DataTable";
 import moment from "moment";
+import 'moment/dist/locale/fr';
+moment.locale('fr');
 import SmallCalendar from "../../components/Calendars/SmallCalendar";
 import Badge from "../../components/UI/Badge";
 import { baseURL } from "../../config";
@@ -88,17 +90,17 @@ function DashboardMedecin(){
             <>
               <Dropdown text="Actions">
                 <div className="bg-white rounded-md overflow-hidden w-[8.5rem]">
-                  <Link to={`/patients/${a.NIN}`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
+                  <Link to={`/patients/${a.NIN}`} target="_blank" className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
                     <i className="fa fa-folder w-4 mr-2" /> Dossier
                   </Link>
                   <Link to={`/consultations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Consultation
+                    <i className="fa fa-eye w-4 mr-2" /> Consultation
                   </Link>
                   <Link to={`/hospitalisations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Hospitalisation
+                    <i className="fa fa-bed-pulse w-4 mr-2" /> Hospitalisation
                   </Link>
                   <Link to={`/interventions/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Intervention
+                    <i className="fa fa-staff-snake w-4 mr-2" /> Intervention
                   </Link>
                 </div>
               </Dropdown>

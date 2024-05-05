@@ -1,5 +1,7 @@
 import { useContext, useMemo, useState } from "react";
 import moment from "moment";
+import 'moment/dist/locale/fr';
+moment.locale('fr');
 import Card from "../../components/UI/Card";
 import { Link } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
@@ -67,20 +69,20 @@ function MesPatientsPage() {
             <>
               <Dropdown text="Actions">
                 <div className="bg-white rounded-md overflow-hidden w-[8.5rem]">
-                  <Link to={`/patients/${a.NIN}`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
+                  <Link to={`/patients/${a.NIN}`} target="_blank" className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`}>
                     <i className="fa fa-folder w-4 mr-2" /> Dossier
                   </Link>
                   <Link to={`/consultations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Consultation
+                    <i className="fa fa-eye w-4 mr-2" /> Consultation
                   </Link>
                   <Link to={`/hospitalisations/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Hospitalisation
+                    <i className="fa fa-bed-pulse w-4 mr-2" /> Hospitalisation
                   </Link>
                   <Link to={`/interventions/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
-                    <i className="fa fa-folder w-4 mr-2" /> Intervention
+                    <i className="fa fa-staff-snake w-4 mr-2" /> Intervention
                   </Link>
                   <button className={`hover:bg-cyan-400 hover:text-white text-gray-900 group flex w-full items-center px-2 py-2 text-sm`} onClick={() => {setSelectedPatient(a); setOpenModal('rendez-vous')}}>
-                    <i className="fa fa-calendar w-4 mr-2" /> Rendez vous
+                    <i className="fa fa-calendar-days w-4 mr-2" /> Rendez vous
                   </button>
                 </div>
               </Dropdown>

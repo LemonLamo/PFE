@@ -69,12 +69,12 @@ class ChambresController {
     }
   }
   async insert(req, res) {
-    const { num, etage, description, nombre_lits } = req.body;
+    const { num, etage, description } = req.body;
     const { lits } = req.body;
     const { service } = req.jwt;
     try {
       const insertLits = lits.map((lit, i) => Model.insertLit(service, i+1, num, lit.type, lit.remarques))
-      await Model.insert(service, num, etage, description, nombre_lits);
+      await Model.insert(service, num, etage, description);
       await Promise.all(insertLits);
       return res.status(200).json({ success: true });
     } catch (err) {
@@ -86,10 +86,10 @@ class ChambresController {
   }
 
   async update(req, res) {
-    const { num, etage, nombre_lits, description } = req.body;
+    const { num, etage, description } = req.body;
     const { service } = req.jwt;
     try {
-      await Model.update(service, num, etage, nombre_lits, description);
+      await Model.update(service, num, etage, description);
       return res.status(200).json({ success: true });
     } catch (err) {
       logger.error("database-error: " + err.code);

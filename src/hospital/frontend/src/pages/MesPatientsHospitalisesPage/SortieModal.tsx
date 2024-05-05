@@ -3,6 +3,8 @@ import Modal, { ModalThemes } from "../../components/UI/Modal";
 import moment from "moment";
 import { ajouterSortie } from "../../hooks/useHospitalisations";
 import AlertsContext from "../../hooks/AlertsContext";
+import axios from "axios";
+import { baseURL } from "../../config";
 
 type Props = {
   isOpen: boolean,
@@ -17,7 +19,7 @@ const MODES_SORTIE = [
     "Hôpital du jour"
 ]
 
-export default function SortieModal({isOpen, close, selectedHospitalisation,}: Props) {
+export default function SortieModal({isOpen, close, selectedHospitalisation}: Props) {
   const { showAlert } = useContext(AlertsContext);
 
     const [sortie, setSortie] = useState<Sortie>({
@@ -30,6 +32,7 @@ export default function SortieModal({isOpen, close, selectedHospitalisation,}: P
         if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
           return;
         await ajouterSortie(selectedHospitalisation.id, sortie);
+        await axios.post(`${baseURL}/api/chambres/${selectedHospitalisation.chambre}/lits/${selectedHospitalisation.lit}/liberer`)
         showAlert("success", "Sortie enregistrée correctement");
         close();
       } catch (error: any) {

@@ -15,8 +15,6 @@ CREATE TABLE `chambres` (
   `num` nvarchar(255) NOT NULL,
   `etage` nvarchar(255) NOT NULL,
   `description` nvarchar(255),
-  `nombre_lits` int(11) NOT NULL,
-  `nombre_lits_occupe` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY(`service`, `num`)
@@ -26,9 +24,9 @@ CREATE TABLE `chambres` (
 -- Déchargement des données de la table `chambres`
 --
 
-INSERT INTO `chambres` (`service`, `num`, `etage`, `description`, `nombre_lits`, `nombre_lits_occupe`) VALUES
-('Chirugie Générale', 'F1', 0, 'Chambre pour les nouveau-nées', 4, 1),
-('Chirugie Générale', 'F2', 1, 'Chambre pour les 1-3ans', 2, 2);
+INSERT INTO `chambres` (`service`, `num`, `etage`, `description`) VALUES
+('Chirugie Générale', 'F1', 0, 'Chambre pour les nouveau-nées'),
+('Chirugie Générale', 'F2', 1, 'Chambre pour les 1-3ans');
 
 
 -- --------------------------------------------------------

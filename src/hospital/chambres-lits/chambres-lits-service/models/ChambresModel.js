@@ -3,7 +3,10 @@ const { db } = require("../config/database");
 class ChambresService {
   validationRules = {};
   async select(service) {
-    const [results] = await db.query("SELECT * FROM chambres WHERE `service`=?", [service]);
+    const [results] = await db.query(`
+    SELECT c.service, c.num, c.etage, c.description, COUNT(l.num) AS nombre_lits, SUM(l.occupe) AS nombre_lits_occupe FROM chambres c
+    LEFT JOIN lits l ON c.num = l.numChambre AND c.service = l.service GROUP BY
+    c.service, c.num, c.etage, c.description;`, [service]);
     return results;
   }
   async selectOne(service, num) {
@@ -34,8 +37,8 @@ class ChambresService {
     await db.query("UPDATE `lits` SET occupe=0 WHERE service=? AND numChambre=? AND num=?", [service, numChambre, num]);
   }
 
-  async insert(service, num, etage, description, nombre_lits) {
-    await db.execute("INSERT INTO chambres(service, num, etage, description, nombre_lits, nombre_lits_occupe) VALUES (?, ?, ?, ?, ?, 0)", [service, num, etage, description ?? null, nombre_lits]);
+  async insert(service, num, etage, description) {
+    await db.execute("INSERT INTO chambres(service, num, etage, description) VALUES (?, ?, ?, ?)", [service, num, etage, description ?? null]);
   }
   
   async insertLit(service, num, numChambre, type, remarques) {
@@ -43,8 +46,8 @@ class ChambresService {
     await db.execute("INSERT INTO lits(service, num, numChambre, type, remarques) VALUES (?, ?, ?, ?, ?)", [service, num, numChambre, type, remarques ?? null]);
   }
 
-  async update(service, num, etage, nombre_lits, description) {
-    await db.query("UPDATE chambres SET etage=?, nombre_lits=?, description=? WHERE service=? AND num=?", [etage, nombre_lits, description, service, num]);
+  async update(service, num, etage, description) {
+    await db.query("UPDATE chambres SET etage=?, description=? WHERE service=? AND num=?", [etage, description, service, num]);
   }
 
   async remove(service, num) {

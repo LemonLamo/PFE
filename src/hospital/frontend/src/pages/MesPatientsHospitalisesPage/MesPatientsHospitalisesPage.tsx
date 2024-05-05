@@ -101,9 +101,9 @@ function MesPatientsHospitalisesPage() {
       
       {selectedHospitalisation ? <DetailsHospitalisation isOpen={openModal === "hospitalisation"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation!} /> : null}
       <AjouterSoinsModal isOpen={openModal === "soin"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
-      <AjouterRemarqueModal isOpen={openModal === "remarques"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
-      <TransfertModal isOpen={openModal === "transfert"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
-      <SortieModal isOpen={openModal === "sortie"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation}/>
+      <AjouterRemarqueModal isOpen={openModal === "remarques"} close={() => {setOpenModal(""); query.refetch();}} selectedHospitalisation={selectedHospitalisation}/>
+      <TransfertModal isOpen={openModal === "transfert"} close={() => {setOpenModal(""); query.refetch();}} selectedHospitalisation={selectedHospitalisation}/>
+      <SortieModal isOpen={openModal === "sortie"} close={() => {setOpenModal(""); query.refetch();}} selectedHospitalisation={selectedHospitalisation}/>
     </Card>
   );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import user from '../../assets/user.svg'
 import moment from 'moment'
+import 'moment/dist/locale/fr';
+moment.locale('fr');
 import ReactMarkdown from 'react-markdown';
 
 type Props = {
@@ -28,7 +30,7 @@ function NotificationEntry({notification_id, summary, created_at, isRead, action
             {summary}
           </ReactMarkdown>
           <p className="mb-0 leading-tight text-xs ${!isRead? 'text-slate-600':'text-slate-400'}">
-            <i className="mr-1 fa fa-clock"></i> {moment(created_at).fromNow()}
+            <i className="mr-1 fa fa-clock"></i> {moment(created_at).locale('fr').fromNow()}
           </p>
         </div>
       </div>
