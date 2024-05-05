@@ -61,7 +61,7 @@ function TabAllergies({ NIN }: Props) {
       <div className="flex justify-between items-center mb-2">
             <div className="border-black/12.5 mb-0 rounded-lg border-b-0 border-solid bg-white pb-0">
                 <h2 className="mb-0 text-xl">Allergies</h2>
-                <p className="leading-normal text-sm mb-0">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+                <p className="leading-normal mb-0">Liste des allergies du patient connues, y compris aux médicaments, aliments, ou insectes.</p>
             </div>
             {action}
       </div>

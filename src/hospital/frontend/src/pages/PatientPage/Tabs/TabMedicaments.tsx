@@ -34,11 +34,7 @@ function TabMedicaments({ NIN }: Props) {
   return (
     <>
       <h3 className="text-lg mb-0">Medicaments</h3>
-      <p className="mb-4">
-        This is some placeholder content the Profile tab's associated content,
-        clicking another tab will toggle the visibility of this one for the
-        next.
-      </p>
+      <p className="mb-4">Liste des maladies prescrites pour le patient</p>
       <DataTable tableDefinition={medicamentsTableDefinition} query={medicaments} className="mt-2" />
     </>
   );

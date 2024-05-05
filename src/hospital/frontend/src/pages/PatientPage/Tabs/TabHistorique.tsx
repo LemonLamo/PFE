@@ -99,7 +99,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
   return (
     <>
       <h3 className="text-lg mb-0">Historique médicale</h3>
-      <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+      <p className="mb-4">Ci-dessous un apperçu des consultations, hospitalisations et interventions subis par le patient.</p>
         {
           historique.isError ? 
             <div className="block w-full ">

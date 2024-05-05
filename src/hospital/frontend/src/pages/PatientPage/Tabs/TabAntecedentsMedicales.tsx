@@ -62,7 +62,7 @@ function TabAntecedentsMedicales({ NIN }: Props) {
       <div className="flex justify-between items-center mb-2">
             <div className="border-black/12.5 mb-0 rounded-lg border-b-0 border-solid bg-white pb-0">
                 <h2 className="mb-0 text-xl">Antécédents Médicaux</h2>
-                <p className="leading-normal text-sm mb-0">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+                <p className="leading-normal mb-0">Inclut ici sont les maladies diagnostiquées, les chirurgies subies, et tout autre évènement pertinent à la santé du patient.</p>
             </div>
             {action}
       </div>
