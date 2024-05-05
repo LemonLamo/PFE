@@ -48,9 +48,9 @@ function SoinsArchivesPage(){
               </div>
           }
         },
-        { header: "Date", id: "date", cell: (info) => moment(info.row.original.date_soin).format("DD/MM/YYYY HH:mm") },
         { header: "Acte", accessorKey: "acte" },
         { header: "Détails", accessorKey: "details" },
+        { header: "Date", id: "date", cell: (info) => moment(info.row.original.date_soin).format("DD/MM/YYYY HH:mm") },
         { header: "Status", id: "status", cell: (info) => build_badge(info.row.original.fait) },
     ], []) as ColumnDef<Soin>[];
 

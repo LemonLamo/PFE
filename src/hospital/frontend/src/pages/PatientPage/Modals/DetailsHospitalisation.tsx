@@ -6,6 +6,7 @@ import TabExamenClinique from "../Tabs/TabExamenClinique";
 import TabPrescription from "../Tabs/TabPrescription";
 import TabRadio from "../Tabs/TabRadio";
 import moment from "moment";
+import TabSoins from "../Tabs/TabSoins";
 
 type Props = {
   isOpen: boolean;
@@ -168,6 +169,10 @@ export default function DetailsHospitalisation({
 
         <TabContent icon="fa fa-vial" text="Bilans">
           <TabBilan reference={selectedHospitalisation.id} />
+        </TabContent>
+
+        <TabContent icon="fa fa-staff-snake" text="Soins">
+          <TabSoins reference={selectedHospitalisation.id} />
         </TabContent>
       </Tabs>
 
