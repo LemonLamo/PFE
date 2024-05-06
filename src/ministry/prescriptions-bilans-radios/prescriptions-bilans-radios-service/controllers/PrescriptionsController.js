@@ -147,9 +147,6 @@ class PrescriptionsController {
       );
     } catch (err) {
       logger.error("database-error: " + err);
-      return res
-        .status(400)
-        .json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 
@@ -203,9 +200,6 @@ class PrescriptionsController {
       );
     } catch (err) {
       logger.error("database-error: " + err);
-      return res
-        .status(400)
-        .json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 }
