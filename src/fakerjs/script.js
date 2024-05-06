@@ -6,7 +6,7 @@ const radios_ender = require('./scripts/radios_ender');
 const bilans_ender = require('./scripts/bilans_ender');
 const interventions = require('./scripts/interventions');
 
-const NUMBER_OF_RECORDS = 500
+const NUMBER_OF_RECORDS = 100
 
 async function main(){
     const patientsList = await patients.fillup(NUMBER_OF_RECORDS);

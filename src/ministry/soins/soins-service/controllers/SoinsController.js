@@ -1,6 +1,6 @@
 const Model = require("../models/SoinsModel");
 const { genID } = require("../utils");
-const { fetchPatients, fetchHospitalisations } = require("../utils/communication");
+const { fetchPatients, fetchHospitalisations, fetchMedecins } = require("../utils/communication");
 const logger = require("../utils/logger");
 
 class SoinsController {
@@ -20,7 +20,7 @@ class SoinsController {
           return res.status(200).json(result);
         }
     } catch (err) {
-      logger.error("database-error: " + err.code);
+      logger.error("database-error: " + err);
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
