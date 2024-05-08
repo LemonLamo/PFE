@@ -28,9 +28,8 @@ spec:
         app: prescriptions-bilans-radios-service
     spec:
       containers:
-        - image: medicalife/prescriptions-bilans-radios-service:latest
+        - image: medicalife/prescriptions-bilans-radios-service
           name: prescriptions-bilans-radios-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

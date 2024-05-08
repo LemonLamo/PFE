@@ -28,9 +28,8 @@ spec:
         app: hopitaux-service
     spec:
       containers:
-        - image: medicalife/hopitaux-service:latest
+        - image: medicalife/hopitaux-service
           name: hopitaux-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

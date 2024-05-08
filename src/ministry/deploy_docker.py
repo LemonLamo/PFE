@@ -59,7 +59,7 @@ for service in services:
     print("built", end=", ")
     s = subprocess.Popen(f"docker tag {service_name} {registry}/{service_name}", shell=True, text=True, cwd=cwd)
     s.wait()
-    s = subprocess.Popen(f"docker push {registry}/{service_name}:latest", shell=True, text=True, cwd=cwd)
+    s = subprocess.Popen(f"docker push {registry}/{service_name}", shell=True, text=True, cwd=cwd)
     s.wait()
     print("pushed!")
 

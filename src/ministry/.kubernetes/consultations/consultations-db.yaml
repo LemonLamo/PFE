@@ -30,7 +30,7 @@ spec:
         app: consultations-db
     spec:
       containers:
-        - image: medicalife/consultations-db:latest
+        - image: medicalife/consultations-db
           name: consultations-db
           ports:
             - containerPort: 3306

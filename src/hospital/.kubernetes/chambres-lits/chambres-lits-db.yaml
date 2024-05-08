@@ -30,7 +30,7 @@ spec:
         app: chambres-lits-db
     spec:
       containers:
-        - image: hospital1307/chambres-lits-db:latest
+        - image: hospital1307/chambres-lits-db
           name: chambres-lits-db
           ports:
             - containerPort: 3306

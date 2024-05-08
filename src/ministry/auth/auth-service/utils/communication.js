@@ -2,6 +2,7 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const twilio = require('twilio');
 const logger = require('../utils/logger');
+const axios = require('axios')
 
 /******** CONSTANTS ********/
 const NOTIF_TITLES = {
@@ -51,4 +52,13 @@ exports.sendSMS = async (to, type, data) => {
     })
     .then(() => logger.info("SMS sent to: "+ to))
     .catch ((err) => logger.error(err));
+}
+
+exports.fetchMedecins = async (data) => {
+    if(data.length==0) return data;
+    const NINs = data.map((x) => x.medecin);
+    const medecins = (await axios.post('http://personnel-service/private/personnel', { NINs })).data;
+    const medecinsMap = new Map(medecins.map((x) => [x.NIN, { ...x }]));
+
+    return medecinsMap;
 }

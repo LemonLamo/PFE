@@ -28,9 +28,8 @@ spec:
         app: patients-service
     spec:
       containers:
-        - image: medicalife/patients-service:latest
+        - image: medicalife/patients-service
           name: patients-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

@@ -30,7 +30,7 @@ spec:
         app: interventions-db
     spec:
       containers:
-        - image: medicalife/interventions-db:latest
+        - image: medicalife/interventions-db
           name: interventions-db
           ports:
             - containerPort: 3306

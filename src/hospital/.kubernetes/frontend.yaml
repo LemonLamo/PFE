@@ -28,9 +28,8 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: hospital1307/frontend:latest
+        - image: hospital1307/frontend
           name: frontend
-          imagePullPolicy: Always
           ports:
             - containerPort: 3000
               protocol: TCP

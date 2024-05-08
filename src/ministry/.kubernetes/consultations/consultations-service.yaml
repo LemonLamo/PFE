@@ -28,9 +28,8 @@ spec:
         app: consultations-service
     spec:
       containers:
-        - image: medicalife/consultations-service:latest
+        - image: medicalife/consultations-service
           name: consultations-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

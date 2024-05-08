@@ -28,9 +28,8 @@ spec:
         app: cpabe-service
     spec:
       containers:
-        - image: medicalife/cpabe-service:latest
+        - image: medicalife/cpabe-service
           name: cpabe-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 3000
               protocol: TCP

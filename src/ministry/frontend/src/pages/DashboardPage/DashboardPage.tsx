@@ -1,17 +1,19 @@
 import Card from "../../components/UI/Card";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import AuthContext from "../../hooks/AuthContext";
 import SmallCalendar from "../../components/Calendars/SmallCalendar";
 import RdvCard from "../MesRendezVousPage/RdvCard";
 import TableError from "../../components/UI/Tables/TableError";
 import TableLoading from "../../components/UI/Loading";
 import { useQuery } from "@tanstack/react-query";
+import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
 import { baseURL } from "../../config";
 import moment from "moment";
 import AlertCard from "./AlertCard";
 import Avatar from "../../components/Avatar";
 import { getNotifiations } from "../../hooks/useNotifications";
+import DataTable from "../../components/UI/Tables/DataTable";
 
 const today = new Date()
 
@@ -29,6 +31,28 @@ function DashboardPage(){
         queryKey: ["alerts"],
         queryFn: async () => await getNotifiations()
     });
+
+    const authorisations_history = useQuery<any[]>({
+        queryKey: ["authorisations_active"],
+        queryFn: async () => (await axios.get(`${baseURL}/api/auth/authorisations?actif=1`)).data
+    });
+
+    const autorisations_tableDef = useMemo(
+    () => [
+        { header: "Médecin", id: "medecin", cell: (info) => {
+                const p = info.row.original;
+                return <div className="flex min-w-72">
+                    <Avatar src={`${baseURL}/api/personnel/${p.medecin.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
+                    <div>
+                        <h6 className="mb-0">{p.medecin.nom} {p.medecin.prenom}</h6>
+                        <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.medecin.NIN}</p>
+                    </div>
+                </div>
+            } 
+        },
+        { header: "Attribué le", id: "created_at", cell: (info) => moment(info.row.original.created_at).format("DD/MM/YYYY HH:mm")},
+        { header: "Motif", accessorKey: "motif" },
+    ], []) as ColumnDef<any>[];
 
     const profile = useQuery<Patient>({
         queryKey: ["patient" + auth!.NIN!],
@@ -90,6 +114,9 @@ function DashboardPage(){
                             alerts.data.map((item: any, i: number) => <AlertCard key={i} {...item}></AlertCard>)
                         }
                         </ul>
+                    </Card>
+                    <Card title="Autorisations actifs" subtitle="Les medecins qui ont accès à votre dossier médical" className="w-full">
+                        <DataTable query={authorisations_history} tableDefinition={autorisations_tableDef} searchable={false} pageSize={3} />
                     </Card>
                 </div>
             </div>

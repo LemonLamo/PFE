@@ -24,6 +24,6 @@ for service in services:
     print(f"** Service {service_name.ljust(25)}:")
     subprocess.run([f"docker build -t {service_name} ./{service}"], shell=True, text=True, cwd=cwd)
     subprocess.run([f"docker tag {service_name} {registry}/{service_name}"], shell=True, text=True, cwd=cwd)
-    subprocess.run([f"docker push {registry}/{service_name}:latest"], shell=True, text=True, cwd=cwd)
+    subprocess.run([f"docker push {registry}/{service_name}"], shell=True, text=True, cwd=cwd)
 
 print("All services built and pushed!")

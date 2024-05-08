@@ -28,9 +28,8 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: medicalife/frontend:latest
+        - image: medicalife/frontend
           name: frontend
-          imagePullPolicy: Always
           ports:
             - containerPort: 3000
               protocol: TCP

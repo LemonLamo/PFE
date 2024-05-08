@@ -30,7 +30,7 @@ spec:
         app: auth-db
     spec:
       containers:
-        - image: medicalife/auth-db:latest
+        - image: medicalife/auth-db
           name: auth-db
           ports:
             - containerPort: 3306

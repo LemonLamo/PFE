@@ -30,7 +30,7 @@ spec:
         app: prescriptions-bilans-radios-db
     spec:
       containers:
-        - image: medicalife/prescriptions-bilans-radios-db:latest
+        - image: medicalife/prescriptions-bilans-radios-db
           name: prescriptions-bilans-radios-db
           ports:
             - containerPort: 3306

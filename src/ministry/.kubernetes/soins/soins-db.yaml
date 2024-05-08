@@ -30,7 +30,7 @@ spec:
         app: soins-db
     spec:
       containers:
-        - image: medicalife/soins-db:latest
+        - image: medicalife/soins-db
           name: soins-db
           ports:
             - containerPort: 3306

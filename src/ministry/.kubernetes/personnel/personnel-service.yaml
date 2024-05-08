@@ -28,9 +28,8 @@ spec:
         app: personnel-service
     spec:
       containers:
-        - image: medicalife/personnel-service:latest
+        - image: medicalife/personnel-service
           name: personnel-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

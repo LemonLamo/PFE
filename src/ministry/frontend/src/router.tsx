@@ -11,6 +11,7 @@ import OrdonnanceResultPage from "./pages/OrdonnanceResultPage";
 import ArretDeTravailResultPage from "./pages/ArretDeTravailResultPage";
 import RadioResultPage from "./pages/RadioResultPage";
 import BilanResultPage from "./pages/BilanResultPage";
+import HistoriquePage from "./pages/HistoriquePage";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
   { path: "/dossier", element:(
     <PrivateRouteOnly>
       <Scaffold> <DossierPage /> </Scaffold>
+    </PrivateRouteOnly>)},
+  
+  { path: "/historique", element:(
+    <PrivateRouteOnly>
+      <Scaffold> <HistoriquePage /> </Scaffold>
     </PrivateRouteOnly>)},
   
   { path: "/ordonnances/:id", element:(<OrdonnanceResultPage />)},

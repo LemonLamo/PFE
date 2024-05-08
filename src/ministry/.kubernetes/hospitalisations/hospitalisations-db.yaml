@@ -30,7 +30,7 @@ spec:
         app: hospitalisations-db
     spec:
       containers:
-        - image: medicalife/hospitalisations-db:latest
+        - image: medicalife/hospitalisations-db
           name: hospitalisations-db
           ports:
             - containerPort: 3306

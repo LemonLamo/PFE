@@ -30,7 +30,7 @@ spec:
         app: rendez-vous-db
     spec:
       containers:
-        - image: medicalife/rendez-vous-db:latest
+        - image: medicalife/rendez-vous-db
           name: rendez-vous-db
           ports:
             - containerPort: 3306

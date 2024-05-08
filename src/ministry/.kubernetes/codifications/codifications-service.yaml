@@ -28,9 +28,8 @@ spec:
         app: codifications-service
     spec:
       containers:
-        - image: medicalife/codifications-service:latest
+        - image: medicalife/codifications-service
           name: codifications-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

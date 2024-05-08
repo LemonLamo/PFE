@@ -28,9 +28,8 @@ spec:
         app: notifications-service
     spec:
       containers:
-        - image: medicalife/notifications-service:latest
+        - image: medicalife/notifications-service
           name: notifications-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

@@ -30,7 +30,7 @@ spec:
         app: reception-db
     spec:
       containers:
-        - image: hospital1307/reception-db:latest
+        - image: hospital1307/reception-db
           name: reception-db
           ports:
             - containerPort: 3306

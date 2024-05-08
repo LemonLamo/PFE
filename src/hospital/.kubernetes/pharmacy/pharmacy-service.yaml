@@ -28,9 +28,8 @@ spec:
         app: pharmacy-service
     spec:
       containers:
-        - image: hospital1307/pharmacy-service:latest
+        - image: hospital1307/pharmacy-service
           name: pharmacy-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

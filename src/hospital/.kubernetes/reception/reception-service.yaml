@@ -28,9 +28,8 @@ spec:
         app: reception-service
     spec:
       containers:
-        - image: hospital1307/reception-service:latest
+        - image: hospital1307/reception-service
           name: reception-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

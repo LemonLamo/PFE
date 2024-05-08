@@ -30,7 +30,7 @@ spec:
         app: notifications-db
     spec:
       containers:
-        - image: medicalife/notifications-db:latest
+        - image: medicalife/notifications-db
           name: notifications-db
           ports:
             - containerPort: 3306

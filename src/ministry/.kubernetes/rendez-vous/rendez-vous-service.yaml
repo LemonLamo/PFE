@@ -28,9 +28,8 @@ spec:
         app: rendez-vous-service
     spec:
       containers:
-        - image: medicalife/rendez-vous-service:latest
+        - image: medicalife/rendez-vous-service
           name: rendez-vous-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

@@ -30,7 +30,7 @@ spec:
         app: personnel-db
     spec:
       containers:
-        - image: medicalife/personnel-db:latest
+        - image: medicalife/personnel-db
           name: personnel-db
           ports:
             - containerPort: 3306

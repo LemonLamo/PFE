@@ -1,0 +1,44 @@
+const db = require('../config/database').db;
+const logger = require('../utils/logger');
+
+class EHRAuthModel {
+    validationRules = {
+    }
+
+    async getAuths (patient, actif) {
+        const [results] = !actif?
+                        await db.query("SELECT * FROM `ehr_autorisations` WHERE `patient`=? ORDER BY `created_at` DESC", [patient]):
+                        (actif == 1)?
+                        await db.query("SELECT * FROM `ehr_autorisations` WHERE `patient`=? AND ((NOW() >= created_at AND expired_at IS NULL) OR (NOW() >= created_at AND NOW() <= expired_at)) ORDER BY `created_at` DESC", [patient]):
+                        await db.query("SELECT * FROM `ehr_autorisations` WHERE `patient`=? AND ((NOW() < created_at) OR (expired_at IS NOT NULL AND NOW() > expired_at)) ORDER BY `created_at` DESC", [patient]);
+        return results
+    }
+
+    async isAuthorized (medecin, patient) {
+        const [results] = await db.query(`SELECT * FROM ehr_autorisations WHERE
+        medecin=? AND patient=? AND
+        ((NOW() >= created_at AND expired_at IS NULL) OR (NOW() >= created_at AND NOW() <= expired_at))`, [medecin, patient]);
+        return results[0]
+    }
+
+    async authorize(medecin, patient, motif, duree) {
+        try{
+            const [results] = duree > 0?
+                await db.query('INSERT INTO `ehr_autorisations` (`medecin`, `patient`, `motif`, `duree`, `expired_at`) VALUES (?, ?, ?, ?, NOW() + INTERVAL `duree` MINUTE)', [medecin, patient, motif, duree]):
+                await db.query('INSERT INTO `ehr_autorisations` (`medecin`, `patient`, `motif`, `duree`, `expired_at`) VALUES (?, ?, ?, -1, NULL)', [medecin, patient, motif]);
+            if (results.affectedRows < 1)
+                throw new Error({ code: "ER_INSERT_FAIL" })
+        }catch(err){
+            logger.log(err);
+            throw err;
+        }
+    }
+    
+    async expire(medecin, patient){
+        const [results] = await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=?', [medecin, patient]);
+        if (results.affectedRows < 1)
+            throw new Error({ code: "ER_UPDATE_FAIL" })
+    }
+}
+
+module.exports = new EHRAuthModel();

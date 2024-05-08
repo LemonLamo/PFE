@@ -30,7 +30,7 @@ spec:
         app: hopitaux-db
     spec:
       containers:
-        - image: medicalife/hopitaux-db:latest
+        - image: medicalife/hopitaux-db
           name: hopitaux-db
           ports:
             - containerPort: 3306

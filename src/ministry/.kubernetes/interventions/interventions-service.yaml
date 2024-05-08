@@ -28,9 +28,8 @@ spec:
         app: interventions-service
     spec:
       containers:
-        - image: medicalife/interventions-service:latest
+        - image: medicalife/interventions-service
           name: interventions-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

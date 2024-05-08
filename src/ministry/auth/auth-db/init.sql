@@ -54,3 +54,23 @@ INSERT INTO `roles_permissions` (`hopital`, `role`, `permission`) VALUES
 ('CHU Mustapha', 'admin', 'gestion_consultation'),
 ('CHU Mustapha', 'admin', 'gestion_pharmacy'),
 ('CHU Mustapha', 'infirmier', 'gestion_soins');
+
+-- --------------------------------------------------------
+-- Structure de la table `ehr_autorisations`
+--
+
+CREATE TABLE `ehr_autorisations` (
+  `medecin` varchar(20) NOT NULL,
+  `patient` varchar(20) NOT NULL,
+  `motif` varchar(255) NOT NULL,
+  `duree` INT(11) DEFAULT 60,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `expired_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `ehr_autorisations`
+--
+INSERT INTO `ehr_autorisations` (`medecin`, `patient`, `motif`) VALUES
+('100010364027390000', '100010364027390000', 'Hospitalisation');

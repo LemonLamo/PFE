@@ -28,9 +28,8 @@ spec:
         app: blockchain-service
     spec:
       containers:
-        - image: medicalife/blockchain-service:latest
+        - image: medicalife/blockchain-service
           name: blockchain-service
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

@@ -30,6 +30,7 @@ const auth = require('./middlewares/auth')
 const logger = require('./utils/logger')
 const AuthController = require('./controllers/AuthController');
 const UsersModel = require('./models/UsersModel');
+const EHRAuthController = require('./controllers/EHRAuthController');
 
 // public
 app.post('/api/auth/login', AuthController.login);
@@ -41,8 +42,12 @@ app.post('/api/auth/forgot-password', AuthController.forgot_password);
 app.post('/api/auth/reset-password', AuthController.reset_password);
 app.post('/api/auth/activate', AuthController.activate);
 
+app.get ('/api/auth/authorisations', auth.requireAuth, EHRAuthController.getAuths);
+app.post('/api/auth/authorisations', auth.requireAuth, EHRAuthController.authorize);
+app.post('/api/auth/authorisations/expire', auth.requireAuth, EHRAuthController.expire);
+
 // private
-app.post('/api/auth/signup', AuthController.signup);
+app.post('/api/auth/authorisations/isAuthorized', auth.requireAuth, EHRAuthController.isAuthorized);
 
 // RabitMQ
 RabbitConnection.on("account_create", async (data) =>{
