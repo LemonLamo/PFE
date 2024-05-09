@@ -80,7 +80,9 @@ function DataTable({ tableDefinition, query, searchable=true, pageSize=10, class
                     <tbody className='text-gray-600'>
                     {
                     (query.isError)?
-                        <tr><td colSpan={table.getAllColumns().length}><TableError /></td></tr>:
+                        <tr><td colSpan={table.getAllColumns().length}>
+                            <TableError msg={(query.error as any).response.data?.errorMessage} />    
+                        </td></tr>:
 
                     query.isLoading?
                         <tr><td colSpan={table.getAllColumns().length}><TableLoading /></td></tr>:

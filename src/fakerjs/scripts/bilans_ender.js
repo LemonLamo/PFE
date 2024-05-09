@@ -16,7 +16,9 @@ exports.fillup = async () => {
 
     for(let i=bilans.length-1; i > 10; i--){
         let data = new FormData();
-        data.append('bilans', fs.createReadStream('./scripts/file.pdf'));
+        let count = custom_random([1, 2, 3]);
+        for(let j=0; j<count; j++)
+            data.append('bilans', fs.createReadStream(`./bilans/${custom_random([1,2,3])}.pdf`));
         data.append('observations', faker.lorem.sentence());
         
         await axios.post(

@@ -9,12 +9,15 @@ import AjouterAntecedentMedical from "../Modals/AjouterAntecedentMedical";
 import moment from "moment";
 import { ajouter_antecedent } from "../../../hooks/usePatient";
 import AlertsContext from "../../../hooks/AlertsContext";
+import DeleteAntecedentMedical from "../Modals/DeleteAntecedentMedical";
+import DeleteButton from "../../../components/UI/Buttons/DeleteButton";
 type Props = {
   NIN: string;
 };
 
 function TabAntecedentsMedicales({ NIN }: Props) {
   const { showAlert } = useContext(AlertsContext);
+  const [selectedAntecedent, setSelectedAntecedent] = useState<any>(null);
 
   const [openModal, setOpenModal] = useState("");
   const antecedents_medicales = useQuery<Antecedent[]>({
@@ -28,12 +31,21 @@ function TabAntecedentsMedicales({ NIN }: Props) {
   });
   const antecedents_medicalesTableDefinition = useMemo(
     () => [
-      { header: "Désignation", accessorKey: "designation" },
-      { header: "Date", id: "date", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm"), },
-      { header: "Remarques", accessorKey: "remarques" },
-    ],
-    []
-  ) as ColumnDef<Antecedent>[];
+      { header: "Désignation", id: "designation", cell: (info) => !info.row.original.disabled? info.row.original.designation : <s>{info.row.original.designation}</s> },
+      { header: "Date de diagnostic", id: "date", cell: (info) => !info.row.original.disabled? moment(info.row.original.date).format("DD/MM/YYYY") : <s>{moment(info.row.original.date).format("DD/MM/YYYY")}</s>},
+      { header: "Remarques", id: "remarques",  cell: (info)=> !info.row.original.disabled? info.row.original.remarques : <s>{info.row.original.remarques}</s> },
+      { header: "", id: "actions",
+        cell: (info) => {
+          const c = info.row.original;
+          return (
+            !c.disabled &&
+            <div className="flex justify-end gap-2">
+              <DeleteButton onClick={() => { setSelectedAntecedent(c); setOpenModal("delete_antecedants_medicales"); }} />
+            </div>
+          );
+        },
+      }
+    ], []) as ColumnDef<Antecedent>[];
 
   const action = (
     <Button onClick={() => setOpenModal("ajouter_antecedants_medicales")} theme="primary">
@@ -56,6 +68,21 @@ function TabAntecedentsMedicales({ NIN }: Props) {
           showAlert("error", error.code + ": " + error.message);
     }
   }
+
+  async function deleteEntry(){
+    try {
+      await axios.delete(`${baseURL}/api/patients/${NIN}/antecedents-medicals/${selectedAntecedent.id}`);
+      showAlert("success", "Antécedent médical supprimée correctement");
+      antecedents_medicales.refetch();
+      setOpenModal("");
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
   
   return (
     <>
@@ -68,6 +95,7 @@ function TabAntecedentsMedicales({ NIN }: Props) {
       </div>
       <DataTable tableDefinition={antecedents_medicalesTableDefinition} query={antecedents_medicales} className="mt-2" />
       <AjouterAntecedentMedical isOpen={openModal==="ajouter_antecedants_medicales"} action={(a) => submit(NIN, a, 'medical')} close={()=>setOpenModal("")}/>
+      <DeleteAntecedentMedical isOpen={openModal==="delete_antecedants_medicales"} action={deleteEntry} close={()=> {setOpenModal(""); antecedents_medicales.refetch()}} />
     </>
   );
 }

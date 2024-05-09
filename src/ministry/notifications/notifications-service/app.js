@@ -43,7 +43,7 @@ app.use((req, res) => res.sendStatus(404))
 const NOTIF_SUMMARIES = {
   'BILAN_READY': 'Votre bilan **${bilan}** est maintenant prêt',
   'RADIO_READY': 'Votre radio **${radio}** est maintenant prêt',
-  'EHR_ACCESS': 'You got given access to dossier of **${patient}**!',
+  'EHR_ACCESS': 'Dr. **${medecin}** maintenant peut accèder à votre dossier médicale',
   'RENDEZVOUS_PATIENT' : 'Vous avez une **${rdv}** avec **${medecin}** le **${date}**',
 }
 

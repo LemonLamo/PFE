@@ -72,6 +72,7 @@ function NouvelleConsultationPage() {
         data.prochaine_consultation = undefined;
 	
       await axios.post(`${baseURL}/api/consultations`, data);
+      await axios.delete(`${baseURL}/reception/${data.patient}`);
       showAlert("success", "Consultation ajouté correctement");
       navigate(`/patients/${data.patient}`)
     } catch (error: any) {

@@ -316,6 +316,16 @@ class PatientsController {
         .json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
+  async deleteMaladieChronique(req, res) {
+    try {
+      const { id } = req.params;
+      const result = await Model.deleteMaladieChronique(id);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
 
   async insertAllergie(req, res) {
     try {
@@ -335,6 +345,16 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+  async deleteAllergie(req, res) {
+    try {
+      const { id } = req.params;
+      const result = await Model.deleteAllergie(id);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 
@@ -377,6 +397,16 @@ class PatientsController {
       return res
         .status(400)
         .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+  async deleteAntecedent(req, res) {
+    try {
+      const { id } = req.params;
+      const result = await Model.deleteAntecedent(id);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 

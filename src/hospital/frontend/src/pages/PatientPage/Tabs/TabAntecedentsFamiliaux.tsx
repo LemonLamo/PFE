@@ -9,12 +9,15 @@ import AjouterAntecedentFamilial from "../Modals/AjouterAntecedentFamilial";
 import moment from "moment";
 import { ajouter_antecedent } from "../../../hooks/usePatient";
 import AlertsContext from "../../../hooks/AlertsContext";
+import DeleteAntecedentFamilial from "../Modals/DeleteAntecedentFamilial";
+import DeleteButton from "../../../components/UI/Buttons/DeleteButton";
 type Props = {
   NIN: string;
 };
 
 function TabAntecedentsFamiliaux({ NIN }: Props) {
   const { showAlert } = useContext(AlertsContext);
+  const [selectedAntecedent, setSelectedAntecedent] = useState<any>(null);
 
   const [openModal, setOpenModal] = useState("");
   const antecedents_familiaux = useQuery<Antecedent[]>({
@@ -28,12 +31,21 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
   });
   const antecedents_familiauxTableDefinition = useMemo(
     () => [
-      { header: "Désignation", accessorKey: "designation" },
-      { header: "Date", id: "date", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY HH:mm"), },
-      { header: "Remarques", accessorKey: "remarques" },
-    ],
-    []
-  ) as ColumnDef<Antecedent>[];
+      { header: "Désignation", id: "designation", cell: (info) => !info.row.original.disabled? info.row.original.designation : <s>{info.row.original.designation}</s> },
+      { header: "Date de diagnostic", id: "date", cell: (info) => !info.row.original.disabled? moment(info.row.original.date).format("DD/MM/YYYY") : <s>{moment(info.row.original.date).format("DD/MM/YYYY")}</s>},
+      { header: "Remarques", id: "remarques",  cell: (info)=> !info.row.original.disabled? info.row.original.remarques : <s>{info.row.original.remarques}</s> },
+      { header: "", id: "actions",
+        cell: (info) => {
+          const c = info.row.original;
+          return (
+            !c.disabled &&
+            <div className="flex justify-end gap-2">
+              <DeleteButton onClick={() => { setSelectedAntecedent(c); setOpenModal("delete_antecedants_familiales"); }} />
+            </div>
+          );
+        },
+      }
+    ], []) as ColumnDef<Antecedent>[];
 
   const action = (
     <Button onClick={() => setOpenModal("ajouter_antecedants_familiales")} theme="primary">
@@ -56,6 +68,21 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
           showAlert("error", error.code + ": " + error.message);
     }
   }
+
+  async function deleteEntry(){
+    try {
+      await axios.delete(`${baseURL}/api/patients/${NIN}/antecedents-familiaux/${selectedAntecedent.id}`);
+      showAlert("success", "Antécedent supprimée correctement");
+      antecedents_familiaux.refetch();
+      setOpenModal("");
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
   
   return (
     <>
@@ -68,6 +95,7 @@ function TabAntecedentsFamiliaux({ NIN }: Props) {
       </div>
       <DataTable tableDefinition={antecedents_familiauxTableDefinition} query={antecedents_familiaux} className="mt-2" />
       <AjouterAntecedentFamilial isOpen={openModal==="ajouter_antecedants_familiales"} action={(a) => submit(NIN, a, 'familial')} close={()=>setOpenModal("")}/>
+      <DeleteAntecedentFamilial isOpen={openModal==="delete_antecedants_familiales"} action={deleteEntry} close={()=> {setOpenModal(""); antecedents_familiaux.refetch()}} />
     </>
   );
 }

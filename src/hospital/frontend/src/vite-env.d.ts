@@ -86,6 +86,7 @@ type Allergie = {
   designation?: string;
   date?: Date;
   remarques?: string;
+  disabled?: Boolean;
 };
 type AllergieCode = {
   code_allergene: string;
@@ -96,6 +97,7 @@ type Antecedent = {
   designation?: string;
   date?: Date;
   remarques?: string;
+  disabled?: Boolean;
 };
 type Maladie = {
   patient?: string;
@@ -104,6 +106,7 @@ type Maladie = {
   date: Date;
   chronique?: boolean;
   remarques?: string;
+  disabled?: Boolean;
 };
 type MaladieCode = {
   code_maladie: string;

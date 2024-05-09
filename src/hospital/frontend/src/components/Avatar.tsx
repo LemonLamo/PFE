@@ -25,8 +25,8 @@ function Avatar({src, className, ...props} : Props) {
     (query.isError)?
       <img src={user} className={className} {...props}/>:
     (query.isLoading)?
-      <img src={user} className={`${className} animate-pulse`}{...props} />:
-      <img src={query.data} className={className} {...props} />
+      <img src={user} className={`aspect-square h-full ${className} animate-pulse`}{...props} />:
+      <img src={query.data} className={`aspect-square h-full ${className}`} {...props} />
   )
 }
 

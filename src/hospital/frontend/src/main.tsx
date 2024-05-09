@@ -10,7 +10,13 @@ import AuthContext from './hooks/AuthContext'
 import { AlertsProvider } from './hooks/AlertsContext'
 axios.defaults.headers.common.Authorization = "Bearer " + (sessionStorage.getItem('jwt') ?? localStorage.getItem('jwt'))
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions:{
+    queries:{
+      retry: (failures_count, error) => failures_count < 3 && (error as any).response.status != 401
+    }
+  }
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

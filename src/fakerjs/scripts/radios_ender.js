@@ -16,7 +16,9 @@ exports.fillup = async () => {
 
     for(let i=radios.length-1; i > 10; i--){
         let data = new FormData();
-        data.append('radios', fs.createReadStream('./scripts/100010364027390000.jpg'));
+        let count = custom_random([1, 2, 3]);
+        for(let j=0; j<count; j++)
+            data.append('radios', fs.createReadStream(`./radios/${custom_random([1,2,3,4,5])}.png`));
         data.append('observations', faker.lorem.sentence());
         
         await axios.post(

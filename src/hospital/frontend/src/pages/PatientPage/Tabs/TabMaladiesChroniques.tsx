@@ -9,6 +9,8 @@ import Button from "../../../components/UI/Buttons/Button";
 import AjouterMaladieChronique from "../Modals/AjouterMaladieChronique";
 import { ajouter_maladie_chronique } from "../../../hooks/usePatient";
 import AlertsContext from "../../../hooks/AlertsContext";
+import DeleteMaladieChroique from "../Modals/DeleteMaladieChroique";
+import DeleteButton from "../../../components/UI/Buttons/DeleteButton";
 type Props = {
   NIN: string;
 };
@@ -16,6 +18,8 @@ type Props = {
 function TabMaladiesChroniques({ NIN }: Props) {
   const { showAlert } = useContext(AlertsContext);
   const [openModal, setOpenModal] = useState("");
+  const [selectedMaladie, setSelectedMaladie] = useState<any>(null);
+
   const maladies_chroniques = useQuery<any>({
     queryKey: ["maladies_chroniques" + NIN],
     queryFn: async () => {
@@ -27,10 +31,21 @@ function TabMaladiesChroniques({ NIN }: Props) {
   });
   const maladies_chroniquesTableDefinition = useMemo(
     () => [
-      { header: "Code", accessorKey: "code_maladie" },
-      { header: "Désignation", accessorKey: "designation" },
-      { header: "Date de diagnostic", id: "date_diagonstic", cell: (info) => moment(info.row.original.date).format("DD/MM/YYYY"), },
-      { header: "Remarques", accessorKey: "remarques" },
+      { header: "Code", id: "code_maladie", cell: (info) => !info.row.original.disabled? info.row.original.code_maladie : <s>{info.row.original.code_maladie}</s> },
+      { header: "Désignation", id: "designation", cell: (info) => !info.row.original.disabled? info.row.original.designation : <s>{info.row.original.designation}</s> },
+      { header: "Date de diagnostic", id: "date_diagonstic", cell: (info) => !info.row.original.disabled? moment(info.row.original.date).format("DD/MM/YYYY") : <s>{moment(info.row.original.date).format("DD/MM/YYYY")}</s>},
+      { header: "Remarques", id: "remarques",  cell: (info)=> !info.row.original.disabled? info.row.original.remarques : <s>{info.row.original.remarques}</s> },
+      { header: "", id: "actions",
+        cell: (info) => {
+          const c = info.row.original;
+          return (
+            !c.disabled &&
+            <div className="flex justify-end gap-2">
+              <DeleteButton onClick={() => { setSelectedMaladie(c); setOpenModal("delete_maladie_chronique"); }} />
+            </div>
+          );
+        },
+      }
     ], []) as ColumnDef<Maladie>[];
 
   const action = (
@@ -55,6 +70,21 @@ function TabMaladiesChroniques({ NIN }: Props) {
     }
   }
 
+  async function deleteEntry(){
+    try {
+      await axios.delete(`${baseURL}/api/patients/${NIN}/maladies-chroniques/${selectedMaladie.id}`);
+      showAlert("success", "Maladie chronique supprimée correctement");
+      maladies_chroniques.refetch();
+      setOpenModal("");
+    } catch (error: any) {
+      if (error.response)
+          if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      else
+          showAlert("error", error.code + ": " + error.message);
+    }
+  }
+
   return (
     <>
       <div className="flex justify-between items-center mb-2">
@@ -66,6 +96,7 @@ function TabMaladiesChroniques({ NIN }: Props) {
       </div>
       <DataTable tableDefinition={maladies_chroniquesTableDefinition} query={maladies_chroniques} className="mt-2"/>
       <AjouterMaladieChronique isOpen={openModal==="ajouter_maladie_chronique"} action={(m) => submit(NIN, m)} close={()=>setOpenModal("")}/>
+      <DeleteMaladieChroique isOpen={openModal==="delete_maladie_chronique"} action={deleteEntry} close={()=> {setOpenModal(""); maladies_chroniques.refetch()}} />
     </>
   );
 }

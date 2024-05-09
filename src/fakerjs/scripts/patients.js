@@ -35,7 +35,7 @@ exports.fillup = async (NUMBER_OF_RECORDS) => {
             
             const data = new FormData();
             Object.keys(patient).forEach((key) => data.append(key, patient[key].toString()));
-            data.append("avatar", fs.createReadStream('./scripts/100010364027390000.jpg'));
+            data.append('avatar', fs.createReadStream(`./profile_pictures/${custom_random([1,2,3,4,5,6,7,8,9,10])}.jpg`));
             
             await axios.post(
                 `https://localhost/api/patients`,

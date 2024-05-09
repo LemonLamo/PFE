@@ -25,7 +25,7 @@ function TabInfoPersonelles({ NIN }: Props) {
       <p className="mb-4">Ci-dessous les informations civiles et personnelles du patient</p>
       <div className="flex flex-row gap-x-8 w-full mb-3">
         {profile.isError ? (
-          <TableError />
+          <TableError msg={(profile.error as any).response.data?.errorMessage} />
         ) : profile.isLoading ? (
           <TableLoading />
         ) : (

@@ -32,6 +32,10 @@ CREATE TABLE `personnel` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE INDEX personnel_nom_prenom_IND ON `personnel` (`nom`, `prenom`);
+CREATE INDEX personnel_hopital_IND ON `personnel` (`hopital`);
+CREATE INDEX personnel_service_IND ON `personnel` (`hopital`, `service`);
+
 --
 -- Déchargement des données de la table `personnel`
 --

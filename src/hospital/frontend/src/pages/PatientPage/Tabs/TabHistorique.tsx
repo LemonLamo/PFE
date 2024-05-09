@@ -103,7 +103,7 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
         {
           historique.isError ? 
             <div className="block w-full ">
-              <TableError />
+              <TableError msg={(historique.error as any).response.data?.errorMessage} />
             </div>:
           historique.isLoading ?
             <div className="block w-full ">

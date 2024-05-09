@@ -35,6 +35,8 @@ CREATE TABLE `patients` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE INDEX patients_nom_prenom_IND ON `patients` (`nom`, `prenom`);
+
 --
 -- Déchargement des données de la table `patients`
 --
@@ -49,11 +51,13 @@ INSERT INTO `patients`
 -- Structure de la table `maladies_chroniques`
 --
 CREATE TABLE `maladies_chroniques` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `patient` varchar(20) NOT NULL,
   `code_maladie` varchar(255) NOT NULL,
   `date` timestamp NOT NULL,
   `remarques` varchar(255) DEFAULT NULL,
   `medecin` varchar(255) NOT NULL,
+  `disabled` TINYINT DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -70,11 +74,13 @@ INSERT INTO `maladies_chroniques` (`patient`, `code_maladie`, `date`, `medecin`)
 -- Structure de la table `allergies`
 --
 CREATE TABLE `allergies` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `patient` varchar(20) NOT NULL,
   `code_allergene` varchar(255) NOT NULL,
   `date` timestamp NOT NULL,
   `remarques` varchar(255) DEFAULT NULL,
   `medecin` varchar(255) NOT NULL,
+  `disabled` TINYINT DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -88,12 +94,14 @@ INSERT INTO `allergies`
 -- Structure de la table `antecedents_medicaux`
 --
 CREATE TABLE `antecedents` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `patient` varchar(20) NOT NULL,
   `designation` varchar(255) NOT NULL,
   `date` timestamp NOT NULL,
   `type` varchar(255) DEFAULT NULL,
   `remarques` varchar(255) DEFAULT NULL,
   `medecin` varchar(255) NOT NULL,
+  `disabled` TINYINT DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

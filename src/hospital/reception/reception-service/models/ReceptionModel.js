@@ -18,7 +18,5 @@ exports.insert = async (service, patient, medecin, remarques) => {
 };
 
 exports.remove = async (patient) => {
-  let results = await db.query("DELETE FROM `reception` WHERE patient=?", [patient]);
-  if (results[0].affectedRows < 1)
-    throw new Error({ code: "ER_DELETE_FAIL" });
+  await db.execute("DELETE FROM `reception` WHERE patient=?", [patient]);
 };

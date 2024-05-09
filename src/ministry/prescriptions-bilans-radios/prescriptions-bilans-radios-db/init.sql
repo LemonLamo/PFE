@@ -22,6 +22,8 @@ CREATE TABLE `prescriptions` (
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE INDEX prescriptions_reference_IND ON `prescriptions` (`reference`);
+
 INSERT INTO `prescriptions` (`id`, `patient`, `reference`, `code_medicament`, `posologie`, `frequence`, `duree`, `remarques`) VALUES
 ('ordd-25831', '100010364027390000', 'cons-XNDHDBZ', '01 A 003', "23", "2", "7", 'Idk');
 
@@ -44,6 +46,9 @@ CREATE TABLE `radios` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE INDEX radios_reference_IND ON `radios` (`reference`);
+CREATE INDEX radios_hopital_IND ON `radios` (`hopital`);
 
 INSERT INTO `radios` (`id`, `patient`, `reference`, `code_radio`, `remarques`, `date`, `date_fait`, `medecin`, `hopital`, `service`) VALUES
 ('radio-PZR37CU', '100010364027390000', 'cons-XNDHDBZ', 'R10.9', NULL, '2024-03-30', NULL, '100010364027390000', 'CHU Mustapha', 'Chirugie Générale'),
@@ -73,6 +78,9 @@ CREATE TABLE `bilans` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE INDEX bilans_reference_IND ON `bilans` (`reference`);
+CREATE INDEX bilans_hopital_IND ON `bilans` (`hopital`);
 
 INSERT INTO `bilans` (`id`, `patient`, `reference`, `code_bilan`, `remarques`, `date`, `date_fait`, `medecin`, `hopital`, `service`) VALUES
 ('bilan-VZR37CX', '100010364027390000', 'cons-XNDHDBZ', 'B2', 'Idk', '2024-03-30', NULL, '100010364027390000', 'CHU Mustapha', 'Chirugie Générale'),

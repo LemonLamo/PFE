@@ -49,7 +49,7 @@ function HistoriquePage(){
         { header: "Attribué le", id: "created_at", cell: (info) => moment(info.row.original.created_at).format("DD/MM/YYYY HH:mm")},
         { header: "Motif", accessorKey: "motif" },
         { header: "Actif", id: "actif", cell: (info) => build_badge(info.row.original.created_at, info.row.original.expired_at) },
-        { header: "Révoqué le", id: "expired_at", cell: (info) => moment(info.row.original.expired_at).format("DD/MM/YYYY HH:mm")},
+        { header: "Révoqué le", id: "expired_at", cell: (info) => info.row.original.expired_at? moment(info.row.original.expired_at).format("DD/MM/YYYY HH:mm") : '-'},
     ], []) as ColumnDef<any>[];
 
     return <>

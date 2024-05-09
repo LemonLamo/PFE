@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const logger = require('../utils/logger');
 
 // Verify if a jwt token is valid
 exports.requireAuth = async (req, res, next) => {
@@ -23,4 +25,19 @@ exports.hasPriv = (privs) => async (req, res, next) => {
             return res.status(400).json({ errorCode: `unauthorized.missing-permission:${priv}`, errorMessage: `You need permission '${priv}'.` });
 
     next()
+}
+
+exports.verifyEHRAuth = async (req, res, next) =>{
+    try{
+        const medecin = req.jwt.NIN;
+        const patient = req.params.NIN;
+        if(req.jwt.role == "medecin"){
+            await axios.post("http://auth-service/isAuthorized", {medecin, patient}, { headers: { Authorization: req.headers.authorization } });
+            next();
+        }else
+            next();
+    }catch(err){
+        return res.status(401).json({ errorCode: `unauthorized`, errorMessage: `Vous n'êtes pas autorisé pour voir ce dossier médical.` });
+    }
+    
 }

@@ -48,26 +48,30 @@ app.post("/api/patients/bulk-select", auth.requireAuth, PatientsController.selec
 app.get("/api/patients/search", auth.requireAuth, PatientsController.searchAll);
 app.post("/api/patients", auth.requireAuth, uploadAvatar.single("avatar"), PatientsController.insert);
 
-app.get("/api/patients/:NIN", auth.requireAuth, PatientsController.selectOne);
+app.get("/api/patients/:NIN", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectOne);
 app.get("/api/patients/:NIN/avatar", auth.requireAuth, PatientsController.serveAvatar);
-app.get("/api/patients/:NIN/historique", auth.requireAuth, PatientsController.selectHistorique);
+app.get("/api/patients/:NIN/historique", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectHistorique);
 
-app.get("/api/patients/:NIN/maladies-chroniques", auth.requireAuth, PatientsController.selectMaladiesChroniques);
+app.get("/api/patients/:NIN/maladies-chroniques", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectMaladiesChroniques);
 app.post("/api/patients/:NIN/maladies-chroniques", auth.requireAuth, PatientsController.insertMaladieChronique);
+app.delete("/api/patients/:NIN/maladies-chroniques/:id", auth.requireAuth, PatientsController.deleteMaladieChronique);
 
-app.get("/api/patients/:NIN/allergies", auth.requireAuth, PatientsController.selectAllergies);
+app.get("/api/patients/:NIN/allergies", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectAllergies);
 app.post("/api/patients/:NIN/allergies", auth.requireAuth, PatientsController.insertAllergie);
+app.delete("/api/patients/:NIN/allergies/:id", auth.requireAuth, PatientsController.deleteAllergie);
 
-app.get("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, PatientsController.selectAntecedentsMedicals);
+app.get("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectAntecedentsMedicals);
 app.post("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, PatientsController.insertAntecedentMedical);
+app.delete("/api/patients/:NIN/antecedents-medicals/:id", auth.requireAuth, PatientsController.deleteAntecedent);
 
-app.get("/api/patients/:NIN/antecedents-familiaux", auth.requireAuth, PatientsController.selectAntecedentsFamiliaux);
+app.get("/api/patients/:NIN/antecedents-familiaux", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectAntecedentsFamiliaux);
 app.post("/api/patients/:NIN/antecedents-familiaux", auth.requireAuth, PatientsController.insertAntecedentFamilial);
+app.delete("/api/patients/:NIN/antecedents-familiaux/:id", auth.requireAuth, PatientsController.deleteAntecedent);
 
-app.get("/api/patients/:NIN/medicaments", auth.requireAuth, PatientsController.selectMedicaments);
-
-app.get("/api/patients/:NIN/vaccinations", auth.requireAuth, PatientsController.selectVaccinations);
+app.get("/api/patients/:NIN/vaccinations", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectVaccinations);
 app.post("/api/patients/:NIN/vaccinations", auth.requireAuth, PatientsController.insertVaccination);
+
+app.get("/api/patients/:NIN/medicaments", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectMedicaments);
 
 app.post("/private/patients", PatientsController.selectByNINs);
 app.get("/private/patients/:NIN", PatientsController.selectByNIN);

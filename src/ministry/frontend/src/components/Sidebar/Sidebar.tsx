@@ -23,7 +23,7 @@ function Sidebar({ setOpen }: SidebarProps) {
           <SidebarButton text="Dashboard" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
           <SidebarButton text="Mon dossier" icon="fa fa-folder" route="/dossier" closeSidebar={setOpen}/>
           <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez-vous" closeSidebar={setOpen}/>
-          <SidebarButton text="Historique d'autorisations" icon="fa fa-calendar-days" route="/historique" closeSidebar={setOpen}/>
+          <SidebarButton text="Historique d'autorisations" icon="fa fa-clock-rotate-left" route="/historique" closeSidebar={setOpen}/>
         </ul>
       </div>
     </aside>

@@ -177,6 +177,33 @@ class PatientsModel {
     }
   }
 
+  async deleteMaladieChronique(id) {
+    try {
+      await db.execute("UPDATE maladies_chroniques SET `disabled`=1 WHERE `id`=?", [id]);
+    } catch (error) {
+      logger.error("Error inserting maladies chroniques:", error);
+      throw error;
+    }
+  }
+
+  async deleteAllergie(id) {
+    try {
+      await db.execute("UPDATE allergies SET `disabled`=1 WHERE `id`=?", [id]);
+    } catch (error) {
+      logger.error("Error inserting allergies:", error);
+      throw error;
+    }
+  }
+
+  async deleteAntecedent(id) {
+    try {
+      await db.execute("UPDATE antecedents SET `disabled`=1 WHERE `id`=?", [id]);
+    } catch (error) {
+      logger.error("Error deleting antecedents:", error);
+      throw error;
+    }
+  }
+
   // PRIVATE VERSIONS
   async selectByNINs(NINs) {
     try {

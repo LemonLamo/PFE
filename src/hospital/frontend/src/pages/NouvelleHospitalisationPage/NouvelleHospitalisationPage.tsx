@@ -37,6 +37,7 @@ function NouvelleHospitalisationPage() {
         
         await axios.post(`${baseURL}/api/hospitalisations`, data);
         await axios.post(`${baseURL}/api/chambres/${data.chambre}/lits/${data.lit}/occuper`)
+        await axios.delete(`${baseURL}/reception/${data.patient}`);
         showAlert("success", "Hospitalisation ajouté correctement");
         navigate(`/hospitalisations`)
     } catch (error: any) {

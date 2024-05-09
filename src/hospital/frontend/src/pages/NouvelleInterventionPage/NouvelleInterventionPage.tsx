@@ -37,6 +37,7 @@ function NouvelleInterventionPage() {
           return;
         
         await axios.post(`${baseURL}/api/interventions`, data);
+        await axios.delete(`${baseURL}/reception/${data.patient}`);
         showAlert("success", "Intervention ajouté correctement");
         if(!getValues('protocole_operatoire'))
           navigate(`/interventions`)
