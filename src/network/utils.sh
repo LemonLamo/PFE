@@ -8,10 +8,10 @@ function switchIdentity() {
     PORT=$2
 
     export CORE_PEER_TLS_ENABLED=true
-    export ORDERER_CA=${PWD}/crypto-material/ordererOrganizations/medicalife.com/orderers/orderer0.medicalife.com/msp/tlscacerts/tlsca.medicalife.com-cert.pem
+    export ORDERER_CA=${PWD}/crypto-material/ordererOrganizations/medicalife.dz/orderers/orderer0.medicalife.dz/msp/tlscacerts/tlsca.medicalife.dz-cert.pem
     export CORE_PEER_LOCALMSPID=${ORG}MSP
-    export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/crypto-material/peerOrganizations/${LOWER_MSP}.medicalife.com/peers/peer0.${LOWER_MSP}.medicalife.com/tls/ca.crt
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/crypto-material/peerOrganizations/${LOWER_MSP}.medicalife.com/users/Admin@${LOWER_MSP}.medicalife.com/msp
+    export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/crypto-material/peerOrganizations/${LOWER_MSP}.medicalife.dz/peers/peer0.${LOWER_MSP}.medicalife.dz/tls/ca.crt
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/crypto-material/peerOrganizations/${LOWER_MSP}.medicalife.dz/users/Admin@${LOWER_MSP}.medicalife.dz/msp
     export CORE_PEER_ADDRESS=localhost:${PORT}
 }
 

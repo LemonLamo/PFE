@@ -3,7 +3,7 @@ Organizations:
     - &OrdererOrg
         Name: OrdererOrg
         ID: OrdererMSP
-        MSPDir: ../crypto-material/ordererOrganizations/medicalife.com/msp
+        MSPDir: ../crypto-material/ordererOrganizations/medicalife.dz/msp
         Policies:
             Readers:
                 Type: Signature
@@ -15,49 +15,89 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
         OrdererEndpoints:
-            - orderer0.medicalife.com:7050
+            - orderer0.medicalife.dz:7050
 
-    - &Hopital1
-        Name: Hopital1
-        ID: Hopital1MSP
-        MSPDir: ../crypto-material/peerOrganizations/hopital1.medicalife.com/msp
+    - &Nord
+        Name: Nord
+        ID: NordMSP
+        MSPDir: ../crypto-material/peerOrganizations/nord.medicalife.dz/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Hopital1MSP.member')"
+                Rule: "OR('NordMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('Hopital1MSP.member')"
+                Rule: "OR('NordMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('Hopital1MSP.admin')"
+                Rule: "OR('NordMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Hopital1MSP.member')"
+                Rule: "OR('NordMSP.member')"
         AnchorPeers:
-            - Host: peer0.hopital1.medicalife.com
-              Port: 7051
-
-    - &Hopital2
-        Name: Hopital2
-        ID: Hopital2MSP
-        MSPDir: ../crypto-material/peerOrganizations/hopital2.medicalife.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('Hopital2MSP.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('Hopital2MSP.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('Hopital2MSP.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('Hopital2MSP.member')"
-        AnchorPeers:
-            - Host: peer0.hopital2.medicalife.com
+            - Host: peer0.nord.medicalife.dz
               Port: 8051
+
+    - &Est
+        Name: Est
+        ID: EstMSP
+        MSPDir: ../crypto-material/peerOrganizations/est.medicalife.dz/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('EstMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('EstMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('EstMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('EstMSP.member')"
+        AnchorPeers:
+            - Host: peer0.est.medicalife.dz
+              Port: 8052
+    - &Ouest
+        Name: Ouest
+        ID: OuestMSP
+        MSPDir: ../crypto-material/peerOrganizations/ouest.medicalife.dz/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OuestMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OuestMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OuestMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('OuestMSP.member')"
+        AnchorPeers:
+            - Host: peer0.ouest.medicalife.dz
+              Port: 8053
+    - &Sud
+        Name: Sud
+        ID: SudMSP
+        MSPDir: ../crypto-material/peerOrganizations/sud.medicalife.dz/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('SudMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('SudMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('SudMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('SudMSP.member')"
+        AnchorPeers:
+            - Host: peer0.sud.medicalife.dz
+              Port: 8054
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -92,10 +132,10 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
     EtcdRaft:
         Consenters:
-        - Host: orderer0.medicalife.com
+        - Host: orderer0.medicalife.dz
           Port: 7050
-          ClientTLSCert: ../crypto-material/ordererOrganizations/medicalife.com/orderers/orderer0.medicalife.com/tls/server.crt
-          ServerTLSCert: ../crypto-material/ordererOrganizations/medicalife.com/orderers/orderer0.medicalife.com/tls/server.crt
+          ClientTLSCert: ../crypto-material/ordererOrganizations/medicalife.dz/orderers/orderer0.medicalife.dz/tls/server.crt
+          ServerTLSCert: ../crypto-material/ordererOrganizations/medicalife.dz/orderers/orderer0.medicalife.dz/tls/server.crt
     BatchTimeout: 2s
     BatchSize:
         MaxMessageCount: 10
@@ -142,15 +182,19 @@ Profiles:
         Consortiums:
             ApConsortium:
                 Organizations:
-                    - *Hopital1
-                    - *Hopital2
+                    - *Nord
+                    - *Est
+                    - *Ouest
+                    - *Sud
     ApChannelProfile:
         Consortium: ApConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Hopital1
-                - *Hopital2
+                - *Nord
+                - *Est
+                - *Ouest
+                - *Sud
             Capabilities:
                 <<: *ApplicationCapabilities

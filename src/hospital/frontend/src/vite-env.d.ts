@@ -28,6 +28,7 @@ type Consultation = {
   interventions: Partial<Intervention>[];
   prochaine_consultation: Date | null;
   duree_arret_de_travail?: number;
+  integrite: number;
 };
 type Hospitalisation = {
   id: string;
@@ -43,6 +44,7 @@ type Hospitalisation = {
   date_sortie?: Date;
   mode_sortie?: string;
   resume_hospitalisation?: string;
+  integrite: number;
 };
 type Intervention = {
   id: string;
@@ -55,6 +57,7 @@ type Intervention = {
   date?: Date;
   protocole_operatoire?: string;
   remarques?: string;
+  integrite: number;
 };
 type InterventionCode = {
   code_intervention: string;

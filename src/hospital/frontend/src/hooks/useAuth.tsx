@@ -7,6 +7,8 @@ import DashboardInfirmier from "../pages/DashboardInfirmier";
 import DashboardLab from "../pages/DashboardLab";
 import DashboardRadio from "../pages/DasshboardRadio";
 import Scaffold from "../components/Scaffold";
+import axios from "axios";
+import { baseURL } from "../config";
 export type JWTToken = {
     NIN: string,
     nom: string,
@@ -98,4 +100,26 @@ export function PrivateRouteOnly({ children } : Props) {
 
 export function PublicOrPrivateRoute({ loggedIn, notLoggedIn } : {loggedIn: ReactNode, notLoggedIn: ReactNode}) {
     return isAuthenticated() ? loggedIn : notLoggedIn;
+}
+
+export async function checkEHRAuth(NIN: Patient["NIN"]){
+    try{
+        const data ={
+            medecin: getJWTContent()?.NIN,
+            patient: NIN,
+        }
+        await axios.post(`${baseURL}/api/auth/authorisations/isAuthorized`, data);
+        return true;
+    }catch(err){
+        return false;
+    }
+}
+
+export async function requestEHRAuth(NIN: Patient["NIN"], motif: string){
+    const data ={
+        medecin: getJWTContent()?.NIN,
+        patient: NIN,
+        motif: motif
+    }
+    await axios.post(`${baseURL}/api/auth/authorisations`, data);
 }

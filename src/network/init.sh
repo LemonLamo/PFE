@@ -5,16 +5,22 @@ rm -rf ./crypto-material/*
 rm -rf ./system-genesis-block/*
 rm -rf ./channel-artifacts/*
 
-COMPOSE_FILES="-f ./docker/docker-compose-hopital1.yaml -f ./docker/docker-compose-hopital2.yaml -f ./docker/docker-compose-orderer.yaml"
+COMPOSE_FILES="-f ./docker/docker-compose-nord.yaml -f ./docker/docker-compose-est.yaml -f ./docker/docker-compose-ouest.yaml -f ./docker/docker-compose-sud.yaml -f ./docker/docker-compose-orderer.yaml"
 IMAGE_TAG=$IMAGETAG docker compose ${COMPOSE_FILES} down --volumes --remove-orphans
 
 . ./utils.sh
 
-printSeparator "Generate crypto-material for Hopital1"
-cryptogen generate --config=./cryptogen-input/crypto-config-hopital1.yaml --output="crypto-material"
+printSeparator "Generate crypto-material for Nord"
+cryptogen generate --config=./cryptogen-input/crypto-config-nord.yaml --output="crypto-material"
 
-printSeparator "Generate crypto-material for Hopital2"
-cryptogen generate --config=./cryptogen-input/crypto-config-hopital2.yaml --output="crypto-material"
+printSeparator "Generate crypto-material for Est"
+cryptogen generate --config=./cryptogen-input/crypto-config-est.yaml --output="crypto-material"
+
+printSeparator "Generate crypto-material for Ouest"
+cryptogen generate --config=./cryptogen-input/crypto-config-ouest.yaml --output="crypto-material"
+
+printSeparator "Generate crypto-material for Sud"
+cryptogen generate --config=./cryptogen-input/crypto-config-sud.yaml --output="crypto-material"
 
 printSeparator "Generate crypto-material for Orderer"
 cryptogen generate --config=./cryptogen-input/crypto-config-orderer.yaml --output="crypto-material"
@@ -25,11 +31,17 @@ configtxgen -profile ApNetworkProfile -configPath ${PWD}/config -channelID syste
 printSeparator "Create Channel Transaction"
 configtxgen -profile ApChannelProfile -configPath ${PWD}/config -outputCreateChannelTx ./channel-artifacts/mychannel.tx -channelID mychannel
 
-printSeparator "Create Anchor Peers Update for Hospital 1"
-configtxgen -profile ApChannelProfile -configPath ${PWD}/config -outputAnchorPeersUpdate ./channel-artifacts/Hopital1MSPanchors.tx -channelID mychannel -asOrg Hopital1
+printSeparator "Create Anchor Peers Update for Nord"
+configtxgen -profile ApChannelProfile -configPath ${PWD}/config -outputAnchorPeersUpdate ./channel-artifacts/NordMSPanchors.tx -channelID mychannel -asOrg Nord
 
-printSeparator "Create Anchor Peers Update for Hospital 2"
-configtxgen -profile ApChannelProfile -configPath ${PWD}/config -outputAnchorPeersUpdate ./channel-artifacts/Hopital2MSPanchors.tx -channelID mychannel -asOrg Hopital2
+printSeparator "Create Anchor Peers Update for Est"
+configtxgen -profile ApChannelProfile -configPath ${PWD}/config -outputAnchorPeersUpdate ./channel-artifacts/EstMSPanchors.tx -channelID mychannel -asOrg Est
+
+printSeparator "Create Anchor Peers Update for Ouest"
+configtxgen -profile ApChannelProfile -configPath ${PWD}/config -outputAnchorPeersUpdate ./channel-artifacts/OuestMSPanchors.tx -channelID mychannel -asOrg Ouest
+
+printSeparator "Create Anchor Peers Update for Sud"
+configtxgen -profile ApChannelProfile -configPath ${PWD}/config -outputAnchorPeersUpdate ./channel-artifacts/SudMSPanchors.tx -channelID mychannel -asOrg Sud
 
 ./start.sh
 

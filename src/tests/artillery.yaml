@@ -1,0 +1,43 @@
+config:
+  target: https://192.168.43.200/
+  phases:
+    - duration: 60
+      arrivalRate: 1
+      rampTo: 5
+      name: Warm up phase
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 20
+      name: Ramp up load
+    - duration: 30
+      arrivalRate: 10
+      rampTo: 100
+      name: Spike phase
+  # Load & configure a couple of useful plugins
+  # https://docs.art/reference/extensions
+  plugins:
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+  apdex:
+    threshold: 100
+  ensure:
+    thresholds:
+      - http.response_time.p99: 100
+      - http.response_time.p95: 75
+scenarios:
+  - flow:
+      - loop:
+          - get:
+              url: '/api/patients/search?search=bra'
+              headers:
+                Authorization: "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJOSU4iOiIxMDAwMTAzNjQwMjczOTAwMDAiLCJub20iOiJCUkFISU0iLCJwcmVub20iOiJBYmRlcnJhemFrIiwic3BlY2lhbGl0ZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJob3BpdGFsIjoiQ0hVIE11c3RhcGhhIiwic2VydmljZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJyb2xlIjoibWVkZWNpbiIsInBlcm1pc3Npb25zIjp7fSwiaWF0IjoxNzE1NDM4MDI5fQ.oopPAEW2caE7jczZ-Zb6lRFr8U3E2OH2yp8KfZZcsD1C7NXn8_VIXqc8WZt4MTzlhou4Bud3IY181a7RZLNTbA"
+          - get:
+              url: '/api/patients/100010364027390000/historique'
+              headers:
+                Authorization: "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJOSU4iOiIxMDAwMTAzNjQwMjczOTAwMDAiLCJub20iOiJCUkFISU0iLCJwcmVub20iOiJBYmRlcnJhemFrIiwic3BlY2lhbGl0ZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJob3BpdGFsIjoiQ0hVIE11c3RhcGhhIiwic2VydmljZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJyb2xlIjoibWVkZWNpbiIsInBlcm1pc3Npb25zIjp7fSwiaWF0IjoxNzE1NDM4MDI5fQ.oopPAEW2caE7jczZ-Zb6lRFr8U3E2OH2yp8KfZZcsD1C7NXn8_VIXqc8WZt4MTzlhou4Bud3IY181a7RZLNTbA"
+          - get:
+              url: '/api/consultations/cons-QULJ7WZ'
+              headers:
+                Authorization: "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJOSU4iOiIxMDAwMTAzNjQwMjczOTAwMDAiLCJub20iOiJCUkFISU0iLCJwcmVub20iOiJBYmRlcnJhemFrIiwic3BlY2lhbGl0ZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJob3BpdGFsIjoiQ0hVIE11c3RhcGhhIiwic2VydmljZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJyb2xlIjoibWVkZWNpbiIsInBlcm1pc3Npb25zIjp7fSwiaWF0IjoxNzE1NDM4MDI5fQ.oopPAEW2caE7jczZ-Zb6lRFr8U3E2OH2yp8KfZZcsD1C7NXn8_VIXqc8WZt4MTzlhou4Bud3IY181a7RZLNTbA"
+        count: 1

@@ -32,7 +32,7 @@ exports.verifyEHRAuth = async (req, res, next) =>{
         const medecin = req.jwt.NIN;
         const patient = req.params.NIN;
         if(req.jwt.role == "medecin"){
-            await axios.post("http://auth-service/isAuthorized", {medecin, patient}, { headers: { Authorization: req.headers.authorization } });
+            await axios.post("http://auth-service/api/auth/authorisations/isAuthorized", {medecin, patient}, { headers: { Authorization: req.headers.authorization } });
             next();
         }else
             next();

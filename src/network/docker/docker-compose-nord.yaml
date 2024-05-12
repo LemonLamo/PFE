@@ -1,0 +1,37 @@
+volumes:
+  peer0.nord.medicalife.dz:
+
+networks:
+  medicalifenet:
+    name: medicalifenet
+
+services:
+  peer0.nord.medicalife.dz:
+    networks:
+      - medicalifenet
+    container_name: peer0.nord.medicalife.dz
+    image: hyperledger/fabric-peer
+    environment:
+      # Generic peer variables
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt 
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key 
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt 
+      # Specific peer variables
+      - CORE_PEER_ID=peer0.nord.medicalife.dz
+      - CORE_PEER_ADDRESS=peer0.nord.medicalife.dz:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.nord.medicalife.dz:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.nord.medicalife.dz:8051
+      - CORE_PEER_LOCALMSPID=NordMSP
+      - CORE_VM_ENDPOINT=unix:///var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=medicalifenet
+    volumes:
+      - ../crypto-material/peerOrganizations/nord.medicalife.dz/peers/peer0.nord.medicalife.dz/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-material/peerOrganizations/nord.medicalife.dz/peers/peer0.nord.medicalife.dz/tls:/etc/hyperledger/fabric/tls
+      - peer0.nord.medicalife.dz:/var/hyperledger/production
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /opt/gopath/src/github.dz/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 8051:8051

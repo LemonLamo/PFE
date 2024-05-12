@@ -1,9 +1,10 @@
 const Model = require("../models/ConsultationsModel");
 const ExamensCliniquesModel = require("../models/ExamensCliniquesModel");
-const { genID } = require("../utils");
+const { genID, verifyIntegrity } = require("../utils");
 const { fetchPatients, fetchMedecins, fetchExamensCliniques } = require("../utils/communication");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
+const axios = require('axios');
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -48,18 +49,26 @@ class ConsultationsController {
 
   async selectOne(req, res) {
     const { id } = req.params;
+    const { NIN } = req.jwt;
     try {
-      const result = await Model.selectOne(id);
+      const data = await Model.selectOne(id);
       // ensure it concerns this user.
-      if (result.medecin == NIN || result.patient == NIN)
-        return res.status(200).json(result);
+      if (data.medecin != NIN && data.patient != NIN)
+        return res.status(400).json();
 
-      return res.status(400).json();
+      // fetch related data
+      const [patients, medecins] = await Promise.all([
+        fetchPatients([data]),
+        fetchMedecins([data])
+      ]);
+      const result = {...data, patient: patients.get(data.patient), medecin: medecins.get(data.medecin)};
+      
+      // verify integrity
+      result.integrite = await verifyIntegrity(id, data);
+      return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);
-      return res
-        .status(400)
-        .json({ errorCode: "database-error", errorMessage: err.code });
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 
@@ -134,6 +143,9 @@ class ConsultationsController {
           bilans,
           reference: id,
         });
+
+      // Revoque auth
+      await axios.post("http://auth-service/api/auth/authorisations/expire", {medecin, patient}, { headers: { Authorization: req.headers.authorization } });
 
       return res.status(200).json({ success: true });
     } catch (err) {

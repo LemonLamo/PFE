@@ -12,7 +12,7 @@ import { CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/ou
 
 const build_badge = (created_at: Date, expired_at: Date) => {
     return (
-        !expired_at || (new Date() >= created_at && new Date() <= new Date(expired_at))?
+        (!expired_at || (new Date() >= new Date(created_at) && new Date() <= new Date(expired_at)))?
             <Badge bgColor="#dcfce7" textColor="#267142">
                 <CheckCircleIcon className="h-4 mr-1" />
                 Actif

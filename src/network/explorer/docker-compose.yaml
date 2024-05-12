@@ -8,10 +8,10 @@ networks:
     external: true
 
 services:
-  explorerdb.medicalife.com:
+  explorerdb.medicalife.dz:
     image: ghcr.io/hyperledger-labs/explorer-db:latest
-    container_name: explorerdb.medicalife.com
-    hostname: explorerdb.medicalife.com
+    container_name: explorerdb.medicalife.dz
+    hostname: explorerdb.medicalife.dz
     environment:
       - DATABASE_DATABASE=fabricexplorer
       - DATABASE_USERNAME=hppoc
@@ -26,12 +26,12 @@ services:
     networks:
       - medicalifenet
 
-  explorer.medicalife.com:
+  explorer.medicalife.dz:
     image: ghcr.io/hyperledger-labs/explorer:latest
-    container_name: explorer.medicalife.com
-    hostname: explorer.medicalife.com
+    container_name: explorer.medicalife.dz
+    hostname: explorer.medicalife.dz
     environment:
-      - DATABASE_HOST=explorerdb.medicalife.com
+      - DATABASE_HOST=explorerdb.medicalife.dz
       - DATABASE_DATABASE=fabricexplorer
       - DATABASE_USERNAME=hppoc
       - DATABASE_PASSWD=password
@@ -49,7 +49,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      explorerdb.medicalife.com:
+      explorerdb.medicalife.dz:
         condition: service_healthy
     networks:
       - medicalifenet

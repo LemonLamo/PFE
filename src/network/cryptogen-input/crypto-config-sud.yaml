@@ -1,0 +1,7 @@
+PeerOrgs:
+  - Name: Sud
+    Domain: sud.medicalife.dz
+    Template:
+      Count: 1
+      SANS:
+        - localhost

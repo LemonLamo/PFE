@@ -1,6 +1,6 @@
 OrdererOrgs:
   - Name: Orderer
-    Domain: medicalife.com
+    Domain: medicalife.dz
     Template:
       Count: 1
       SANS:

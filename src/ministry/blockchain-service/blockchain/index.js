@@ -43,11 +43,11 @@ class HFConnection{
         }
     }
     
-    query = async (transaction) => {
+    query = async (transaction, ...args) => {
         try{
-	    const resultBytes = await this.contract.evaluateTransaction(transaction);
-	    const result = this.decode(resultBytes);
-	    return result
+            const resultBytes = await this.contract.evaluateTransaction(transaction, ...args);
+	        const result = this.decode(resultBytes);
+            return result
         }catch(error){
             console.log(error)
         }

@@ -42,7 +42,10 @@ export class HashEntryContract extends Contract {
     @Returns('string')
     public async GetOne(ctx: Context, ID: string): Promise<string> {
         const assetJSON = await ctx.stub.getState(ID);
-        return JSON.stringify(assetJSON);
+        if (!assetJSON || assetJSON.length === 0) {
+            throw new Error(`The asset ${ID} does not exist`);
+        }
+        return assetJSON.toString();
     }
 
     @Transaction(false)

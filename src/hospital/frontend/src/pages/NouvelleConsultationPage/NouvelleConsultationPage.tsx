@@ -5,9 +5,8 @@ import TabHistorique from "../PatientPage/Tabs/TabHistorique";
 import TabMotif from "./Tabs/TabMotif";
 import TabExamenClinique from "./Tabs/TabExamenClinique";
 import TabDiagnostique from "./Tabs/TabDiagnostique";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import TabContent from "../../components/UI/Tabs/TabContent";
-import PatientsSelect from "../../components/Selects/PatientsSelect";
 import { baseURL } from "../../config";
 import axios from "axios";
 import AlertsContext from "../../hooks/AlertsContext";
@@ -18,20 +17,21 @@ import BilansSection from "./Tabs/Sections_TabPriseEnCharge/BilansSection";
 import InterventionsSection from "./Tabs/Sections_TabPriseEnCharge/InterventionsSection";
 import ArretDeTravailSection from "./Tabs/Sections_TabPriseEnCharge/ArretDeTravailSection";
 import ProchaineConsultationSection from "./Tabs/Sections_TabPriseEnCharge/ProchaineConsultationSection";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import PatientsSelector from "../../components/PatientSelector";
 
 function NouvelleConsultationPage() {
   const { showAlert } = useContext(AlertsContext);
   const navigate = useNavigate();
-  const [ NIN ] = useState(useLocation().state);
-  useEffect(()=>{
-    if(!NIN)
-      return;
+  const [step, setStep] = useState<number>(0);
+  const [patient, setPatient] = useState<Partial<Patient>>({NIN:"", nom:"", prenom:""});
 
-    setPatient({NIN: NIN, nom:"", prenom:""})
-    setValidPatient(true);
-    setValue('patient', NIN)
-  }, [NIN])
+  function select_patient(patient: any) {
+    if (patient){
+      setPatient({NIN: patient.NIN!, nom: patient.nom!, prenom:patient.prenom!})
+      setValue('patient', patient.NIN);
+    }
+  }
 
   const [state, setState] = useState<Record<string, boolean>>({
     prescriptions_active: false,
@@ -42,17 +42,18 @@ function NouvelleConsultationPage() {
     prochaine_consultation_active: true,
   });
 
-  const [validPatient, setValidPatient] = useState(false);
-  const [patient, setPatient] = useState({NIN:"", nom:"", prenom:""});
-
   const { register, handleSubmit, getValues, setValue, formState:{errors} } = useForm<Partial<Consultation>>();
   register('patient', {required: true});
-
+  
   const [examens_cliniques, setExamensCliniques] = useState<ExamenClinique[]>([]);
   const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
   const [radios, setRadios] = useState<Partial<Radio>[]>([]);
   const [bilans, setBilans] = useState<Partial<Bilan>[]>([]);
   const [interventions, setInterventions] = useState<Partial<Intervention>[]>([]);
+
+  function updateState(id: string, value: boolean) {
+    setState((state) => ({ ...state, [id]: value }))
+  }
 
   const onSubmit: SubmitHandler<Partial<Consultation>> = async (data : Partial<Consultation>) => {
     try{
@@ -72,46 +73,21 @@ function NouvelleConsultationPage() {
         data.prochaine_consultation = undefined;
 	
       await axios.post(`${baseURL}/api/consultations`, data);
-      await axios.delete(`${baseURL}/reception/${data.patient}`);
       showAlert("success", "Consultation ajouté correctement");
       navigate(`/patients/${data.patient}`)
     } catch (error: any) {
-        if (error.response)
-          if(error.response?.data?.errorCode != "form-validation")
-            showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
         else
-            showAlert("error", error.code + ": " + error.message);
+        showAlert("error", error.code + ": " + error.message);
     }
-  }
-
-  function select_patient(patient: any) {
-    if (patient){
-      setPatient({NIN: patient.NIN!, nom: patient.nom!, prenom:patient.prenom!})
-      setValue('patient', patient.NIN);
-    }
-  }
-
-  function choosePatient() {
-    if (patient.NIN !== "") setValidPatient(true);
-    else setValidPatient(false);
-  }
-
-  function updateState(id: string, value: boolean) {
-    setState((state) => ({ ...state, [id]: value }))
+    await axios.delete(`${baseURL}/reception/${data.patient}`);
   }
 
   return (
-    <>
-      {!validPatient && (
-        <Card title="Choisir un patient?" subtitle="Veuillez sélectionner un patient" className="w-full max-w-[500px]">
-          <div className="flex w-inherit">
-            <PatientsSelect placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: patient.NIN!, nom: patient.nom!, prenom: patient.prenom!, }} />
-            <button className="primary ms-3" onClick={choosePatient}>Choisir</button>
-          </div>
-        </Card>
-      )}
-
-      {validPatient && (
+      step < 2 ?
+        <PatientsSelector step={step} setStep={setStep} patient={patient} select_patient={select_patient} motif="Consultation"/>:
         <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full" >
           <form onSubmit={handleSubmit(onSubmit)}>
           <Tabs keepVisible={true}>
@@ -156,8 +132,6 @@ function NouvelleConsultationPage() {
           </div>
           </form>
         </Card>
-      )}
-    </>
   );
 }
 

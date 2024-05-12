@@ -33,19 +33,19 @@ const logger = require("./utils/logger");
 
 // Verification
 app.post("/api/blockchain/verify", async (req, res) => {
-    const { id, obj } = req.body;
-    try{
-      const blockchain_entry = await blockchain.invoke("GetOne", id)
-      const string = stringify(sortKeysRecursive(obj))
-      const hash = crypto.createHash('sha256').update(string, 'binary').digest('hex')
-      if(blockchain_entry.hash != hash)
-        return res.status(400).json({success: 0, message: `Objet ${id} n'est pas intègre.`})
-      else
-        return res.status(200).json({success: 1, message: `Objet ${id} est intègre.`})
-    }catch(err){
-        logger.error(err);
-        return res.status(200).json({success: 1, message: `Objet ${id} n'est pas intègre.`})
-    }
+  const { id, obj } = req.body;
+  try {
+    const blockchain_entry = await blockchain.query("GetOne", id)
+    const string = stringify(sortKeysRecursive(obj))
+    const hash = crypto.createHash('sha256').update(string, 'binary').digest('hex')
+    if (blockchain_entry.hash != hash)
+      return res.status(200).json({ integrite: -1, message: `Objet ${id} n'est pas intègre.` })
+    else
+      return res.status(200).json({ integrite: 1, message: `Objet ${id} est intègre.` })
+  } catch (err) {
+    logger.error(err);
+    return res.status(200).json({ integrite: -1, message: `Objet ${id} n'est pas intègre.` })
+  }
 });
 
 RabbitConnection.on("blockchain_insert", async (data) => {

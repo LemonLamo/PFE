@@ -33,8 +33,10 @@ function TabMedicaments({ NIN }: Props) {
 
   return (
     <>
-      <h3 className="text-lg mb-0">Medicaments</h3>
-      <p className="mb-4">Liste des maladies prescrites pour le patient</p>
+      <div className="border-black/12.5 mb-0 rounded-lg border-b-0 border-solid bg-white pb-0">
+        <h2 className="mb-0 text-xl">Medicaments</h2>
+        <p className="leading-normal mb-0">Liste des médicaments prescrits pour le patient.</p>
+      </div>
       <DataTable tableDefinition={medicamentsTableDefinition} query={medicaments} className="mt-2" />
     </>
   );

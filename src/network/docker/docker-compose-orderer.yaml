@@ -1,15 +1,15 @@
 volumes:
-  orderer0.medicalife.com:
+  orderer0.medicalife.dz:
 
 networks:
   medicalifenet:
     name: medicalifenet
 
 services:
-  orderer0.medicalife.com:
+  orderer0.medicalife.dz:
     networks:
       - medicalifenet
-    container_name: orderer0.medicalife.com
+    container_name: orderer0.medicalife.dz
     image: hyperledger/fabric-orderer
     environment:
       # Orderer Specific settings
@@ -30,11 +30,11 @@ services:
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=medicalifenet
     volumes:
       - ../system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-      - ../crypto-material/ordererOrganizations/medicalife.com/orderers/orderer0.medicalife.com/msp:/var/hyperledger/orderer/msp
-      - ../crypto-material/ordererOrganizations/medicalife.com/orderers/orderer0.medicalife.com/tls/:/var/hyperledger/orderer/tls
-      - orderer0.medicalife.com:/var/hyperledger/production/orderer
+      - ../crypto-material/ordererOrganizations/medicalife.dz/orderers/orderer0.medicalife.dz/msp:/var/hyperledger/orderer/msp
+      - ../crypto-material/ordererOrganizations/medicalife.dz/orderers/orderer0.medicalife.dz/tls/:/var/hyperledger/orderer/tls
+      - orderer0.medicalife.dz:/var/hyperledger/production/orderer
       - /var/run/docker.sock:/var/run/docker.sock
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    working_dir: /opt/gopath/src/github.dz/hyperledger/fabric
     command: orderer
     ports:
       - 7050:7050

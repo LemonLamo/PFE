@@ -47,7 +47,7 @@ app.post('/api/auth/authorisations', auth.requireAuth, EHRAuthController.authori
 app.post('/api/auth/authorisations/expire', auth.requireAuth, EHRAuthController.expire);
 
 // private
-app.post('/isAuthorized', auth.requireAuth, EHRAuthController.isAuthorized);
+app.post('/api/auth/authorisations/isAuthorized', auth.requireAuth, EHRAuthController.isAuthorized);
 
 // RabitMQ
 RabbitConnection.on("account_create", async (data) =>{

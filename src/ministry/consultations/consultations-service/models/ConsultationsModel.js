@@ -36,7 +36,7 @@ class ConsultationsModel {
         "SELECT * FROM `consultations` WHERE `id`=?",
         [id]
       );
-      return results;
+      return results[0];
     } catch (error) {
       logger.error("Error fetching consultations:", error);
       throw error;

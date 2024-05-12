@@ -4,7 +4,7 @@ const {
   fetchPatients,
   fetchMedecins,
 } = require("../utils/communication");
-const { genID } = require("../utils");
+const { genID, verifyIntegrity } = require("../utils");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
@@ -60,19 +60,28 @@ class InterventionsController {
     }
   }
   async selectOne(req, res) {
+    const { id } = req.params;
+    const { NIN } = req.jwt;
     try {
-      const { id } = req.params;
-      const result = await Model.getOne(id);
+      const data = await Model.selectOne(id);
 
-      if (result.medecin == NIN || result.patient == NIN)
-        return res.status(200).json(result);
+      if (data.medecin != NIN && data.patient != NIN)
+        return res.status(400).json()
 
-      // return res.status(400).json()
+      // fetch related data
+      const [interventions, patients, medecins] = await Promise.all([
+        fetchInterventions([data]),
+        fetchPatients([data]),
+        fetchMedecins([data])
+      ]);
+      const result = { ...data, patient: patients.get(data.patient), medecin: medecins.get(data.medecin), designation: interventions.get(data.code_intervention).designation, };
+      
+      // verify integrity
+      result.integrite = await verifyIntegrity(id, data);
+      return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);
-      return res
-        .status(400)
-        .json({ errorCode: "database-error", errorMessage: err.code });
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
 
@@ -96,6 +105,9 @@ class InterventionsController {
           date,
           details: remarques,
         });
+
+      // Revoque auth
+      await axios.post("http://auth-service/api/auth/authorisations/expire", {medecin, patient}, { headers: { Authorization: req.headers.authorization } });
 
       return res.status(200).json({ success: true });
     } catch (err) {

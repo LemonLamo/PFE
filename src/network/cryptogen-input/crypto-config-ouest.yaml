@@ -1,0 +1,7 @@
+PeerOrgs:
+  - Name: Ouest
+    Domain: ouest.medicalife.dz
+    Template:
+      Count: 1
+      SANS:
+        - localhost

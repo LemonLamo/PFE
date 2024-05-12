@@ -20,6 +20,10 @@ class AuthController {
   
   isAuthorized = async (req, res) => {
     const { medecin, patient } = req.body;
+    const { NIN: initiator } = req.jwt;
+    if(initiator != medecin && initiator != patient)
+      return res.status(400).json();
+
     const result = await EHRAuthModel.isAuthorized(medecin, patient)
     if(result)
       return res.status(200).json(result)
@@ -61,9 +65,8 @@ class AuthController {
   };
 
   expire = async (req, res) => {
-    const { medecin, patient } = req.query;
+    const { medecin, patient } = req.body;
     const { NIN: initiator } = req.jwt;
-    console.log(initiator, medecin, patient)
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
     

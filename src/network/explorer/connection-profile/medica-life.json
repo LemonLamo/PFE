@@ -21,7 +21,7 @@
 	"channels": {
 		"mychannel": {
 			"peers": {
-				"peer0.hopital1.medicalife.com": {}
+				"peer0.nord.medicalife.dz": {}
 			},
 			"connection": {
 				"timeout": {
@@ -35,25 +35,25 @@
 		}
 	},
 	"organizations": {
-		"Hopital1MSP": {
-			"mspid": "Hopital1MSP",
+		"NordMSP": {
+			"mspid": "NordMSP",
 			"adminPrivateKey": {
-				"path": "/tmp/crypto/peerOrganizations/hopital1.medicalife.com/users/Admin@hopital1.medicalife.com/msp/keystore/priv_sk"
+				"path": "/tmp/crypto/peerOrganizations/nord.medicalife.dz/users/Admin@nord.medicalife.dz/msp/keystore/priv_sk"
 			},
-			"peers": ["peer0.hopital1.medicalife.com"],
+			"peers": ["peer0.nord.medicalife.dz"],
 			"signedCert": {
-				"path": "/tmp/crypto/peerOrganizations/hopital1.medicalife.com/users/Admin@hopital1.medicalife.com/msp/signcerts/Admin@hopital1.medicalife.com-cert.pem"
+				"path": "/tmp/crypto/peerOrganizations/nord.medicalife.dz/users/Admin@nord.medicalife.dz/msp/signcerts/Admin@nord.medicalife.dz-cert.pem"
 			}
 		}
 	},
 	"peers": {
-		"peer0.hopital1.medicalife.com": {
+		"peer0.nord.medicalife.dz": {
 			"tlsCACerts": {
-				"path": "/tmp/crypto/peerOrganizations/hopital1.medicalife.com/peers/peer0.hopital1.medicalife.com/tls/ca.crt"
+				"path": "/tmp/crypto/peerOrganizations/nord.medicalife.dz/peers/peer0.nord.medicalife.dz/tls/ca.crt"
 			},
-			"url": "grpcs://peer0.hopital1.medicalife.com:7051",
+			"url": "grpcs://peer0.nord.medicalife.dz:8051",
 			"grpcOptions": {
-				"ssl-target-name-override": "peer0.hopital1.medicalife.com"
+				"ssl-target-name-override": "peer0.nord.medicalife.dz"
 			}
 		}
 	}

@@ -126,7 +126,7 @@ function NewPatientPage() {
                 type="text"
                 className={`primary ${errors.NIN && 'has-error'}`}
                 {...register("NIN", {required: true})}
-                placeholder="ex. 111111111111111111"
+                placeholder="Numéro d'identification national"
               />
             </div>
             <div className="col-span-12 mb-2">
@@ -134,7 +134,7 @@ function NewPatientPage() {
               <input
                 type="text"
                 className="primary"
-                placeholder="ex. 111111111111111111"
+                placeholder="Numéro de sécurité sociale"
               />
             </div>
             <div className="col-span-6 mb-2">
@@ -145,7 +145,7 @@ function NewPatientPage() {
                 type="text"
                 className={`primary ${errors.nom && 'has-error'}`}
                 {...register("nom", {required: true})}
-                placeholder="ex. Bouguerra"
+                placeholder="Nom de famille"
               />
             </div>
             <div className="col-span-6 mb-2">
@@ -156,7 +156,7 @@ function NewPatientPage() {
                 type="text"
                 className={`primary ${errors.prenom && 'has-error'}`}
                 {...register("prenom", {required: true})}
-                placeholder="ex. Mohammed"
+                placeholder="Prénom"
               />
             </div>
             <div className="col-span-6 mb-2">
@@ -178,7 +178,7 @@ function NewPatientPage() {
                 type="text"
                 className={`primary ${errors.lieu_de_naissance && 'has-error'}`}
                 {...register("lieu_de_naissance", {required: true})}
-                placeholder="ex. Alger"
+                placeholder="Wilaya"
               />
             </div>
             <div className="col-span-6 mb-2">
@@ -211,7 +211,7 @@ function NewPatientPage() {
             <input
               type="text"
               className={`primary ${errors.email && 'has-error'}`}
-              placeholder="ex. bouguera.med@gmail.com"
+              placeholder="Adresse e-mail"
               {...register("email", {required: true})}
             />
           </div>
@@ -222,7 +222,7 @@ function NewPatientPage() {
             <input
               type="text"
               className={`primary ${errors.telephone && 'has-error'}`}
-              placeholder="+213 549297666"
+              placeholder="Numéro de téléphone"
               {...register("telephone", {required: true})}
             />
           </div>
@@ -239,7 +239,7 @@ function NewPatientPage() {
                 type="text"
                 className={`primary ${errors.adresse && 'has-error'}`}
                 {...register("adresse", {required: true})}
-                placeholder="ex. 22 BD Laichi Abdellah"
+                placeholder="Adresse du patient"
               />
             </div>
             <div className="mb-2">
@@ -249,7 +249,7 @@ function NewPatientPage() {
               <input type="text"
                 className={`primary ${errors.commune && 'has-error'}`}
                 {...register("commune", {required: true})}
-                placeholder="ex. Bouarfa" />
+                placeholder="Commune" />
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">
@@ -258,7 +258,7 @@ function NewPatientPage() {
               <input type="number"
                 className={`primary ${errors.code_postale && 'has-error'}`}
                 {...register("code_postale", {required: true})}
-                placeholder="ex. 09000"/>
+                placeholder="ex. 16000"/>
             </div>
             <div className="mb-6">
               <label className="text-sm font-semibold">
@@ -351,7 +351,7 @@ function NewPatientPage() {
                 <input
                   className={`primary mb-2 ${errors.taille && 'has-error'}`}
                   {...register("taille", {required: true})}
-                  placeholder="170"
+                  placeholder="Taille (en cm)"
                   type="number"
                 />
                 <span className="w-6 ms-2 text-right"> cm</span>
@@ -365,7 +365,7 @@ function NewPatientPage() {
                 <input
                   className={`primary mb-2 ${errors.poids && 'has-error'}`}
                   {...register("poids", {required: true})}
-                  placeholder="72.8"
+                  placeholder="Poids (en kg)"
                   type="number"
                   step="0.01"
                 />
@@ -391,7 +391,7 @@ function NewPatientPage() {
               type="text"
               className={`primary ${errors.NIN_pere && 'has-error'}`}
               {...register("NIN_pere")}
-              placeholder="ex. 111111111111111111"
+              placeholder="Numéro d'identification national du père"
             />
           </div>
           <div className="col-span-12 mb-2">
@@ -400,7 +400,7 @@ function NewPatientPage() {
               type="text"
               className={`primary ${errors.NIN_mere && 'has-error'}`}
               {...register("NIN_mere")}
-              placeholder="ex. 111111111111111111"
+              placeholder="Numéro d'identification national de la mère"
             />
           </div>
         </div>

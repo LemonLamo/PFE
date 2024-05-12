@@ -1,7 +1,7 @@
 const { db } = require("../config/database");
 const logger = require("../utils/logger");
 
-class ConsultationsModel {
+class InterventionsModel {
   validationRules = {};
   async selectAll() {
     try {
@@ -19,7 +19,7 @@ class ConsultationsModel {
         "SELECT * FROM `interventions` WHERE `id`=?",
         [id]
       );
-      return results;
+      return results[0];
     } catch (error) {
       logger.error("Error fetching interventions:", error);
       throw error;
@@ -199,4 +199,4 @@ class ConsultationsModel {
   }
 }
 
-module.exports = new ConsultationsModel();
+module.exports = new InterventionsModel();

@@ -7,22 +7,40 @@ export FABRIC_CFG_PATH=${PWD}/config
 printSeparator "Wait 5 seconds for network to come up" && sleep 5
 # -------------------------------------------------------
 
-printSeparator "Create channel (from Hospital1)"
-switchIdentity "Hopital1" 7051
-peer channel create -o localhost:7050 -c mychannel --ordererTLSHostnameOverride orderer0.medicalife.com -f ./channel-artifacts/mychannel.tx --outputBlock ./channel-artifacts/mychannel.block --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+printSeparator "Create channel (from Nord)"
+switchIdentity "Nord" 8051
+peer channel create -o localhost:7050 -c mychannel --ordererTLSHostnameOverride orderer0.medicalife.dz -f ./channel-artifacts/mychannel.tx --outputBlock ./channel-artifacts/mychannel.block --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
 
-printSeparator "Join channel as Hopital1"
-switchIdentity "Hopital1" 7051
+printSeparator "Join channel as Nord"
+switchIdentity "Nord" 8051
 peer channel join -b ./channel-artifacts/mychannel.block
 
-printSeparator "Update Anchor Peers as Hopital1"
-peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer0.medicalife.com -c mychannel -f ./channel-artifacts/Hopital1MSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+printSeparator "Update Anchor Peers as Nord"
+peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer0.medicalife.dz -c mychannel -f ./channel-artifacts/NordMSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
 
 # -------------------------------------------------------
 
-printSeparator "Join channel as Hopital2"
-switchIdentity "Hopital2" 8051
+printSeparator "Join channel as Est"
+switchIdentity "Est" 8052
 peer channel join -b ./channel-artifacts/mychannel.block
 
-printSeparator "Update Anchor Peers as Hopital2"
-peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer0.medicalife.com -c mychannel -f ./channel-artifacts/Hopital2MSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+printSeparator "Update Anchor Peers as Est"
+peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer0.medicalife.dz -c mychannel -f ./channel-artifacts/EstMSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+
+# -------------------------------------------------------
+
+printSeparator "Join channel as Ouest"
+switchIdentity "Ouest" 8053
+peer channel join -b ./channel-artifacts/mychannel.block
+
+printSeparator "Update Anchor Peers as Ouest"
+peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer0.medicalife.dz -c mychannel -f ./channel-artifacts/OuestMSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+
+# -------------------------------------------------------
+
+printSeparator "Join channel as Sud"
+switchIdentity "Sud" 8054
+peer channel join -b ./channel-artifacts/mychannel.block
+
+printSeparator "Update Anchor Peers as Sud"
+peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer0.medicalife.dz -c mychannel -f ./channel-artifacts/SudMSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA

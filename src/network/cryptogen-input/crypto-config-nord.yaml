@@ -1,0 +1,7 @@
+PeerOrgs:
+  - Name: Nord
+    Domain: nord.medicalife.dz
+    Template:
+      Count: 1
+      SANS:
+        - localhost

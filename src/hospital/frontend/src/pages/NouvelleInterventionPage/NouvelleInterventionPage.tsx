@@ -1,6 +1,5 @@
 import Card from "../../components/UI/Card";
-import { useContext, useEffect, useState } from "react";
-import PatientsSelect from "../../components/Selects/PatientsSelect";
+import { useContext, useState } from "react";
 import Tabs from "../../components/UI/Tabs/Tabs";
 import TabContent from "../../components/UI/Tabs/TabContent";
 import TabInfoPersonelles from "../PatientPage/Tabs/TabInfoPersonelles";
@@ -10,47 +9,15 @@ import axios from "axios";
 import { baseURL } from "../../config";
 import AlertsContext from "../../hooks/AlertsContext";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import PatientsSelector from "../../components/PatientSelector";
 
 function NouvelleInterventionPage() {
   const { showAlert } = useContext(AlertsContext);
   const navigate = useNavigate();
-  const [ NIN ] = useState(useLocation().state);
-  useEffect(()=>{
-    if(!NIN)
-      return;
 
-    setPatient({NIN: NIN, nom:"", prenom:""})
-    setValidPatient(true);
-    setValue('patient', NIN)
-  }, [NIN])
-
-  const [validPatient, setValidPatient] = useState(false);
-  const [patient, setPatient] = useState({NIN:"", nom:"", prenom:""});
-
-  const { register, handleSubmit, getValues, setValue, reset, formState:{errors} } = useForm<Partial<Intervention>>();
-  register('patient', {required: true});
-  register('code_intervention', {required: true})
-  const onSubmit: SubmitHandler<Partial<Hospitalisation>> = async (data : Partial<Intervention>) => {
-    try{
-        if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
-          return;
-        
-        await axios.post(`${baseURL}/api/interventions`, data);
-        await axios.delete(`${baseURL}/reception/${data.patient}`);
-        showAlert("success", "Intervention ajouté correctement");
-        if(!getValues('protocole_operatoire'))
-          navigate(`/interventions`)
-        else
-          navigate(`/interventions/new`)
-    } catch (error: any) {
-        if (error.response)
-          if(error.response?.data?.errorCode != "form-validation")
-            showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
-        else
-            showAlert("error", error.code + ": " + error.message);
-    }
-  }
+  const [step, setStep] = useState<number>(0);
+  const [patient, setPatient] = useState<Partial<Patient>>({NIN:"", nom:"", prenom:""});
 
   function select_patient(patient: any) {
     if (patient){
@@ -59,56 +26,54 @@ function NouvelleInterventionPage() {
     }
   }
 
-  function choosePatient() {
-    if (patient.NIN !== "") setValidPatient(true);
-    else setValidPatient(false);
+  const { register, handleSubmit, getValues, setValue, reset, formState:{errors} } = useForm<Partial<Intervention>>();
+  register('patient', {required: true});
+  register('code_intervention', {required: true})
+  const onSubmit: SubmitHandler<Partial<Hospitalisation>> = async (data : Partial<Intervention>) => {
+    try{
+      if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
+        return;
+      
+      await axios.post(`${baseURL}/api/interventions`, data);
+      showAlert("success", "Intervention ajouté correctement");
+      if(!getValues('protocole_operatoire'))
+        navigate(`/interventions`)
+      else
+        navigate(`/interventions/new`)
+    } catch (error: any) {
+      if (error.response)
+        if(error.response?.data?.errorCode != "form-validation")
+          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+        else
+          showAlert("error", error.code + ": " + error.message);
+      }
+    await axios.delete(`${baseURL}/reception/${data.patient}`);
   }
 
   return (
-    <>
-      {!validPatient && (
-        <Card title="Choisir un patient?" subtitle="Veuillez sélectionner un patient" className="w-full max-w-[500px]">
-          <div className="flex w-inherit">
-            <PatientsSelect
-              placeholder="Rechercher un patient"
-              onChange={select_patient}
-              state={{
-                NIN: patient.NIN!,
-                nom: patient.nom!,
-                prenom: patient.prenom!,
-              }}
-            />
-            <button className="primary ms-3" onClick={choosePatient}>
-              Choisir
-            </button>
+    step < 2 ?
+      <PatientsSelector step={step} setStep={setStep} patient={patient} select_patient={select_patient} motif="Intervention"/>:
+      <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} onReset={() => reset()}>
+          <Tabs keepVisible={true}>
+            <TabContent icon="fa fa-user" text="Informations Personnelles">
+              <TabInfoPersonelles NIN={patient.NIN!} />
+            </TabContent>
+
+            <TabContent icon="fa fa-timeline" text="Historique Médicale">
+              <TabHistorique NIN={patient.NIN!} />
+            </TabContent>
+
+            <TabContent icon="fa fa-bed-pulse" text="Intervention">
+              <TabIntervention form={{register, getValues, setValue, errors}}/>
+            </TabContent>
+          </Tabs>
+
+          <div className="w-full flex justify-end">
+            <button className="flex items-center justify-center py-2 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"> Submit </button>
           </div>
-        </Card>
-      )}
-
-      {validPatient && (
-        <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
-          <form onSubmit={handleSubmit(onSubmit)} onReset={() => reset()}>
-            <Tabs keepVisible={true}>
-              <TabContent icon="fa fa-user" text="Informations Personnelles">
-                <TabInfoPersonelles NIN={patient.NIN!} />
-              </TabContent>
-
-              <TabContent icon="fa fa-timeline" text="Historique Médicale">
-                <TabHistorique NIN={patient.NIN!} />
-              </TabContent>
-
-              <TabContent icon="fa fa-bed-pulse" text="Intervention">
-                <TabIntervention form={{register, getValues, setValue, errors}}/>
-              </TabContent>
-            </Tabs>
-
-            <div className="w-full flex justify-end">
-              <button className="flex items-center justify-center py-2 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"> Submit </button>
-            </div>
-          </form>
-        </Card>
-      )}
-    </>
+        </form>
+      </Card>
   );
 }
 

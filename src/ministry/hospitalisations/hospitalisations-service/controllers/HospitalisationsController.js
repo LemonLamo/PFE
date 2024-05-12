@@ -1,8 +1,9 @@
 const Model = require("../models/HospitalisationsModel");
-const { genID } = require("../utils");
+const { genID, verifyIntegrity } = require("../utils");
 const { fetchPatients, fetchMedecins } = require("../utils/communication");
 const logger = require("../utils/logger");
 const RabbitConnection = require("../config/amqplib");
+const axios = require('axios');
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -46,16 +47,25 @@ class HospitalisationsController {
   }
 
   async selectOne(req, res) {
+    const { id } = req.params;
+    const { NIN } = req.jwt;
     try {
-      const { NIN, role } = req.jwt;
-      const { id } = req.params;
-      const result = await Model.selectOne(id);
+      const data = await Model.selectOne(id);
 
       // ensure it concerns this user.
-      if (result.medecin == NIN || result.patient == NIN)
-        return res.status(200).json(result);
+      if (data.medecin != NIN && data.patient != NIN)
+        return res.status(400).json();
 
-      return res.status(400).json();
+      // fetch related data
+      const [patients, medecins] = await Promise.all([
+        fetchPatients([data]),
+        fetchMedecins([data])
+      ]);
+      const result = { ...data, patient: patients.get(data.patient), medecin: medecins.get(data.medecin) };
+      
+      // verify integrity
+      result.integrite = await verifyIntegrity(id, data);
+      return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);
       return res
@@ -115,6 +125,10 @@ class HospitalisationsController {
       if (precheck.medecin != NIN) return res.status(400).json();
 
       const result = await Model.addSortie(id, mode_sortie, date_sortie);
+      
+      // Revoque auth
+      await axios.post("http://auth-service/api/auth/authorisations/expire", {medecin, patient}, { headers: { Authorization: req.headers.authorization } });
+      
       return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);

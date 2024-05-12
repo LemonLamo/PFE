@@ -43,7 +43,6 @@ class AuthController {
     if (!user.two_factor_enabled) {
       const nom = profile.nom;
       const prenom = profile.prenom;
-      console.log(this);
       if (type !== "patient") {
         const specialite = profile.specialite;
         const hopital = profile.hopital;
