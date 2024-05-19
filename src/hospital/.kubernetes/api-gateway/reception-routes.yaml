@@ -18,3 +18,11 @@ spec:
     - name: reception-service
       kind: Service
       port: 80
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/urgences
+    backendRefs:
+    - name: reception-service
+      kind: Service
+      port: 80

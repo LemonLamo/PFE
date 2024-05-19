@@ -1,5 +1,5 @@
 {
-  "name": "pharmacy-service",
+  "name": "patients-service",
   "version": "1.0.0",
   "description": "Projet Fin Etudes M2",
   "main": "app.js",

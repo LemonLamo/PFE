@@ -42,21 +42,23 @@ export default function ViewPersonnelModal({ isOpen, close, selectedPersonnel} :
               <input type="text" className="primary" placeholder="Lieu de naissance" disabled value={selectedPersonnel.lieu_de_naissance} />
             </div>
           </div>
-          <div className="mb-2">
-            <label className="text-sm font-semibold">Service<span className="text-red-500">*</span> </label>
-            <input type="text" className="primary" placeholder="Service" disabled value={selectedPersonnel.service} />
-          </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <div className="mb-2">
-              <label className="text-sm font-semibold">Fonction<span className="text-red-500">*</span> </label>
+              <label className="text-sm font-semibold">Fonction<span className="text-red-500">*</span></label>
               <input type="text" className="primary" placeholder="Fonction" disabled value={selectedPersonnel.fonction} />
             </div>
             <div className="mb-2">
-              <label className="text-sm font-semibold">Specialité</label>
+              <label className="text-sm font-semibold">Specialité<span className="text-red-500">*</span></label>
               <input type="text" className="primary" placeholder="Spécialité" disabled value={selectedPersonnel.specialite} />
             </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
             <div className="mb-2">
-              <label className="text-sm font-semibold">Grade</label>
+              <label className="text-sm font-semibold">Service<span className="text-red-500">*</span> </label>
+              <input type="text" className="primary" placeholder="Service" disabled value={selectedPersonnel.service} />
+            </div>
+            <div className="mb-2">
+              <label className="text-sm font-semibold">Grade<span className="text-red-500">*</span></label>
               <input type="text" className="primary" placeholder="Grade" disabled value={selectedPersonnel.grade} />
             </div>
           </div>

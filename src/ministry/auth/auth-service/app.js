@@ -43,6 +43,7 @@ app.post('/api/auth/reset-password', AuthController.reset_password);
 app.post('/api/auth/activate', AuthController.activate);
 
 app.get ('/api/auth/authorisations', auth.requireAuth, EHRAuthController.getAuths);
+app.get ('/api/auth/authorisations/authorisations_hopital', auth.requireAuth, EHRAuthController.getHospitalAuths)
 app.post('/api/auth/authorisations', auth.requireAuth, EHRAuthController.authorize);
 app.post('/api/auth/authorisations/expire', auth.requireAuth, EHRAuthController.expire);
 
@@ -52,9 +53,11 @@ app.post('/api/auth/authorisations/isAuthorized', auth.requireAuth, EHRAuthContr
 // RabitMQ
 RabbitConnection.on("account_create", async (data) =>{
   const { NIN, role, email } = data;
-  const two_factor_secret = node2fa.generateSecret().secret;
-  await UsersModel.insert(NIN, role, two_factor_secret)
-  //await AuthController.send_activation_email(NIN, email); //TODO: uncomment this
+  if (!await UsersModel.selectByNIN(NIN)){
+    const two_factor_secret = node2fa.generateSecret().secret;
+    await UsersModel.insert(NIN, role, two_factor_secret)
+    //await AuthController.send_activation_email(NIN, email); //TODO: uncomment this
+  }
 })
 
 app.use((req, res) => res.sendStatus(404))

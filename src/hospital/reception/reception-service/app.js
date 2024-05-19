@@ -27,11 +27,17 @@ app.use(bodyParser.json());
 const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 const ReceptionController = require("./controllers/ReceptionController");
+const UrgencesController = require('./controllers/UrgencesController');
 
 app.get("/api/reception", auth.requireAuth, ReceptionController.getAll);
 app.post("/api/reception", auth.requireAuth, ReceptionController.insert);
 app.get("/api/reception/:patient", auth.requireAuth, ReceptionController.getOne);
 app.delete("/api/reception/:patient", auth.requireAuth, ReceptionController.remove);
+
+app.get("/api/urgences", auth.requireAuth, UrgencesController.getAll);
+app.post("/api/urgences", auth.requireAuth, UrgencesController.insert);
+app.get("/api/urgences/:patient", auth.requireAuth, UrgencesController.getOne);
+app.delete("/api/urgences/:patient", auth.requireAuth, UrgencesController.remove);
 
 app.use((req, res) => res.sendStatus(404));
 

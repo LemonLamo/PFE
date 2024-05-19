@@ -50,13 +50,9 @@ app.post("/api/blockchain/verify", async (req, res) => {
 
 RabbitConnection.on("blockchain_insert", async (data) => {
   const { id, obj, author } = data
-  try{
-    const string = stringify(sortKeysRecursive(obj))
-    const hash = crypto.createHash('sha256').update(string, 'binary').digest('hex')
-    await blockchain.invoke("AddEntry", id, hash, author, new Date().toISOString())
-  }catch(err){
-      logger.error(err)
-  }
+  const string = stringify(sortKeysRecursive(obj))
+  const hash = crypto.createHash('sha256').update(string, 'binary').digest('hex')
+  await blockchain.invoke("AddEntry", id, hash, author, new Date().toISOString())
 });
 
 

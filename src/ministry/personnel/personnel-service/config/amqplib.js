@@ -58,7 +58,7 @@ class RabbitConnection {
             await this.connect();
             this.channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -71,7 +71,7 @@ class RabbitConnection {
                 this.channel.ack(msg);
             });
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 }

@@ -13,6 +13,10 @@ class EHRAuthModel {
                         await db.query("SELECT * FROM `ehr_autorisations` WHERE `patient`=? AND ((NOW() < created_at) OR (expired_at IS NOT NULL AND NOW() > expired_at)) ORDER BY `created_at` DESC", [patient]);
         return results
     }
+    async getHospitalAuths(hopital) {
+        const [results] = await db.query("SELECT * FROM `ehr_autorisations` WHERE `motif`='Urgence' ORDER BY `created_at` DESC")
+        return results;
+    }
 
     async isAuthorized (medecin, patient) {
         const [results] = await db.query(`SELECT * FROM ehr_autorisations WHERE

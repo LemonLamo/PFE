@@ -24,6 +24,9 @@ import MesInterventionsPage from "./pages/MesInterventionsPage/MesInterventionsP
 import SoinsArchivesPage from "./pages/SoinsArchivesPage";
 import BilansArchivesPage from "./pages/BilansArchivesPage";
 import RadiosArchivesPage from "./pages/RadiosArchivesPage";
+import HistoriqueAccesUrgence from "./pages/HistoriqueAccesUrgence";
+import UrgencesPage from "./pages/UrgencesPage";
+import NouvelleUrgencePage from "./pages/NouvelleUrgencePage";
 
 const router = createBrowserRouter([
   { path: "/", element:(
@@ -147,6 +150,21 @@ const router = createBrowserRouter([
     <RequireRole roles={['infirmier']}>
       <Scaffold> <SoinsArchivesPage /> </Scaffold>
     </RequireRole>)},
+
+  { path: "/historique_acces_urgences", element:(
+    <RequireRole roles={['admin']}>
+      <Scaffold> <HistoriqueAccesUrgence /> </Scaffold>
+    </RequireRole>)},
+  
+  { path: "/urgences/new", element:(
+    <RequireRole roles={['medecin']}>
+      <Scaffold> <NouvelleUrgencePage /> </Scaffold>
+    </RequireRole>)},
+  {
+    path: "/urgences", element: (
+      <RequireRole roles={['medecin']}>
+        <Scaffold> <UrgencesPage /> </Scaffold>
+      </RequireRole>)},
 ]);
 
 export default router;

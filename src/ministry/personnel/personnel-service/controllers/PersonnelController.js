@@ -49,13 +49,19 @@ class PersonnelController {
 
   async insert(req, res) {
     const { role, hopital } = req.jwt
-
-    const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, service } = req.body;
-    RabbitConnection.sendMsg("account_create", {NIN, role:"medecin", email}) //TODO: decide role
-
     try {
-      await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service );
-      return res.status(200).json({ success: true });
+    
+    
+      const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, service } = req.body;
+      const exists = await Model.selectOne(NIN);
+      if(exists && !exists.hopital && !exists.service){
+        await Model.changeHopital(NIN, hopital, service, grade);
+        return res.status(200).json({ success: true });
+      }else{
+        RabbitConnection.sendMsg("account_create", {NIN, role:"medecin", email}) //TODO: change role here
+        await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service );
+        return res.status(200).json({ success: true });
+      }
     } catch (err) {
       logger.error("database-error: " + err);
       return res .status(400) .json({ errorCode: "database-error", errorMessage: err.code });

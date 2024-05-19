@@ -42,7 +42,6 @@ app.get ("/api/rendez-vous/:id", auth.requireAuth, RendezVousController.selectOn
 app.post("/api/rendez-vous", auth.requireAuth, RendezVousController.insert);
 
 RabbitConnection.on("rendez-vous_create", async (rdv) =>{
-  console.log(rdv)
   const { jwt, patient, type, date, details, code_intervention } = rdv;
 
   const title = (type === "Consultation")?

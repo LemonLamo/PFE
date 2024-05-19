@@ -66,6 +66,10 @@ function Sidebar({ setOpen }: SidebarProps) {
             <SidebarHeader text="Interventions" />
             <SidebarButton text="Nouvelle intervention" icon="fa fa-folder-plus" route="/interventions/new" closeSidebar={setOpen}/>
             <SidebarButton text="Mes interventions" icon="fa fa-bed-pulse" route="/interventions" closeSidebar={setOpen}/>
+
+            <SidebarHeader text="Urgences" />
+            <SidebarButton text="Nouvelle urgence" icon="fa fa-truck-medical" route="/urgences/new" closeSidebar={setOpen} />
+            <SidebarButton text="Cas d'urgences" icon="fa fa-truck-medical" route="/urgences" closeSidebar={setOpen} />
           </ShowOnlyIfRole>
 
           <SidebarHeader text="Pharmacie" />
@@ -73,6 +77,7 @@ function Sidebar({ setOpen }: SidebarProps) {
 
           <ShowOnlyIfRole roles={['admin']}>
             <SidebarHeader text="Administration" />
+            <SidebarButton text="Historique des accès" icon="fa fa-clock-rotate-left" route="/historique_acces_urgences" closeSidebar={setOpen} />
             <SidebarButton text="Gestion du personnel" icon="fa fa-users" route="/personnel" closeSidebar={setOpen}/>
             <SidebarButton text="Gestion des chambres" icon="fa fa-bed" route="/chambres" closeSidebar={setOpen}/>
           </ShowOnlyIfRole>

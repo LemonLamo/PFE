@@ -25,6 +25,7 @@ function MesPatientsHospitalisesPage() {
     date_entree: new Date(),
     mode_entree: "",
     motif_hospitalisation: "",
+    integrite: 1,
   });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery({

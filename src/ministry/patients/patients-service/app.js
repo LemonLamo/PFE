@@ -82,17 +82,7 @@ RabbitConnection.on("medicaments_create", async (data) => {
   const medicaments = data;
   await Promise.all(
     medicaments.map((p) =>
-      MedicamentsModal.insert(
-        p.id,
-        p.patient,
-        p.reference,
-        p.code_medicament,
-        p.posologie,
-        p.frequence,
-        p.duree,
-        p.remarques,
-        p.date_debut
-      )
+      MedicamentsModal.insert(p.id, p.patient, p.reference, p.code_medicament, p.posologie, p.frequence, p.duree, p.remarques, p.date_debut)
     )
   );
 });

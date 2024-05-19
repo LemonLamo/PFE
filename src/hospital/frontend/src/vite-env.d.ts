@@ -220,7 +220,7 @@ type Personnel = {
   NIN: string;
   nom: string;
   prenom: string;
-  date_de_naissance: Date;
+  date_de_naissance: Date | string;
   lieu_de_naissance: string;
   sexe: string;
   email: string;
@@ -229,7 +229,7 @@ type Personnel = {
   specialite: string;
   grade: string;
   adresse: string;
-  code_postale: number;
+  code_postale: number | undefined;
   commune: string;
   wilaya: string;
   hopital: string;

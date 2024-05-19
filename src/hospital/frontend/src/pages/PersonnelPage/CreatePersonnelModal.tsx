@@ -1,8 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal, { ModalThemes } from "../../components/UI/Modal";
 import AlertsContext from "../../hooks/AlertsContext";
 import { createPersonnel } from "../../hooks/usePersonnel";
 import { SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
+import { baseURL } from "../../config";
+import moment from "moment";
+import AuthContext from "../../hooks/AuthContext";
 
 type Props = {
   isOpen: boolean;
@@ -12,11 +16,60 @@ type Props = {
 const theme = "primary";
 
 export default function CreatePersonnelModal({ isOpen, close }: Props) {
+  const auth = useContext(AuthContext);
   const { showAlert } = useContext(AlertsContext);
   
-  const { register, handleSubmit, reset, formState:{errors} } = useForm<Personnel>();
+  const { register, handleSubmit, reset, formState:{errors}, watch, setValue } = useForm<Personnel>();
+  const [exists, setExists] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<File>();
   const handleFileChange = (event : any) => setAvatar(event.target.files[0])
+  const [services, setServices] = useState<any[]>([]);
+  useEffect(()=>{
+    if (!auth!.hopital)
+      setServices([])
+    else
+      axios.get(`${baseURL}/api/hopitaux/${auth!.hopital}/services`).then((response) => {
+        setServices(response.data)
+        if (response.data.length > 0)
+          setValue('service', response.data[0].service!)
+      })
+  })
+  const watched_NIN = watch("NIN");
+  useEffect(() => {
+    if(!watched_NIN)
+      return(setExists(false))
+    axios.get(`${baseURL}/api/personnel/${watched_NIN}`).then((response: any) => {
+      setValue("nom", response.data.nom);
+      setValue("prenom", response.data.prenom);
+      setValue("sexe", response.data.sexe);
+      setValue("date_de_naissance", moment(response.data.date_de_naissance).format("YYYY-MM-DD"));
+      setValue("lieu_de_naissance", response.data.lieu_de_naissance);
+      setValue("fonction", response.data.fonction);
+      setValue("specialite", response.data.specialite);
+      setValue("email", response.data.email);
+      setValue("telephone", response.data.telephone);
+      setValue("adresse", response.data.adresse);
+      setValue("commune", response.data.commune);
+      setValue("wilaya", response.data.wilaya);
+      setValue("code_postale", response.data.code_postale);
+      setExists(true);
+    }).catch(()=>{
+      setValue("nom", "");
+      setValue("prenom", "");
+      setValue("sexe", "Homme");
+      setValue("date_de_naissance", "");
+      setValue("lieu_de_naissance", "");
+      setValue("fonction", "");
+      setValue("specialite", "");
+      setValue("email", "");
+      setValue("telephone", "");
+      setValue("adresse", "");
+      setValue("commune", "");
+      setValue("wilaya", "Adrar");
+      setValue("code_postale", undefined);
+      setExists(false)
+    })
+  }, [watched_NIN]);
   
   const onSubmit: SubmitHandler<Personnel> = async (data) => {
     try{
@@ -62,7 +115,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="text"
                 placeholder="Nom"
                 className={`primary ${errors.nom && 'has-error'}`}
-                  {...register("nom", {required: true})}
+                {...register("nom", { required: true, disabled: exists })}
               />
             </div>
             <div>
@@ -71,13 +124,13 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="text"
                 placeholder="Prénom"
                 className={`primary ${errors.prenom && 'has-error'}`}
-                {...register("prenom", {required: true})}
+                {...register("prenom", { required: true, disabled: exists })}
               />
             </div>
           </div>
           <div className="mb-2">
             <label className="text-sm font-semibold">Sexe<span className="text-red-500">*</span></label>
-            <select {...register("sexe", {required: true})} className={`primary ${errors.sexe && 'has-error'}`}>
+            <select {...register("sexe", { required: true, disabled: exists })} className={`primary ${errors.sexe && 'has-error'}`}>
               <option value="Homme">Homme</option>
               <option value="Femme">Femme</option>
             </select>
@@ -89,7 +142,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="date"
                 placeholder="Date de naissance"
                 className={`primary ${errors.date_de_naissance && 'has-error'}`}
-                {...register("date_de_naissance", {required: true})}
+                {...register("date_de_naissance", { required: true, disabled: exists, valueAsDate: true})}
               />
             </div>
             <div>
@@ -98,27 +151,18 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="text"
                 placeholder="Lieu de naissance"
                 className={`primary ${errors.lieu_de_naissance && 'has-error'}`}
-                {...register("lieu_de_naissance", {required: true})}
+                {...register("lieu_de_naissance", { required: true, disabled: exists })}
               />
             </div>
           </div>
-          <div className="mb-2">
-            <label className="text-sm font-semibold">Service<span className="text-red-500">*</span></label>
-            <input
-              type="text"
-              placeholder="Service"
-              className={`primary ${errors.service && 'has-error'}`}
-              {...register("service", {required: true})}
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <div className="mb-2">
               <label className="text-sm font-semibold">Fonction<span className="text-red-500">*</span></label>
               <input
                 type="text"
                 placeholder="Fonction"
                 className={`primary ${errors.fonction && 'has-error'}`}
-                {...register("fonction", {required: true})}
+                {...register("fonction", { required: true, disabled: exists })}
               />
             </div>
             <div className="mb-2">
@@ -127,8 +171,18 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="text"
                 placeholder="Spécialité"
                 className={`primary ${errors.specialite && 'has-error'}`}
-                {...register("specialite", {required: true})}
+                {...register("specialite", { required: true, disabled: exists })}
               />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="mb-2">
+              <label className="text-sm font-semibold">Service<span className="text-red-500">*</span></label>
+              <select
+                className={`primary ${errors.service && 'has-error'}`}
+                {...register("service", { required: true })}>
+                {services.map((x, i) => <option key={i}>{x.service}</option>)}
+              </select>
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Grade<span className="text-red-500">*</span></label>
@@ -136,7 +190,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="text"
                 placeholder="Grade"
                 className={`primary ${errors.grade && 'has-error'}`}
-                {...register("grade", {required: true})}
+                {...register("grade", { required: true })}
               />
             </div>
           </div>
@@ -149,7 +203,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
               type="email"
               placeholder="Email"
               className={`primary ${errors.email && 'has-error'}`}
-              {...register("email", {required: true})}
+              {...register("email", { required: true, disabled: exists })}
             />
           </div>
           <div className="mb-2">
@@ -158,7 +212,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
               type="tel"
               placeholder="Numero de telephone"
               className={`primary ${errors.telephone && 'has-error'}`}
-              {...register("telephone", {required: true})}
+              {...register("telephone", { required: true, disabled: exists })}
             />
           </div>
           <div className="mb-2">
@@ -167,7 +221,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
               type="text"
               placeholder="Adresse"
               className={`primary ${errors.adresse && 'has-error'}`}
-              {...register("adresse", {required: true})}
+              {...register("adresse", { required: true, disabled: exists })}
             />
           </div>
           <div className="grid grid-cols-3 gap-2">
@@ -177,70 +231,70 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="text"
                 placeholder="Commune"
                 className={`primary ${errors.commune && 'has-error'}`}
-                {...register("commune", {required: true})}
+                {...register("commune", { required: true, disabled: exists })}
               />
             </div>
             <div>
               <label className="text-sm font-semibold">Wilaya<span className="text-red-500">*</span></label>
-              <select {...register("wilaya", {required: true})} className={`primary ${errors.wilaya && 'has-error'}`}>
-                <option>01 - Adrar</option>
-                <option>02 - Chlef</option>
-                <option>03 - Laghouat</option>
-                <option>04 - Oum El Bouaghi</option>
-                <option>05 - Batna</option>
-                <option>06 - Béjaïa</option>
-                <option>07 - Biskra</option>
-                <option>08 - Béchar</option>
-                <option>09 - Blida</option>
-                <option>10 - Bouira</option>
-                <option>11 - Tamanrasset</option>
-                <option>12 - Tébessa</option>
-                <option>13 - Tlemcen</option>
-                <option>14 - Tiaret</option>
-                <option>15 - Tizi Ouzou</option>
-                <option>16 - Alger</option>
-                <option>17 - Djelfa</option>
-                <option>18 - Jijel</option>
-                <option>19 - Sétif</option>
-                <option>20 - Saïda</option>
-                <option>21 - Skikda</option>
-                <option>22 - Sidi Bel Abbès</option>
-                <option>23 - Annaba</option>
-                <option>24 - Guelma</option>
-                <option>25 - Constantine</option>
-                <option>26 - Médéa</option>
-                <option>27 - Mostaganem</option>
-                <option>28 - M'Sila</option>
-                <option>29 - Mascara</option>
-                <option>30 - Ouargla</option>
-                <option>31 - Oran</option>
-                <option>32 - El Bayadh</option>
-                <option>33 - Illizi</option>
-                <option>34 - Bordj Bou Arréridj</option>
-                <option>35 - Boumerdès</option>
-                <option>36 - El Tarf</option>
-                <option>37 - Tindouf</option>
-                <option>38 - Tissemsilt</option>
-                <option>39 - El Oued</option>
-                <option>40 - Khenchela</option>
-                <option>41 - Souk Ahras</option>
-                <option>42 - Tipaza</option>
-                <option>43 - Mila</option>
-                <option>44 - Aïn Defla</option>
-                <option>45 - Naâma</option>
-                <option>46 - Aïn Témouchent</option>
-                <option>47 - Ghardaïa</option>
-                <option>48 - Relizane</option>
-                <option>49 - Timimoun</option>
-                <option>50 - Bordj Badji Mokhtar</option>
-                <option>51 - Béni Abbès</option>
-                <option>52 - Ouled Djellal</option>
-                <option>53 - In Salah</option>
-                <option>54 - In Guezzam</option>
-                <option>55 - Touggourt</option>
-                <option>56 - Djanet</option>
-                <option>57 - El M'Ghair</option>
-                <option>58 - El Meniaa</option>
+              <select {...register("wilaya", { required: true, disabled: exists })} className={`primary ${errors.wilaya && 'has-error'}`}>
+                <option value="Adrar">01 - Adrar</option>
+                <option value="Chlef">02 - Chlef</option>
+                <option value="Laghouat">03 - Laghouat</option>
+                <option value="Oum El Bouaghi">04 - Oum El Bouaghi</option>
+                <option value="Batna">05 - Batna</option>
+                <option value="Béjaïa">06 - Béjaïa</option>
+                <option value="Biskra">07 - Biskra</option>
+                <option value="Béchar">08 - Béchar</option>
+                <option value="Blida">09 - Blida</option>
+                <option value="Bouira">10 - Bouira</option>
+                <option value="Tamanrasset">11 - Tamanrasset</option>
+                <option value="Tébessa">12 - Tébessa</option>
+                <option value="Tlemcen">13 - Tlemcen</option>
+                <option value="Tiaret">14 - Tiaret</option>
+                <option value="Tizi Ouzou">15 - Tizi Ouzou</option>
+                <option value="Alger">16 - Alger</option>
+                <option value="Djelfa">17 - Djelfa</option>
+                <option value="Jijel">18 - Jijel</option>
+                <option value="Sétif">19 - Sétif</option>
+                <option value="Saïda">20 - Saïda</option>
+                <option value="Skikda">21 - Skikda</option>
+                <option value="Sidi Bel Abbès">22 - Sidi Bel Abbès</option>
+                <option value="Annaba">23 - Annaba</option>
+                <option value="Guelma">24 - Guelma</option>
+                <option value="Constantine">25 - Constantine</option>
+                <option value="Médéa">26 - Médéa</option>
+                <option value="Mostaganem">27 - Mostaganem</option>
+                <option value="M'Sila">28 - M'Sila</option>
+                <option value="Mascara">29 - Mascara</option>
+                <option value="Ouargla">30 - Ouargla</option>
+                <option value="Oran">31 - Oran</option>
+                <option value="El Bayadh">32 - El Bayadh</option>
+                <option value="Illizi">33 - Illizi</option>
+                <option value="Bordj Bou Arréridj">34 - Bordj Bou Arréridj</option>
+                <option value="Boumerdès">35 - Boumerdès</option>
+                <option value="El Tarf">36 - El Tarf</option>
+                <option value="Tindouf">37 - Tindouf</option>
+                <option value="Tissemsilt">38 - Tissemsilt</option>
+                <option value="El Oued">39 - El Oued</option>
+                <option value="Khenchela">40 - Khenchela</option>
+                <option value="Souk Ahras">41 - Souk Ahras</option>
+                <option value="Tipaza">42 - Tipaza</option>
+                <option value="Mila">43 - Mila</option>
+                <option value="Aïn Defla">44 - Aïn Defla</option>
+                <option value="Naâma">45 - Naâma</option>
+                <option value="Aïn Témouchent">46 - Aïn Témouchent</option>
+                <option value="Ghardaïa">47 - Ghardaïa</option>
+                <option value="Relizane">48 - Relizane</option>
+                <option value="Timimoun">49 - Timimoun</option>
+                <option value="Bordj Badji Mokhtar">50 - Bordj Badji Mokhtar</option>
+                <option value="Béni Abbès">51 - Béni Abbès</option>
+                <option value="Ouled Djellal">52 - Ouled Djellal</option>
+                <option value="In Salah">53 - In Salah</option>
+                <option value="In Guezzam">54 - In Guezzam</option>
+                <option value="Touggourt">55 - Touggourt</option>
+                <option value="Djanet">56 - Djanet</option>
+                <option value="El M'Ghair">57 - El M'Ghair</option>
+                <option value="El Meniaa">58 - El Meniaa</option>
               </select>
             </div>
             <div>
@@ -249,7 +303,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
                 type="text"
                 placeholder="Code Postale"
                 className={`primary ${errors.code_postale && 'has-error'}`}
-                {...register("code_postale", {required: true})}
+                {...register("code_postale", { required: true, disabled: exists })}
               />
             </div>
           </div>

@@ -1,0 +1,2 @@
+import HistoriqueAccesUrgence from './HistoriqueAccesUrgence'
+export default HistoriqueAccesUrgence

@@ -51,32 +51,28 @@ const NOTIF_SUMMARIES = {
 RabbitConnection.on("notification", async (msg) =>{
   const { notification_type, NIN, notified_type, delivery_method, data } = msg;
 
-  try {
-      const profile = (notified_type==="patient")?
-          (await axios.get(`http://patients-service/private/patients/${NIN}`)).data:
-          (await axios.get(`http://personnel-service/private/personnel/${NIN}`)).data;
-      // Insert
-      const summary = format(NOTIF_SUMMARIES[notification_type], data)
-      await NotificationModel.insert(notification_type, NIN, notified_type, delivery_method, profile.email, profile.telephone, summary, JSON.stringify(data))
+  const profile = (notified_type === "patient") ?
+    (await axios.get(`http://patients-service/private/patients/${NIN}`)).data :
+    (await axios.get(`http://personnel-service/private/personnel/${NIN}`)).data;
+  // Insert
+  const summary = format(NOTIF_SUMMARIES[notification_type], data)
+  await NotificationModel.insert(notification_type, NIN, notified_type, delivery_method, profile.email, profile.telephone, summary, JSON.stringify(data))
 
-      // Extract notification methods from bitmask
-      const sendSMS = (delivery_method & 0b0100) > 0; // Check bit 2 for SMS
-      const sendEmail = (delivery_method & 0b0010) > 0; // Check bit 1 for email
-      const sendPush = (delivery_method & 0b0001) > 0; // Check bit 0 for push
-      
-      // Send
-      const promises = []
-      if(sendSMS)
-        promises.push(NotificationController.sendSMS(to, summary))
+  // Extract notification methods from bitmask
+  const sendSMS = (delivery_method & 0b0100) > 0; // Check bit 2 for SMS
+  const sendEmail = (delivery_method & 0b0010) > 0; // Check bit 1 for email
+  const sendPush = (delivery_method & 0b0001) > 0; // Check bit 0 for push
 
-      if(sendEmail){
-        const emailBody = format(fs.readFileSync(require.resolve(`../templates/${notification_type}.html`)).toString(), data);
-        promises.push(NotificationController.sendEmail(to, summary, emailBody));
-      }
-      await Promise.all(promises)
-  } catch (err) {
-      logger.error(err)
+  // Send
+  const promises = []
+  if (sendSMS)
+    promises.push(NotificationController.sendSMS(to, summary))
+
+  if (sendEmail) {
+    const emailBody = format(fs.readFileSync(require.resolve(`../templates/${notification_type}.html`)).toString(), data);
+    promises.push(NotificationController.sendEmail(to, summary, emailBody));
   }
+  await Promise.all(promises)
 })
 
 // graceful shutdown

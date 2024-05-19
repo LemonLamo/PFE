@@ -114,47 +114,23 @@ class PersonnelModel {
     }
   }
 
-  async update(
-    NIN,
-    nom,
-    prenom,
-    date_de_naissance,
-    lieu_de_naissance,
-    sexe,
-    email,
-    telephone,
-    fonction,
-    specialite,
-    grade,
-    adresse,
-    code_postale,
-    commune,
-    wilaya,
-    hopital,
-    service
-  ) {
+  async changeHopital(NIN, hopital, service, grade) {
+    try {
+      await db.query(
+        "UPDATE personnel SET hopital=?, service=?, grade=? WHERE NIN=?",
+        [hopital, service, grade, NIN]
+      );
+    } catch (error) {
+      logger.error("Error updating personnel:", error);
+      throw error;
+    }
+  }
+
+  async update(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service) {
     try {
       await db.query(
         "UPDATE personnel SET nom=?, prenom=?, date_de_naissance=?, lieu_de_naissance=?, sexe=?, email=?, telephone=? , fonction=?, specialite=?, grade=?, adresse=?, code_postale=?, commune=?, wilaya=?, hopital=?, service=? WHERE NIN=?",
-        [
-          nom,
-          prenom,
-          new Date(date_de_naissance),
-          lieu_de_naissance,
-          sexe,
-          email,
-          telephone,
-          fonction,
-          specialite,
-          grade,
-          adresse,
-          code_postale,
-          commune,
-          wilaya,
-          hopital,
-          service,
-          NIN,
-        ]
+        [ nom, prenom, new Date(date_de_naissance), lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service, NIN ]
       );
     } catch (error) {
       logger.error("Error updating personnel:", error);
@@ -164,8 +140,7 @@ class PersonnelModel {
 
   async remove(NIN) {
     try {
-      // TODO: do soft-delete
-      await db.query("DELETE FROM `personnel` WHERE NIN=?", [NIN]);
+      await db.query("UPDATE personnel SET hopital=NULL, service=NULL, grade=NULL WHERE NIN=?", [NIN]);
     } catch (error) {
       logger.error("Error deleting personnel:", error);
       throw error;

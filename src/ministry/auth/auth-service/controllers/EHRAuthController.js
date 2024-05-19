@@ -17,6 +17,18 @@ class AuthController {
 
     return res.status(200).json(result)
   };
+
+  getHospitalAuths = async (req, res) => {
+    const { hospital } = req.jwt;
+    const data = await EHRAuthModel.getHospitalAuths(hospital)
+    const medecins = await fetchMedecins(data)
+    const result = data.map((x) => ({
+      ...x,
+      medecin: medecins.get(x.medecin),
+    }));
+
+    return res.status(200).json(result)
+  };
   
   isAuthorized = async (req, res) => {
     const { medecin, patient } = req.body;
@@ -42,6 +54,9 @@ class AuthController {
           await EHRAuthModel.authorize(medecin, patient, motif, 60)
           break;
         case 'Hospitalisation':
+          await EHRAuthModel.authorize(medecin, patient, motif, -1)
+          break;
+        case 'Urgence':
           await EHRAuthModel.authorize(medecin, patient, motif, -1)
           break;
       }

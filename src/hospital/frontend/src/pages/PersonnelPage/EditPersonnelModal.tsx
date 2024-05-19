@@ -4,6 +4,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import AlertsContext from "../../hooks/AlertsContext";
+import AuthContext from "../../hooks/AuthContext";
+import { baseURL } from "../../config";
+import axios from "axios";
 
 type Props = {
   isOpen: boolean,
@@ -15,11 +18,21 @@ type Props = {
 const theme = "primary"
 
 export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: Props) {
+  const auth = useContext(AuthContext);
   const { showAlert } = useContext(AlertsContext);
 
   const { register, handleSubmit, reset, formState:{errors} } = useForm<any>()
   const [, setAvatar] = useState<File>();
   const handleFileChange = (event : any) => setAvatar(event.target.files[0])
+  const [services, setServices] = useState<any[]>([]);
+  useEffect(() => {
+    if (!auth!.hopital)
+      setServices([])
+    else
+      axios.get(`${baseURL}/api/hopitaux/${auth!.hopital}/services`).then((response) => {
+        setServices(response.data)
+      })
+  })
 
   const onSubmit: SubmitHandler<Personnel> = async (data) => {
     try{
@@ -58,7 +71,7 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
               type="text"
               placeholder="NIN"
               className={`primary ${errors.NIN && 'has-error'}`}
-                {...register("NIN", {required: true})}
+              {...register("NIN", {required: true, disabled: true})}
             />
           </div>
           <div className="grid grid-cols-2 gap-2 mb-2">
@@ -68,7 +81,7 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
                 type="text"
                 placeholder="Nom"
                 className={`primary ${errors.nom && 'has-error'}`}
-                  {...register("nom", {required: true})}
+                {...register("nom", {required: true})}
               />
             </div>
             <div>
@@ -108,16 +121,7 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
               />
             </div>
           </div>
-          <div className="mb-2">
-            <label className="text-sm font-semibold">Service<span className="text-red-500">*</span></label>
-            <input
-              type="text"
-              placeholder="Service"
-              className={`primary ${errors.service && 'has-error'}`}
-              {...register("service", {required: true})}
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <div className="mb-2">
               <label className="text-sm font-semibold">Fonction<span className="text-red-500">*</span></label>
               <input
@@ -136,13 +140,23 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
                 {...register("specialite", {required: true})}
               />
             </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="mb-2">
+              <label className="text-sm font-semibold">Service<span className="text-red-500">*</span></label>
+              <select
+                className={`primary ${errors.service && 'has-error'}`}
+                {...register("service", { required: true })}>
+                {services.map((x, i) => <option key={i}>{x.service}</option>)}
+              </select>
+            </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Grade<span className="text-red-500">*</span></label>
               <input
                 type="text"
                 placeholder="Grade"
                 className={`primary ${errors.grade && 'has-error'}`}
-                {...register("grade", {required: true})}
+                {...register("grade", { required: true })}
               />
             </div>
           </div>

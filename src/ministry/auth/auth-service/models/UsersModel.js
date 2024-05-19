@@ -6,7 +6,7 @@ class UsersModel {
 
     async selectByNIN (NIN) {
         const [results] = await db.query('SELECT * FROM `users` WHERE NIN=?', [NIN]);
-        return results.length > 0? results[0] : {}
+        return results[0]
     }
 
     async saveVerificationToken (NIN, verify_token) {

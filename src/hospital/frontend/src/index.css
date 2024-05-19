@@ -28,7 +28,10 @@
 }
 
 select, textarea, input.primary, .select {
-  @apply w-full ease-soft rounded border-gray-300 py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:transition-shadow focus:ring-0 focus:border-sky-600
+  @apply w-full ease-soft rounded border-gray-300 py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:transition-shadow focus:ring-0 focus:border-sky-600 
+}
+.primary:disabled {
+  @apply !bg-gray-100/50 text-gray-600
 }
 
 button.primary{
