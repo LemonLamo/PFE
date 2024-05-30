@@ -25,7 +25,7 @@ CREATE TABLE `prescriptions` (
 CREATE INDEX prescriptions_reference_IND ON `prescriptions` (`reference`);
 
 INSERT INTO `prescriptions` (`id`, `patient`, `reference`, `code_medicament`, `posologie`, `frequence`, `duree`, `remarques`) VALUES
-('ordd-25831', '100010364027390000', 'cons-XNDHDBZ', '01 A 003', "23", "2", "7", 'Idk');
+('ordd-25831', '100010364027390000', 'cons-XNDHDBZ', '01 A 003', "1000mg", "3 fois / jr", "7 jrs", 'R.A.S');
 
 -- --------------------------------------------------------
 --
