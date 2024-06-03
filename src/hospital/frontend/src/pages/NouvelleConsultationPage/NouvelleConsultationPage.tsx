@@ -74,13 +74,14 @@ function NouvelleConsultationPage() {
 	
       await axios.post(`${baseURL}/api/consultations`, data);
       showAlert("success", "Consultation ajouté correctement");
-      navigate(`/patients/${data.patient}`)
+      navigate(`/consultations/new`)
     } catch (error: any) {
       if (error.response)
         if(error.response?.data?.errorCode != "form-validation")
           showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
         else
         showAlert("error", error.code + ": " + error.message);
+      return;
     }
     await axios.delete(`${baseURL}/reception/${data.patient}`);
   }

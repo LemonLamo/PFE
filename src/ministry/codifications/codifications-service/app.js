@@ -32,6 +32,7 @@ const RadiosController = require('./controllers/RadiosController');
 const BilansController = require('./controllers/BilansController');
 const InterventionsController = require('./controllers/InterventionsController');
 const ExamensCliniquesController = require('./controllers/ExamensCliniquesController');
+const SpecialitesController = require('./controllers/SpecialitesController');
 
 app.get('/api/codifications/maladies', MaladiesController.select);
 app.get('/api/codifications/maladies/:code_maladie', MaladiesController.selectOne);
@@ -59,6 +60,9 @@ app.get('/api/codifications/radios/:code_radio', RadiosController.selectOne);
 
 app.get('/api/codifications/interventions', InterventionsController.select);
 app.get('/api/codifications/interventions/:code_intervention', InterventionsController.selectOne);
+
+app.get('/api/codifications/specialites', SpecialitesController.select);
+app.get('/api/codifications/specialites/:specialite', SpecialitesController.select);
 
 app.post('/private/maladies', MaladiesController.getByCodes)
 app.post('/private/allergenes', AllergenesController.getByCodes)

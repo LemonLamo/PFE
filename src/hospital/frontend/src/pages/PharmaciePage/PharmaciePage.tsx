@@ -70,7 +70,7 @@ function PharmacyPage() {
     <div className="flex gap-2">
       <Button theme="primary" onClick={() => setOpenModal("ajouter")}>
         <i className="fa fa-plus" />
-        <span className="ms-2">Ajouter</span>
+        <span className="ms-2">Alimenter</span>
       </Button>
 
       <Button theme="danger" onClick={() => setOpenModal("retirer")}>

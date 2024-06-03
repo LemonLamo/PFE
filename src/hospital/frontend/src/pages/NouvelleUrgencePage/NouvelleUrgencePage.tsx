@@ -24,7 +24,6 @@ function NouvelleUrgencePage() {
 
       try {
         await requestEHRAuth(patient.NIN!, "Urgence");
-        await axios.post(`${baseURL}/api/urgences`, {patient: patient.NIN});
         showAlert("success", `Patient ${patient.nom} ${patient.prenom} has been added to emergency list`)
         navigate("/urgences")
       } catch (err) {
@@ -32,7 +31,10 @@ function NouvelleUrgencePage() {
           showAlert("error", (err as any).response.data?.errorMessage)
         else
           showAlert("error", "Échec Réseau - Service injoignable en ce moment. Veuillez réessayer ultérieurement.")
+        
+        return; 
       }
+      await axios.post(`${baseURL}/api/urgences`, {patient: patient.NIN});
     }
   }
 

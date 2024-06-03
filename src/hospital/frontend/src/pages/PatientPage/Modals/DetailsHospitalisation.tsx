@@ -22,6 +22,7 @@ const theme = "primary";
 export default function DetailsHospitalisation({ isOpen, close, selectedHospitalisation }: Props) {
   const [hospitalisation, setHospitalisation] = useState<Hospitalisation>(selectedHospitalisation);
   useEffect(() => {
+    if(!selectedHospitalisation.id) return
     axios.get(`${baseURL}/api/hospitalisations/${selectedHospitalisation.id}`).then((response) => {
       setHospitalisation(response.data)
     })

@@ -58,7 +58,7 @@ class PersonnelController {
         await Model.changeHopital(NIN, hopital, service, grade);
         return res.status(200).json({ success: true });
       }else{
-        RabbitConnection.sendMsg("account_create", {NIN, role:"medecin", email}) //TODO: change role here
+        RabbitConnection.sendMsg("account_create", {NIN, role:fonction, email})
         await Model.insert(NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, hopital, service );
         return res.status(200).json({ success: true });
       }

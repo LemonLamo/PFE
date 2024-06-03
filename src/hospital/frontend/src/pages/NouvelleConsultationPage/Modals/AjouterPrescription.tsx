@@ -29,8 +29,8 @@ export default function AjouterPrescription({isOpen, close, action}: Props) {
                 code_medicament: data.code_medicament,
                 DCI: data.DCI,
                 posologie: data.posologie + data.posologie_unit,
-                frequence: data.frequence + data.frequence_unit,
-                duree: data.posologie + data.duree_unit,
+                frequence: data.frequence + " " + data.frequence_unit,
+                duree: data.duree + data.duree_unit,
                 remarques: data.remarques,
                 date_debut: new Date()
             }

@@ -21,7 +21,7 @@ class RendezVousController {
         const medecins = await fetchMedecins(data);
         const result = data.map((x) => ({
           ...x,
-          medecin: medecins.get(x.patient),
+          medecin: medecins.get(x.medecin),
         }));
         return res.status(200).json(result);
       } else {

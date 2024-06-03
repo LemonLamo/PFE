@@ -23,7 +23,7 @@ function PatientsSelector({step, setStep, patient, select_patient, motif} : Prop
         async function initVars(){
             select_patient({NIN: NIN?? "", nom:"", prenom:""})
             if(NIN){
-                const authenticated = await checkEHRAuth(NIN);
+                const authenticated = await checkEHRAuth(NIN, motif);
                 setStep(authenticated? 2 : 1);
             }
         }
@@ -32,7 +32,7 @@ function PatientsSelector({step, setStep, patient, select_patient, motif} : Prop
 
     async function choosePatient() {
         if (patient.NIN !== ""){
-            const authenticated = await checkEHRAuth(patient.NIN!);
+            const authenticated = await checkEHRAuth(patient.NIN!, motif);
             setStep(authenticated? 2 : 1);
         }else setStep(0);
     }

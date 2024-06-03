@@ -1,5 +1,5 @@
 const EHRAuthModel = require("../models/EHRAuthModel");
-const { fetchMedecins } = require("../utils/communication");
+const { fetchMedecins, fetchPatients } = require("../utils/communication");
 const RabitConnection = require('../config/amqplib');
 const axios = require('axios');
 const logger = require("../utils/logger");
@@ -19,25 +19,39 @@ class AuthController {
   };
 
   getHospitalAuths = async (req, res) => {
-    const { hospital } = req.jwt;
-    const data = await EHRAuthModel.getHospitalAuths(hospital)
-    const medecins = await fetchMedecins(data)
+    const { hopital } = req.jwt;
+    const data = await EHRAuthModel.getHospitalAuths(hopital)
+    const [medecins, patients] = await Promise.all([fetchMedecins(data), fetchPatients(data)]);
     const result = data.map((x) => ({
       ...x,
       medecin: medecins.get(x.medecin),
+      patient: patients.get(x.patient)
     }));
 
     return res.status(200).json(result)
   };
   
   isAuthorized = async (req, res) => {
-    const { medecin, patient } = req.body;
+    const { medecin, patient, motif } = req.body;
     const { NIN: initiator } = req.jwt;
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
 
-    const result = await EHRAuthModel.isAuthorized(medecin, patient)
+    const result = await EHRAuthModel.isAuthorized(medecin, patient, motif)
     if(result)
+      return res.status(200).json(result)
+    else
+      return res.status(401).json()
+  };
+
+  validate = async (req, res) => {
+    const { medecin, patient, legit } = req.body;
+    
+    if(legit == -1)
+      await EHRAuthModel.expire(medecin, patient);
+
+    const result = await EHRAuthModel.validate(medecin, patient, legit)
+    if (result)
       return res.status(200).json(result)
     else
       return res.status(401).json()
@@ -45,19 +59,23 @@ class AuthController {
 
   authorize = async (req, res) => {
     const { medecin, patient, motif } = req.body;
+    const { hopital } = req.jwt;
+    if(!hopital)
+      return res.status(400).json();
+
     try{
       switch(motif){
         case 'Consultation':
-          await EHRAuthModel.authorize(medecin, patient, motif, 60)
+          await EHRAuthModel.authorize(hopital, medecin, patient, motif, 60)
           break;
         case 'Intervention':
-          await EHRAuthModel.authorize(medecin, patient, motif, 60)
+          await EHRAuthModel.authorize(hopital, medecin, patient, motif, 60)
           break;
         case 'Hospitalisation':
-          await EHRAuthModel.authorize(medecin, patient, motif, -1)
+          await EHRAuthModel.authorize(hopital, medecin, patient, motif, -1)
           break;
         case 'Urgence':
-          await EHRAuthModel.authorize(medecin, patient, motif, -1)
+          await EHRAuthModel.authorize(hopital, medecin, patient, motif, -1)
           break;
       }
 
@@ -80,13 +98,13 @@ class AuthController {
   };
 
   expire = async (req, res) => {
-    const { medecin, patient } = req.body;
+    const { medecin, patient, motif } = req.body;
     const { NIN: initiator } = req.jwt;
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
     
     try{
-      await EHRAuthModel.expire(medecin, patient);
+      await EHRAuthModel.expire(medecin, patient, motif);
       return res.status(200).json({success: 1})
     }catch(err){
       logger.error(err)

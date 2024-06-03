@@ -38,6 +38,7 @@ app.post("/api/blockchain/verify", async (req, res) => {
     const blockchain_entry = await blockchain.query("GetOne", id)
     const string = stringify(sortKeysRecursive(obj))
     const hash = crypto.createHash('sha256').update(string, 'binary').digest('hex')
+    console.log(`Comparing ${hash} and ${blockchain_entry.hash}, ==> ${hash == blockchain_entry.hash}`)
     if (blockchain_entry.hash != hash)
       return res.status(200).json({ integrite: -1, message: `Objet ${id} n'est pas intègre.` })
     else

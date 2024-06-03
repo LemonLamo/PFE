@@ -102,11 +102,12 @@ export function PublicOrPrivateRoute({ loggedIn, notLoggedIn } : {loggedIn: Reac
     return isAuthenticated() ? loggedIn : notLoggedIn;
 }
 
-export async function checkEHRAuth(NIN: Patient["NIN"]){
+export async function checkEHRAuth(NIN: Patient["NIN"], motif: string){
     try{
         const data ={
             medecin: getJWTContent()?.NIN,
             patient: NIN,
+            motif: motif
         }
         await axios.post(`${baseURL}/api/auth/authorisations/isAuthorized`, data);
         return true;

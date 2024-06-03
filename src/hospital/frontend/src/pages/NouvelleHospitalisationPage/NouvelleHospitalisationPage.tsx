@@ -44,6 +44,7 @@ function NouvelleHospitalisationPage() {
           showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
         else
         showAlert("error", error.code + ": " + error.message);
+      return;
     }
     await axios.delete(`${baseURL}/reception/${data.patient}`);
   }

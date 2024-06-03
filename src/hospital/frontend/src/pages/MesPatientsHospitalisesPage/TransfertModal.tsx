@@ -52,16 +52,17 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation}:
     async function submit(){
       try {
         await ajouterTransfert(transfert);
-        await axios.post(`${baseURL}/api/chambres/${selectedHospitalisation.chambre}/lits/${selectedHospitalisation.lit}/liberer`)
         showAlert("success", "Demande de transfert enregistrée correctement");
         close();
-      } catch (error: any) {
-        if (error.response)
-            if(error.response?.data?.errorCode != "form-validation")
-          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
-        else
-            showAlert("error", error.code + ": " + error.message);
-      }
+        } catch (error: any) {
+            if (error.response)
+                if(error.response?.data?.errorCode != "form-validation")
+                    showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+                else
+                showAlert("error", error.code + ": " + error.message);
+            return;
+        }
+    await axios.post(`${baseURL}/api/chambres/${selectedHospitalisation.chambre}/lits/${selectedHospitalisation.lit}/liberer`)
     }
 
     return (

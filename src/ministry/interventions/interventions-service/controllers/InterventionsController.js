@@ -4,6 +4,7 @@ const {
   fetchPatients,
   fetchMedecins,
 } = require("../utils/communication");
+const axios = require('axios');
 const { genID, verifyIntegrity } = require("../utils");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
@@ -107,7 +108,7 @@ class InterventionsController {
         });
 
       // Revoque auth
-      await axios.post("http://auth-service/api/auth/authorisations/expire", {medecin, patient}, { headers: { Authorization: req.headers.authorization } });
+      await axios.post("http://auth-service/api/auth/authorisations/expire", { medecin, patient, motif:"Intervention"}, { headers: { Authorization: req.headers.authorization } });
 
       return res.status(200).json({ success: true });
     } catch (err) {

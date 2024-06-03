@@ -71,9 +71,11 @@ function Sidebar({ setOpen }: SidebarProps) {
             <SidebarButton text="Nouvelle urgence" icon="fa fa-truck-medical" route="/urgences/new" closeSidebar={setOpen} />
             <SidebarButton text="Cas d'urgences" icon="fa fa-truck-medical" route="/urgences" closeSidebar={setOpen} />
           </ShowOnlyIfRole>
-
-          <SidebarHeader text="Pharmacie" />
-          <SidebarButton text="Gestion des médicaments" icon="fa fa-prescription-bottle-medical" route="/pharmacie" closeSidebar={setOpen}/>
+          
+          <ShowOnlyIfRole roles={['pharmacien']}>
+            <SidebarHeader text="Pharmacie" />
+            <SidebarButton text="Gestion des médicaments" icon="fa fa-prescription-bottle-medical" route="/pharmacie" closeSidebar={setOpen}/>
+          </ShowOnlyIfRole>
 
           <ShowOnlyIfRole roles={['admin']}>
             <SidebarHeader text="Administration" />

@@ -45,7 +45,14 @@ export default function ViewPersonnelModal({ isOpen, close, selectedPersonnel} :
           <div className="grid grid-cols-2 gap-2">
             <div className="mb-2">
               <label className="text-sm font-semibold">Fonction<span className="text-red-500">*</span></label>
-              <input type="text" className="primary" placeholder="Fonction" disabled value={selectedPersonnel.fonction} />
+              <select className="primary" disabled value={selectedPersonnel.fonction}>
+                <option value="medecin">Médecin</option>
+                <option value="infirmier">Infirmier(e)</option>
+                <option value="admin">Administrateur</option>
+                <option value="radio">Radiologue</option>
+                <option value="lab">Laborantin</option>
+                <option value="pharmacien">Pharmacien</option>
+              </select>
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Specialité<span className="text-red-500">*</span></label>

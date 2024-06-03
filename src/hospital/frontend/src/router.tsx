@@ -127,9 +127,9 @@ const router = createBrowserRouter([
     </RequireRole>)},
 
   { path: "/pharmacie", element:(
-    <PrivateRouteOnly>
+    <RequireRole roles={['pharmacien']}>
       <Scaffold> <PharmaciePage/> </Scaffold>
-    </PrivateRouteOnly>)},
+    </RequireRole>)},
     
   { path: "/chambres", element:(
     <RequireRole roles={['admin']}>

@@ -34,6 +34,12 @@ function UrgencesPage() {
     },
   });
 
+  const endUrgence = async (NIN: Patient["NIN"]) => {
+    await axios.delete(`${baseURL}/api/urgences/${NIN}`);
+    await axios.post(`${baseURL}/api/auth/authorisations/expire`, {medecin: auth?.NIN, patient: NIN});
+    query.refetch();
+  }
+
   const tableDefinition = useMemo(
     () => [
       {
@@ -76,6 +82,9 @@ function UrgencesPage() {
                   <Link to={`/interventions/new`} className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} state={info.row.original.NIN}>
                     <i className="fa fa-staff-snake w-4 mr-2" /> Intervention
                   </Link>
+                  <button className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} onClick={() => endUrgence(info.row.original.NIN)}>
+                    Fin d'urgence
+                  </button>
                 </div>
               </Dropdown>
             </>);

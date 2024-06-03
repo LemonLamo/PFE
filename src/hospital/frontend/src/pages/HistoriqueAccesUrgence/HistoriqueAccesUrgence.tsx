@@ -32,6 +32,16 @@ function HistoriqueAccesUrgence() {
         queryFn: async () => (await axios.get(`${baseURL}/api/auth/authorisations/authorisations_hopital`)).data
     });
 
+    const mark_as_legitimate = async (medecin: Personnel["NIN"], patient: Patient["NIN"]) => {
+        await axios.post(`${baseURL}/api/auth/authorisations/legit`, { medecin, patient, legit: 1 });
+        authorisations_history.refetch();
+    }
+
+    const mark_as_abusive = async (medecin: Personnel["NIN"], patient: Patient["NIN"]) => {
+        await axios.post(`${baseURL}/api/auth/authorisations/legit`, { medecin, patient, legit: -1 });
+        authorisations_history.refetch();
+    }
+
     const autorisations_tableDef = useMemo(
         () => [
             {
@@ -46,16 +56,32 @@ function HistoriqueAccesUrgence() {
                     </div>
                 }
             },
+            {
+                header: "Patient", id: "patient", cell: (info) => {
+                    const p = info.row.original;
+                    return <div className="flex min-w-72">
+                        <Avatar src={`${baseURL}/api/patients/${p.patient.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2" />
+                        <div>
+                            <h6 className="mb-0">{p.patient.nom} {p.patient.prenom}</h6>
+                            <p className="mb-0 font-semibold mt-[-0.4rem]">NIN: {p.patient.NIN}</p>
+                        </div>
+                    </div>
+                }
+            },
             { header: "Attribué le", id: "created_at", cell: (info) => moment(info.row.original.created_at).format("DD/MM/YYYY HH:mm") },
             { header: "Motif", accessorKey: "motif" },
             { header: "Actif", id: "actif", cell: (info) => build_badge(info.row.original.created_at, info.row.original.expired_at) },
             { header: "Révoqué le", id: "expired_at", cell: (info) => info.row.original.expired_at ? moment(info.row.original.expired_at).format("DD/MM/YYYY HH:mm") : '-' },
-            { header: "Validé le", id: "validated", cell: (info) => info.row.original.validated_at ? moment(info.row.original.validated_at).format("DD/MM/YYYY HH:mm") : '-' },
             { header: "", id: "actions",
-                cell: () => {
-                    return <div className="flex justify-end gap-2">
-                        <Button onClick={() => { }} theme="success">Légitime</Button>
-                        <Button onClick={() => { }} theme="danger">Abusif</Button>
+                cell: (info) => {
+                    const a = info.row.original;
+                    return a.legit?
+                    <div className="flex justify-end gap-2">
+                        <span className="font-semibold">Marqué comme <span className={`${a.legit == 1 ? 'text-green-500' : 'text-red-500'}`}>{a.legit == 1 ? 'légitime' : 'abusif'}</span> le {a.validated_at ? moment(a.validated_at).format("DD/MM/YYYY HH:mm") : '-'}</span>
+                    </div>:
+                    <div className="flex justify-end gap-2">
+                        <Button onClick={() => mark_as_legitimate(a.medecin.NIN, a.patient.NIN)} theme="success">Légitime</Button>
+                        <Button onClick={() => mark_as_abusive(a.medecin.NIN, a.patient.NIN)} theme="danger">Abusif</Button>
                     </div>
                 },
             },

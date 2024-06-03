@@ -13,7 +13,7 @@ class TransfertsController {
       const hosp = await HospitalisationsModel.selectOne(hospitalisation);
       const result = await HospitalisationsModel.addSortie(hospitalisation, "Transfert", new Date());
       // Revoque auth
-      await axios.post("http://auth-service/api/auth/authorisations/expire", {medecin: NIN, patient:hosp.patient}, { headers: { Authorization: req.headers.authorization } });
+      await axios.post("http://auth-service/api/auth/authorisations/expire", { medecin: NIN, patient: hosp.patient, motif:"Hospitalisation"}, { headers: { Authorization: req.headers.authorization } });
 
       return res.status(200).json(result);
     } catch (err) {

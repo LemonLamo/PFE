@@ -45,10 +45,9 @@ app.post('/api/auth/activate', AuthController.activate);
 app.get ('/api/auth/authorisations', auth.requireAuth, EHRAuthController.getAuths);
 app.get ('/api/auth/authorisations/authorisations_hopital', auth.requireAuth, EHRAuthController.getHospitalAuths)
 app.post('/api/auth/authorisations', auth.requireAuth, EHRAuthController.authorize);
-app.post('/api/auth/authorisations/expire', auth.requireAuth, EHRAuthController.expire);
-
-// private
 app.post('/api/auth/authorisations/isAuthorized', auth.requireAuth, EHRAuthController.isAuthorized);
+app.post('/api/auth/authorisations/expire', auth.requireAuth, EHRAuthController.expire);
+app.post('/api/auth/authorisations/legit', auth.requireAuth, EHRAuthController.validate);
 
 // RabitMQ
 RabbitConnection.on("account_create", async (data) =>{

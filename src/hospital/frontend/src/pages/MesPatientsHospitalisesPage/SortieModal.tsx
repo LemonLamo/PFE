@@ -32,16 +32,17 @@ export default function SortieModal({isOpen, close, selectedHospitalisation}: Pr
         if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
           return;
         await ajouterSortie(selectedHospitalisation.id, sortie);
-        await axios.post(`${baseURL}/api/chambres/${selectedHospitalisation.chambre}/lits/${selectedHospitalisation.lit}/liberer`)
         showAlert("success", "Sortie enregistrée correctement");
         close();
       } catch (error: any) {
         if (error.response)
-            if(error.response?.data?.errorCode != "form-validation")
-          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+          if(error.response?.data?.errorCode != "form-validation")
+            showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
         else
-            showAlert("error", error.code + ": " + error.message);
+          showAlert("error", error.code + ": " + error.message);
+        return;
       }
+      await axios.post(`${baseURL}/api/chambres/${selectedHospitalisation.chambre}/lits/${selectedHospitalisation.lit}/liberer`)
     }
 
     return (

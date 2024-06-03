@@ -24,7 +24,15 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
   const [avatar, setAvatar] = useState<File>();
   const handleFileChange = (event : any) => setAvatar(event.target.files[0])
   const [services, setServices] = useState<any[]>([]);
+  const [specialites, setSpecialites] = useState<any[]>([]);
+
   useEffect(()=>{
+    axios.get(`${baseURL}/api/codifications/specialites`).then((response) => {
+      setSpecialites(response.data)
+      if (response.data.length > 0)
+        setValue('specialite', response.data[0].specialite!)
+    })
+
     if (!auth!.hopital)
       setServices([])
     else
@@ -158,21 +166,25 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
           <div className="grid grid-cols-2 gap-2">
             <div className="mb-2">
               <label className="text-sm font-semibold">Fonction<span className="text-red-500">*</span></label>
-              <input
-                type="text"
-                placeholder="Fonction"
+              <select
                 className={`primary ${errors.fonction && 'has-error'}`}
-                {...register("fonction", { required: true, disabled: exists })}
-              />
+                {...register("fonction", { required: true, disabled: exists })}>
+                <option value="medecin">Médecin</option>
+                <option value="infirmier">Infirmier(e)</option>
+                <option value="admin">Administrateur</option>
+                <option value="radio">Radiologue</option>
+                <option value="lab">Laborantin</option>
+                <option value="pharmacien">Pharmacien</option>
+              </select>
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Specialité<span className="text-red-500">*</span></label>
-              <input
-                type="text"
-                placeholder="Spécialité"
+              <select
                 className={`primary ${errors.specialite && 'has-error'}`}
                 {...register("specialite", { required: true, disabled: exists })}
-              />
+              >
+                {specialites.map((x, i) => <option key={i}>{x.specialite}</option>)}
+              </select>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -186,12 +198,14 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
             </div>
             <div className="mb-2">
               <label className="text-sm font-semibold">Grade<span className="text-red-500">*</span></label>
-              <input
-                type="text"
-                placeholder="Grade"
+              <select
                 className={`primary ${errors.grade && 'has-error'}`}
-                {...register("grade", { required: true })}
-              />
+                {...register("grade", { required: true })}>
+                <option></option>
+                <option></option>
+                <option></option>
+                <option></option>
+              </select>
             </div>
           </div>
         </div>
