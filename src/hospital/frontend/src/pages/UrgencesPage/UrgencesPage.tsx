@@ -83,7 +83,7 @@ function UrgencesPage() {
                     <i className="fa fa-staff-snake w-4 mr-2" /> Intervention
                   </Link>
                   <button className={`text-gray-900 hover:bg-cyan-400 hover:text-white group flex w-full items-center px-2 py-2 text-sm`} onClick={() => endUrgence(info.row.original.NIN)}>
-                    Fin d'urgence
+                    <i className="fa-solid fa-arrow-right-from-bracket w-4 mr-2"></i> Fin d'urgence
                   </button>
                 </div>
               </Dropdown>

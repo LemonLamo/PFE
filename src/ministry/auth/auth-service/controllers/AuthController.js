@@ -11,8 +11,7 @@ class AuthController {
   login = async (req, res) => {
     const { NIN, password, type } = req.body;
     const user = await UsersModel.selectByNIN(NIN);
-    const login_match =
-      user.password && (await bcrypt.compare(password, user.password));
+    const login_match = user && user.password && (await bcrypt.compare(password, user.password));
 
     if (!login_match)
       return res
@@ -91,23 +90,6 @@ class AuthController {
         successCode: "logout",
         successMessage: "Successfully logged out!",
       });
-  };
-
-  signup = async (req, res) => {
-    let { NIN, role, email } = req.body;
-
-    validator.validate(req, res, UsersModel.validationRules);
-    const two_factor_secret = node2fa.generateSecret().secret;
-    try {
-      await UsersModel.insert(NIN, role, two_factor_secret);
-      await this.send_activation_email(NIN, email);
-
-      return res.status(200).json({ success: true });
-    } catch (err) {
-      return res
-        .status(400)
-        .json({ errorCode: "database-error", errorMessage: err.code });
-    }
   };
 
   activate = async (req, res) => {

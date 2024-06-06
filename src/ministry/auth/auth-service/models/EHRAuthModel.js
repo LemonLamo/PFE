@@ -46,6 +46,11 @@ class EHRAuthModel {
         if (results.affectedRows < 1)
             throw new Error({ code: "ER_UPDATE_FAIL" })
     }
+    async expireByID(id) {
+        const [results] = await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE id=?', [id]);
+        if (results.affectedRows < 1)
+            throw new Error({ code: "ER_UPDATE_FAIL" })
+    }
 
     async validate(medecin, patient, legit){
         const [results] = await db.query('UPDATE `ehr_autorisations` SET `validated_at`= NOW(), legit=? WHERE medecin=? AND patient=?', [legit, medecin, patient]);

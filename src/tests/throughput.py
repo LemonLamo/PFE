@@ -2,12 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # CONFIG
-TITLE = "Throughput vis à vis nombre de patients"
-X_AXIS = "Nombre de patients"
+TITLE = "Throughput en fonction de nombre de DME"
+X_AXIS = "Nombre de DME"
 Y_AXIS = "Throughput (en requetes)"
 x = [10, 100, 1000, 10000, 100000, 1000000]
-Y1_LABEL = "Sans Blockchain, Sans CP-ABE"
-y1 = [20, 30, 50, 100, 180, 360]
+Y1_LABEL = "Nombre de requetes"
+y1 = [35000, 24000, 16000, 12000, 11000, 10000]
 #Y2_LABEL = "Avec Blockchain, Avec CP-ABE"
 #y2 = [40, 50, 80, 120, 200, 400]
 

@@ -13,7 +13,7 @@ USE forza;
 CREATE TABLE `users` (
   `NIN` varchar(20) NOT NULL PRIMARY KEY,
   `password` varchar(255) DEFAULT NULL,
-  `is_active` TINYINT(1) DEFAULT 0,
+  `is_active` TINYINT(1) DEFAULT 1,
   `role` varchar(255),
   `two_factor_enabled` TINYINT(1) DEFAULT 0,
   `two_factor_secret` text,
@@ -33,7 +33,8 @@ INSERT INTO `users` (`NIN`, `password`, `is_active`, `role`, `two_factor_secret`
 ('222222222222222222', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 1, 'admin', 'IHNWHUQXBCWTEYMN2ET4EC7Q7V22CAUK'),
 ('333333333333333333', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 1, 'lab', 'IHNWHUQXBCWTEYMN2ET4EC7Q7V22CAUK'),
 ('444444444444444444', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 1, 'radio', 'IHNWHUQXBCWTEYMN2ET4EC7Q7V22CAUK'),
-('555555555555555555', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 1, 'medecin', 'IHNWHUQXBCWTEYMN2ET4EC7Q7V22CAUK');
+('555555555555555555', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 1, 'pharmacien', 'IHNWHUQXBCWTEYMN2ET4EC7Q7V22CAUK'),
+('666666666666666666', '$2a$12$nENMKlqxSSq58RwfRTHUyuYbVYDOMQLrXBKjm.JNp/PJT59u80iHW', 1, 'medecin', 'IHNWHUQXBCWTEYMN2ET4EC7Q7V22CAUK');
 
 -- --------------------------------------------------------
 --
@@ -61,6 +62,7 @@ INSERT INTO `roles_permissions` (`hopital`, `role`, `permission`) VALUES
 --
 
 CREATE TABLE `ehr_autorisations` (
+  `id` INT(11) PRIMARY KEY AUTO_INCREMENT,
   `medecin` varchar(20) NOT NULL,
   `patient` varchar(20) NOT NULL,
   `hopital` varchar(20) NOT NULL,

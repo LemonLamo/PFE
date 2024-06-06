@@ -35,6 +35,10 @@ function Sidebar({ setOpen }: SidebarProps) {
             <SidebarButton text="Dashboard" icon="fa fa-pie-chart" route="/" closeSidebar={setOpen}/>
           </ShowOnlyIfRole>
 
+          <ShowOnlyIfRole roles={['pharmacien']}>
+            <SidebarButton text="Dashboard" icon="fa fa-pills" route="/" closeSidebar={setOpen} />
+          </ShowOnlyIfRole>
+
           <ShowOnlyIfRole roles={['infirmier']}>
             <SidebarButton text="Dashboard" icon="fa fa-staff-snake" route="/" closeSidebar={setOpen}/>
             <SidebarButton text="Soins archivés" icon="fa fa-staff-snake" route="/soins" closeSidebar={setOpen}/>
@@ -70,11 +74,6 @@ function Sidebar({ setOpen }: SidebarProps) {
             <SidebarHeader text="Urgences" />
             <SidebarButton text="Nouvelle urgence" icon="fa fa-truck-medical" route="/urgences/new" closeSidebar={setOpen} />
             <SidebarButton text="Cas d'urgences" icon="fa fa-truck-medical" route="/urgences" closeSidebar={setOpen} />
-          </ShowOnlyIfRole>
-          
-          <ShowOnlyIfRole roles={['pharmacien']}>
-            <SidebarHeader text="Pharmacie" />
-            <SidebarButton text="Gestion des médicaments" icon="fa fa-prescription-bottle-medical" route="/pharmacie" closeSidebar={setOpen}/>
           </ShowOnlyIfRole>
 
           <ShowOnlyIfRole roles={['admin']}>

@@ -8,45 +8,9 @@ services = [
 
     "auth/auth-db",
     "auth/auth-service",
-
-    "codifications/codifications-db",
-    "codifications/codifications-service",
-
-    "consultations/consultations-db",
-    "consultations/consultations-service",
-
-    "hopitaux/hopitaux-db",
-    "hopitaux/hopitaux-service",
-
-    "hospitalisations/hospitalisations-db",
-    "hospitalisations/hospitalisations-service",
-
-    "interventions/interventions-db",
-    "interventions/interventions-service",
-
-    "notifications/notifications-db",
-    "notifications/notifications-service",
-
-    "patients/patients-db",
-    "patients/patients-service",
-
+    
     "personnel/personnel-db",
     "personnel/personnel-service",
-
-    "prescriptions-bilans-radios/prescriptions-bilans-radios-db",
-    "prescriptions-bilans-radios/prescriptions-bilans-radios-service",
-
-    "rendez-vous/rendez-vous-db",
-    "rendez-vous/rendez-vous-service",
-
-    "soins/soins-db",
-    "soins/soins-service",
-
-    "rabbitmq",
-
-    "cpabe-service",
-
-    "blockchain-service"
 ]
 
 cwd = os.path.dirname(os.path.realpath(__file__)) 

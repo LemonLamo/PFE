@@ -2,11 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # CONFIG
-TITLE = "Temps de réponse vis à vis nombre de patients"
-X_AXIS = "Nombre de patients"
+TITLE = "Temps de réponse en fonction de nombre de DME"
+X_AXIS = "Nombre de DME"
 Y_AXIS = "Temps de réponse (en ms)"
 x = [10, 100, 1000, 10000, 100000, 1000000]
-Y1_LABEL = "Sans Blockchain, Sans CP-ABE"
+Y1_LABEL = "Temps de réponse (en ms)"
 y1 = [20, 30, 50, 100, 180, 360]
 
 # Create a plot with customized appearance

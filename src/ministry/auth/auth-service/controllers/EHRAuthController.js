@@ -45,10 +45,11 @@ class AuthController {
   };
 
   validate = async (req, res) => {
-    const { medecin, patient, legit } = req.body;
+    const { id } = req.params;
+    const { legit } = req.body;
     
     if(legit == -1)
-      await EHRAuthModel.expire(medecin, patient);
+      await EHRAuthModel.expireByID(id);
 
     const result = await EHRAuthModel.validate(medecin, patient, legit)
     if (result)
@@ -107,6 +108,19 @@ class AuthController {
       await EHRAuthModel.expire(medecin, patient, motif);
       return res.status(200).json({success: 1})
     }catch(err){
+      logger.error(err)
+    }
+  }
+  expireByID = async (req, res) => {
+    const { id } = req.params;
+    const { NIN: initiator } = req.jwt;
+    if (initiator != medecin && initiator != patient)
+      return res.status(400).json();
+
+    try {
+      await EHRAuthModel.expireByID(id);
+      return res.status(200).json({ success: 1 })
+    } catch (err) {
       logger.error(err)
     }
   }

@@ -32,13 +32,13 @@ function HistoriqueAccesUrgence() {
         queryFn: async () => (await axios.get(`${baseURL}/api/auth/authorisations/authorisations_hopital`)).data
     });
 
-    const mark_as_legitimate = async (medecin: Personnel["NIN"], patient: Patient["NIN"]) => {
-        await axios.post(`${baseURL}/api/auth/authorisations/legit`, { medecin, patient, legit: 1 });
+    const mark_as_legitimate = async (id: string) => {
+        await axios.post(`${baseURL}/api/auth/authorisations/${id}/validate`, { legit: 1 });
         authorisations_history.refetch();
     }
 
-    const mark_as_abusive = async (medecin: Personnel["NIN"], patient: Patient["NIN"]) => {
-        await axios.post(`${baseURL}/api/auth/authorisations/legit`, { medecin, patient, legit: -1 });
+    const mark_as_abusive = async (id: string) => {
+        await axios.post(`${baseURL}/api/auth/authorisations/${id}/validate`, { legit: -1 });
         authorisations_history.refetch();
     }
 
@@ -56,8 +56,8 @@ function HistoriqueAccesUrgence() {
                     </div>
                 }
             },
-            {
-                header: "Patient", id: "patient", cell: (info) => {
+            { header: "Service", id: "service", cell: (info) => info.row.original.medecin.service },
+            { header: "Patient", id: "patient", cell: (info) => {
                     const p = info.row.original;
                     return <div className="flex min-w-72">
                         <Avatar src={`${baseURL}/api/patients/${p.patient.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2" />
@@ -80,8 +80,8 @@ function HistoriqueAccesUrgence() {
                         <span className="font-semibold">Marqué comme <span className={`${a.legit == 1 ? 'text-green-500' : 'text-red-500'}`}>{a.legit == 1 ? 'légitime' : 'abusif'}</span> le {a.validated_at ? moment(a.validated_at).format("DD/MM/YYYY HH:mm") : '-'}</span>
                     </div>:
                     <div className="flex justify-end gap-2">
-                        <Button onClick={() => mark_as_legitimate(a.medecin.NIN, a.patient.NIN)} theme="success">Légitime</Button>
-                        <Button onClick={() => mark_as_abusive(a.medecin.NIN, a.patient.NIN)} theme="danger">Abusif</Button>
+                        <Button onClick={() => mark_as_legitimate(a.id)} theme="success">Légitime</Button>
+                        <Button onClick={() => mark_as_abusive(a.id)} theme="danger">Abusif</Button>
                     </div>
                 },
             },

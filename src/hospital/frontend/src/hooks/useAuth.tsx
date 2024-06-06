@@ -9,6 +9,7 @@ import DashboardRadio from "../pages/DasshboardRadio";
 import Scaffold from "../components/Scaffold";
 import axios from "axios";
 import { baseURL } from "../config";
+import PharmaciePage from "../pages/PharmaciePage";
 export type JWTToken = {
     NIN: string,
     nom: string,
@@ -62,6 +63,8 @@ export function Dashboard() {
             return <Scaffold>  <DashboardLab /> </Scaffold>
         case 'radio':
             return <Scaffold>  <DashboardRadio /> </Scaffold>
+        case 'pharmacien':
+            return <Scaffold>  <PharmaciePage /> </Scaffold>
     }
 }
 
