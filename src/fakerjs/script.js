@@ -6,7 +6,7 @@ const radios_ender = require('./scripts/radios_ender');
 const bilans_ender = require('./scripts/bilans_ender');
 const interventions = require('./scripts/interventions');
 
-const NUMBER_OF_RECORDS = 100
+const NUMBER_OF_RECORDS = 10
 function randomCloseBy(number) {
   const min = number * 0.9; // 90% of the number
   const max = number;       // 100% of the number

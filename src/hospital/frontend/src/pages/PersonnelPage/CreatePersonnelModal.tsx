@@ -27,7 +27,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
   const [specialites, setSpecialites] = useState<any[]>([]);
 
   useEffect(()=>{
-    axios.get(`${baseURL}/api/codifications/specialites`).then((response) => {
+    axios.get(`${baseURL}/api/codifications/specialites?search=`).then((response) => {
       setSpecialites(response.data)
       if (response.data.length > 0)
         setValue('specialite', response.data[0].specialite!)
@@ -41,7 +41,8 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
         if (response.data.length > 0)
           setValue('service', response.data[0].service!)
       })
-  })
+  }, [])
+  
   const watched_NIN = watch("NIN");
   useEffect(() => {
     if(!watched_NIN)
@@ -201,10 +202,12 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
               <select
                 className={`primary ${errors.grade && 'has-error'}`}
                 {...register("grade", { required: true })}>
-                <option></option>
-                <option></option>
-                <option></option>
-                <option></option>
+                <option>Interne</option>
+                <option>Résident</option>
+                <option>Assistant</option>
+                <option>Maître Assistant</option>
+                <option>Professeur</option>
+                <option>Chef de service</option>
               </select>
             </div>
           </div>

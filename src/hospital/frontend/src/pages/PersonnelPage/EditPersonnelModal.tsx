@@ -28,7 +28,7 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
   const [specialites, setSpecialites] = useState<any[]>([]);
 
   useEffect(() => {
-    axios.get(`${baseURL}/api/codifications/specialites`).then((response) => {
+    axios.get(`${baseURL}/api/codifications/specialites?search=`).then((response) => {
       setSpecialites(response.data)
     })
 
@@ -38,7 +38,7 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
       axios.get(`${baseURL}/api/hopitaux/${auth!.hopital}/services`).then((response) => {
         setServices(response.data)
       })
-  })
+  }, [])
 
   const onSubmit: SubmitHandler<Personnel> = async (data) => {
     try{
@@ -164,10 +164,12 @@ export default function EditPersonnelModal({isOpen, close, selectedPersonnel}: P
               <select
                 className={`primary ${errors.grade && 'has-error'}`}
                 {...register("grade", { required: true })}>
-                <option></option>
-                <option></option>
-                <option></option>
-                <option></option>
+                <option>Interne</option>
+                <option>Résident</option>
+                <option>Assistant</option>
+                <option>Maître Assistant</option>
+                <option>Professeur</option>
+                <option>Chef de service</option>
               </select>
             </div>
           </div>

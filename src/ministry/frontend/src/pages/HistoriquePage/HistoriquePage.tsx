@@ -31,6 +31,11 @@ function HistoriquePage(){
         queryFn: async () => (await axios.get(`${baseURL}/api/auth/authorisations`)).data
     });
 
+    const revoquer = async (id: string) => {
+        await axios.post(`${baseURL}/api/auth/authorisations/${id}/expire`, {});
+        authorisations_history.refetch();
+    }
+
     const autorisations_tableDef = useMemo(
     () => [
         { header: "Médecin", id: "medecin", cell: (info) => {
@@ -50,6 +55,15 @@ function HistoriquePage(){
         { header: "Motif", accessorKey: "motif" },
         { header: "Actif", id: "actif", cell: (info) => build_badge(info.row.original.created_at, info.row.original.expired_at) },
         { header: "Révoqué le", id: "expired_at", cell: (info) => info.row.original.expired_at? moment(info.row.original.expired_at).format("DD/MM/YYYY HH:mm") : '-'},
+        { header: "", id: "actions",
+                cell: (info) => {
+                    const a = info.row.original;
+                    return a.expired_at &&
+                    <div className="flex justify-end gap-2">
+                        <Button onClick={() => revoquer(a.id)} theme="danger">Revoquer</Button>
+                    </div>
+                },
+            },
     ], []) as ColumnDef<any>[];
 
     return <>

@@ -97,7 +97,7 @@ function MesPatientsHospitalisesPage() {
     </Link>
   );
   return (
-    <Card title="Liste des  admis" subtitle="Une liste de tous les  admis" className="w-full" action={action}>
+    <Card title="Liste des patients hospitalisés" subtitle="Une liste des patients hospitalisés en votre nom" className="w-full" action={action}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2"/>
       
       {selectedHospitalisation ? <DetailsHospitalisation isOpen={openModal === "hospitalisation"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation!} /> : null}

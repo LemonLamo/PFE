@@ -24,10 +24,10 @@ function InfirmiersSelect({ onChange, placeholder = '', className = '', state, h
         if (query.length >= 3){
             setIsLoading(true);
             const url = (hopital && service)?
-                            `${baseURL}/api/personnel/search?hopital=${hopital}&service=${service}&fonction=Infirmier&search=${query}`:
+                            `${baseURL}/api/personnel/search?hopital=${hopital}&service=${service}&fonction=infirmier&search=${query}`:
                         (hopital)?
-                            `${baseURL}/api/personnel/search?hopital=${hopital}&fonction=Infirmier&search=${query}`:
-                            `${baseURL}/api/personnel/search?fonction=Infirmier&search=${query}`
+                            `${baseURL}/api/personnel/search?hopital=${hopital}&fonction=infirmier&search=${query}`:
+                            `${baseURL}/api/personnel/search?fonction=infirmier&search=${query}`
             axios.get(url).then((response) => {
                 setIsLoading(false);
                 setOptions(response.data);

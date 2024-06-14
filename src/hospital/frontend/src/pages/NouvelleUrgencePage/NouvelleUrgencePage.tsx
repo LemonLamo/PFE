@@ -23,6 +23,7 @@ function NouvelleUrgencePage() {
         return;
 
       try {
+        await axios.post(`${baseURL}/api/urgences`, {patient: patient.NIN});
         await requestEHRAuth(patient.NIN!, "Urgence");
         showAlert("success", `Patient ${patient.nom} ${patient.prenom} has been added to emergency list`)
         navigate("/urgences")
@@ -34,7 +35,6 @@ function NouvelleUrgencePage() {
         
         return; 
       }
-      await axios.post(`${baseURL}/api/urgences`, {patient: patient.NIN});
     }
   }
 

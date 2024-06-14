@@ -74,7 +74,7 @@ function NouvelleConsultationPage() {
 	
       await axios.post(`${baseURL}/api/consultations`, data);
       showAlert("success", "Consultation ajouté correctement");
-      navigate(`/consultations/new`)
+      navigate(`/`)
     } catch (error: any) {
       if (error.response)
         if(error.response?.data?.errorCode != "form-validation")

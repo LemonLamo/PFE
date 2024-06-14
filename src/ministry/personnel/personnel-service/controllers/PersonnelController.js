@@ -50,8 +50,6 @@ class PersonnelController {
   async insert(req, res) {
     const { role, hopital } = req.jwt
     try {
-    
-    
       const { NIN, nom, prenom, date_de_naissance, lieu_de_naissance, sexe, email, telephone, fonction, specialite, grade, adresse, code_postale, commune, wilaya, service } = req.body;
       const exists = await Model.selectOne(NIN);
       if(exists && !exists.hopital && !exists.service){

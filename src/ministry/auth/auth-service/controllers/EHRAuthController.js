@@ -32,12 +32,12 @@ class AuthController {
   };
   
   isAuthorized = async (req, res) => {
-    const { medecin, patient, motif } = req.body;
+    const { medecin, patient } = req.body;
     const { NIN: initiator } = req.jwt;
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
 
-    const result = await EHRAuthModel.isAuthorized(medecin, patient, motif)
+    const result = await EHRAuthModel.isAuthorized(medecin, patient)
     if(result)
       return res.status(200).json(result)
     else
@@ -69,6 +69,9 @@ class AuthController {
         case 'Consultation':
           await EHRAuthModel.authorize(hopital, medecin, patient, motif, 60)
           break;
+        case 'Dossier':
+          await EHRAuthModel.authorize(hopital, medecin, patient, motif, 5)
+          break;
         case 'Intervention':
           await EHRAuthModel.authorize(hopital, medecin, patient, motif, 60)
           break;
@@ -99,16 +102,17 @@ class AuthController {
   };
 
   expire = async (req, res) => {
-    const { medecin, patient, motif } = req.body;
+    const { medecin, patient, urgence } = req.body;
     const { NIN: initiator } = req.jwt;
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
     
     try{
-      await EHRAuthModel.expire(medecin, patient, motif);
+      await EHRAuthModel.expire(medecin, patient, urgence);
       return res.status(200).json({success: 1})
     }catch(err){
       logger.error(err)
+      return res.status(400).json();
     }
   }
   expireByID = async (req, res) => {
@@ -122,6 +126,7 @@ class AuthController {
       return res.status(200).json({ success: 1 })
     } catch (err) {
       logger.error(err)
+      return res.status(400).json();
     }
   }
 }

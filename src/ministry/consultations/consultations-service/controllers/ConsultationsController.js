@@ -145,7 +145,7 @@ class ConsultationsController {
         });
 
       // Revoque auth
-      await axios.post("http://auth-service/api/auth/authorisations/expire", { medecin, patient, motif:"Consultation"}, { headers: { Authorization: req.headers.authorization } });
+      axios.post("http://auth-service/api/auth/authorisations/expire", { medecin, patient, urgence: 0}, { headers: { Authorization: req.headers.authorization } });
 
       return res.status(200).json({ success: true });
     } catch (err) {

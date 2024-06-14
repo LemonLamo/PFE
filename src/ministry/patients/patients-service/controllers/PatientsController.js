@@ -261,33 +261,16 @@ class PatientsController {
   async selectHistorique(req, res) {
     try {
       const { NIN } = req.params;
-      const consultations = (
-        await axios.get(
-          `http://consultations-service/api/consultations?patient=${NIN}`,
-          { headers: { Authorization: req.headers.authorization } }
-        )
-      ).data;
-      const hospitalisations = (
-        await axios.get(
-          `http://hospitalisations-service/api/hospitalisations?patient=${NIN}`,
-          { headers: { Authorization: req.headers.authorization } }
-        )
-      ).data;
-      const interventions = (
-        await axios.get(
-          `http://interventions-service/api/interventions?patient=${NIN}`,
-          { headers: { Authorization: req.headers.authorization } }
-        )
-      ).data;
-      return res
-        .status(200)
-        .json(
-          [...consultations, ...hospitalisations, ...interventions].sort(
-            (a, b) =>
-              new Date(b.date_entree ?? b.date) -
-              new Date(a.date_entree ?? a.date)
-          )
-        );
+      const [consultations, hospitalisations, interventions] = await Promise.all([
+        axios.get(`http://consultations-service/api/consultations?patient=${NIN}`, { headers: { Authorization: req.headers.authorization } }),
+        axios.get(`http://hospitalisations-service/api/hospitalisations?patient=${NIN}`, { headers: { Authorization: req.headers.authorization } }),
+        axios.get(`http://interventions-service/api/interventions?patient=${NIN}`, { headers: { Authorization: req.headers.authorization } } )
+      ]);
+
+      return res.status(200)
+                .json([...consultations.data, ...hospitalisations.data, ...interventions.data]
+                .sort((a, b) => new Date(b.date_entree ?? b.date) - new Date(a.date_entree ?? a.date))
+      );
     } catch (err) {
       logger.error("database-error: " + err);
       return res

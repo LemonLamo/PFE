@@ -11,16 +11,14 @@ exports.generate_compte_rendu = (data, output_path) => {
     render(template, 'A5', data, output_path)
 }
 
-exports.generate_arret_de_travail = (data, output_path) => {
+exports.generate_arret_de_travail = (data, qr_code, output_path) => {
     const template = fs.readFileSync(path.join(__dirname, "../templates/arret_de_travail.html")).toString();
-    const qr_code = QR.imageSync(data.id, {type: "png", margin:1});
     data.qr_code = Buffer.from(qr_code).toString("base64");
     render(template, 'A5', data, output_path)
 }
 
-exports.generate_ordonnance = (data, output_path) => {
+exports.generate_ordonnance = (data, qr_code, output_path) => {
     const template = fs.readFileSync(path.join(__dirname, "../templates/ordonnance.html")).toString();
-    const qr_code = QR.imageSync(data.id, {type: "png", margin:1});
     data.qr_code = Buffer.from(qr_code).toString("base64");
     render(template, 'A5', data, output_path)
 }

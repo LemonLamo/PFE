@@ -6,9 +6,9 @@ const { fetchPatients, fetchMedicaments } = require("../utils/communication");
 const templater = require("../utils/templater");
 const { ToWords } = require("to-words");
 const toWords = new ToWords({ localeCode: "fr-FR" });
-const RabbitConnection = require("../config/amqplib");
 const PrescriptionsModel = require("../models/PrescriptionsModel");
 const logger = require("../utils/logger");
+const QR = require('qr-image');
 //const validator = require('../middlewares/validation');
 
 /******** ACTIONS ********/
@@ -113,36 +113,27 @@ class PrescriptionsController {
         DCI: medicaments.get(x.code_medicament).DCI,
       }));
       hopital = result1.data;
-      medecin = result2.data;
-      patient = result3.data;
 
       let data = {
         id: reference,
-        qr_code: "",
         ville: hopital.ville,
         date: moment(new Date()).format("DD/MM/YYYY"),
         hopital: hopital.nom_hopital,
         service: service,
-        medecin: {
-          nom: medecin.nom,
-          prenom: medecin.prenom,
-          specialite: medecin.specialite,
-        },
+        medecin: medecin,
         email: hopital.email,
         telephone: hopital.telephone,
-        patient: {
-          nom: patient.nom,
-          prenom: patient.prenom,
-          age: `${moment(new Date()).diff(
-            moment(patient.date_de_naissance),
-            "years"
-          )} ans`,
-        },
+        patient: patient,
         prescriptions: [...prescriptions],
       };
+      const qr_code = QR.imageSync(JSON.stringify({ obj: JSON.stringify(data), signature: sign(JSON.stringify(data)) }), { type: "png", margin: 0 });
+
+      data.medecin = {nom: result2.data.nom, prenom: result2.data.prenom, specialite: result2.data.specialite};
+      data.patient = {nom: result3.data.nom, prenom: result3.data.prenom, age: `${moment(new Date()).diff(moment(result3.data.date_de_naissance), "years")} ans`};
 
       templater.generate_ordonnance(
         data,
+        qr_code,
         `/mnt/data/ordonnance_${reference}.pdf`
       );
     } catch (err) {
@@ -165,43 +156,54 @@ class PrescriptionsController {
         axios.get(`http://patients-service/private/patients/${patient}`),
       ]);
       hopital = result1.data;
-      medecin = result2.data;
-      patient = result3.data;
 
       let data = {
         id: reference,
-        qr_code: "",
         ville: hopital.ville,
         date: moment(new Date()).format("DD/MM/YYYY"),
         hopital: hopital.nom_hopital,
         service: service,
-        medecin: {
-          nom: medecin.nom,
-          prenom: medecin.prenom,
-          specialite: medecin.specialite,
-        },
+        medecin: medecin,
         email: hopital.email,
         telephone: hopital.telephone,
-        patient: {
-          nom: patient.nom,
-          prenom: patient.prenom,
-          age: `${moment(new Date()).diff(
-            moment(patient.date_de_naissance),
-            "years"
-          )} ans`,
-        },
+        patient: patient,
         duree: duree_arret_de_travail,
         duree_en_lettres: toWords.convert(duree_arret_de_travail).toUpperCase(),
       };
 
+      const qr_code = QR.imageSync(JSON.stringify({ obj: JSON.stringify(data), signature: sign(JSON.stringify(data)) }), { type: "png", margin: 0 });
+
+      data.medecin = { nom: result2.data.nom, prenom: result2.data.prenom, specialite: result2.data.specialite };
+      data.patient = { nom: result3.data.nom, prenom: result3.data.prenom, age: `${moment(new Date()).diff(moment(result3.data.date_de_naissance), "years")} ans` };
+
       templater.generate_arret_de_travail(
         data,
+        qr_code,
         `/mnt/data/arret_de_travail_${reference}.pdf`
       );
     } catch (err) {
       logger.error("database-error: " + err);
     }
   }
+}
+
+
+const crypto = require('crypto');
+function sign(data){
+  // Create a SHA-256 hash of the JSON string
+  const hash = crypto.createHash('sha256');
+  hash.update(data);
+  const hashedData = hash.digest('base64');
+
+  // Sign the hash using the private key
+  const signature = crypto.sign('sha256', Buffer.from(hashedData), {
+    key: process.env.QR_CODE_PRIVATE_KEY,
+    padding: crypto.constants.RSA_PKCS1_PADDING,
+    saltLength: crypto.constants.RSA_PSS_SALTLEN_DIGEST,
+  });
+  
+  // Base64 for easier transmission and return
+  return signature.toString('base64');
 }
 
 /******** EXPORTS ********/

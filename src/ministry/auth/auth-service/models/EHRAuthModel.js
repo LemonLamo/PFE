@@ -18,11 +18,10 @@ class EHRAuthModel {
         return results;
     }
 
-    async isAuthorized(medecin, patient, motif) {
+    async isAuthorized(medecin, patient) {
         const [results] = await db.query(`SELECT * FROM ehr_autorisations WHERE
-        motif=? AND
         medecin=? AND patient=? AND
-        ((NOW() >= created_at AND expired_at IS NULL) OR (NOW() >= created_at AND NOW() <= expired_at))`, [motif, medecin, patient]);
+        ((NOW() >= created_at AND expired_at IS NULL) OR (NOW() >= created_at AND NOW() <= expired_at))`, [medecin, patient]);
         return results[0]
     }
 
@@ -39,13 +38,14 @@ class EHRAuthModel {
         }
     }
     
-    async expire(medecin, patient, motif){
-        const [results] = motif?
-                            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif=?', [medecin, patient, motif]):
-                            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=?', [medecin, patient]);
+    async expire(medecin, patient, urgence){
+        const [results] = urgence==1?
+            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif="Urgence"', [medecin, patient, motif]):
+            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif!="Urgence"', [medecin, patient]);
         if (results.affectedRows < 1)
             throw new Error({ code: "ER_UPDATE_FAIL" })
     }
+    
     async expireByID(id) {
         const [results] = await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE id=?', [id]);
         if (results.affectedRows < 1)

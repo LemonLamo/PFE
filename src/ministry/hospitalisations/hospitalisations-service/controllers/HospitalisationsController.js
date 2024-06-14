@@ -127,7 +127,7 @@ class HospitalisationsController {
       const result = await Model.addSortie(id, mode_sortie, date_sortie);
       
       // Revoque auth
-      await axios.post("http://auth-service/api/auth/authorisations/expire", { medecin, patient, motif:"Hospitalisation"}, { headers: { Authorization: req.headers.authorization } });
+      axios.post("http://auth-service/api/auth/authorisations/expire", { medecin: NIN, patient: precheck.patient, urgence: 0}, { headers: { Authorization: req.headers.authorization } });
       
       return res.status(200).json(result);
     } catch (err) {

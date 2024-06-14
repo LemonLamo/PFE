@@ -2,15 +2,12 @@ const { db } = require("../config/database");
 const logger = require("../utils/logger");
 
 class SpecialitesModel {
-    async getAll(search) {
+    async getAll() {
         try {
-            const [results] = await db.query(
-                "SELECT * FROM `Specialites` WHERE specialite LIKE ? LIMIT 20",
-                ["%" + search + "%"]
-            );
+            const [results] = await db.query("SELECT * FROM `specialites` WHERE specialite");
             return results;
         } catch (error) {
-            logger.error("Error fetching Specialites:", error);
+            logger.error("Error fetching specialites:", error);
             throw error;
         }
     }
@@ -18,12 +15,12 @@ class SpecialitesModel {
     async getOne(specialite) {
         try {
             const [results] = await db.query(
-                "SELECT * FROM `Specialites` WHERE `specialite`=?",
+                "SELECT * FROM `specialites` WHERE `specialite`=?",
                 [specialite]
             );
             return results;
         } catch (error) {
-            logger.error("Error fetching Specialites:", error);
+            logger.error("Error fetching specialites:", error);
             throw error;
         }
     }
@@ -31,12 +28,12 @@ class SpecialitesModel {
     async selectByCodes(codes_Specialites) {
         try {
             const [results] = await db.query(
-                "SELECT * FROM `Specialites` WHERE `specialite` IN (?)",
+                "SELECT * FROM `specialites` WHERE `specialite` IN (?)",
                 [codes_Specialites]
             );
             return results;
         } catch (error) {
-            logger.error("Error fetching Specialites:", error);
+            logger.error("Error fetching specialites:", error);
             throw error;
         }
     }

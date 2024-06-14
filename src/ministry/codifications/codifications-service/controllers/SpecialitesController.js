@@ -5,14 +5,11 @@ const Model = require("../models/SpecialitesModel");
 class SpecialitesController {
     async select(req, res) {
         try {
-            const { search } = req.query;
-            const result = await Model.getAll(search);
+            const result = await Model.getAll();
             return res.status(200).json(result);
         } catch (err) {
             logger.error("database-error: " + err);
-            return res
-                .status(400)
-                .json({ errorCode: "database-error", errorMessage: err.code });
+            return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
         }
     }
     async selectOne(req, res) {

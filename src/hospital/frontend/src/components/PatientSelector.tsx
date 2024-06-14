@@ -40,10 +40,10 @@ function PatientsSelector({step, setStep, patient, select_patient, motif} : Prop
     async function request_auth(){
         try{
             await requestEHRAuth(patient.NIN!, motif);
-            showAlert("success", `Patient ${patient.nom} ${patient.prenom} has authorized you, congrats!`)
+            showAlert("success", `Patient ${patient.nom} ${patient.prenom} vous a autorisé pour lire son DEM`)
             setStep(2);
         }catch(err){
-            showAlert("error", `Patient ${patient.nom} ${patient.prenom} has not authorized you, sadge!`)
+            showAlert("error", `Patient ${patient.nom} ${patient.prenom} vous n'a pas autorisé pour lire son DEM`)
         }
     }
     return (
