@@ -98,8 +98,8 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
   
   return (
     <>
-      <h3 className="text-lg mb-0">Historique médicale</h3>
-      <p className="mb-4">Ci-dessous un apperçu des consultations, hospitalisations et interventions subis par le patient.</p>
+      <h3 className="text-lg mb-0">Historique médical</h3>
+      <p className="mb-4">Ci-dessous un apperçu des consultations, des hospitalisations et des interventions du patient.</p>
         {
           historique.isError ? 
             <div className="block w-full ">

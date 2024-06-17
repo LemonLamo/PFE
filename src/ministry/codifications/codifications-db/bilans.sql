@@ -38,7 +38,6 @@ INSERT INTO `bilans` (`code_bilan`, `designation`) VALUES
 ('QA00.8', 'Examen dentaire'),
 ('QA00.9', 'Examen gynécologique'),
 ('QA00.A', 'Tests cutanés ou autres tests de sensibilisation'),
-('QA00.B', 'Examen radiologique'),
 ('QA00.C', 'Examen de laboratoire'),
 ('QA00.D', 'Recours au service de santé pour la détermination du groupe sanguin'),
 ('QA00.E', 'Recours au service de santé pour examen de la réponse anticorps'),

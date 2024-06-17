@@ -53,7 +53,7 @@ type Intervention = {
   hopital: string;
   service: string;
   date?: Date;
-  protocole_operatoire?: string;
+  protocole_operatoire?: string;  
   remarques?: string;
 };
 type InterventionCode = {
