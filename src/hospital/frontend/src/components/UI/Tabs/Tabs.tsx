@@ -1,14 +1,14 @@
-import { ReactNode, useState } from "react"
+import { ReactNode } from "react"
 
 type TabsProps = {
     type?: string,
     children: ReactNode,
     keepVisible?: boolean,
+    selected: number,
+    setSelected: React.Dispatch<React.SetStateAction<number>>
 }
 
-function Tabs({type="vertical", children, keepVisible=false} : TabsProps) {
-    const [selected, setSelected] = useState(0);
-    
+function Tabs({ type = "vertical", children, keepVisible = false, selected, setSelected} : TabsProps) {    
     const activeStyle = 'text-cyan-500 hover:text-cyan-600 border-cyan-500 hover:border-cyan-600'
     const inactiveStyle = 'text-gray-600 hover:text-gray-600 hover:border-gray-300 hover:border-gray-500'
     return (

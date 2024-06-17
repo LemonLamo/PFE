@@ -60,7 +60,7 @@ function Sidebar({ setOpen }: SidebarProps) {
           <ShowOnlyIfRole roles={['medecin']}>
             <SidebarHeader text="Consultations" />
             <SidebarButton text="Nouvelle consultation" icon="fa fa-folder-plus" route="/consultations/new" closeSidebar={setOpen}/>
-            <SidebarButton text="Mes patients" icon="fa fa-user" route="/patients" closeSidebar={setOpen}/>
+            <SidebarButton text="Patients en attente" icon="fa fa-user" route="/patients" closeSidebar={setOpen}/>
             <SidebarButton text="Mes rendez-vous" icon="fa fa-calendar-days" route="/rendez-vous" closeSidebar={setOpen}/>
 
             <SidebarHeader text="Hospitalisations" />

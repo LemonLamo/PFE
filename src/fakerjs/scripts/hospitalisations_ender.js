@@ -5,14 +5,15 @@ const { custom_random, random_valid_jwt } = require('./utils')
 const agent = new https.Agent({ rejectUnauthorized: false})
 
 exports.fillup = async () => {
+    const session = random_valid_jwt();
     const response = await axios.get(
         `https://localhost/api/hospitalisations`,
-        {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt()}}
+        { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt }}
     );
 
     const hospitalisations = response.data;
 
-    for(let i=hospitalisations.length-1; i > 10; i--){
+    for(let i=hospitalisations.length-1; i >= 0; i--){
         let sortie = {
             mode_sortie: "Sortie",
             date_sortie: faker.date.future({years:1, refDate: hospitalisations[i].date_entree})
@@ -20,7 +21,7 @@ exports.fillup = async () => {
         await axios.post(
             `https://localhost/api/hospitalisations/${hospitalisations[i].id}/sortie`,
             sortie,
-            {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt()}}
+            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt}}
         );
     }
     

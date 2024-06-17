@@ -14,7 +14,7 @@ INSERT INTO `interventions` (`code_intervention`, `designation`) VALUES
 ('03120Z0', 'Pontage de l''artère innominée à l''artère du bras droit'),
 ('03120Z1', 'Pontage de l''artère innominée à l''artère du bras gauche'),
 ('08N23ZZ', 'Libération de la chambre antérieure droite'),
-('EAA.AD.AA', 'Biopsie de la glande pituitaire'),
+('EAAADAA', 'Biopsie de la glande pituitaire'),
 ('0U5B0ZZ', 'Réparation du rein droit, approche percutanée'),
 ('0UT90ZZ', 'Résection de la vessie, approche endoscopique'),
 ('0DTJ0ZZ', 'Excision de l''appendice, approche percutanée'),

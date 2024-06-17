@@ -7,7 +7,21 @@ const agent = new https.Agent({ rejectUnauthorized: false})
 exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
     let i=0;
     while (i < NUMBER_OF_RECORDS){
+        const session = random_valid_jwt();
         const patient = custom_random(patients);
+
+        const auth_request = {
+            medecin: session.NIN,
+            patient: patient,
+            motif: "Consultation"
+        }
+
+        await axios.post(
+            `https://localhost/api/auth/authorisations`,
+            auth_request,
+            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt } }
+        );
+
         const date = faker.date.past({years: 10});
         try{
             const consultation = {
@@ -30,7 +44,7 @@ exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
             await axios.post(
                 `https://localhost/api/consultations`,
                 consultation,
-                {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt()}}
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt}}
             );
             console.log(`Added consultation to (${patient})`)
             i++;

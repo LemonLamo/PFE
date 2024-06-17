@@ -11,13 +11,15 @@ import AlertsContext from "../../hooks/AlertsContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import PatientsSelector from "../../components/PatientSelector";
+import Button from "../../components/UI/Buttons/Button";
 
 function NouvelleInterventionPage() {
   const { showAlert } = useContext(AlertsContext);
   const navigate = useNavigate();
 
   const [step, setStep] = useState<number>(0);
-  const [patient, setPatient] = useState<Partial<Patient>>({NIN:"", nom:"", prenom:""});
+  const [patient, setPatient] = useState<Partial<Patient>>({ NIN: "", nom: "", prenom: "" });
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   function select_patient(patient: any) {
     if (patient){
@@ -56,9 +58,9 @@ function NouvelleInterventionPage() {
       <PatientsSelector step={step} setStep={setStep} patient={patient} select_patient={select_patient} motif="Intervention"/>:
       <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
         <form onSubmit={handleSubmit(onSubmit)} onReset={() => reset()}>
-          <Tabs keepVisible={true}>
+          <Tabs keepVisible={true} selected={selectedTab} setSelected={setSelectedTab}>
             <TabContent icon="fa fa-user" text="Informations Personnelles">
-              <TabInfoPersonelles NIN={patient.NIN!} />
+              <TabInfoPersonelles NIN={patient.NIN!} link={true} />
             </TabContent>
 
             <TabContent icon="fa fa-timeline" text="Historique Médicale">
@@ -71,7 +73,9 @@ function NouvelleInterventionPage() {
           </Tabs>
 
           <div className="w-full flex justify-end">
-            <button className="flex items-center justify-center py-2 px-4 bg-transparent text-sky-600 font-semibold border border-sky-600 rounded hover:bg-sky-400 hover:text-white hover:border-transparent transition ease-in duration-50 transform hover:-translate-y-1 active:translate-y-0"> Submit </button>
+            <Button type="submit" theme="primary" onClick={() => null} disabled={selectedTab < 2}>
+              Enregistrer
+            </Button>
           </div>
         </form>
       </Card>

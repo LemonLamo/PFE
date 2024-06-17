@@ -26,9 +26,9 @@ class RadiosController {
         }));
         return res.status(200).json(result);
       } else {
-        const { hopital } = req.jwt;
+        const { NIN, hopital } = req.jwt;
         const { fait } = req.query;
-        let data = await Model.getAll(hopital, fait);
+        let data = await Model.getAll(hopital, fait, NIN);
         const [patients, radios, medecins] = await Promise.all([
           fetchPatients(data),
           fetchRadios(data),
@@ -96,7 +96,8 @@ class RadiosController {
   async addResults(req, res) {
     try {
       const { id } = req.params;
-      const result = await Model.mark_as_done(id, req.files, req.body.observations);
+      const { NIN } = req.jwt;
+      const result = await Model.mark_as_done(id, NIN, req.files, req.body.observations);
 
       // notify
       const radio = await Model.getOne(id);

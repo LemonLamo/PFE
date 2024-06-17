@@ -21,6 +21,8 @@ type Props = {
 const theme = "primary";
 export default function DetailsHospitalisation({ isOpen, close, selectedHospitalisation }: Props) {
   const [hospitalisation, setHospitalisation] = useState<Hospitalisation>(selectedHospitalisation);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  
   useEffect(() => {
     if(!selectedHospitalisation.id) return
     axios.get(`${baseURL}/api/hospitalisations/${selectedHospitalisation.id}`).then((response) => {
@@ -158,7 +160,7 @@ export default function DetailsHospitalisation({ isOpen, close, selectedHospital
           </div>
         </div>
       </fieldset>
-      <Tabs type="horizontal">
+      <Tabs type="horizontal" selected={selectedTab} setSelected={setSelectedTab}>
         <TabContent icon="fa fa-stethoscope" text="Examens Cliniques">
           <TabExamenClinique reference={hospitalisation.id} />
         </TabContent>

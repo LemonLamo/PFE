@@ -44,7 +44,7 @@ const BilansModel = require("./models/BilansModel");
 
 // Prescriptions
 app.get("/api/prescriptions", auth.requireAuth, PrescriptionsController.select);
-app.get("/api/prescriptions/ordonnances/:id", OrdonnancesController.select); //TODO: add requireauth back
+app.get("/api/prescriptions/ordonnances/:id", OrdonnancesController.select);
 app.get("/api/prescriptions/arret-de-travail/:id", OrdonnancesController.select2);
 app.get("/api/prescriptions/:id", auth.requireAuth, PrescriptionsController.select);
 
@@ -129,7 +129,7 @@ RabbitConnection.on("radios_create", async (data) => {
         jwt.hopital,
         reference,
         r.code_radio,
-        r.date,
+        new Date(),
         r.remarques
       )
     )
@@ -148,7 +148,7 @@ RabbitConnection.on("bilans_create", async (data) => {
         jwt.hopital,
         reference,
         b.code_bilan,
-        b.date,
+        new Date(),
         b.remarques
       )
     )

@@ -13,9 +13,6 @@ CREATE TABLE `maladies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
-  ('75120Z0', 'Diabètes', 1),
-  ('21120Z1', 'Grippe', 0),
-  ('98N23ZZ', 'Hypertension', 1);
   ('1A00', 'Choléra', 0),
   ('1A01', 'Infection intestinale due à d’autres Vibrio', 0),
   ('1A02', 'Infections intestinales dues à Shigella', 0),
@@ -32,7 +29,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1A07.0', 'Péritonite typhoïde', 0),
   ('1A07.Y', 'Autres fièvres typhoïdes', 0),
   ('1A07.Z', 'Fièvre typhoïde, sans précision', 0),
-  ('1A08', 'Fièvre paratyphoïde', 0);
+  ('1A08', 'Fièvre paratyphoïde', 0),
   ('1A09', 'Infections dues à d’autres Salmonella', 0),
   ('1A0Y', 'Autres infections intestinales bactériennes', 0),
   ('1A0Z', 'Infections intestinales bactériennes, sans précision', 0),
@@ -50,7 +47,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1A23', 'Entérite à Norovirus', 0),
   ('1A24', 'Infections intestinales dues à Cytomégalovirus', 0),
   ('1A2Y', 'Autres infections intestinales virales', 0),
-  ('1A2Z', 'Infections intestinales virales, sans précision', 0);
+  ('1A2Z', 'Infections intestinales virales, sans précision', 0),
   ('1A30', 'Infections dues à Balantidium coli', 0),
   ('1A31', 'Giardiase', 0),
   ('1A32', 'Cryptosporidiose', 0),
@@ -69,7 +66,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1A36.1Y', 'Autres infections extra-intestinales dues à Entamoeba', 0),
   ('1A36.Z', 'Amibiase, sans précision', 0),
   ('1A3Y', 'Autres infections intestinales à protozoaires', 0),
-  ('1A3Z', 'Infections intestinales à protozoaires, sans précision', 0);
+  ('1A3Z', 'Infections intestinales à protozoaires, sans précision', 0),
   ('1A40.0', 'Gastroentérite ou colite sans origine précisée', 0),
   ('1F23.2', 'Candidose du tractus gastro-intestinal', 0),
   ('1F20.0', 'Aspergillose invasive du tube digestif', 0),
@@ -84,7 +81,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1A93', 'Infestations sexuellement transmissibles', 0),
   ('1G04.0', 'Gale classique', 0),
   ('1G04.1', 'Gale croûteuse', 0),
-  ('1G04.Y', 'Autres gale', 0);
+  ('1G04.Y', 'Autres gale', 0),
   ('1A94', 'Infection herpétique à Herpes simplex', 0),
   ('1A94.0', 'Infection à Herpes simplex des organes génitaux ou du tractus urogénital', 0),
   ('1A94.1', 'Infection à Herpes simplex de la peau périnéale ou du rectum', 0),
@@ -93,8 +90,8 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1A95.0', 'Verrues anales', 0),
   ('1A95.1', 'Verrues génitales', 0),
   ('1A95.2', 'Condylomes acuminés extragénitaux', 0),
-  ('1A95.Z', 'Verrues anogénitales, sans précision', 0);
-   ('1B10', 'Tuberculose du système respiratoire', 1),
+  ('1A95.Z', 'Verrues anogénitales, sans précision', 0),
+  ('1B10', 'Tuberculose du système respiratoire', 1),
   ('1B10.0', 'Tuberculose respiratoire confirmée', 1),
   ('1B10.1', 'Tuberculose respiratoire non-confirmée', 1),
   ('1B10.Z', 'Tuberculose respiratoire, sans mention de confirmation bactériologique ou histologique', 1),
@@ -113,7 +110,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1B12.4Y', 'Autres tuberculoses du système musculosquelettique', 1),
   ('1B12.4Z', 'Tuberculose du système musculosquelettique, sans précision', 1),
   ('1B12.5', 'Tuberculose du système génito-urinaire', 1),
-  ('1B12.6', 'Lymphadénopathie périphérique tuberculeuse', 1);
+  ('1B12.6', 'Lymphadénopathie périphérique tuberculeuse', 1),
   ('1B12.7', 'Tuberculose du système digestif', 1),
   ('1B12.8', 'Tuberculose cutanée', 1),
   ('1B13', 'Tuberculose miliaire', 1),
@@ -129,8 +126,8 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C60.2', 'Maladie à VIH stade clinique 3 associée à la tuberculose', 1),
   ('1C60.3', 'Maladie à VIH stade clinique 4 associée à la tuberculose', 1),
   ('1B1Y', 'Autres tuberculose', 1),
-  ('1B1Z', 'Tuberculose, sans précision', 1);
-   ('1B20', 'Lèpre', 1),
+  ('1B1Z', 'Tuberculose, sans précision', 1),
+  ('1B20', 'Lèpre', 1),
   ('1B20.0', 'Lèpre paucibacillaire', 1),
   ('1B20.1', 'Lèpre multibacillaire', 1),
   ('1B20.2', 'Réactions de la lèpre', 1),
@@ -148,7 +145,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1B50', 'Scarlatine', 0),
   ('1B51', 'Pharyngite à streptocoques', 0),
   ('1B53', 'Méningite due aux streptocoques', 0),
-  ('1B54', 'Méningite due aux staphylocoques', 0);
+  ('1B54', 'Méningite due aux staphylocoques', 0),
   ('1B70', 'Cellulite bactérienne, érysipèle ou lymphangite', 0),
   ('1B70.0', 'Érysipèle', 0),
   ('1B70.1', 'Cellulite streptococcique de la peau', 0),
@@ -171,7 +168,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1B73.1', 'Ecthyma staphylococcique', 0),
   ('1B73.2', 'Ecthyma gangreneux', 0),
   ('1B73.Y', 'Autres ecthyma', 0),
-  ('1B73.Z', 'Ecthyma, sans précision', 0);
+  ('1B73.Z', 'Ecthyma, sans précision', 0),
   ('1B74', 'Folliculite bactérienne superficielle', 0),
   ('1B74.0', 'Folliculite superficielle à Staphylococcus aureus', 0),
   ('1B74.Y', 'Autres folliculite bactérienne superficielle', 0),
@@ -190,7 +187,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1B90.0', 'Spirillose', 0),
   ('1B90.1', 'Streptobacillose', 0),
   ('1B91', 'Leptospirose', 0),
-  ('1B92', 'Morve', 0);
+  ('1B92', 'Morve', 0),
   ('1B93', 'Peste', 0),
   ('1B93.0', 'Peste bubonique', 0),
   ('1B93.1', 'Peste cutanée', 0),
@@ -214,7 +211,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C10.2', 'Actinomycose cervicofaciale', 0),
   ('1C10.3', 'Actinomycose cutanée primaire', 0),
   ('1C10.Y', 'Autres actinomycose', 0),
-  ('1C10.Z', 'Actinomycose, sans précision', 0);
+  ('1C10.Z', 'Actinomycose, sans précision', 0),
   ('1C11', 'Bartonellose', 0),
   ('1C11.0', 'Maladie de Carrión', 0),
   ('1C11.00', 'Fièvre Oroya', 0),
@@ -241,7 +238,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C19', 'Légionellose', 0),
   ('1C19.0', 'Légionellose non pneumonique', 0),
   ('1C19.1', 'Maladie des légionnaires', 0),
-  ('1C19.Z', 'Légionellose, sans précision', 0);
+  ('1C19.Z', 'Légionellose, sans précision', 0),
   ('1C1A', 'Listériose', 0),
   ('1C1A.0', 'Listériose cutanée', 0),
   ('1C1A.1', 'Méningite ou méningoencéphalite listérienne', 0),
@@ -269,7 +266,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C1D.Z', 'Pian, sans précision', 0),
   ('1C1E', 'Pinta', 0),
   ('1C1E.0', 'Lésions primaires de pinta', 0),
-  ('1C1E.1', 'Lésions intermédiaires de pinta', 0);
+  ('1C1E.1', 'Lésions intermédiaires de pinta', 0),
   ('1C1E.2', 'Lésions tardives de pinta', 0),
   ('1C1E.3', 'Lésions mixtes de pinta', 0),
   ('1C1E.Z', 'Pinta, sans précision', 0),
@@ -295,7 +292,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C1J.Z', 'Fièvre récurrente, sans précision', 0),
   ('1C20', 'Conjonctivite à Chlamydia', 0),
   ('1C21', 'Péritonite à Chlamydia', 0),
-  ('1C22', 'Infections à Chlamydia psittaci', 0);
+  ('1C22', 'Infections à Chlamydia psittaci', 0),
   ('1C23', 'Trachome', 0),
   ('1C23.0', 'Stade initial du trachome', 0),
   ('1C23.1', 'Stade actif du trachome', 0),
@@ -320,7 +317,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C32', 'Rickettsiose varicelliforme due à Rickettsia akari', 0),
   ('1C33', 'Fièvre Q', 0),
   ('1C33.Y', 'Autres rickettsioses précisées', 0),
-  ('1C33.Z', 'Rickettsioses, sans précision', 0);
+  ('1C33.Z', 'Rickettsioses, sans précision', 0),
   ('1C40', 'Campylobactériose', 0),
   ('1C41', 'Infection bactérienne de localisation non précisée', 0),
   ('1C42', 'Mélioïdose', 0),
@@ -336,7 +333,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C60.0', 'Maladie à VIH stade clinique 1 associée à la tuberculose', 1),
   ('1C60.1', 'Maladie à VIH stade clinique 2 associée à la tuberculose', 1),
   ('1C60.2', 'Maladie à VIH stade clinique 3 associée à la tuberculose', 1),
-  ('1C60.3', 'Maladie à VIH stade clinique 4 associée à la tuberculose', 1);
+  ('1C60.3', 'Maladie à VIH stade clinique 4 associée à la tuberculose', 1),
   ('1C80', 'Encéphalite virale, non classée ailleurs', 0),
   ('1C81', 'Poliomyélite aiguë', 0),
   ('1C82', 'Rage', 0),
@@ -353,7 +350,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1C8F', 'Chorioméningite lymphocytaire', 0),
   ('1C8G', 'Encéphalite à tiques', 0),
   ('1C8Y', 'Autres infections virales du système nerveux central', 0),
-  ('1C8Z', 'Infections virales du système nerveux central, sans précision', 0);
+  ('1C8Z', 'Infections virales du système nerveux central, sans précision', 0),
   ('1D00', 'Encéphalite infectieuse, non classée ailleurs', 0),
   ('1D00.0', 'Encéphalite bactérienne', 0),
   ('1D00.1', 'Encéphalite fongique', 0),
@@ -376,7 +373,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1D02.Z', 'Myélite infectieuse, non classée ailleurs, sans précision', 0),
   ('1D03', 'Abcès infectieux du système nerveux central', 0),
   ('1D03.0', 'Abcès intrarachidien intramédullaire', 0),
-  ('1D03.1', 'Abcès intrarachidien sousdural', 0);
+  ('1D03.1', 'Abcès intrarachidien sousdural', 0),
   ('1E30', 'Grippe due à un virus grippal saisonnier identifié', 0),
   ('1E31', 'Grippe due à un virus zoonotique ou pandémique identifié', 0),
   ('1E32', 'Grippe, virus non identifié', 0),
@@ -395,7 +392,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1F23', 'Candidose', 0),
   ('1F23.0', 'Candidose des lèvres ou de la muqueuse buccale', 0),
   ('1F23.1', 'Candidose de la peau ou des muqueuses', 0),
-  ('1F23.2', 'Candidose du tractus gastro-intestinal', 0);
+  ('1F23.2', 'Candidose du tractus gastro-intestinal', 0),
   ('1F25', 'Coccidioïdomycose', 0),
   ('1F26', 'Conidiobolomycose', 0),
   ('1F27', 'Cryptococcose', 0),
@@ -413,7 +410,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1F2K', 'Talaromycose', 0),
   ('1F2L', 'Emmonsiose', 0),
   ('1F2Y', 'Autres infections dues à des champignons', 0),
-  ('1F2Z', 'Infections dues à des champignons, sans précision', 0);
+  ('1F2Z', 'Infections dues à des champignons, sans précision', 0),
   ('2A00', 'Tumeurs primitives du cerveau', 1),
   ('2A00.0', 'Gliomes du cerveau', 1),
   ('2A00.00', 'Glioblastome du cerveau', 1),
@@ -429,7 +426,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('2A00.21', 'Tumeurs mixtes neuronales-gliales', 1),
   ('2A00.22', 'Tumeurs des plexus choroïdes', 1),
   ('2A00.2Y', 'Autres tumeurs du tissu neuroépithélial du cerveau', 1),
-  ('2A00.2Z', 'Tumeurs du tissu neuroépithélial du cerveau, sans précision', 1);
+  ('2A00.2Z', 'Tumeurs du tissu neuroépithélial du cerveau, sans précision', 1),
   ('2A00.3', 'Neurocytome central du cerveau', 1),
   ('2A00.4', 'Astroblastome du cerveau', 1),
   ('2A00.5', 'Tumeur primitive du cerveau de type inconnu ou non précisé', 1),
@@ -438,7 +435,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('2A02.2', 'Tumeur primitive de la moelle épinière de type inconnu ou non précisé', 1),
   ('2A02.3', 'Tumeur bénigne des nerfs crâniens', 1),
   ('2A02.4', 'Tumeur bénigne de la moelle épinière', 1),
-  ('2A0Z', 'Tumeurs du cerveau ou du système nerveux central, sans précision', 1);
+  ('2A0Z', 'Tumeurs du cerveau ou du système nerveux central, sans précision', 1),
   ('3A00', 'Anémie par carence en fer', 1),
   ('3A00.0', 'Anémie ferriprive acquise due à une perte de sang', 1),
   ('3A00.1', 'Anémie ferriprive acquise due à un faible apport', 1),
@@ -452,7 +449,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('3A01.3', 'Anémie par carence en vitamine B12 due à un déficit en facteur intrinsèque', 1),
   ('3A01.4', 'Anémie par carence en vitamine B12 due à une maladie intestinale', 1),
   ('3A01.Y', 'Autres anémie mégaloblastique due à une carence en vitamine B12', 1),
-  ('3A01.Z', 'Anémie mégaloblastique due à une carence en vitamine B12, sans précision', 1);
+  ('3A01.Z', 'Anémie mégaloblastique due à une carence en vitamine B12, sans précision', 1),
   ('3A02', 'Anémie par carence en acide folique', 1),
   ('3A03', 'Autres anémies nutritionnelles ou métaboliques', 1),
   ('3A10', 'Anémie hémolytique héréditaire', 1),
@@ -471,7 +468,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('3A70.1', 'Aplasies médullaires acquises', 1),
   ('3A70.Z', 'Aplasie médullaire, sans précision', 1),
   ('3A71', 'Anémie due à une maladie chronique', 1),
-  ('3A72', 'Anémie sidéroblastique', 1);
+  ('3A72', 'Anémie sidéroblastique', 1),
   ('3A73', 'Anémie dyserythropoïétique congénitale', 1),
   ('3A90', 'Anémie due à une maladie aiguë', 1),
   ('3A91', 'Méthémoglobinémie congénitale', 1),
@@ -485,7 +482,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('3B62', 'Anomalies qualitatives des plaquettes', 1),
   ('3B63', 'Thrombocytose', 1),
   ('3B64', 'Thrombocytopénie', 1),
-  ('3B65', 'Microangiopathie thrombotique, non classée ailleurs', 1);
+  ('3B65', 'Microangiopathie thrombotique, non classée ailleurs', 1),
   ('4A20', 'Déficits immunitaires acquis', 1),
   ('4A40', 'Lupus érythémateux', 1),
   ('4A41', 'Myopathie inflammatoire idiopathique', 1),
@@ -499,7 +496,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('4A6Y', 'Autres troubles auto-inflammatoires', 1),
   ('4A6Z', 'Troubles auto-inflammatoires, sans précision', 1),
   ('4A80', 'Troubles allergiques ou dhypersensibilité intéressant les voies respiratoires', 1),
-  ('4A81', 'Troubles allergiques ou dhypersensibilité intéressant les yeux', 1);
+  ('4A81', 'Troubles allergiques ou dhypersensibilité intéressant les yeux', 1),
   ('4A82', 'Troubles allergiques ou dhypersensibilité de la peau ou des muqueuses', 1),
   ('4A83', 'Troubles allergiques ou dhypersensibilité du tractus gastro-intestinal', 1),
   ('4A84', 'Anaphylaxie', 1),
@@ -511,7 +508,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('4B04', 'Diminution anormale du taux de monocytes', 1),
   ('4B05', 'Augmentation anormale du taux de monocytes', 1),
   ('4B06', 'Lymphopénie acquise', 1),
-  ('4B07', 'Lymphocytose acquise', 1);
+  ('4B07', 'Lymphocytose acquise', 1),
   ('4B4Y', 'Autres maladies précisées du système immunitaire', 1),
   ('4B4Z', 'Maladies du système immunitaire, sans précision', 1),
   ('6A60', 'Trouble bipolaire de type I', 1),
@@ -527,13 +524,7 @@ INSERT INTO `maladies` (`code_maladie`, `designation`, `chronique`) VALUES
   ('1F05.0', 'Stomatite vésiculaire due à un entérovirus', 1),
   ('1F05.3', 'Fièvre aphteuse', 1),
   ('1F05', 'Infections à Picornavirus se manifestant au niveau de la peau ou des muqueuses', 1),
-  ('EA0Y', 'Autres exanthèmes viraux', 1);
-  ('15', 'Maladies du système musculosquelettique ou du tissu conjonctif',0),
-  ('17', 'Affections liées à la santé sexuelle',0),
-  ('18', 'Grossesse, accouchement ou puerpéralité',0),
-  ('20', 'Anomalies du développement'),
-  ('22', 'Lésions traumatiques, intoxications ou certaines autres conséquences de causes externes'),
-  ('23', 'Causes externes de morbidité ou de mortalité'),
+  ('EA0Y', 'Autres exanthèmes viraux', 1),
   ('RA01', 'COVID-19', 1),
   ('RA01.0', 'COVID-19, virus identifié', 1),
   ('RA01.1', 'COVID-19, virus non identifié', 1),

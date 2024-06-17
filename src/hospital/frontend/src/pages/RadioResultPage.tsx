@@ -10,7 +10,8 @@ import { useState } from 'react';
 
 function RadioResultPage() {
     const { id } = useParams();
-    const [ observations, setObservations ] = useState('')
+    const [observations, setObservations] = useState('');
+    const [selectedTab, setSelectedTab] = useState<number>(0);
 
     const radios = useQuery({
         queryKey: ["radios"+id],
@@ -22,7 +23,7 @@ function RadioResultPage() {
     })
 
     return (
-        <Tabs>
+        <Tabs selected={selectedTab} setSelected={setSelectedTab}>
             {
                 radios.isError?
                 <TableError />:

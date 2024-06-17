@@ -45,9 +45,6 @@ export default function AjouterBilan({isOpen, close, action}: Props) {
                     <label className="font-semibold text-slate-700 text-sm col-span-2">Bilan<span className="text-red-500">*</span></label>
                     <Select<BilanCode> url="bilans" code="code_bilan" designation="designation" placeholder="Bilan" onChange={select_bilan} className={`col-span-4 primary ${errors.code_bilan && 'has-error'}`}/>
 
-                    <label className="font-semibold text-slate-700 text-sm col-span-2">Date<span className="text-red-500">*</span></label>
-                    <input type="datetime-local" placeholder="Date" className={`col-span-4 primary ${errors.date && 'has-error'}`} {...register("date", {required: true})} />
-
                     <label className="font-semibold text-slate-700 text-sm col-span-2 self-start">Remarques</label>
                     <textarea rows={5} placeholder="Remarques" className={`col-span-4 primary ${errors.remarques && 'has-error'}`} {...register("remarques", {required: false})} />
                 </div>

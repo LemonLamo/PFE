@@ -3,12 +3,12 @@ const logger = require("../utils/logger");
 
 class BilansModel {
   validationRules = {};
-  async getAll(hopital, fait) {
+  async getAll(hopital, fait, NIN) {
     try {
       const [results] = !fait?
                         await db.query("SELECT * FROM `bilans` WHERE `hopital`=? ORDER BY `date` DESC", [hopital]):
                         (fait == 1)?
-                        await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND `date_fait` IS NOT NULL ORDER BY `date` DESC", [hopital]):
+                        await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND `date_fait` IS NOT NULL AND `fait_par`=? ORDER BY `date` DESC", [hopital, NIN]):
                         await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND `date_fait` IS NULL ORDER BY `date` DESC", [hopital]);
       return results;
     } catch (error) {
@@ -54,11 +54,11 @@ class BilansModel {
     }
   }
 
-  async mark_as_done(id, files, observations) {
+  async mark_as_done(id, NIN, files, observations) {
     try {
       const [results] = await db.query(
-        "UPDATE `bilans` SET `date_fait`=NOW(), `observations`=? WHERE `id`=?",
-        [observations, id]
+        "UPDATE `bilans` SET `date_fait`=NOW(), `observations`=?, `fait_par`=? WHERE `id`=?",
+        [observations, NIN, id]
       );
       for (let file of files)
         await db.query("INSERT `bilans_files`(`id`, `file`) VALUES (?, ?)", [

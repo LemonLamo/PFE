@@ -7,7 +7,21 @@ const agent = new https.Agent({ rejectUnauthorized: false})
 exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
     let i=0;
     while (i < NUMBER_OF_RECORDS){
+        const session = random_valid_jwt();
         const patient = custom_random(patients);
+
+        const auth_request = {
+            medecin: session.NIN,
+            patient: patient,
+            motif: "Hospitalisation"
+        }
+
+        await axios.post(
+            `https://localhost/api/auth/authorisations`,
+            auth_request,
+            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt } }
+        );
+
         try{
             const hospitalisation = {
                 patient: patient,
@@ -21,7 +35,7 @@ exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
             await axios.post(
                 `https://localhost/api/hospitalisations`,
                 hospitalisation,
-                {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt()}}
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt}}
             );
             console.log(`Added hospitalisation to (${patient})`)
             i++;

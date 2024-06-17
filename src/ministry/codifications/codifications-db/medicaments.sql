@@ -10,7 +10,7 @@ CREATE TABLE `medicaments` (
   `DCI` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO medicaments (DCI,code_medicament) VALUES
+INSERT INTO medicaments (DCI, code_medicament) VALUES
 ('Paracetamol', 'N02BE01'),
 ('Propranolol', 'C07AB02'),
 ('Omeprazole', 'A02BC01'),

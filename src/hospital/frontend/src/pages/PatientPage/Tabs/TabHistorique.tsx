@@ -11,12 +11,14 @@ import DetailsHospitalisation from "../Modals/DetailsHospitalisation";
 import DetailsIntervention from "../Modals/DetailsIntervention";
 import { useState } from "react";
 import Button from "../../../components/UI/Buttons/Button";
+import { Link } from "react-router-dom";
 
 type TabHistoriqueProps = {
-  NIN: string
+  NIN: string,
+  link?: boolean
 }
 
-export function TabHistorique({NIN} : TabHistoriqueProps) {
+export function TabHistorique({ NIN, link = false } : TabHistoriqueProps) {
   const [openModal, setOpenModal] = useState("");
   const [selectedConsultation, setSelectedConsultation] = useState<Consultation>();
   const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>();
@@ -98,8 +100,18 @@ export function TabHistorique({NIN} : TabHistoriqueProps) {
   
   return (
     <>
-      <h3 className="text-lg mb-0">Historique médicale</h3>
-      <p className="mb-4">Ci-dessous un apperçu des consultations, hospitalisations et interventions subis par le patient.</p>
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <h2 className="text-lg mb-0">Historique médical</h2>
+          <p className="leading-normal mb-0">Ci-dessous un apperçu des consultations, hospitalisations et interventions subis par le patient.</p>
+        </div>
+        {link &&
+          <Link to={`/patients/${NIN}`} target="_blank" className={`flex items-center justify-center py-2 px-4 font-semibold transition border text-cyan-500 border-cyan-500 rounded hover:bg-cyan-500 hover:text-white`}>
+            <i className="fa fa-magnifying-glass" />
+            Consulter DME
+          </Link>
+        }
+      </div>
         {
           historique.isError ? 
             <div className="block w-full ">

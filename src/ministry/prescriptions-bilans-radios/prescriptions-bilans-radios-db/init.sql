@@ -38,11 +38,12 @@ CREATE TABLE `radios` (
   `code_radio` VARCHAR(255) NOT NULL,
   `date` TIMESTAMP NOT NULL,
   `remarques` VARCHAR(255),
-  `date_fait` TIMESTAMP,
   `observations` VARCHAR(255),
   `medecin` VARCHAR(20) NOT NULL,
   `hopital` VARCHAR(255) NOT NULL,
   `service` VARCHAR(255) NOT NULL,
+  `date_fait` TIMESTAMP,
+  `fait_par` VARCHAR(20),
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -70,11 +71,12 @@ CREATE TABLE `bilans` (
   `code_bilan` VARCHAR(255) NOT NULL,
   `date` TIMESTAMP NOT NULL,
   `remarques` VARCHAR(255),
-  `date_fait` TIMESTAMP,
   `observations` VARCHAR(255),
   `medecin` VARCHAR(20) NOT NULL,
   `hopital` VARCHAR(255) NOT NULL,
   `service` VARCHAR(255) NOT NULL,
+  `date_fait` TIMESTAMP,
+  `fait_par` VARCHAR(20),
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

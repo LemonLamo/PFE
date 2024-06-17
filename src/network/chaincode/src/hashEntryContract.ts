@@ -65,4 +65,21 @@ export class HashEntryContract extends Contract {
         const entry : HashEntry = { ID, hash, author, timestamp };
         await ctx.stub.putState(ID, Buffer.from(stringify(sortKeysRecursive(entry))));
     }
+
+    @Transaction()
+    public async DeleteAll(ctx: Context): Promise<void> {
+        // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.
+        const iterator = await ctx.stub.getStateByRange('', '');
+        let result = await iterator.next();
+        while (!result.done) {
+            const strValue = Buffer.from(result.value.value.toString()).toString('utf8');
+            try {
+                const record = JSON.parse(strValue);
+                ctx.stub.deleteState(record.ID);
+            } catch (err) {
+                console.log(err);
+            }
+            result = await iterator.next();
+        }
+    }
 }

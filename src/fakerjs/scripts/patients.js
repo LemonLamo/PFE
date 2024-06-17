@@ -10,6 +10,7 @@ exports.fillup = async (NUMBER_OF_RECORDS) => {
     let i=0;
     const patients = []
     while (i < NUMBER_OF_RECORDS){
+        const session = random_valid_jwt();
         try{
             const patient = {
                 NIN: "1000"+Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join(''),
@@ -40,7 +41,7 @@ exports.fillup = async (NUMBER_OF_RECORDS) => {
             await axios.post(
                 `https://localhost/api/patients`,
                 data,
-                {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt(), 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt, 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
             );
             console.log(`Added ${patient.nom} ${patient.prenom} (${patient.NIN})`)
             patients.push(patient.NIN);

@@ -5,12 +5,14 @@ import TableError from "../../../components/UI/Tables/TableError";
 import TableLoading from "../../../components/UI/Loading";
 import { baseURL } from "../../../config";
 import Avatar from "../../../components/Avatar";
+import { Link } from "react-router-dom";
 
 type Props = {
   NIN: string;
+  link?: boolean;
 };
 
-function TabInfoPersonelles({ NIN }: Props) {
+function TabInfoPersonelles({ NIN, link = false }: Props) {
   const profile = useQuery<Patient>({
     queryKey: ["patient" + NIN],
     queryFn: async () => {
@@ -21,8 +23,18 @@ function TabInfoPersonelles({ NIN }: Props) {
 
   return (
     <>
-      <h3 className="text-lg mb-0">Informations personnelles</h3>
-      <p className="mb-4">Ci-dessous les informations civiles et personnelles du patient</p>
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <h2 className="text-lg mb-0">Informations personnelles</h2>
+          <p className="leading-normal mb-0">Ci-dessous les informations civiles et personnelles du patient</p>
+        </div>
+        {link && 
+          <Link to={`/patients/${NIN}`} target="_blank" className={`flex items-center justify-center py-2 px-4 font-semibold transition border text-cyan-500 border-cyan-500 rounded hover:bg-cyan-500 hover:text-white`}>
+            <i className="fa fa-magnifying-glass" />
+            Consulter DME
+          </Link>
+        }
+      </div>
       <div className="flex flex-row gap-x-8 w-full mb-3">
         {profile.isError ? (
           <TableError msg={(profile.error as any).response.data?.errorMessage} />

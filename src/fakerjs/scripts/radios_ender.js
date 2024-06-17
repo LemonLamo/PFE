@@ -7,14 +7,15 @@ const agent = new https.Agent({ rejectUnauthorized: false})
 const FormData = require('form-data');
 
 exports.fillup = async () => {
+    const session = random_valid_jwt();
     const response = await axios.get(
         `https://localhost/api/radios`,
-        {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt()}}
+        { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt}}
     );
 
     const radios = response.data;
 
-    for(let i=radios.length-1; i > 10; i--){
+    for(let i=radios.length-1; i >= 0; i--){
         let data = new FormData();
         let count = custom_random([1, 2, 3]);
         for(let j=0; j<count; j++)
@@ -24,7 +25,7 @@ exports.fillup = async () => {
         await axios.post(
             `https://localhost/api/radios/${radios[i].id}`,
             data,
-            {httpsAgent: agent, headers: {"Authorization": "Bearer " + random_valid_jwt(), 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
+            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt, 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
         );
     }
     

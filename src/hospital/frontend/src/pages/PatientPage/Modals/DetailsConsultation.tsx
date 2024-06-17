@@ -21,6 +21,7 @@ type Props = {
 
 export default function DetailsConsultation({isOpen, close, selectedConsultation}: Props) {
   const [consultation, setConsultation] = useState<Consultation>(selectedConsultation);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   useEffect(()=>{
     axios.get(`${baseURL}/api/consultations/${selectedConsultation.id}`).then((response)=>{
       setConsultation(response.data)
@@ -153,7 +154,7 @@ export default function DetailsConsultation({isOpen, close, selectedConsultation
         </div>
       </fieldset>
 
-      <Tabs type="horizontal">
+      <Tabs type="horizontal" selected={selectedTab} setSelected={setSelectedTab}>
         <TabContent icon="fa fa-stethoscope" text="Examens Cliniques">
           <TabExamenClinique reference={consultation.id} />
         </TabContent>

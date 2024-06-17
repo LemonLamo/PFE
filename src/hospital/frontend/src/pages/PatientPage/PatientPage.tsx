@@ -10,14 +10,16 @@ import TabAntecedentsFamiliaux from "./Tabs/TabAntecedentsFamiliaux";
 import TabMedicaments from "./Tabs/TabMedicaments";
 import TabVaccinations from "./Tabs/TabVaccinations";
 import TabHistorique from "./Tabs/TabHistorique";
+import { useState } from "react";
 
 function PatientPage() {
   const { NIN } = useParams();
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   return (
     <Card title={`Dossier médicale N°${NIN}`} className="w-full">
       <TabInfoPersonelles NIN={NIN!} />
-      <Tabs type="horizontal">
+      <Tabs type="horizontal" selected={selectedTab} setSelected={setSelectedTab}>
         <TabContent icon="fa fa-timeline" text="Historique">
           <TabHistorique NIN={NIN!} />
         </TabContent>

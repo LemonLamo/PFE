@@ -10,7 +10,8 @@ import { useState } from 'react';
 
 function BilanResultPage() {
     const { id } = useParams();
-    const [ observations, setObservations ] = useState('')
+    const [observations, setObservations] = useState('')
+    const [selectedTab, setSelectedTab] = useState<number>(0);
 
     const bilans = useQuery({
         queryKey: ["bilans"+id],
@@ -22,7 +23,7 @@ function BilanResultPage() {
     })
 
     return (
-        <Tabs>
+        <Tabs selected={selectedTab} setSelected={setSelectedTab}>
             {
                 bilans.isError?
                 <TableError />:

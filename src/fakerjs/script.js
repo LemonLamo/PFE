@@ -6,7 +6,7 @@ const radios_ender = require('./scripts/radios_ender');
 const bilans_ender = require('./scripts/bilans_ender');
 const interventions = require('./scripts/interventions');
 
-const NUMBER_OF_RECORDS = 10
+const NUMBER_OF_RECORDS = 1
 function randomCloseBy(number) {
   const min = number * 0.9; // 90% of the number
   const max = number;       // 100% of the number
@@ -20,7 +20,7 @@ async function main(){
     await bilans_ender.fillup(); // Ends all bilans but 5
 
     await hospitalisations.fillup(randomCloseBy(NUMBER_OF_RECORDS*3), patientsList);
-    await hospitalisations_ender.fillup(); // Ends all hospitalisations but 5
+    await hospitalisations_ender.fillup(); // Ends all hospitalisations
 
     await interventions.fillup(randomCloseBy(NUMBER_OF_RECORDS*3), patientsList);
 }

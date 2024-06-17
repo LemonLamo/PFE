@@ -45,9 +45,6 @@ export default function AjouterExamenClinique({isOpen, close, action}: Props) {
                     <label className="font-semibold text-slate-700 text-sm col-span-2">Examen clinique<span className="text-red-500">*</span></label>
                     <Select<ExamenCliniqueCode> url="examens-cliniques" code="code_examen_clinique" designation="designation" placeholder="Examen Clinique" onChange={select_examen_clinique} className={`col-span-4 primary ${errors.code_examen_clinique && 'has-error'}`}/>
 
-                    <label className="font-semibold text-slate-700 text-sm col-span-2">Date<span className="text-red-500">*</span></label>
-                    <input type="datetime-local" placeholder="Date" className={`col-span-4 primary ${errors.date && 'has-error'}`} {...register("date", {required: true})} />
-
                     <label className="font-semibold text-slate-700 text-sm col-span-2">Résultat<span className="text-red-500">*</span></label>
                     <input type="text" placeholder="Résultat" className={`col-span-4 primary ${errors.resultat && 'has-error'}`} {...register("resultat", {required: true})} />
 
