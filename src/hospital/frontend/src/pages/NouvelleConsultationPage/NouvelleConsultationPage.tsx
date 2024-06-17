@@ -91,14 +91,14 @@ function NouvelleConsultationPage() {
   return (
       step < 2 ?
         <PatientsSelector step={step} setStep={setStep} patient={patient} select_patient={select_patient} motif="Consultation"/>:
-        <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full" >
+        <Card title="Nouvelle consultation" subtitle="Souhaitez vous ajouter une nouvelle consultation" className="w-full" >
           <form onSubmit={handleSubmit(onSubmit)}>
           <Tabs keepVisible={true} selected={selectedTab} setSelected={setSelectedTab}>
-            <TabContent icon="fa fa-user" text="Informations Personnelles">
-              <TabInfoPersonelles NIN={patient!.NIN!} link={true}/>
-            </TabContent>
+            <TabContent icon="fa fa-user" text="Informations personnelles">
+              <TabInfoPersonelles NIN={patient!.NIN!} />
+            </TabContent> 
 
-            <TabContent icon="fa fa-timeline" text="Historique Médicale">
+            <TabContent icon="fa fa-timeline" text="Historique Médical">
               <TabHistorique NIN={patient!.NIN!} />
             </TabContent>
 
@@ -110,13 +110,13 @@ function NouvelleConsultationPage() {
               <TabExamenClinique examens_cliniques={examens_cliniques} setExamensCliniques={setExamensCliniques} />
             </TabContent>
 
-            <TabContent icon="fa fa-user-doctor" text="Diagnostique">
+            <TabContent icon="fa fa-user-doctor" text="Diagnostic">
               <TabDiagnostique form={{register, getValues, setValue, errors}} />
             </TabContent>
 
             <TabContent icon="fa fa-hand-holding-medical" text="Prise en charge">
               <h3 className="text-lg mb-0">Prise en charge</h3>
-              <p className="mb-2">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+              <p className="mb-2">Cette section concerne la prise en charge du patient suite à la consultation.</p>
               <div className="">
                 <PerscriptionsSection state={state} updateState={updateState} prescriptions={prescriptions} setPrescriptions={setPrescriptions} />
                 <RadiologieSection state={state} updateState={updateState} radios={radios} setRadios={setRadios} />

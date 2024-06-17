@@ -103,7 +103,7 @@ export function TabHistorique({ NIN, link = false } : TabHistoriqueProps) {
       <div className="flex justify-between items-center mb-4">
         <div>
           <h2 className="text-lg mb-0">Historique médical</h2>
-          <p className="leading-normal mb-0">Ci-dessous un apperçu des consultations, hospitalisations et interventions subis par le patient.</p>
+          <p className="leading-normal mb-0">Ci-dessous un apperçu des consultations, des hospitalisations et des interventions du patient.</p>
         </div>
         {link &&
           <Link to={`/patients/${NIN}`} target="_blank" className={`flex items-center justify-center py-2 px-4 font-semibold transition border text-cyan-500 border-cyan-500 rounded hover:bg-cyan-500 hover:text-white`}>

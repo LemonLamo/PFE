@@ -47,10 +47,10 @@ function TabInfoPersonelles({ NIN, link = false }: Props) {
             </div>
             <div className="grid grid-cols-12 gap-x-2">
               <div className="col-span-3">
-                <strong className="text-slate-700">Nom:</strong>
+                <strong className="text-slate-700">Nom :</strong>
                 <p className="">{profile.data?.nom}</p>
 
-                <strong className="text-slate-700">Prénom:</strong>
+                <strong className="text-slate-700">Prénom :</strong>
                 <p className="">{profile.data?.prenom}</p>
 
                 <strong className="text-slate-700">
@@ -61,37 +61,37 @@ function TabInfoPersonelles({ NIN, link = false }: Props) {
                 </p>
               </div>
               <div className="col-span-3">
-                <strong className="text-slate-700">Age:</strong>
+                <strong className="text-slate-700">Age :</strong>
                 <p className="">
                   {profile.data?.date_de_naissance && `${moment(new Date()).diff(moment(profile.data?.date_de_naissance),"years")} ans`}
                 </p>
 
-                <strong className="text-slate-700">Sexe:</strong>
+                <strong className="text-slate-700">Sexe :</strong>
                 <p className="">{profile.data?.sexe}</p>
 
-                <strong className="text-slate-700">Situation familiale:</strong>
+                <strong className="text-slate-700">Situation familiale :</strong>
                 <p className="">{profile.data?.situation_familiale}</p>
               </div>
               <div className="col-span-4">
-                <strong className="text-slate-700">Email:</strong>
+                <strong className="text-slate-700">Email :</strong>
                 <p className="">{profile.data?.email}</p>
 
-                <strong className="text-slate-700">Téléphone:</strong>
+                <strong className="text-slate-700">Téléphone :</strong>
                 <p className="">{profile.data?.telephone}</p>
 
-                <strong className="text-slate-700">Addresse:</strong>
+                <strong className="text-slate-700">Addresse :</strong>
                 <p className="">
                   {[profile.data?.adresse, profile.data?.commune, profile.data?.code_postale, profile.data?.wilaya].filter(Boolean).join(", ")}
                 </p>
               </div>
               <div className="col-span-2">
-                <strong className="text-slate-700">Groupage:</strong>
+                <strong className="text-slate-700">Groupage :</strong>
                 <p className="">{profile.data?.groupage}</p>
 
-                <strong className="text-slate-700">Taille:</strong>
+                <strong className="text-slate-700">Taille :</strong>
                 <p className="">{profile.data?.taille && `${profile.data?.taille}cm`}</p>
 
-                <strong className="text-slate-700">Poids:</strong>
+                <strong className="text-slate-700">Poids :</strong>
                 <p className="">{profile.data?.poids && `${profile.data?.poids}kg`}</p>
               </div>
             </div>

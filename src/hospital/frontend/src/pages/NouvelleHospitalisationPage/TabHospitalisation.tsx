@@ -33,7 +33,7 @@ function TabHospitalisation({ form } : TabProps) {
   return (
     <>
       <h3 className="text-lg mb-0">Hospitalisation</h3>
-      <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+      <p className="mb-4">Cette section concerne les détails de l'hospitalisation du patient. Utilisez les autres onglets pour accéder aux différentes informations.</p>
       <div className="grid grid-cols-9 gap-x-2 gap-y-3 items-center">
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Date d'entrée<span className="text-red-500">*</span> </label>
         <input type="datetime-local" className={`col-span-7 primary ${form.errors.date_entree && 'has-error'}`} {...form.register("date_entree", {required: true})} />

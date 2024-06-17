@@ -30,7 +30,7 @@ function TabExamenClinique({ examens_cliniques, setExamensCliniques }: TabProps)
   return (
     <>
       <h3 className="text-lg mb-0">Examen clinique</h3>
-      <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+      <p className="mb-4"> Cette section concerne l'examen clinique du patient. Les autres onglets afficheront des informations différentes.</p>
       <div className="">
         <div className="flex justify-between">
           <h6>Liste des examens cliniques</h6>

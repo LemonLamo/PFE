@@ -6,7 +6,7 @@ function TabMotif({ form }: TabProps) {
   return (
     <>
       <h3 className="text-lg mb-0">Motif de la consultation</h3>
-      <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+      <p className="mb-4">Cette section concerne le motif de la consultation. Les autres onglets afficheront des informations différentes.</p>
       <div className="grid grid-cols-6 gap-x-2 gap-y-3 items-center">
 
         <label className="font-semibold text-slate-700 text-sm col-span-1"> Date<span className="text-red-500">*</span> </label>
@@ -26,10 +26,10 @@ function TabMotif({ form }: TabProps) {
           <option>Plainte</option>
         </select>
 
-        <label className="font-semibold text-slate-700 text-sm col-span-1 self-start"> Symptômes<span className="text-red-500">*</span> </label>
+        <label className="font-semibold text-slate-700 text-sm col-span-1 self-start"> Description des symptômes du patient <span className="text-red-500">*</span> </label>
         <textarea rows={2} placeholder="Symptômes" className={`col-span-5 primary ${form.errors.symptomes && 'has-error'}`} {...form.register("symptomes", {required: true})} />
         
-        <label className="font-semibold text-slate-700 text-sm col-span-1 self-start"> Résumé<span className="text-red-500">*</span> </label>
+        <label className="font-semibold text-slate-700 text-sm col-span-1 self-start"> Résumé détaillé de la consultation <span className="text-red-500">*</span> </label>
         <textarea rows={4} placeholder="Résumé de consultation" className={`col-span-5 primary ${form.errors.resume && 'has-error'}`} {...form.register("resume", {required: true})} />
       </div>
     </>

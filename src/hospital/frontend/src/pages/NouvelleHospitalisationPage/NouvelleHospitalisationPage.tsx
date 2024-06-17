@@ -54,14 +54,14 @@ function NouvelleHospitalisationPage() {
   return (
     step < 2 ?
       <PatientsSelector step={step} setStep={setStep} patient={patient} select_patient={select_patient} motif="Hospitalisation"/>:
-      <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
+      <Card title="Nouvelle hospitalisation" subtitle="Souhaitez vous ajouter une nouvelle hospitalisation?" className="w-full">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Tabs keepVisible={true} selected={selectedTab} setSelected={setSelectedTab}>
             <TabContent icon="fa fa-user" text="Informations Personnelles">
               <TabInfoPersonelles NIN={patient.NIN!} link={true} />
             </TabContent>
 
-            <TabContent icon="fa fa-timeline" text="Historique Médicale">
+            <TabContent icon="fa fa-timeline" text="Historique Médical">
               <TabHistorique NIN={patient.NIN!} />
             </TabContent>
 

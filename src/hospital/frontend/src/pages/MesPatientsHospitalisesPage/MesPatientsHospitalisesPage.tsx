@@ -17,15 +17,15 @@ import Dropdown from "../../components/UI/Dropdown";
 
 function MesPatientsHospitalisesPage() {
   const [selectedHospitalisation, setSelectedHospitalisation] = useState<Hospitalisation>({
-    id: "",
-    hopital: "",
-    service: "",
-    medecin: { NIN: "", nom: "", prenom: "" },
-    patient: { NIN: "", nom: "", prenom: "" },
-    date_entree: new Date(),
-    mode_entree: "",
-    motif_hospitalisation: "",
-    integrite: 1,
+    id : "",
+    hopital : "",
+    service : "",
+    medecin : { NIN : "", nom : "", prenom : "" },
+    patient : { NIN : "", nom : "", prenom : "" },
+    date_entree : new Date(),
+    mode_entree : "",
+    motif_hospitalisation : "",
+    integrite : 1,
   });
   const [openModal, setOpenModal] = useState("");
   const query = useQuery({
