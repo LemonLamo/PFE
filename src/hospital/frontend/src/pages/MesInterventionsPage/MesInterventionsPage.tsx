@@ -66,7 +66,7 @@ function MesInterventionsPage() {
     ], []) as ColumnDef<Partial<Intervention>>[];
 
   return (
-    <Card title="Liste des interventions" subtitle="Une liste de tous les interventions du service" className="w-full" action={createModal}>
+    <Card title="Liste des interventions" subtitle="Liste de toutes les interventions sous votre responsabilité" className="w-full" action={createModal}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2" />
       <ExecuterIntervention isOpen={openModal==="executer"} close={()=>{setOpenModal(""); query.refetch()}} selectedIntervention={selectedIntervention}/>
     </Card>

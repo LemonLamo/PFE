@@ -12,12 +12,12 @@ function TabIntervention({ form } : TabProps) {
   return (
     <>
       <h3 className="text-lg mb-0">Intervention</h3>
-      <p className="mb-4">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+      <p className="mb-4">Veuillez renseigner les détails de l'intervention à venir.</p>
       <div className="grid grid-cols-9 gap-x-2 gap-y-3 items-center">
         <label className="font-semibold text-slate-700 text-sm col-span-2"> Date<span className="text-red-500">*</span> </label>
         <input type="datetime-local" className={`col-span-7 primary ${form.errors.date && 'has-error'}`} {...form.register("date", {required: true})} />
 
-        <label className="font-semibold text-slate-700 text-sm col-span-2"> Intervention<span className="text-red-500">*</span> </label>
+        <label className="font-semibold text-slate-700 text-sm col-span-2"> Nom/Type d'intervention <span className="text-red-500">*</span> </label>
         <Select<InterventionCode> url="interventions" code="code_intervention" designation="designation" placeholder="Intervention" onChange={select_intervention} className={`col-span-7 primary ${form.errors.code_intervention && 'has-error'}`}/>
 
         <label className="font-semibold text-slate-700 text-sm col-span-2 self-start"> Détails </label>

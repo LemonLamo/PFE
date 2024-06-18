@@ -56,14 +56,14 @@ function NouvelleInterventionPage() {
   return (
     step < 2 ?
       <PatientsSelector step={step} setStep={setStep} patient={patient} select_patient={select_patient} motif="Intervention"/>:
-      <Card title="New patient" subtitle="You wanna add a new patient huh?" className="w-full">
+      <Card title="Nouvelle intervention" subtitle="Remplissez ce formulaire pour enregistrer une nouvelle intervention." className="w-full">
         <form onSubmit={handleSubmit(onSubmit)} onReset={() => reset()}>
           <Tabs keepVisible={true} selected={selectedTab} setSelected={setSelectedTab}>
             <TabContent icon="fa fa-user" text="Informations Personnelles">
               <TabInfoPersonelles NIN={patient.NIN!} link={true} />
             </TabContent>
 
-            <TabContent icon="fa fa-timeline" text="Historique Médicale">
+            <TabContent icon="fa fa-timeline" text="Historique Médical">
               <TabHistorique NIN={patient.NIN!} />
             </TabContent>
 
