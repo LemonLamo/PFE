@@ -49,7 +49,7 @@ function MesPatientsHospitalisesPage() {
       }
     },
     { header: "Date d'entrée", id: "date_entree", cell: (info) => moment(info.row.original.date_entree).format('DD/MM/YYYY') },
-    { header: "Mode entrée", accessorKey: "mode_entree" },
+    { header: "Mode d'entrée", accessorKey: "mode_entree" },
     { header: "Chambre et lit", id: "chambre_lit", cell: (info) => <>Chambre {info.row.original.chambre}, Lit N°{info.row.original.lit} </> },
     { header: "Motif d'hospitalisation", accessorKey: "motif_hospitalisation" },
     { header: "Résumé d'hospitalisation", cell: (info) => <div className="whitespace-pre-wrap" >{info.row.original.resume_hospitalisation}</div>},
@@ -97,7 +97,7 @@ function MesPatientsHospitalisesPage() {
     </Link>
   );
   return (
-    <Card title="Liste des patients hospitalisés" subtitle="Une liste des patients hospitalisés en votre nom" className="w-full" action={action}>
+    <Card title="Liste des patients hospitalisés" subtitle="Liste des patients actuellement hospitalisés sous votre responsabilité" className="w-full" action={action}>
       <DataTable tableDefinition={tableDefinition} query={query} className="mt-2"/>
       
       {selectedHospitalisation ? <DetailsHospitalisation isOpen={openModal === "hospitalisation"} close={() => setOpenModal("")} selectedHospitalisation={selectedHospitalisation!} /> : null}
