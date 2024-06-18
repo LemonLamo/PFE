@@ -52,7 +52,7 @@ export default function TransfertModal({isOpen, close, selectedHospitalisation}:
     async function submit(){
       try {
         await axios.post(`${baseURL}/api/chambres/${selectedHospitalisation.chambre}/lits/${selectedHospitalisation.lit}/liberer`)
-        await ajouterTransfert(transfert);
+        await ajouterTransfert(selectedHospitalisation.id, transfert);
         showAlert("success", "Demande de transfert enregistrée correctement");
         close();
         } catch (error: any) {

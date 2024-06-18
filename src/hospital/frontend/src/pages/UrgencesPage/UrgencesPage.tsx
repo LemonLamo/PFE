@@ -36,7 +36,7 @@ function UrgencesPage() {
 
   const endUrgence = async (NIN: Patient["NIN"]) => {
     await axios.delete(`${baseURL}/api/urgences/${NIN}`);
-    await axios.post(`${baseURL}/api/auth/authorisations/expire`, {medecin: auth?.NIN, patient: NIN});
+    await axios.post(`${baseURL}/api/auth/authorisations/expire`, {medecin: auth?.NIN, patient: NIN, urgence: 1});
     query.refetch();
   }
 
