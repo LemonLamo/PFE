@@ -34,7 +34,7 @@ class BilansModel {
     try {
       await db.execute(
         "INSERT INTO `bilans` (`id`, `patient`, `medecin`, `service`, `hopital`, `reference`, `code_bilan`, `date`, `externe`, `remarques`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [id, patient, medecin, service, hopital, reference, code_bilan, new Date(date), externen, remarques ?? null]
+        [id, patient, medecin, service, hopital, reference, code_bilan, new Date(date), externe, remarques ?? null]
       );
     } catch (error) {
       logger.error("Error inserting bilans:", error);

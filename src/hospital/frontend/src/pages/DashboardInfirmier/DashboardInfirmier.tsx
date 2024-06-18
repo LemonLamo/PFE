@@ -56,7 +56,7 @@ function DashboardInfirmier(){
                   <Avatar src={`${baseURL}/api/personnel/${p.medecin.NIN}/avatar`} alt="profile_picture" className="rounded-full w-12 me-2"/>
                   <div>
                       <h6 className="mb-0">{p.medecin.nom} {p.medecin.prenom}</h6>
-                      <p className="mb-0 font-semibold mt-[-0.4rem]">Service: {p.service}</p>
+                      <p className="mb-0 font-semibold mt-[-0.4rem]">Service: {p.medecin.service}</p>
                   </div>
               </div>
           }

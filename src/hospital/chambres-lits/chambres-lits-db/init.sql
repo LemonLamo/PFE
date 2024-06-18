@@ -25,8 +25,8 @@ CREATE TABLE `chambres` (
 --
 
 INSERT INTO `chambres` (`service`, `num`, `etage`, `description`) VALUES
-('Chirugie Générale', 'F1', 0, 'Chambre pour les nouveau-nées'),
-('Chirugie Générale', 'F2', 1, 'Chambre pour les 1-3ans');
+('Chirurgie Générale', 'F1', 0, 'Chambre pour les nouveau-nées'),
+('Chirurgie Générale', 'F2', 1, 'Chambre pour les 1-3ans');
 
 
 -- --------------------------------------------------------
@@ -49,9 +49,9 @@ CREATE TABLE `lits` (
 -- Déchargement des données de la table `lits`
 --
 INSERT INTO `lits` (`service`, `numChambre`, `num`, `type`, `occupe`, `remarques`) VALUES
-('Chirugie Générale', 'F1', 1, 'Type A', 1, 'Chambre pour les nouveau-nées'),
-('Chirugie Générale', 'F1', 2, 'Type A', 0, 'Chambre pour les 1-3ans'),
-('Chirugie Générale', 'F1', 3, 'Type B', 0, 'Chambre pour les 1-3ans'),
-('Chirugie Générale', 'F1', 4, 'Type A', 0, 'Chambre pour les 1-3ans'),
-('Chirugie Générale', 'F2', 1, 'Type A', 1, 'Chambre pour les 1-3ans'),
-('Chirugie Générale', 'F2', 2, 'Type A', 1, 'Chambre pour les 1-3ans');
+('Chirurgie Générale', 'F1', 1, 'Type A', 1, 'Chambre pour les nouveau-nées'),
+('Chirurgie Générale', 'F1', 2, 'Type A', 0, 'Chambre pour les 1-3ans'),
+('Chirurgie Générale', 'F1', 3, 'Type B', 0, 'Chambre pour les 1-3ans'),
+('Chirurgie Générale', 'F1', 4, 'Type A', 0, 'Chambre pour les 1-3ans'),
+('Chirurgie Générale', 'F2', 1, 'Type A', 1, 'Chambre pour les 1-3ans'),
+('Chirurgie Générale', 'F2', 2, 'Type A', 1, 'Chambre pour les 1-3ans');
