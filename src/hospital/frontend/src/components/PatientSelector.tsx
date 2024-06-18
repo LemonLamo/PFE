@@ -48,7 +48,7 @@ function PatientsSelector({step, setStep, patient, select_patient, motif} : Prop
     }
     return (
         step == 0 ?
-            <Card title="Choisir un patient?" subtitle="Veuillez sélectionner un patient" className="w-full max-w-[600px]">
+            <Card title="Choisir un patient" subtitle="Veuillez sélectionner un patient" className="w-full max-w-[600px]">
                 <div className="flex w-inherit">
                     <PatientsSelect placeholder="Rechercher un patient" onChange={select_patient} state={{ NIN: patient.NIN!, nom: patient.nom!, prenom: patient.prenom!, }} />
                     <button className="primary ms-3" onClick={choosePatient}>Choisir</button>

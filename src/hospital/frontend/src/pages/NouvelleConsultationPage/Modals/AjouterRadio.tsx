@@ -45,7 +45,13 @@ export default function AjouterRadio({isOpen, close, action}: Props) {
                     <label className="font-semibold text-slate-700 text-sm col-span-2">Radio<span className="text-red-500">*</span></label>
                     <Select<RadioCode> url="radios" code="code_radio" designation="designation" placeholder="Radio" onChange={select_radio} className={`col-span-4 primary ${errors.code_radio && 'has-error'}`}/>
 
-                    <label className="font-semibold text-slate-700 text-sm col-span-2  self-start">Remarques</label>
+                    <label className="font-semibold text-slate-700 text-sm col-span-2">Externe</label>
+                    <select className="primary col-span-4" {...register("externe", {required: false})}>
+                        <option value={0}>Interne</option>
+                        <option value={1}>Externe</option>
+                    </select>
+
+                    <label className="font-semibold text-slate-700 text-sm col-span-2 self-start">Remarques</label>
                     <textarea rows={5} placeholder="Remarques" className={`col-span-4 primary ${errors.remarques && 'has-error'}`} {...register("remarques", {required: false})} />
                 </div>
 

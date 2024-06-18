@@ -9,6 +9,7 @@ import Avatar from "../../components/Avatar";
 import DataTable from "../../components/UI/Tables/DataTable";
 import Badge from "../../components/UI/Badge";
 import { CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import Button from "../../components/UI/Buttons/Button";
 
 const build_badge = (created_at: Date, expired_at: Date) => {
     return (

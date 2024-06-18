@@ -23,5 +23,5 @@ CREATE TABLE `interventions` (
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `interventions` (`id`, `code_intervention`, `patient`, `medecin`, `hopital`, `service`, `date`, `remarques`, `protocole_operatoire`) VALUES
-('interv-XNDHDBZ', '03120Z0', '100010364027390000', '100010364027390000', 'CHU Mustapha', 'Chirugie Générale', '2024-02-18', '-', 'Idk');
+---INSERT INTO `interventions` (`id`, `code_intervention`, `patient`, `medecin`, `hopital`, `service`, `date`, `remarques`, `protocole_operatoire`) VALUES
+---('interv-XNDHDBZ', '03120Z0', '100010364027390000', '100010364027390000', 'CHU Mustapha', 'Chirurgie Générale', '2024-02-18', '-', 'Idk');

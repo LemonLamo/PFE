@@ -70,6 +70,7 @@ INSERT INTO `services` (`nom_hopital`, `service`) VALUES
 ('CHU Mustapha', 'Orthopédie'),
 ('CHU Mustapha', 'Oncologie'),
 ('CHU Beni Messous', 'Chirurgie Générale'),
+('CHU Beni Messous', 'Chirurgie Pédiatrique'),
 ('CHU Beni Messous', 'Pneumologie'),
 ('CHU Beni Messous', 'Pédiatrie'),
 ('CHU Beni Messous', 'Neurochirurgie'),
