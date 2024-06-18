@@ -6,7 +6,7 @@ class BilansModel {
   async getAll(hopital, fait, NIN) {
     try {
       const [results] = !fait?
-                        await db.query("SELECT * FROM `bilans` WHERE `hopital`=? ORDER BY `date` DESC", [hopital]):
+                        await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND externe=0 ORDER BY `date` DESC", [hopital]):
                         (fait == 1)?
                         await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND `date_fait` IS NOT NULL AND `fait_par`=? ORDER BY `date` DESC", [hopital, NIN]):
                         await db.query("SELECT * FROM `bilans` WHERE `hopital`=? AND `date_fait` IS NULL ORDER BY `date` DESC", [hopital]);
@@ -30,11 +30,11 @@ class BilansModel {
     }
   }
 
-  async insert(id, patient, medecin, service, hopital, reference, code_bilan, date, remarques) {
+  async insert(id, patient, medecin, service, hopital, reference, code_bilan, date, externe, remarques) {
     try {
       await db.execute(
-        "INSERT INTO `bilans` (`id`, `patient`, `medecin`, `service`, `hopital`, `reference`, `code_bilan`, `date`, `remarques`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [id, patient, medecin, service, hopital, reference, code_bilan, new Date(date), remarques ?? null]
+        "INSERT INTO `bilans` (`id`, `patient`, `medecin`, `service`, `hopital`, `reference`, `code_bilan`, `date`, `externe`, `remarques`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [id, patient, medecin, service, hopital, reference, code_bilan, new Date(date), externe, remarques ?? null]
       );
     } catch (error) {
       logger.error("Error inserting bilans:", error);

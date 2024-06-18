@@ -130,6 +130,7 @@ RabbitConnection.on("radios_create", async (data) => {
         reference,
         r.code_radio,
         new Date(),
+        r.externe,
         r.remarques
       )
     )
@@ -149,6 +150,7 @@ RabbitConnection.on("bilans_create", async (data) => {
         reference,
         b.code_bilan,
         new Date(),
+        b.externe,
         b.remarques
       )
     )

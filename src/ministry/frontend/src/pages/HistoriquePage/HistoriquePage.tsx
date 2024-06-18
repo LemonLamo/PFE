@@ -9,6 +9,7 @@ import Avatar from "../../components/Avatar";
 import DataTable from "../../components/UI/Tables/DataTable";
 import Badge from "../../components/UI/Badge";
 import { CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import Button from "../../components/UI/Buttons/Button";
 
 const build_badge = (created_at: Date, expired_at: Date) => {
     return (
@@ -58,7 +59,7 @@ function HistoriquePage(){
         { header: "", id: "actions",
                 cell: (info) => {
                     const a = info.row.original;
-                    return a.expired_at &&
+                    return (!a.expired_at || (new Date() >= new Date(a.created_at) && new Date() <= new Date(a.expired_at))) &&
                     <div className="flex justify-end gap-2">
                         <Button onClick={() => revoquer(a.id)} theme="danger">Revoquer</Button>
                     </div>

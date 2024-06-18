@@ -20,8 +20,7 @@ INSERT INTO `radios` (`code_radio`, `designation`) VALUES ('M85.8', 'Densitomét
 INSERT INTO `radios` (`code_radio`, `designation`) VALUES ('C87.0', 'Fluoroscopie');
 INSERT INTO `radios` (`code_radio`, `designation`) VALUES ('C19.9', 'Scintigraphie thyroïdienne en médecine nucléaire');
 INSERT INTO `radios` (`code_radio`, `designation`) VALUES ('J98.4', 'Radiographie thoracique');
-INSERT INTO `radios` (`code_radio`, `designation`) VALUES 
-('K57.3', 'Radiographie de l''intestin grêle'),
+INSERT INTO `radios` (`code_radio`, `designation`) VALUES ('K57.3', 'Radiographie de l''intestin grêle'),
 ('N25.1', 'Échographie rénale'),
 ('M89.9', 'Arthrographie'),
 ('Q81.0', 'Radiographie de la main'),

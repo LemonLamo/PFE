@@ -79,7 +79,7 @@ function renderEventContent(eventInfo) {
                     <i className={`fas fa-calendar-alt mr-2 ${COLORS[eventInfo.event.extendedProps.type]}`}/> {eventInfo.event.extendedProps.title}
                   </h6>
                   <p className="text-gray-600 mb-2">
-                    <i className="fas fa-user mr-2"></i>{eventInfo.event.extendedProps.subtitle}
+                    <i className="fas fa-user mr-2"></i>{eventInfo.event.extendedProps.medecin.nom} {eventInfo.event.extendedProps.medecin.prenom}
                   </p>
                   <div className="flex justify-between whitespace-normal">
                     <p className="text-gray-600"><i className="fa-regular fa-clock mr-2"></i> {moment(eventInfo.event.extendedProps.start).format("HH:mm")}</p>

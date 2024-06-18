@@ -52,7 +52,7 @@ CREATE INDEX radios_reference_IND ON `radios` (`reference`);
 CREATE INDEX radios_hopital_IND ON `radios` (`hopital`);
 
 INSERT INTO `radios` (`id`, `patient`, `reference`, `code_radio`, `remarques`, `date`, `date_fait`, `medecin`, `hopital`, `service`) VALUES
-('radio-PZR37CU', '100010364027390000', 'cons-XNDHDBZ', 'R10.9', NULL, '2024-03-30', NULL, '100010364027390000', 'CHU Mustapha', 'Chirugie Générale'),
+('radio-PZR37CU', '100010364027390000', 'cons-XNDHDBZ', 'R10.9', NULL, '2024-03-30', NULL, '100010364027390000', 'CHU Mustapha', 'Chirurgie Générale'),
 ('radio-QULJ7WZ', '100010364027390000', 'cons-QULJ7WZ', 'R10.9', 'Idk', '2024-02-27', NULL, '100010364027390000', 'CHU Beni Messous', 'Cardiologie');
 
 CREATE TABLE `radios_files` (
@@ -85,7 +85,7 @@ CREATE INDEX bilans_reference_IND ON `bilans` (`reference`);
 CREATE INDEX bilans_hopital_IND ON `bilans` (`hopital`);
 
 INSERT INTO `bilans` (`id`, `patient`, `reference`, `code_bilan`, `remarques`, `date`, `date_fait`, `medecin`, `hopital`, `service`) VALUES
-('bilan-VZR37CX', '100010364027390000', 'cons-XNDHDBZ', 'B2', 'Idk', '2024-03-30', NULL, '100010364027390000', 'CHU Mustapha', 'Chirugie Générale'),
+('bilan-VZR37CX', '100010364027390000', 'cons-XNDHDBZ', 'B2', 'Idk', '2024-03-30', NULL, '100010364027390000', 'CHU Mustapha', 'Chirurgie Générale'),
 ('bilan-PZR37CU', '100010364027390000', 'cons-XNDHDBZ', 'B1', 'Idk', '2024-03-30', NULL, '100010364027390000', 'CHU Beni Messous', 'Cardiologie');
 
 

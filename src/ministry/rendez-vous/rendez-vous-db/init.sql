@@ -26,7 +26,3 @@ CREATE TABLE `rendezvous` (
 --
 -- Déchargement des données de la table `rendezvous`
 --
-
-INSERT INTO `rendezvous` (`id`, `patient`, `medecin`, `type`, `title`, `date`, `duree`, `details`) VALUES
-('rdv-PZR37CU', '100010364027390000', '100010364027390000', 'Consultation', 'Consultation', '2024-04-17', 60, NULL ),
-('rdv-ZEZRRZS', '111111111111111111', '100010364027390000', 'Intervention', 'Bypass Innominate Artery', '2024-04-12', 30, "On va opérer, sous anésthesie globale sur ce patient" );
