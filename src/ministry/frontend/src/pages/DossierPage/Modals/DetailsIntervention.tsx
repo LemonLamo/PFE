@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import Modal from "../../../components/UI/Modal";
 import moment from "moment";
+import { baseURL } from "../../../config";
+import axios from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -9,20 +12,18 @@ type Props = {
 
 const theme = "primary";
 
-export default function DetailsIntervention({
-  isOpen,
-  close,
-  selectedIntervention,
-}: Props) {
+export default function DetailsIntervention({ isOpen, close, selectedIntervention }: Props) {
+  const [intervention, setIntervention] = useState<Intervention>(selectedIntervention);
+  useEffect(() => {
+    axios.get(`${baseURL}/api/interventions/${selectedIntervention.id}`).then((response) => {
+      setIntervention(response.data)
+    })
+  }, [selectedIntervention]);
+
   return (
-    <Modal
-      isOpen={isOpen}
-      icon="fa fa-health-snake"
-      theme={theme}
-      size="sm:max-w-6xl"
-    >
+    <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-6xl">
       <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
-        Détails Intervention "{selectedIntervention.id}"
+        Détails Intervention "{intervention.id}"
       </h3>
       <div className="grid grid-cols-2 gap-2 mb-1">
         <fieldset className="w-full border-solid border-2 border-slate-400 px-4 pt-0 pb-4">
@@ -30,29 +31,29 @@ export default function DetailsIntervention({
           <div className="grid grid-cols-8 gap-2 m-0">
             <div className="col-span-3 font-semibold">NIN:</div>
             <div className="col-span-5 font-semibold">
-              {selectedIntervention.patient.NIN}
+              {intervention.patient.NIN}
             </div>
 
             <div className="col-span-3 font-semibold">Nom complet:</div>
             <div className="col-span-5">
-              {selectedIntervention.patient.nom +
+              {intervention.patient.nom +
                 " " +
-                selectedIntervention.patient.prenom}
+                intervention.patient.prenom}
             </div>
             <div className="col-span-3 font-semibold">Date de naissance:</div>
             <div className="col-span-5">
-              {moment(selectedIntervention.patient.date_de_naissance).format("DD/MM/YYYY")}
+              {moment(intervention.patient.date_de_naissance).format("DD/MM/YYYY")}
               {" "}
-              {`(${moment(new Date()).diff(moment(selectedIntervention.patient.date_de_naissance), "years")} ans)`}
+              {`(${moment(new Date()).diff(moment(intervention.patient.date_de_naissance), "years")} ans)`}
             </div>
 
             <div className="col-span-2 font-semibold">Sexe:</div>
             <div className="col-span-3">
-              {selectedIntervention.patient.sexe}
+              {intervention.patient.sexe}
             </div>
             <div className="col-span-2 font-semibold">Groupage: </div>
             <div className="col-span-1">
-              {selectedIntervention.patient.groupage}
+              {intervention.patient.groupage}
             </div>
           </div>
         </fieldset>
@@ -62,34 +63,34 @@ export default function DetailsIntervention({
           <div className="grid grid-cols-12 gap-x-2 gap-y-4 m-0">
             <div className="col-span-5">
               <label className="font-semibold">NIN</label>
-              <p className="mb-0"> {selectedIntervention.medecin.NIN} </p>
+              <p className="mb-0"> {intervention.medecin.NIN} </p>
             </div>
 
             <div className="col-span-3">
               <label className="font-semibold">Nom </label>
-              <p className="mb-0"> {selectedIntervention.medecin.nom}</p>
+              <p className="mb-0"> {intervention.medecin.nom}</p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Prénom</label>
-              <p className="mb-0"> {selectedIntervention.medecin.prenom}</p>
+              <p className="mb-0"> {intervention.medecin.prenom}</p>
             </div>
 
             <div className="col-span-5">
               <label className="font-semibold">Spécialité</label>
               <p className="mb-0">
-                {selectedIntervention.medecin.specialite}
+                {intervention.medecin.specialite}
               </p>
             </div>
 
             <div className="col-span-3">
               <label className="font-semibold">Service </label>
-              <p className="mb-0"> {selectedIntervention.service} </p>
+              <p className="mb-0"> {intervention.service} </p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Hopital</label>
-              <p className="mb-0"> {selectedIntervention.hopital} </p>
+              <p className="mb-0"> {intervention.hopital} </p>
             </div>
           </div>
         </fieldset>
@@ -100,23 +101,23 @@ export default function DetailsIntervention({
         <div className="grid grid-cols-12 gap-3">
           <div className="col-span-9">
             <label className="font-semibold">Intervention</label>
-            <p className="mb-0"> [{selectedIntervention.code_intervention}] : {selectedIntervention.designation}</p>
+            <p className="mb-0"> [{intervention.code_intervention}] : {intervention.designation}</p>
           </div>
           <div className="col-span-3">
             <label className="font-semibold">Date </label>
             <p className="mb-0">
-              {moment(selectedIntervention.date).format("DD/MM/YYYY HH:mm")}
+              {moment(intervention.date).format("DD/MM/YYYY HH:mm")}
             </p>
           </div>
 
           <div className="col-span-12">
             <label className="font-semibold">Remarques</label>
-            <p className="mb-0"> {selectedIntervention.remarques} </p>
+            <p className="mb-0"> {intervention.remarques} </p>
           </div>
           <div className="col-span-12">
             <label className="font-semibold">Protocole opératoire</label>
             <p className="mb-0">
-              {selectedIntervention.protocole_operatoire}
+              {intervention.protocole_operatoire}
             </p>
           </div>
         </div>

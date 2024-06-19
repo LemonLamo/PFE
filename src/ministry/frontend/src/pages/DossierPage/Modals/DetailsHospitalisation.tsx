@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Modal from "../../../components/UI/Modal";
 import Tabs from "../../../components/UI/Tabs";
 import TabContent from "../../../components/UI/Tabs/TabContent";
@@ -6,6 +7,8 @@ import TabExamenClinique from "../Tabs/TabExamenClinique";
 import TabPrescription from "../Tabs/TabPrescription";
 import TabRadio from "../Tabs/TabRadio";
 import moment from "moment";
+import { baseURL } from "../../../config";
+import axios from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -14,20 +17,20 @@ type Props = {
 };
 
 const theme = "primary";
-export default function DetailsHospitalisation({
-  isOpen,
-  close,
-  selectedHospitalisation,
-}: Props) {
+export default function DetailsHospitalisation({ isOpen, close, selectedHospitalisation }: Props) {
+  const [hospitalisation, setHospitalisation] = useState<Hospitalisation>(selectedHospitalisation);
+
+  useEffect(() => {
+    if (!selectedHospitalisation.id) return
+    axios.get(`${baseURL}/api/hospitalisations/${selectedHospitalisation.id}`).then((response) => {
+      setHospitalisation(response.data)
+    })
+  }, [selectedHospitalisation]);
+
   return (
-    <Modal
-      isOpen={isOpen}
-      icon="fa fa-health-snake"
-      theme={theme}
-      size="sm:max-w-6xl"
-    >
+    <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-6xl">
       <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
-        Détails Hospitalisation "{selectedHospitalisation.id}"
+        Détails Hospitalisation "{hospitalisation.id}"
       </h3>
       <div className="grid grid-cols-2 gap-2 mb-1">
         <fieldset className="w-full border-solid border-2 border-slate-400 px-4 pt-0 pb-4">
@@ -35,29 +38,29 @@ export default function DetailsHospitalisation({
           <div className="grid grid-cols-8 gap-2 m-0">
             <div className="col-span-3 font-semibold">NIN:</div>
             <div className="col-span-5 font-semibold">
-              {selectedHospitalisation.patient.NIN}
+              {hospitalisation.patient.NIN}
             </div>
 
             <div className="col-span-3 font-semibold">Nom complet:</div>
             <div className="col-span-5">
-              {selectedHospitalisation.patient.nom +
+              {hospitalisation.patient.nom +
                 " " +
-                selectedHospitalisation.patient.prenom}
+                hospitalisation.patient.prenom}
             </div>
             <div className="col-span-3 font-semibold">Date de naissance:</div>
             <div className="col-span-5">
-              {moment(selectedHospitalisation.patient.date_de_naissance).format("DD/MM/YYYY")}
+              {moment(hospitalisation.patient.date_de_naissance).format("DD/MM/YYYY")}
               {" "}
-              {`(${moment(new Date()).diff(moment(selectedHospitalisation.patient.date_de_naissance), "years")} ans)`}
+              {`(${moment(new Date()).diff(moment(hospitalisation.patient.date_de_naissance), "years")} ans)`}
             </div>
 
             <div className="col-span-2 font-semibold">Sexe:</div>
             <div className="col-span-3">
-              {selectedHospitalisation.patient.sexe}
+              {hospitalisation.patient.sexe}
             </div>
             <div className="col-span-2 font-semibold">Groupage: </div>
             <div className="col-span-1">
-              {selectedHospitalisation.patient.groupage}
+              {hospitalisation.patient.groupage}
             </div>
           </div>
         </fieldset>
@@ -67,37 +70,37 @@ export default function DetailsHospitalisation({
           <div className="grid grid-cols-12 gap-x-2 gap-y-4 m-0">
             <div className="col-span-5">
               <label className="font-semibold">NIN</label>
-              <p className="mb-0"> {selectedHospitalisation.medecin.NIN} </p>
+              <p className="mb-0"> {hospitalisation.medecin.NIN} </p>
             </div>
 
             <div className="col-span-3">
               <label className="font-semibold">Nom </label>
-              <p className="mb-0"> {selectedHospitalisation.medecin.nom} </p>
+              <p className="mb-0"> {hospitalisation.medecin.nom} </p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Prénom</label>
-              <p className="mb-0"> {selectedHospitalisation.medecin.prenom} </p>
+              <p className="mb-0"> {hospitalisation.medecin.prenom} </p>
             </div>
 
             <div className="col-span-5">
               <label className="font-semibold">Spécialité</label>
               <p className="mb-0">
-                {selectedHospitalisation.medecin.specialite}
+                {hospitalisation.medecin.specialite}
               </p>
             </div>
 
             <div className="col-span-3">
               <label className="font-semibold">Service </label>
               <p className="mb-0">
-                {selectedHospitalisation.service}
+                {hospitalisation.service}
               </p>
             </div>
 
             <div className="col-span-4">
               <label className="font-semibold">Hopital</label>
               <p className="mb-0">
-                {selectedHospitalisation.hopital}
+                {hospitalisation.hopital}
               </p>
             </div>
           </div>
@@ -110,64 +113,64 @@ export default function DetailsHospitalisation({
           <div className="col-span-3">
             <label className="font-semibold">Date entrée</label>
             <p className="mb-0">
-              {moment(selectedHospitalisation.date_entree).format("DD/MM/YYYY HH:mm")}
+              {moment(hospitalisation.date_entree).format("DD/MM/YYYY HH:mm")}
             </p>
           </div>
 
           <div className="col-span-3">
             <label className="font-semibold">Mode entrée</label>
-            <p className="mb-0"> {selectedHospitalisation.mode_entree} </p>
+            <p className="mb-0"> {hospitalisation.mode_entree} </p>
           </div>
 
           <div className="col-span-3">
             <label className="font-semibold">Date sortie </label>
             <p className="mb-0">
-              {selectedHospitalisation.date_sortie? moment(selectedHospitalisation.date_sortie).format("DD/MM/YYYY HH:mm") : '-'}
+              {hospitalisation.date_sortie? moment(hospitalisation.date_sortie).format("DD/MM/YYYY HH:mm") : '-'}
             </p>
           </div>
 
           <div className="col-span-3">
             <label className="font-semibold">Mode sortie </label>
-            <p className="mb-0"> {selectedHospitalisation.mode_sortie ?? '-'}</p>
+            <p className="mb-0"> {hospitalisation.mode_sortie ?? '-'}</p>
           </div>
 
           <div className="col-span-9">
             <label className="font-semibold">Motif d'hospitalisation</label>
             <p className="mb-0">
-              {selectedHospitalisation.motif_hospitalisation}
+              {hospitalisation.motif_hospitalisation}
             </p>
           </div>
 
           <div className="col-span-3">
             <label className="font-semibold">Chambre </label>
             <p className="mb-0">
-              {`Chambre ${selectedHospitalisation.chambre}, Lit N°${selectedHospitalisation.lit}`}
+              {`Chambre ${hospitalisation.chambre}, Lit N°${hospitalisation.lit}`}
             </p>
           </div>
 
           <div className="col-span-12">
             <label className="font-semibold">Résumé d'hospitalisation</label>
             <p className="mb-0 whitespace-pre-wrap">
-              {selectedHospitalisation.resume_hospitalisation}
+              {hospitalisation.resume_hospitalisation}
             </p>
           </div>
         </div>
       </fieldset>
       <Tabs type="horizontal">
         <TabContent icon="fa fa-stethoscope" text="Examens Cliniques">
-          <TabExamenClinique reference={selectedHospitalisation.id} />
+          <TabExamenClinique reference={hospitalisation.id} />
         </TabContent>
 
         <TabContent icon="fa fa-pills" text="Préscriptions">
-          <TabPrescription reference={selectedHospitalisation.id} />
+          <TabPrescription reference={hospitalisation.id} />
         </TabContent>
 
         <TabContent icon="fa fa-x-ray" text="Radios">
-          <TabRadio reference={selectedHospitalisation.id} />
+          <TabRadio reference={hospitalisation.id} />
         </TabContent>
 
         <TabContent icon="fa fa-vial" text="Bilans">
-          <TabBilan reference={selectedHospitalisation.id} />
+          <TabBilan reference={hospitalisation.id} />
         </TabContent>
       </Tabs>
 

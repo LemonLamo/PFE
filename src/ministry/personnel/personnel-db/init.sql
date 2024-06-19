@@ -42,7 +42,7 @@ CREATE INDEX personnel_service_IND ON `personnel` (`hopital`, `service`);
 
 INSERT INTO `personnel` (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `email`, 
 `telephone`, `fonction`, `specialite`, `grade`, `adresse`, `code_postale`, `commune`, `wilaya`, `hopital`, `service`) VALUES
-('100010364027390000', 'BRAHIM', 'Abderrazak', '2001-07-13', 'Tebessa', 'Homme', 'brahim.abderrazak1307@gmail.com', '+213549297666', 'admin', 'Cardiologie', 'Professeur', 'Cité 18 logements, de E.S.B', 16032, 'Bouzareah','Alger', 'CHU Mustapha', 'Chirurgie Générale'),
+('100010364027390000', 'BRAHIM', 'Abderrazak', '2001-07-13', 'Tebessa', 'Homme', 'brahim.abderrazak1307@gmail.com', '+213549297666', 'medecin', 'Cardiologie', 'Professeur', 'Cité 18 logements, de E.S.B', 16032, 'Bouzareah','Alger', 'CHU Mustapha', 'Chirurgie Générale'),
 ('000000000000000000', 'Admin', 'Admin', '2001-07-13', 'Tebessa', 'Homme', 'brahim.abderrazak1307@gmail.coa', '+213549297660', 'admin', 'Chirurgie Pédiatrique', 'Chef de service', 'Cité 18 logements, de E.S.B', 16032, 'Bouzareah','Alger', 'CHU Mustapha', 'Chirurgie Générale'),
 ('111111111111111111', 'NADIL', 'Marwa', '2002-05-12', 'Alger', 'Femme', 'marwa02@gmail.com', '+213549297661', 'infirmier', NULL, NULL, 'Cité 15 logements, Mouhouss', 16042, 'Bordj el kiffane','Alger', 'CHU Mustapha', 'Chirurgie Générale'),
 ('222222222222222222', 'Lab', 'Lab', '2001-07-13', 'Tebessa', 'Homme', 'brahim.abderrazak1307@gmail.cob', '+213549297662', 'lab', NULL, NULL, 'Cité 18 logements, de E.S.B', 16032, 'Bouzareah','Alger', 'CHU Mustapha', 'Biologie'),

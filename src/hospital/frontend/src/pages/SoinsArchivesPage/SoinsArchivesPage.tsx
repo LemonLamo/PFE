@@ -52,7 +52,7 @@ function SoinsArchivesPage(){
         { header: "Détails", accessorKey: "details" },
         { header: "Date", id: "date", cell: (info) => moment(info.row.original.date_soin).format("DD/MM/YYYY HH:mm") },
         { header: "Status", id: "status", cell: (info) => build_badge(info.row.original.fait) },
-    ], []) as ColumnDef<Soin>[];
+    ], []) as ColumnDef<any>[];
 
     return <>
         <Card title="Mes tâches" subtitle="Liste de vos patients" className="w-full">

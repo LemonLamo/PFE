@@ -4,7 +4,7 @@ import subprocess
 
 registry = "medicalife"
 services = [
-    "prescriptions-bilans-radios/prescriptions-bilans-radios-db",
+    "auth/auth-service",
 ]
 
 cwd = os.path.dirname(os.path.realpath(__file__)) 

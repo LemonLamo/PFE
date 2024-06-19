@@ -104,6 +104,9 @@ class AuthController {
   expire = async (req, res) => {
     const { medecin, patient, urgence } = req.body;
     const { NIN: initiator } = req.jwt;
+
+    console.log(initiator, medecin, patient, urgence, 'is it me? ', initiator != medecin && initiator != patient);
+
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
     
@@ -119,7 +122,7 @@ class AuthController {
     const { id } = req.params;
     const { NIN: initiator } = req.jwt;
 
-    const token = EHRAuthModel.getByID(id);
+    const token = await EHRAuthModel.getByID(id);
 
     if (initiator != token.medecin && initiator != token.patient)
       return res.status(400).json();

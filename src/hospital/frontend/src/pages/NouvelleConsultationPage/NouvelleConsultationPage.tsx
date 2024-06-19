@@ -85,7 +85,7 @@ function NouvelleConsultationPage() {
         showAlert("error", error.code + ": " + error.message);
       return;
     }
-    await axios.delete(`${baseURL}/reception/${data.patient}`);
+    await axios.delete(`${baseURL}/api/reception/${data.patient}`);
   }
 
   return (

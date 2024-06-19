@@ -40,8 +40,8 @@ class EHRAuthModel {
     
     async expire(medecin, patient, urgence){
         const [results] = urgence==1?
-            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif="Urgence"', [medecin, patient, motif]):
-            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif!="Urgence"', [medecin, patient]);
+            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif="Urgence" AND `expired_at` IS NULL', [medecin, patient]):
+            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif!="Urgence" AND `expired_at` IS NULL', [medecin, patient]);
         if (results.affectedRows < 1)
             throw new Error({ code: "ER_UPDATE_FAIL" })
     }

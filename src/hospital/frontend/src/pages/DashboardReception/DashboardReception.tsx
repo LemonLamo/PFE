@@ -12,9 +12,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 function DashboardReception(){
     const { showAlert } = useContext(AlertsContext);
   
-    const { register, handleSubmit, getValues, setValue, reset, formState:{errors} } = useForm<any>();
+    const { register, handleSubmit, setValue, reset, watch, formState:{errors} } = useForm<any>();
     register('patient', {required: true});
     register('medecin', {required: false});
+    const watched_service = watch("service");
 
     const onSubmit: SubmitHandler<any> = async (data : any) => {
         try{
@@ -24,7 +25,7 @@ function DashboardReception(){
         } catch (error: any) {
             if (error.response)
                 if(error.response?.data?.errorCode != "form-validation")
-          showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
+            showAlert("error", error.response.data.errorCode + ": " + error.response.data.errorMessage);
             else
                 showAlert("error", error.code + ": " + error.message);
         }
@@ -74,8 +75,8 @@ function DashboardReception(){
                     </select>
 
                     <label className="text-sm font-semibold">Medecin</label>
-                    <MedecinsSelect className="col-span-3" placeholder="Affecter un medecin" hopital={auth?.hopital!} service={getValues('service')} onChange={select_medecin} state={{ NIN: medecin.NIN!, nom: medecin.nom!, prenom: medecin.prenom! }} />
-                </div>
+                    <MedecinsSelect className="col-span-3" placeholder="Affecter un medecin" hopital={auth?.hopital!} service={watched_service} onChange={select_medecin} state={{ NIN: medecin.NIN!, nom: medecin.nom!, prenom: medecin.prenom! }} />
+                </div>,
                 <button className="primary ms-3 float-right"> Affecter </button>
             </form>
         </Card>
