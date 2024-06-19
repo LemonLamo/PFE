@@ -13,9 +13,20 @@ type Props = {
 
 const theme = "primary"
 const actes = [
-    "Injection",
-    "Mini chirurgie"
-]
+  "Injection",
+  "Mini chirurgie",
+  "Pansement",
+  "Prise de sang",
+  "Vaccination",
+  "Suture",
+  "Perfusion",
+  "Soins palliatifs",
+  "Chimiothérapie",
+  "Dialyse",
+  "Physiothérapie",
+  "Suivi post-opératoire",
+  "Rééducation"
+];
 
 export default function AjouterSoinsModal({isOpen, close, selectedHospitalisation}: Props) {
     const { showAlert } = useContext(AlertsContext);
