@@ -208,7 +208,7 @@ type Lit = {
   num: number;
   type: string;
   numChambre?: string;
-  description?: string;
+  remarques?: string;
   occupe?: boolean;
 };
 type Role = {

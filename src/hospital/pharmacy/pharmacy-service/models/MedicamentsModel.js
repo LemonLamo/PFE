@@ -13,7 +13,7 @@ exports.select = async () => {
 
 exports.selectOne = async (code_medicament) => {
   const [results] = await db.query("SELECT * FROM `medicaments` WHERE `code_medicament`=?", [code_medicament]);
-  return results;
+  return results[0];
 };
 
 exports.selectTransactions = async (code_medicament) => {
@@ -21,8 +21,8 @@ exports.selectTransactions = async (code_medicament) => {
   return results;
 };
 
-exports.insert = async (code_medicament, DCI, quantite) => {
-  await db.execute("INSERT INTO `medicaments`(`code_medicament`, `DCI`, `quantite`) VALUES (?, ?, ?)", [code_medicament, DCI, quantite]);
+exports.insert = async (code_medicament, quantite) => {
+  await db.execute("INSERT INTO `medicaments`(`code_medicament`, `quantite`) VALUES (?, ?, ?)", [code_medicament, quantite]);
 };
 exports.update = async (code_medicament, quantite) => {
   let [avant] = await db.execute("SELECT quantite FROM `medicaments` WHERE `code_medicament`=?",[code_medicament]);
@@ -34,7 +34,6 @@ exports.update = async (code_medicament, quantite) => {
   await db.execute("INSERT INTO `transactions`(`code_medicament`, `avant`, `difference`) VALUES (?, ?, ?)",[code_medicament, avant[0].quantite, quantite]);
 };
 exports.remove = async (code_medicament) => {
-  // TODO: replace this with soft-delete
   let results = await db.query("DELETE FROM `medicaments` WHERE code_medicament=?", [code_medicament]);
   if (results[0].affectedRows < 1)
     throw new Error({ code: "ER_DELETE_FAIL" });

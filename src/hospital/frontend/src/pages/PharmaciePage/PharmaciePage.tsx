@@ -24,8 +24,19 @@ function PharmacyPage() {
   const query = useQuery<Medicament[]>({
     queryKey: ["medicaments"],
     queryFn: async () => {
-      let data = (await axios.get(`${baseURL}/api/medicaments/`)).data;
-      return data;
+      const data = (await axios.get(`${baseURL}/api/medicaments/`)).data;
+      const codes_medicaments = data.map((x: any) => x.code_medicament);
+
+      if (codes_medicaments.length > 0) {
+        const medicaments = (await axios.post(`${baseURL}/api/codifications/medicaments`, { codes_medicaments: codes_medicaments })).data;
+        const medicamentsMap: Map<string, any> = new Map(medicaments.map((x: any) => [x.code_medicament, { ...x }]));
+        const result = data.map((x: any) => ({
+          ...medicamentsMap.get(x.code_medicament),
+          ...x,
+        }));
+        return result;
+      } else
+        return [];
     },
   });
 

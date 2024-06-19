@@ -4,7 +4,7 @@ const logger = require("../utils/logger");
 class SpecialitesModel {
     async getAll() {
         try {
-            const [results] = await db.query("SELECT * FROM `specialites` WHERE specialite");
+            const [results] = await db.query("SELECT * FROM `specialites`");
             return results;
         } catch (error) {
             logger.error("Error fetching specialites:", error);
@@ -18,7 +18,7 @@ class SpecialitesModel {
                 "SELECT * FROM `specialites` WHERE `specialite`=?",
                 [specialite]
             );
-            return results;
+            return results[0];
         } catch (error) {
             logger.error("Error fetching specialites:", error);
             throw error;

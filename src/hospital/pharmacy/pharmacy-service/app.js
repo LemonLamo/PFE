@@ -28,11 +28,11 @@ const auth = require("./middlewares/auth");
 const logger = require("./utils/logger");
 const MedicamentsController = require("./controllers/MedicamentsController");
 
-app.get("/api/medicaments", auth.requireAuth, MedicamentsController.getAll);
+app.get ("/api/medicaments", auth.requireAuth, MedicamentsController.getAll);
 app.post("/api/medicaments", MedicamentsController.insert);
-app.get("/api/medicaments/:code_medicament", MedicamentsController.getOne);
-app.get("/api/medicaments/:code_medicament/transactions", MedicamentsController.getTransactions);
-app.put("/api/medicaments/:code_medicament", MedicamentsController.update);
+app.get ("/api/medicaments/:code_medicament", MedicamentsController.getOne);
+app.get ("/api/medicaments/:code_medicament/transactions", MedicamentsController.getTransactions);
+app.put ("/api/medicaments/:code_medicament", MedicamentsController.update);
 app.delete("/api/medicaments/:code_medicament", MedicamentsController.remove);
 
 app.use((req, res) => res.sendStatus(404));

@@ -72,7 +72,7 @@ function RadiosArchivesPage() {
 
   return (
     <>
-      <Card title="Mes radios" subtitle="Liste des radios à faire" className="w-full" >
+      <Card title="Les radios archivés" subtitle="Liste des radios déja faits" className="w-full" >
         <DataTable tableDefinition={tableDefinition} query={query} className="mt-2"/>
       </Card>
     </>

@@ -17,34 +17,34 @@ export default function LabelRadio({ isOpen, close, selectedRadio} : Props) {
         </div>
 
         <div className="flex mb-2 mt-4">
-          <div className="w-1/4 font-bold">Patient:</div>
+          <div className="w-1/4 font-bold">Patient :</div>
           <div className="w-3/4 font-medium">{selectedRadio.patient.nom} {selectedRadio.patient.prenom} / {selectedRadio.patient.NIN}</div>
         </div>
         
         <div className="flex mb-2">
-          <div className="w-1/4 font-bold">Age:</div>
+          <div className="w-1/4 font-bold">Age :</div>
           <div className="w-3/4 font-medium">{moment(new Date()).diff(moment(selectedRadio.patient.date_de_naissance), "years")} ans</div>
         </div>
 
         <div className="flex mb-2">
-          <div className="w-1/4 font-bold">Sexe:</div>
+          <div className="w-1/4 font-bold">Sexe :</div>
           <div className="w-3/4 font-medium">{selectedRadio.patient.sexe}</div>
         </div>
 
         <div className="flex mb-2">
-          <div className="w-1/4 font-bold">Date:</div>
+          <div className="w-1/4 font-bold">Date :</div>
           <div className="w-3/4 font-medium">{moment(selectedRadio.date).format("DD/MM/YYYY HH:mm")}</div>
         </div>
 
         <div className="flex mb-2">
-          <div className="w-1/4 font-bold">Demandé par:</div>
+          <div className="w-1/4 font-bold">Demandé par :</div>
           <div className="w-3/4 font-medium">Dr. {selectedRadio.medecin?.nom} {selectedRadio.medecin?.prenom}</div>
         </div>
 
         <div className="text-center text-xl font-bold mt-2 mb-2">{selectedRadio.designation}</div>
 
         <div className="flex mb-2">
-          <div className="w-1/4 font-bold">Détails:</div>
+          <div className="w-1/4 font-bold">Détails :</div>
           <div className="w-3/4 font-medium">{selectedRadio.remarques ?? '-'}</div>
         </div>
       </div>

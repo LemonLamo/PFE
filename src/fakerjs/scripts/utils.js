@@ -1,7 +1,7 @@
 const { fakerFR: faker } = require('@faker-js/faker');
 
 const JWT_TOKENS = [
-  {NIN:'100010364027390000', jwt:'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJOSU4iOiIxMDAwMTAzNjQwMjczOTAwMDAiLCJub20iOiJCUkFISU0iLCJwcmVub20iOiJBYmRlcnJhemFrIiwic3BlY2lhbGl0ZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJob3BpdGFsIjoiQ0hVIE11c3RhcGhhIiwic2VydmljZSI6IkNoaXJ1Z2llIEfDqW7DqXJhbGUiLCJyb2xlIjoibWVkZWNpbiIsInBlcm1pc3Npb25zIjp7fSwiaWF0IjoxNzE0MDc4MDE0fQ.Ku9sSrGAPii7EvbLyTx0sb7uxkE7zB9SM7NBoLuml-DYupzrSfU719RS2cN37nzj_WGvhMgPHq0rxpRyPzHJsw'},
+  { NIN: '100010364027390000', jwt:'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJOSU4iOiIxMDAwMTAzNjQwMjczOTAwMDAiLCJub20iOiJCUkFISU0iLCJwcmVub20iOiJBYmRlcnJhemFrIiwic3BlY2lhbGl0ZSI6IkNhcmRpb2xvZ2llIiwiaG9waXRhbCI6IkNIVSBNdXN0YXBoYSIsInNlcnZpY2UiOiJDaGlydXJnaWUgR8OpbsOpcmFsZSIsInJvbGUiOiJtZWRlY2luIiwicGVybWlzc2lvbnMiOnt9LCJpYXQiOjE3MTg3NTQ2ODZ9.KwBpyJqBDHT9e5rLYvlJC1m0JUZNXnu1gZEM-eHLY-52xjGTiDzN9GNPuvjgeN9jEWqiG86E6NnBkyIhIlaxUA'},
 ]
 
 exports.custom_random = (list) => {
@@ -14,7 +14,7 @@ exports.random_valid_jwt = () => {
   return JWT_TOKENS[index];
 }
 
-const CODES_EXAMENS_CLINIQUES = ['S10.9', 'Z06.0', 'S54.16', 'N83.29', 'Z12.31']
+const CODES_EXAMENS_CLINIQUES = ['EC01', 'EC02', 'EC03', 'EC04', 'EC05']
 exports.random_examens_cliniques = () =>{
   const result = []
   const count = Math.floor(Math.random() * 3);
@@ -29,7 +29,7 @@ exports.random_bilans = () =>{
   const result = []
   const count = Math.floor(Math.random() * 3);
   for (let i=0; i<count; i++){
-    result.push({code_bilan: this.custom_random(CODES_BILANS), date: faker.date.past({years: 1}), remarques: ''})
+    result.push({ code_bilan: this.custom_random(CODES_BILANS), externe: 0, date: faker.date.past({years: 1}), remarques: ''})
   }
   return result;
 }
@@ -39,12 +39,13 @@ exports.random_radios = () =>{
   const result = []
   const count = Math.floor(Math.random() * 3);
   for (let i=0; i<count; i++){
-    result.push({code_radio: this.custom_random(CODES_RADIO), date: faker.date.past({years: 1}), remarques: ''})
+    result.push({
+      code_radio: this.custom_random(CODES_RADIO), externe: 0, date: faker.date.past({years: 1}), remarques: ''})
   }
   return result;
 }
 
-const CODES_MEDICAMENTS = ['01 A 003', '01 A 008', '01 A 009', '01 A 034', '01 A 039']
+const CODES_MEDICAMENTS = ['N02BE01', 'C07AB02', 'A02BC01', 'A01AB03', 'A10BA02']
 exports.random_prescriptions = () =>{
   const result = []
   const count = Math.floor(Math.random() * 3);

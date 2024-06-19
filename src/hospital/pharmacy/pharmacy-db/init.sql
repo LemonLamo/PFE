@@ -12,7 +12,6 @@ USE forza;
 
 CREATE TABLE `medicaments` (
   `code_medicament` nvarchar(255) NOT NULL PRIMARY KEY,
-  `DCI` nvarchar(255) NOT NULL,
   `quantite` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -23,11 +22,11 @@ CREATE TABLE `medicaments` (
 --
 
  
-INSERT INTO `medicaments` (`DCI`, `code_medicament`, `quantite`) VALUES
-('CETIRIZINE DICHLORHYDRATE', '01 A 003', 102),
-('DOXYLAMINE SUCCINATE', '01 A 008', 211),
-('MEQUITAZINE', '01 A 009', 0),
-('DEXCHLORPHENIRAMINE MALEATE', '01 A 007', 8);
+INSERT INTO `medicaments` (`code_medicament`, `quantite`) VALUES
+('N02BE01', 102),
+('C07AB02', 211),
+('A02BC01', 0),
+('A01AB03', 8);
 
 
 -- --------------------------------------------------------
@@ -43,4 +42,4 @@ CREATE TABLE `transactions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `transactions` (`code_medicament`, `avant`, `difference`) VALUES
-('01 A 003', 20, -5)
+('N02BE01', 20, -5)

@@ -3,6 +3,7 @@ import Modal from "../../../components/UI/Modal";
 import moment from "moment";
 import { baseURL } from "../../../config";
 import axios from "axios";
+import { validation_badge } from "../../../hooks/useBlockchain";
 
 type Props = {
   isOpen: boolean;
@@ -22,9 +23,10 @@ export default function DetailsIntervention({ isOpen, close, selectedInterventio
 
   return (
     <Modal isOpen={isOpen} icon="fa fa-health-snake" theme={theme} size="sm:max-w-6xl">
-      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">
-        Détails Intervention "{intervention.id}"
-      </h3>
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Détails Intervention "{intervention.id}"</h3>
+        {validation_badge(intervention.integrite)}
+      </div>
       <div className="grid grid-cols-2 gap-2 mb-1">
         <fieldset className="w-full border-solid border-2 border-slate-400 px-4 pt-0 pb-4">
           <legend className="font-semibold text-gray-900">Patient</legend>

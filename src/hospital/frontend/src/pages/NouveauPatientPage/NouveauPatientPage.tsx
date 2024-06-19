@@ -45,8 +45,19 @@ function NewPatientPage() {
         return;
 
       const formData = new FormData();
-      Object.keys(data).forEach((key) => formData.append(key, data[key] as string));
+      Object.keys(data).forEach((key) => {
+        const value = data[key];
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            formData.append(`${key}[${index}]`, item);
+          });
+        } else {
+          formData.append(key, value);
+        }
+      });
       formData.append('avatar', avatar!);
+
+      console.log(formData)
 
       const config = { headers: {'content-type': 'multipart/form-data'} }
       await axios.post(`${baseURL}/api/patients`, formData, config);

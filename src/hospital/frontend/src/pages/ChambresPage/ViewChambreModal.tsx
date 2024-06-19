@@ -111,7 +111,7 @@ export default function ViewChambreModal({
                       </Badge>
                     )}
                   </TableCell>
-                  <TableCell>{t.description}</TableCell>
+                  <TableCell>{t.remarques}</TableCell>
                 </TableRow>
               ))}
             </Table>

@@ -13,7 +13,7 @@ import Button from "../../components/UI/Buttons/Button";
 
 const build_badge = (created_at: Date, expired_at: Date) => {
     return (
-        (!expired_at || (new Date() >= new Date(created_at) && new Date() <= new Date(expired_at)))?
+        (!expired_at || (new Date() >= new Date(created_at) && new Date() < new Date(expired_at)))?
             <Badge bgColor="#dcfce7" textColor="#267142">
                 <CheckCircleIcon className="h-4 mr-1" />
                 Actif
@@ -59,7 +59,7 @@ function HistoriquePage(){
         { header: "", id: "actions",
                 cell: (info) => {
                     const a = info.row.original;
-                    return (!a.expired_at || (new Date() >= new Date(a.created_at) && new Date() <= new Date(a.expired_at))) &&
+                    return (!a.expired_at || (new Date() >= new Date(a.created_at) && new Date() < new Date(a.expired_at))) &&
                     <div className="flex justify-end gap-2">
                         <Button onClick={() => revoquer(a.id)} theme="danger">Revoquer</Button>
                     </div>
