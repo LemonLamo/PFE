@@ -2,8 +2,9 @@ package cpabe_cryptosystem
 
 import (
 	"crypto/rand"
+	"encoding/base64"
 	"errors"
-	"fmt"
+	"os"
 
 	cpabe "github.com/cloudflare/circl/abe/cpabe/tkn20"
 )
@@ -12,12 +13,24 @@ var masterPublicKey = cpabe.PublicKey{}
 var masterSecretKey = cpabe.SystemSecretKey{}
 
 func Setup() {
-	masterPublicKey, masterSecretKey, _ = cpabe.Setup(rand.Reader)
+	/*masterPublicKey, masterSecretKey, _ = cpabe.Setup(rand.Reader)
 
 	p, _ := masterPublicKey.MarshalBinary()
 	fmt.Printf("Public key (64 bytes): %+x\n", p[:64])
+	mpk := base64.StdEncoding.EncodeToString(p)
+
 	p, _ = masterSecretKey.MarshalBinary()
 	fmt.Printf("Private key (64 bytes): %+x\n", p[:64])
+	msk := base64.StdEncoding.EncodeToString(p)
+
+	ioutil.WriteFile("MPK.txt", []byte(mpk), 0644)
+	ioutil.WriteFile("MSK.txt", []byte(msk), 0644)*/
+
+	MPK, _ := base64.StdEncoding.DecodeString(string(os.Getenv("MPK")))
+	MSK, _ := base64.StdEncoding.DecodeString(string(os.Getenv("MSK")))
+
+	masterPublicKey.UnmarshalBinary(MPK)
+	masterSecretKey.UnmarshalBinary(MSK)
 }
 
 func GenerateSecretKey(attributes map[string]string) ([]byte, error) {

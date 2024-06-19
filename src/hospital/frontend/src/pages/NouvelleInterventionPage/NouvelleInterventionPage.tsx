@@ -41,7 +41,7 @@ function NouvelleInterventionPage() {
       if(!getValues('protocole_operatoire'))
         navigate(`/interventions`)
       else
-        navigate(`/interventions/new`)
+        navigate(`/`)
     } catch (error: any) {
       if (error.response)
         if(error.response?.data?.errorCode != "form-validation")
