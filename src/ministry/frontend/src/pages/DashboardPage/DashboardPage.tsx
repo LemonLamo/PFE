@@ -104,7 +104,7 @@ function DashboardPage(){
                     </Card>
                 </div>
                 <div className="col-span-5">
-                    <Card title="Dernier alertes" subtitle="Les alertes les plus pertinentes" className="w-full">
+                    <Card title="Dernières alertes" subtitle="Les alertes les plus pertinentes" className="w-full">
                         <ul className="flex flex-col gap-y-4 mt-4">
                         {
                             alerts.isLoading?
@@ -115,7 +115,7 @@ function DashboardPage(){
                         }
                         </ul>
                     </Card>
-                    <Card title="Autorisations actifs" subtitle="Les medecins qui ont accès à votre dossier médical" className="w-full">
+                    <Card title="Autorisations actives" subtitle="Les medecins qui ont accès à votre dossier médical" className="w-full">
                         <DataTable query={authorisations_history} tableDefinition={autorisations_tableDef} searchable={false} pageSize={3} />
                     </Card>
                 </div>

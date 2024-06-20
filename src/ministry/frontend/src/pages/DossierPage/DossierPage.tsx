@@ -25,10 +25,10 @@ function DossierPage(){
                 <TabContent icon="fa fa-user" text="Allergies">
                     <TabAllergies NIN={auth!.NIN!} />
                 </TabContent>
-                <TabContent icon="fa fa-user" text="Antécédents Médicales">
+                <TabContent icon="fa fa-user" text="Antécédents Médicaux">
                     <TabAntecedentsMedicales NIN={auth!.NIN!} />
                 </TabContent>
-                <TabContent icon="fa fa-user" text="Antécédents Familiales">
+                <TabContent icon="fa fa-user" text="Antécédents Familiaux">
                     <TabAntecedentsFamiliaux NIN={auth!.NIN!} />
                 </TabContent>
                 <TabContent icon="fa fa-user" text="Médicaments">
