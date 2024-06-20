@@ -96,7 +96,7 @@ class PersonnelController {
       await Model.remove(NIN);
       return res.status(200).json({ success: true });
     } catch (err) {
-      logger.error("database-error: " + err.code);
+      logger.error("database-error: " + err);
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }

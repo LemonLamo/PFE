@@ -50,6 +50,7 @@ app.get('/api/codifications/examens-cliniques', ExamensCliniquesController.selec
 app.get('/api/codifications/examens-cliniques/:code_examen_clinique', ExamensCliniquesController.selectOne);
 
 app.get('/api/codifications/medicaments', MedicamentsController.select);
+app.post('/api/codifications/medicaments', MedicamentsController.getByCodes)
 app.get('/api/codifications/medicaments/:code_medicament', MedicamentsController.selectOne);
 
 app.get('/api/codifications/bilans', BilansController.select);
@@ -68,7 +69,6 @@ app.post('/private/maladies', MaladiesController.getByCodes)
 app.post('/private/allergenes', AllergenesController.getByCodes)
 app.post('/private/vaccins', VaccinsController.getByCodes)
 app.post('/private/examens-cliniques', ExamensCliniquesController.getByCodes)
-app.post('/private/medicaments', MedicamentsController.getByCodes)
 app.post('/private/bilans', BilansController.getByCodes)
 app.post('/private/radios', RadiosController.getByCodes)
 app.post('/private/interventions', InterventionsController.getByCodes)

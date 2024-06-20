@@ -39,9 +39,12 @@ class EHRAuthModel {
     }
     
     async expire(medecin, patient, urgence){
+        console.log(urgence == 1 ? 'UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif="Urgence" AND `expired_at` IS NULL' : 'UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND (motif="Consultation" OR motif="Hospitalisation" OR motif="Intervention") AND `expired_at` IS NULL');
         const [results] = urgence==1?
             await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif="Urgence" AND `expired_at` IS NULL', [medecin, patient]):
-            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND motif!="Urgence" AND `expired_at` IS NULL', [medecin, patient]);
+            await db.query('UPDATE `ehr_autorisations` SET `expired_at`= NOW() WHERE medecin=? AND patient=? AND (motif="Consultation" OR motif="Hospitalisation" OR motif="Intervention") AND `expired_at` IS NULL', [medecin, patient]);
+
+        console.log(results);
         if (results.affectedRows < 1)
             throw new Error({ code: "ER_UPDATE_FAIL" })
     }
@@ -57,8 +60,8 @@ class EHRAuthModel {
             throw new Error({ code: "ER_UPDATE_FAIL" })
     }
 
-    async validate(medecin, patient, legit){
-        const [results] = await db.query('UPDATE `ehr_autorisations` SET `validated_at`= NOW(), legit=? WHERE medecin=? AND patient=?', [legit, medecin, patient]);
+    async validate(id, legit){
+        const [results] = await db.query('UPDATE `ehr_autorisations` SET `validated_at`= NOW(), legit=? WHERE id=?', [legit, id]);
         if (results.affectedRows < 1)
             throw new Error({ code: "ER_UPDATE_FAIL" })
     }

@@ -30,7 +30,7 @@ exports.fetchVaccinations = async (data) => {
 exports.fetchMedicaments = async (data) => {
     if(data.length==0) return data;
     const codes_medicaments = data.map((x) => x.code_medicament);
-    const medicaments = (await axios.post('http://codifications-service/private/medicaments', { codes_medicaments })).data;
+    const medicaments = (await axios.post('http://codifications-service/api/codifications/medicaments', { codes_medicaments })).data;
     const medicamentsMap = new Map(medicaments.map((x) => [x.code_medicament, { ...x }]));
 
     return medicamentsMap;

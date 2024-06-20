@@ -27,7 +27,7 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
   const [specialites, setSpecialites] = useState<any[]>([]);
 
   useEffect(()=>{
-    axios.get(`${baseURL}/api/codifications/specialites?search=`).then((response) => {
+    axios.get(`${baseURL}/api/codifications/specialites`).then((response) => {
       setSpecialites(response.data)
       if (response.data.length > 0)
         setValue('specialite', response.data[0].specialite!)

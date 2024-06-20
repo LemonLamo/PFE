@@ -62,7 +62,7 @@ function NouvelleHospitalisationPage() {
             </TabContent>
 
             <TabContent icon="fa fa-timeline" text="Historique Médical">
-              <TabHistorique NIN={patient.NIN!} />
+              <TabHistorique NIN={patient.NIN!} link={true} />
             </TabContent>
 
             <TabContent icon="fa fa-bed-pulse" text="Hospitalisation">

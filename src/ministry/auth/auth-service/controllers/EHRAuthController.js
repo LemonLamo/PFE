@@ -47,11 +47,11 @@ class AuthController {
   validate = async (req, res) => {
     const { id } = req.params;
     const { legit } = req.body;
-    
+        
     if(legit == -1)
       await EHRAuthModel.expireByID(id);
 
-    const result = await EHRAuthModel.validate(medecin, patient, legit)
+    const result = await EHRAuthModel.validate(id, legit)
     if (result)
       return res.status(200).json(result)
     else
@@ -105,7 +105,7 @@ class AuthController {
     const { medecin, patient, urgence } = req.body;
     const { NIN: initiator } = req.jwt;
 
-    console.log(initiator, medecin, patient, urgence, 'is it me? ', initiator != medecin && initiator != patient);
+    console.log(initiator, medecin, patient, urgence, 'not safe? ', initiator != medecin && initiator != patient);
 
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
@@ -114,8 +114,8 @@ class AuthController {
       await EHRAuthModel.expire(medecin, patient, urgence);
       return res.status(200).json({success: 1})
     }catch(err){
-      logger.error(JSON.stringify(err))
-      return res.status(400).json();
+      logger.error(err)
+      return res.status(400).json(err);
     }
   }
   expireByID = async (req, res) => {

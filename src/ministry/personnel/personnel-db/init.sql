@@ -26,8 +26,8 @@ CREATE TABLE `personnel` (
   `code_postale` int(5) NOT NULL,
   `commune` varchar(255) NOT NULL,
   `wilaya` varchar(255) NOT NULL,
-  `hopital` varchar(255) NOT NULL,
-  `service` varchar(255) NOT NULL,
+  `hopital` varchar(255),
+  `service` varchar(255),
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

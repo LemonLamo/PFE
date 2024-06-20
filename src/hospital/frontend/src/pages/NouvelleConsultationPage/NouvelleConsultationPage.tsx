@@ -91,15 +91,15 @@ function NouvelleConsultationPage() {
   return (
       step < 2 ?
         <PatientsSelector step={step} setStep={setStep} patient={patient} select_patient={select_patient} motif="Consultation"/>:
-        <Card title="Nouvelle consultation" subtitle="Remplissez ce formulaire pour enregistrer une nouvelle consultation ?" className="w-full" >
+        <Card title="Nouvelle consultation" subtitle="Remplissez ce formulaire pour enregistrer une nouvelle consultation" className="w-full" >
           <form onSubmit={handleSubmit(onSubmit)}>
           <Tabs keepVisible={true} selected={selectedTab} setSelected={setSelectedTab}>
             <TabContent icon="fa fa-user" text="Informations personnelles">
-              <TabInfoPersonelles NIN={patient!.NIN!} />
+              <TabInfoPersonelles NIN={patient!.NIN!} link={true}  />
             </TabContent> 
 
             <TabContent icon="fa fa-timeline" text="Historique Médical">
-              <TabHistorique NIN={patient!.NIN!} />
+              <TabHistorique NIN={patient!.NIN!} link={true}  />
             </TabContent>
 
             <TabContent icon="fa fa-clipboard-question" text="Motif de la consultation">
