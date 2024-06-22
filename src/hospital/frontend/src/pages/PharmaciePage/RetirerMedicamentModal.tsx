@@ -13,7 +13,7 @@ type Props = {
 
 const theme = "danger";
 
-export default function AjouterMedicamentModal({ isOpen, close }: Props) {
+export default function RetirerMedicamentModal({ isOpen, close }: Props) {
   const { showAlert } = useContext(AlertsContext);
 
   const { register, handleSubmit, reset, setValue, formState:{errors} } = useForm<any>();
@@ -41,14 +41,14 @@ export default function AjouterMedicamentModal({ isOpen, close }: Props) {
   return (
     createPortal(
     <Modal isOpen={isOpen} icon="fa fa-pills" theme={theme} size="sm:max-w-2xl">
-      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Ajouter un médicament</h3>
+      <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-3">Retirer un médicament</h3>
       <p className="text-gray-600">Remplissez ce formulaire pour retirer un médicament.</p>
       <div className="mb-2">
         <label className="text-sm font-semibold">Code<span className="text-red-500">*</span></label>
         <Select<MedicamentCode> url="medicaments" code="code_medicament" designation="DCI" placeholder="Médicament" onChange={select_medicament} className={`col-span-6 primary ${errors.code_medicament && 'has-error'}`} />
       </div>
       <div className="col-span-4 mb-2">
-        <label className="text-sm font-semibold">Quantité à ajouter<span className="text-red-500">*</span></label>
+        <label className="text-sm font-semibold">Quantité à retirer<span className="text-red-500">*</span></label>
         <input type="number" placeholder="Qte" {...register("quantite", {required: true})} className={`primary ${errors.quantite && 'has-error'}`} />
       </div>
 

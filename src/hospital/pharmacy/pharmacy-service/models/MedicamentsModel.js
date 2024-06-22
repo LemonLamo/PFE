@@ -22,7 +22,7 @@ exports.selectTransactions = async (code_medicament) => {
 };
 
 exports.insert = async (code_medicament, quantite) => {
-  await db.execute("INSERT INTO `medicaments`(`code_medicament`, `quantite`) VALUES (?, ?, ?)", [code_medicament, quantite]);
+  await db.execute("INSERT INTO `medicaments`(`code_medicament`, `quantite`) VALUES (?, ?)", [code_medicament, quantite]);
 };
 exports.update = async (code_medicament, quantite) => {
   let [avant] = await db.execute("SELECT quantite FROM `medicaments` WHERE `code_medicament`=?",[code_medicament]);

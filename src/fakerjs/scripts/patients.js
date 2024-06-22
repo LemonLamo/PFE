@@ -32,6 +32,10 @@ exports.fillup = async (NUMBER_OF_RECORDS) => {
                 donneur_organe: false,
                 NIN_pere: "1000"+Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join(''),
                 NIN_mere: "1000"+Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join(''),
+                maladies_chroniques: "[]",
+                allergies: "[]",
+                antecedents_medicaux: "[]",
+                antecedents_familiaux: "[]",
             }
             
             const data = new FormData();
@@ -47,7 +51,8 @@ exports.fillup = async (NUMBER_OF_RECORDS) => {
             patients.push(patient.NIN);
             i++;
         }catch(e){
-            console.error(e)
+            console.log(`Failed to add patient`)
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
     }
     return patients;

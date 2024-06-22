@@ -16,14 +16,15 @@ exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
             motif: "Consultation"
         }
 
-        await axios.post(
-            `https://localhost/api/auth/authorisations`,
-            auth_request,
-            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt } }
-        );
-
-        const date = faker.date.past({years: 10});
         try{
+            await axios.post(
+                `https://localhost/api/auth/authorisations`,
+                auth_request,
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt } }
+            );
+    
+            const date = faker.date.past({years: 10});
+
             const consultation = {
                 bilans: random_bilans(),
                 date: date.toString(),
@@ -49,8 +50,8 @@ exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
             console.log(`Added consultation to (${patient})`)
             i++;
         }catch(e){
-            console.log(e.response.data)
             console.log(`Failed to add consultation to (${patient})`)
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
     }
 }

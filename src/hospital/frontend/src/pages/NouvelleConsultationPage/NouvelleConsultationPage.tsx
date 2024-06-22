@@ -129,7 +129,7 @@ function NouvelleConsultationPage() {
           </Tabs>
 
           <div className="w-full flex justify-end">
-            <Button type="submit" theme="primary" onClick={() => null} disabled={selectedTab < 4}>
+            <Button type="submit" theme="primary" onClick={() => null} disabled={selectedTab < 5}>
               Enregistrer
             </Button>
           </div>

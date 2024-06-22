@@ -59,12 +59,10 @@ class PatientsController {
         NIN_pere,
         NIN_mere,
       } = req.body;
-      const {
-        maladies_chroniques,
-        allergies,
-        antecedents_medicaux,
-        antecedents_familiaux,
-      } = req.body;
+      const maladies_chroniques = JSON.parse(req.body.maladies_chroniques ?? "[]");
+      const allergies = JSON.parse(req.body.allergies ?? "[]");
+      const antecedents_medicaux = JSON.parse(req.body.antecedents_medicaux ?? "[]");
+      const antecedents_familiaux = JSON.parse(req.body.antecedents_familiaux) ?? "[]";
 
       const result = await Model.insert(
         NIN,

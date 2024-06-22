@@ -34,10 +34,6 @@ function NewPatientPage() {
   const onSubmit: SubmitHandler<Patient> = async (patient) => {
     const data : Record<string, any> = {
       ...patient,
-      maladies_chroniques,
-      allergies,
-      antecedents_medicaux,
-      antecedents_familiaux
     };
 
     try {
@@ -45,16 +41,11 @@ function NewPatientPage() {
         return;
 
       const formData = new FormData();
-      Object.keys(data).forEach((key) => {
-        const value = data[key];
-        if (Array.isArray(value)) {
-          value.forEach((item, index) => {
-            formData.append(`${key}[${index}]`, item);
-          });
-        } else {
-          formData.append(key, value);
-        }
-      });
+      Object.keys(data).forEach((key) => formData.append(key, data[key]));
+      maladies_chroniques.forEach((val) => formData.append('maladies_chroniques[]', JSON.stringify(val)))
+      allergies.forEach((val) => formData.append('allergies[]', JSON.stringify(val)))
+      antecedents_medicaux.forEach((val) => formData.append('antecedents_medicaux[]', JSON.stringify(val)))
+      antecedents_familiaux.forEach((val) => formData.append('antecedents_familiaux[]', JSON.stringify(val)))
       formData.append('avatar', avatar!);
 
       console.log(formData)

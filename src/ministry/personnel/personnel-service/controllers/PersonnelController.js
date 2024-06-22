@@ -26,7 +26,7 @@ class PersonnelController {
       const { NIN } = req.params;
       const result = await Model.selectOne(NIN);
 
-      if(result.hopital == hopital)
+      if(result.hopital == hopital || (!result.hopital && !result.service))
         return res.status(200).json(result);
 
     } catch (err) {

@@ -5,11 +5,9 @@ import matplotlib.pyplot as plt
 TITLE = "Throughput en fonction de nombre de DME"
 X_AXIS = "Nombre de DME"
 Y_AXIS = "Throughput (en requetes)"
-x = [10, 100, 1000, 10000, 100000, 1000000]
+x = [10, 100, 500, 1000, 10000, 100_000]
 Y1_LABEL = "Nombre de requetes"
-y1 = [35000, 24000, 16000, 12000, 11000, 10000]
-#Y2_LABEL = "Avec Blockchain, Avec CP-ABE"
-#y2 = [40, 50, 80, 120, 200, 400]
+y1 = [19.1, 22.9, 23.8, 12000, 11000, 10000]
 
 # Create a plot with customized appearance
 plt.figure(figsize=(12, 5))  # Set figure size

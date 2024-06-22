@@ -18,15 +18,22 @@ exports.fillup = async () => {
     for(let i=radios.length-1; i >= 0; i--){
         let data = new FormData();
         let count = custom_random([1, 2, 3]);
-        for(let j=0; j<count; j++)
+        let j = 0;
+        while(j<count)
             data.append('radios', fs.createReadStream(`./radios/${custom_random([1,2,3,4,5])}.png`));
         data.append('observations', faker.lorem.sentence());
         
-        await axios.post(
-            `https://localhost/api/radios/${radios[i].id}`,
-            data,
-            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt, 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
-        );
+        try{
+            await axios.post(
+                `https://localhost/api/radios/${radios[i].id}`,
+                data,
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt, 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
+            );
+            j++;
+        }
+        catch (e) {
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
     }
     
 }

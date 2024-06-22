@@ -52,10 +52,7 @@ class AuthController {
       await EHRAuthModel.expireByID(id);
 
     const result = await EHRAuthModel.validate(id, legit)
-    if (result)
-      return res.status(200).json(result)
-    else
-      return res.status(401).json()
+    return res.status(200).json(result)
   };
 
   authorize = async (req, res) => {

@@ -19,26 +19,26 @@ function DossierPage(){
         <Card className="w-full">
             <TabInfoPersonelles NIN={auth!.NIN!} />
             <Tabs type="horizontal">
-                <TabContent icon="fa fa-user" text="Maladies chroniques">
+                <TabContent icon="fa fa-timeline" text="Historique">
+                    <TabHistorique NIN={auth!.NIN!} />
+                </TabContent>
+                <TabContent icon="fa fa-virus" text="Maladies chroniques">
                     <TabMaladiesChroniques NIN={auth!.NIN!} />
                 </TabContent>
-                <TabContent icon="fa fa-user" text="Allergies">
+                <TabContent icon="fa fa-person-dots-from-line" text="Allergies">
                     <TabAllergies NIN={auth!.NIN!} />
                 </TabContent>
-                <TabContent icon="fa fa-user" text="Antécédents Médicaux">
+                <TabContent icon="fa fa-clock-rotate-left" text="Antécédents Médicaux">
                     <TabAntecedentsMedicales NIN={auth!.NIN!} />
                 </TabContent>
-                <TabContent icon="fa fa-user" text="Antécédents Familiaux">
+                <TabContent icon="fa fa-clock-rotate-left" text="Antécédents Familiaux">
                     <TabAntecedentsFamiliaux NIN={auth!.NIN!} />
                 </TabContent>
-                <TabContent icon="fa fa-user" text="Médicaments">
+                <TabContent icon="fa fa-pills" text="Médicaments">
                     <TabMedicaments NIN={auth!.NIN!} />
                 </TabContent>
-                <TabContent icon="fa fa-user" text="Vaccinations">
-                    <TabVaccinations NIN={auth!.NIN!}/>
-                </TabContent>
-                <TabContent icon="fa fa-user" text="Historique">
-                    <TabHistorique NIN={auth!.NIN!} />
+                <TabContent icon="fa fa-syringe" text="Vaccinations">
+                    <TabVaccinations NIN={auth!.NIN!} />
                 </TabContent>
             </Tabs>    
         </Card>

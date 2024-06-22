@@ -15,18 +15,24 @@ exports.fillup = async () => {
 
     const bilans = response.data;
 
-    for(let i=bilans.length-1; i >= 0; i--){
+    let i = bilans.length - 1;
+    while(i >= 0){
         let data = new FormData();
         let count = custom_random([1, 2, 3]);
         for(let j=0; j<count; j++)
             data.append('bilans', fs.createReadStream(`./bilans/${custom_random([1,2,3])}.pdf`));
         data.append('observations', faker.lorem.sentence());
         
-        await axios.post(
-            `https://localhost/api/bilans/${bilans[i].id}`,
-            data,
-            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt, 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
-        );
+        try{
+            await axios.post(
+                `https://localhost/api/bilans/${bilans[i].id}`,
+                data,
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt, 'Content-Type': `multipart/form-data; boundary=${data._boundary}`}}
+            );
+            i--;
+        }catch(e){
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
     }
     
 }

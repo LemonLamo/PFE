@@ -16,13 +16,13 @@ exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
             motif: "Hospitalisation"
         }
 
-        await axios.post(
-            `https://localhost/api/auth/authorisations`,
-            auth_request,
-            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt } }
-        );
-
         try{
+            await axios.post(
+                `https://localhost/api/auth/authorisations`,
+                auth_request,
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt } }
+            );
+            
             const hospitalisation = {
                 patient: patient,
                 date_entree: faker.date.past({years: 5}).toString(),
@@ -40,8 +40,8 @@ exports.fillup = async (NUMBER_OF_RECORDS, patients) => {
             console.log(`Added hospitalisation to (${patient})`)
             i++;
         }catch(e){
-            console.log(e.response.data)
             console.log(`Failed to add hospitalisation to (${patient})`)
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
     }
 }

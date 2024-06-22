@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 TITLE = "Temps de réponse en fonction de nombre de DME"
 X_AXIS = "Nombre de DME"
 Y_AXIS = "Temps de réponse (en ms)"
-x = [10, 100, 1000, 10000, 100000, 1000000]
+x = [10, 100, 500, 1_000, 5_000, 10_000, 50_000, 100_000]
 Y1_LABEL = "Temps de réponse (en ms)"
-y1 = [20, 30, 50, 100, 180, 360]
+y1 = [19.1, 22.9, 23.8, 25.5, 43, 67, 120, 256]
 
 # Create a plot with customized appearance
 plt.figure(figsize=(12, 5))  # Set figure size

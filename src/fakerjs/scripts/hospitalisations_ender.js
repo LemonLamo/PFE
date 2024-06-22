@@ -12,17 +12,22 @@ exports.fillup = async () => {
     );
 
     const hospitalisations = response.data;
-
-    for(let i=hospitalisations.length-1; i >= 0; i--){
+    let i = hospitalisations.length - 1;
+    while(i >= 0){
         let sortie = {
             mode_sortie: "Sortie",
             date_sortie: faker.date.future({years:1, refDate: hospitalisations[i].date_entree})
         }
-        await axios.post(
-            `https://localhost/api/hospitalisations/${hospitalisations[i].id}/sortie`,
-            sortie,
-            { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt}}
-        );
+        try{
+            await axios.post(
+                `https://localhost/api/hospitalisations/${hospitalisations[i].id}/sortie`,
+                sortie,
+                { httpsAgent: agent, headers: { "Authorization": "Bearer " + session.jwt}}
+            );
+            i--;
+        }catch(e){
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
     }
     
 }
