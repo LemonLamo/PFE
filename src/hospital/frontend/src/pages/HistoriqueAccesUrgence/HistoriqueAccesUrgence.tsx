@@ -88,7 +88,7 @@ function HistoriqueAccesUrgence() {
         ], []) as ColumnDef<any>[];
 
     return <>
-        <Card title="Histroique d'autorisations" subtitle="Les alertes les plus pertinentes" className="w-full">
+        <Card title="Historique d'autorisations" subtitle="Les alertes les plus pertinentes" className="w-full">
             <DataTable query={authorisations_history} tableDefinition={autorisations_tableDef} searchable={false} />
         </Card>
     </>

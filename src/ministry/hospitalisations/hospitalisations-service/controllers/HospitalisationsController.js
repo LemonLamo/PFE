@@ -140,7 +140,6 @@ class HospitalisationsController {
 
   async selectCount(req, res) {
     try {
-      // TODO: Secure this!
       const { hopital, medecin } = req.query;
       if (hopital && medecin) {
         const result = await Model.countByMedecin(hopital, medecin);
@@ -159,7 +158,6 @@ class HospitalisationsController {
   }
 
   async selectCountToday(req, res) {
-    // TODO: secure this
     const { hopital } = req.jwt;
     try {
       const result = await Model.countToday(hopital);
@@ -171,7 +169,6 @@ class HospitalisationsController {
   }
 
   async selectCountByService(req, res) {
-    // TODO: secure this
     const { hopital } = req.jwt;
     try {
       const result = await Model.countByService(hopital);
@@ -184,7 +181,6 @@ class HospitalisationsController {
 
   async timeline(req, res) {
     try {
-      // TODO: Secure this!
       const { hopital, medecin, duree } = req.query;
       if (hopital && medecin) {
         const array = await Model.selectTimelinePerMedecin(

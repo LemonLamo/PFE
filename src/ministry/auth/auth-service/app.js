@@ -60,7 +60,7 @@ RabbitConnection.on("account_create", async (data) =>{
     const password = Math.random().toString(36).slice(2, 10);
     await UsersModel.insert(NIN, bcrypt.hashSync(password, 10), role, two_factor_secret);
     console.log(`NIN: ${NIN}, password: ${password}`);
-    //await AuthController.send_activation_email(NIN, email); //TODO: uncomment this
+    //await AuthController.send_activation_email(NIN, email);
   }
 })
 

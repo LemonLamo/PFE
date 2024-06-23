@@ -101,7 +101,6 @@ class PersonnelController {
     }
   }
   async selectCount(req, res){
-    // TODO: secure this!
     const { hopital, service } = req.query;
     if(hopital && service){
       const result = await Model.countByService(hopital, service);
@@ -113,13 +112,11 @@ class PersonnelController {
     return res.status(403).json({});
   }
   async selectCountGroupBySexe(req, res){
-    // TODO: secure this!
     const { hopital } = req.jwt;
     const result = await Model.countGroupBySexe(hopital);
     return res.status(200).json(result);
   }
   async selectCountGroupByService(req, res){
-    // TODO: secure this!
     const { hopital } = req.jwt;
     const result = await Model.countGroupByService(hopital);
     return res.status(200).json(result);

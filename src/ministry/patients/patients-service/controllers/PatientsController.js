@@ -36,8 +36,6 @@ class PatientsController {
 
   async insert(req, res) {
     try {
-      const { role } = req.jwt;
-      // TODO: secure this further!
       const {
         NIN,
         nom,
@@ -62,7 +60,7 @@ class PatientsController {
       const maladies_chroniques = JSON.parse(req.body.maladies_chroniques ?? "[]");
       const allergies = JSON.parse(req.body.allergies ?? "[]");
       const antecedents_medicaux = JSON.parse(req.body.antecedents_medicaux ?? "[]");
-      const antecedents_familiaux = JSON.parse(req.body.antecedents_familiaux) ?? "[]";
+      const antecedents_familiaux = JSON.parse(req.body.antecedents_familiaux ?? "[]");
 
       const result = await Model.insert(
         NIN,

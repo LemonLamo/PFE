@@ -68,8 +68,8 @@ export default function CreatePersonnelModal({ isOpen, close }: Props) {
       setValue("sexe", "Homme");
       setValue("date_de_naissance", "");
       setValue("lieu_de_naissance", "");
-      setValue("fonction", "");
-      setValue("specialite", "");
+      setValue("fonction", "medecin");
+      setValue("specialite", specialites[0]);
       setValue("email", "");
       setValue("telephone", "");
       setValue("adresse", "");

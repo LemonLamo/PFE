@@ -122,7 +122,6 @@ class BilansController {
   }
 
   async selectCountToday(req, res) {
-    // TODO: secure this
     const { hopital } = req.jwt;
     try {
       const result = await Model.countToday(hopital);

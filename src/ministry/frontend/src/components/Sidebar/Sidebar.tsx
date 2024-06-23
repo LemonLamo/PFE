@@ -12,7 +12,7 @@ function Sidebar({ setOpen }: SidebarProps) {
         <Link to="/" className="inline-flex items-center gap-2 mt-6 mb-2 h-10" >
           <img src={logo} className="w-10" />
           <span className="font-semibold transition-all duration-200 ease-nav-brand ml-2">
-            MedicaLife
+            KareTIC
           </span>
         </Link>
         <i id="sidenav_close_button" className="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden" onClick={setOpen} />

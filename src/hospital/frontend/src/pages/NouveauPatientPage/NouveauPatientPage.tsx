@@ -42,10 +42,10 @@ function NewPatientPage() {
 
       const formData = new FormData();
       Object.keys(data).forEach((key) => formData.append(key, data[key]));
-      maladies_chroniques.forEach((val) => formData.append('maladies_chroniques[]', JSON.stringify(val)))
-      allergies.forEach((val) => formData.append('allergies[]', JSON.stringify(val)))
-      antecedents_medicaux.forEach((val) => formData.append('antecedents_medicaux[]', JSON.stringify(val)))
-      antecedents_familiaux.forEach((val) => formData.append('antecedents_familiaux[]', JSON.stringify(val)))
+      formData.append(`maladies_chroniques`, JSON.stringify(maladies_chroniques))
+      formData.append(`allergies`, JSON.stringify(allergies))
+      formData.append(`antecedents_medicaux`, JSON.stringify(antecedents_medicaux))
+      formData.append(`antecedents_familiaux`, JSON.stringify(antecedents_familiaux))
       formData.append('avatar', avatar!);
 
       console.log(formData)
