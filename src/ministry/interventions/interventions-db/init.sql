@@ -19,6 +19,7 @@ CREATE TABLE `interventions` (
   `date` TIMESTAMP NOT NULL,
   `protocole_operatoire` TEXT,
   `remarques` VARCHAR(255) DEFAULT NULL,
+  `aes_key` TEXT,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -8,7 +8,7 @@ const axios = require('axios');
 const { genID, verifyIntegrity } = require("../utils");
 const RabbitConnection = require("../config/amqplib");
 const logger = require("../utils/logger");
-//const validator = require('../middlewares/validation');
+const { generate_key, encrypt, decrypt } = require("../utils/encryption");
 
 /******** ACTIONS ********/
 class InterventionsController {
@@ -76,6 +76,14 @@ class InterventionsController {
         fetchMedecins([data])
       ]);
       const result = { ...data, patient: patients.get(data.patient), medecin: medecins.get(data.medecin), designation: interventions.get(data.code_intervention).designation, };
+
+      // if protocole_operatoire, decrypt it
+      if (result.protocole_operatoire){
+        const aes_key_encrypted = result.aes_key;
+        const response = await fetch("http://cpabe-service/decrypt", { method: "POST", body: JSON.stringify({ ct: aes_key_encrypted, secret_key: process.env.CPABE_SECRET }) })
+        const aes_key = await response.text();
+        result.protocole_operatoire = decrypt(aes_key, result.protocole_operatoire);
+      }
       
       // verify integrity
       result.integrite = await verifyIntegrity(id, data);
@@ -92,7 +100,11 @@ class InterventionsController {
 
       const id = "interv-"+genID();
       const { patient, date, code_intervention, remarques, protocole_operatoire } = req.body;
-      await Model.insert(id, patient, medecin, hopital, service, date, code_intervention, remarques, protocole_operatoire);
+      const aes_key = generate_key();
+      const po = protocole_operatoire? encrypt(aes_key, protocole_operatoire) : "";
+      const response = await fetch("http://cpabe-service/encrypt", { method: "POST", body: JSON.stringify({ "msg": aes_key, "policy": "service_type: interventions AND authorization_level: ministry" }) })
+      const aes_key_encrypted = await response.text();
+      await Model.insert(id, patient, medecin, hopital, service, date, code_intervention, remarques, po, aes_key_encrypted);
 
       // blockchain
       await RabbitConnection.sendMsg("blockchain_insert", {id: id, obj: await Model.selectOne(id), author: medecin })
@@ -123,7 +135,13 @@ class InterventionsController {
     const { id } = req.params;
     const { protocole_operatoire } = req.body;
     try {
-      await Model.executer(id, protocole_operatoire);
+      const precheck = await Model.selectOne(id);
+      const aes_key_encrypted = precheck.aes_key;
+      const response = await fetch("http://cpabe-service/decrypt", { method: "POST", body: JSON.stringify({ ct: aes_key_encrypted, secret_key: process.env.CPABE_SECRET }) })
+      const aes_key = await response.text();
+      const po = encrypt(aes_key, protocole_operatoire);
+
+      await Model.executer(id, po);
       return res.status(200).json({ success: true });
     } catch (err) {
       logger.error("database-error: " + err);

@@ -74,11 +74,12 @@ class InterventionsModel {
     date,
     code_intervention,
     remarques,
-    protocole_operatoire
+    protocole_operatoire,
+    aes_key
   ) {
     try {
       await db.execute(
-        "INSERT INTO interventions(id, patient, medecin, hopital, service, date, code_intervention, remarques, protocole_operatoire) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO interventions(id, patient, medecin, hopital, service, date, code_intervention, remarques, protocole_operatoire, aes_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           id,
           patient,
@@ -89,6 +90,7 @@ class InterventionsModel {
           code_intervention,
           remarques ?? null,
           protocole_operatoire ?? null,
+          aes_key
         ]
       );
     } catch (error) {
