@@ -101,9 +101,7 @@ class AuthController {
   expire = async (req, res) => {
     const { medecin, patient, urgence } = req.body;
     const { NIN: initiator } = req.jwt;
-
-    console.log(initiator, medecin, patient, urgence, 'not safe? ', initiator != medecin && initiator != patient);
-
+    
     if(initiator != medecin && initiator != patient)
       return res.status(400).json();
     

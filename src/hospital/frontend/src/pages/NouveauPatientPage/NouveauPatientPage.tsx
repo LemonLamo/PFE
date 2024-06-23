@@ -48,8 +48,6 @@ function NewPatientPage() {
       formData.append(`antecedents_familiaux`, JSON.stringify(antecedents_familiaux))
       formData.append('avatar', avatar!);
 
-      console.log(formData)
-
       const config = { headers: {'content-type': 'multipart/form-data'} }
       await axios.post(`${baseURL}/api/patients`, formData, config);
       reset();

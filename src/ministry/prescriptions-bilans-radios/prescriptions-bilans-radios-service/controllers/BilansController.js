@@ -35,8 +35,6 @@ class BilansController {
           fetchMedecins(data)
         ]);
 
-        console.log(data);
-
         const result = data.map((x) => ({
           ...x,
           patient: patients.get(x.patient),

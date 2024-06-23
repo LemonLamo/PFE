@@ -29,7 +29,6 @@ class PersonnelModel {
       const sql =
         "SELECT `NIN`, `nom`, `prenom` FROM personnel" +
         (whereClause.length > 0 ? ` WHERE ${whereClause}` : "");
-      console.log(sql, params);
 
       // Execute the query and return results
       const [results] = await db.query(sql, params);
