@@ -11,6 +11,7 @@ import TabVaccinations from "./Tabs/TabVaccinations";
 import TabHistorique from "./Tabs/TabHistorique";
 import { useContext } from "react";
 import AuthContext from "../../hooks/AuthContext";
+import TabHandicaps from "./Tabs/TabHandicaps";
 
 function DossierPage(){
     const auth = useContext(AuthContext)
@@ -33,6 +34,9 @@ function DossierPage(){
                 </TabContent>
                 <TabContent icon="fa fa-clock-rotate-left" text="Antécédents Familiaux">
                     <TabAntecedentsFamiliaux NIN={auth!.NIN!} />
+                </TabContent>
+                <TabContent icon="fa fa-wheelchair" text="Handicaps">
+                    <TabHandicaps NIN={auth!.NIN!} />
                 </TabContent>
                 <TabContent icon="fa fa-pills" text="Médicaments">
                     <TabMedicaments NIN={auth!.NIN!} />

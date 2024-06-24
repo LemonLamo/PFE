@@ -36,7 +36,7 @@ function PatientPage() {
         <TabContent icon="fa fa-clock-rotate-left"text="Antécédents Familiaux">
           <TabAntecedentsFamiliaux NIN={NIN!} />
         </TabContent>
-        <TabContent icon="fa fa-person-dots-from-line" text="Handicaps">
+        <TabContent icon="fa fa-wheelchair" text="Handicaps">
           <TabHandicaps NIN={NIN!} />
         </TabContent>
         <TabContent icon="fa fa-pills" text="Médicaments">
