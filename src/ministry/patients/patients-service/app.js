@@ -60,6 +60,10 @@ app.get("/api/patients/:NIN/allergies", auth.requireAuth, auth.verifyEHRAuth, Pa
 app.post("/api/patients/:NIN/allergies", auth.requireAuth, PatientsController.insertAllergie);
 app.delete("/api/patients/:NIN/allergies/:id", auth.requireAuth, PatientsController.deleteAllergie);
 
+app.get("/api/patients/:NIN/handicaps", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectHandicaps);
+app.post("/api/patients/:NIN/handicaps", auth.requireAuth, PatientsController.insertHandicap);
+app.delete("/api/patients/:NIN/handicaps/:id", auth.requireAuth, PatientsController.deleteHandicap);
+
 app.get("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, auth.verifyEHRAuth, PatientsController.selectAntecedentsMedicals);
 app.post("/api/patients/:NIN/antecedents-medicals", auth.requireAuth, PatientsController.insertAntecedentMedical);
 app.delete("/api/patients/:NIN/antecedents-medicals/:id", auth.requireAuth, PatientsController.deleteAntecedent);

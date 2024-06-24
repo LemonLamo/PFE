@@ -78,6 +78,19 @@ class PatientsModel {
     }
   }
 
+  async selectHandicaps(NIN) {
+    try {
+      const [results] = await db.query(
+        "SELECT * FROM `handicaps` WHERE `patient`=? ORDER BY `date` DESC",
+        [NIN]
+      );
+      return results;
+    } catch (error) {
+      logger.error("Error fetching handicaps:", error);
+      throw error;
+    }
+  }
+
   async selectAntecedentsMedicals(NIN) {
     try {
       const [results] = await db.query(
@@ -141,6 +154,18 @@ class PatientsModel {
     }
   }
 
+  async insertHandicap(NIN, code_handicap, date, remarques, medecin) {
+    try {
+      await db.execute(
+        "INSERT INTO handicaps (`patient`, `code_handicap`, `date`, `remarques`, `medecin`) VALUES (?, ?, ?, ?, ?)",
+        [NIN, code_handicap, new Date(date), remarques ?? null, medecin]
+      );
+    } catch (error) {
+      logger.error("Error inserting handicap:", error);
+      throw error;
+    }
+  }
+
   async insertAntecedentMedical(NIN, designation, date, remarques, medecin) {
     try {
       await db.execute(
@@ -191,6 +216,14 @@ class PatientsModel {
       await db.execute("UPDATE allergies SET `disabled`=1 WHERE `id`=?", [id]);
     } catch (error) {
       logger.error("Error inserting allergies:", error);
+      throw error;
+    }
+  }
+  async deleteHandicap(id) {
+    try {
+      await db.execute("UPDATE handicaps SET `disabled`=1 WHERE `id`=?", [id]);
+    } catch (error) {
+      logger.error("Error inserting handicaps:", error);
       throw error;
     }
   }

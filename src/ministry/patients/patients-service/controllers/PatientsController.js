@@ -1,7 +1,7 @@
 const axios = require("axios");
 const Model = require("../models/PatientsModel");
 const RabbitConnection = require("../config/amqplib");
-const { fetchMaladies, fetchAllergies, fetchVaccinations, fetchMedicaments } = require("../utils/communication");
+const { fetchMaladies, fetchAllergies, fetchVaccinations, fetchMedicaments, fetchHandicaps } = require("../utils/communication");
 const MedicamentsModal = require("../models/MedicamentsModal");
 const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
@@ -185,6 +185,24 @@ class PatientsController {
       const result = data.map((x) => ({
         ...x,
         designation: allergies.get(x.code_allergene).designation,
+      }));
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+  async selectHandicaps(req, res) {
+    try {
+      const { NIN } = req.params;
+      const data = await Model.selectHandicaps(NIN);
+      const handicaps = await fetchHandicaps(data);
+
+      const result = data.map((x) => ({
+        ...x,
+        designation: handicaps.get(x.code_handicap).designation,
       }));
       return res.status(200).json(result);
     } catch (err) {

@@ -61,3 +61,17 @@ export async function ajouter_vaccination(NIN : string, vaccination : Vaccinatio
         throw error;
     }
 }
+
+export async function ajouter_handicap(NIN: string, handicap: any) {
+    const request = {
+        code_handicap: handicap.code_allergene,
+        date: handicap.date,
+        remarques: handicap.remarques
+    }
+    try {
+        await axios.post(`${baseURL}/api/patients/${NIN}/handicaps`, request);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+} 

@@ -292,3 +292,8 @@ type Hopital = {
   email: string;
   telephone: string;
 }
+
+type HandicapCode = {
+  code_handicap: string;
+  designation: string;
+}

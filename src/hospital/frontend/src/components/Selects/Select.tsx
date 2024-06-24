@@ -6,7 +6,7 @@ import TableLoading from '../UI/Loading'
 import { baseURL } from '../../config'
 
 type Props<T> = {
-    url: 'maladies-chroniques' | 'maladies' | 'maladies-chroniques' | 'allergenes' | 'vaccins' | 'examens-cliniques' | 'medicaments' | 'bilans' | 'radios' |'interventions',
+    url: 'maladies-chroniques' | 'maladies' | 'maladies-chroniques' | 'allergenes' | 'vaccins' | 'examens-cliniques' | 'medicaments' | 'bilans' | 'radios' |'interventions' | 'handicaps',
     code: keyof T,
     designation: keyof T,
     onChange: (arg0: T) => void,

@@ -18,6 +18,15 @@ exports.fetchAllergies = async (data) => {
     return codesMap;
 }
 
+exports.fetchHandicaps = async (data) => {
+    if (data.length == 0) return data;
+    const codes_handicaps = data.map((x) => x.code_handicap);
+    const handicaps = (await axios.post('http://codifications-service/private/handicaps', { codes_handicaps })).data;
+    const codesMap = new Map(handicaps.map((x) => [x.code_handicap, { ...x }]));
+
+    return codesMap;
+}
+
 exports.fetchVaccinations = async (data) => {
     if(data.length==0) return data;
     const codes_vaccins = data.map((x) => x.code_vaccin);

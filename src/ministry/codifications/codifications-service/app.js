@@ -33,6 +33,7 @@ const BilansController = require('./controllers/BilansController');
 const InterventionsController = require('./controllers/InterventionsController');
 const ExamensCliniquesController = require('./controllers/ExamensCliniquesController');
 const SpecialitesController = require('./controllers/SpecialitesController');
+const HandicapsController = require('./controllers/HandicapsController');
 
 app.get('/api/codifications/maladies', MaladiesController.select);
 app.get('/api/codifications/maladies/:code_maladie', MaladiesController.selectOne);
@@ -42,6 +43,9 @@ app.get('/api/codifications/maladies-chroniques/:code_maladie', MaladiesControll
 
 app.get('/api/codifications/allergenes', AllergenesController.select);
 app.get('/api/codifications/allergenes/:code_allergene', AllergenesController.selectOne);
+
+app.get('/api/codifications/handicaps', HandicapsController.select);
+app.get('/api/codifications/handicaps/:code_handicap', HandicapsController.selectOne);
 
 app.get('/api/codifications/vaccins', VaccinsController.select);
 app.get('/api/codifications/vaccins/:code_vaccin', VaccinsController.selectOne);
@@ -67,6 +71,7 @@ app.get('/api/codifications/specialites/:specialite', SpecialitesController.sele
 
 app.post('/private/maladies', MaladiesController.getByCodes)
 app.post('/private/allergenes', AllergenesController.getByCodes)
+app.post('/private/handicaps', HandicapsController.getByCodes)
 app.post('/private/vaccins', VaccinsController.getByCodes)
 app.post('/private/examens-cliniques', ExamensCliniquesController.getByCodes)
 app.post('/private/bilans', BilansController.getByCodes)

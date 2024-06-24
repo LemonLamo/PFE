@@ -11,6 +11,7 @@ import TabMedicaments from "./Tabs/TabMedicaments";
 import TabVaccinations from "./Tabs/TabVaccinations";
 import TabHistorique from "./Tabs/TabHistorique";
 import { useState } from "react";
+import TabHandicaps from "./Tabs/TabHandicaps";
 
 function PatientPage() {
   const { NIN } = useParams();
@@ -34,6 +35,9 @@ function PatientPage() {
         </TabContent>
         <TabContent icon="fa fa-clock-rotate-left"text="Antécédents Familiaux">
           <TabAntecedentsFamiliaux NIN={NIN!} />
+        </TabContent>
+        <TabContent icon="fa fa-person-dots-from-line" text="Handicaps">
+          <TabHandicaps NIN={NIN!} />
         </TabContent>
         <TabContent icon="fa fa-pills" text="Médicaments">
           <TabMedicaments NIN={NIN!} />

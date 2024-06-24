@@ -71,6 +71,26 @@ INSERT INTO `maladies_chroniques` (`patient`, `code_maladie`, `date`, `medecin`)
 
 -- --------------------------------------------------------
 --
+-- Structure de la table `handicaps`
+--
+CREATE TABLE `handicaps` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `patient` varchar(20) NOT NULL,
+  `code_handicap` varchar(255) NOT NULL,
+  `date` timestamp NOT NULL,
+  `remarques` varchar(255) DEFAULT NULL,
+  `medecin` varchar(255) NOT NULL,
+  `disabled` TINYINT DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `handicaps`
+(`patient`, `code_handicap`, `date`, `remarques`, `medecin`) VALUES
+('100010364027390000', 'G04', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
+
+-- --------------------------------------------------------
+--
 -- Structure de la table `allergies`
 --
 CREATE TABLE `allergies` (

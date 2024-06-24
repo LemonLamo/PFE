@@ -5,12 +5,12 @@ SET CHARACTER SET 'utf8';
 
 USE forza;
 
-CREATE TABLE `handicap` (
+CREATE TABLE `handicaps` (
   `code_handicap` varchar(255) NOT NULL PRIMARY KEY,
   `designation` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `handicap` (`code_handicap`, `designation`) VALUES
+INSERT INTO `handicaps` (`code_handicap`, `designation`) VALUES
 ('F70', 'Retard mental léger'),
 ('F71', 'Retard mental modéré'),
 ('F72', 'Retard mental sévère'),
