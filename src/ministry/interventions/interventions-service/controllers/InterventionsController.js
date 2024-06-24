@@ -80,8 +80,12 @@ class InterventionsController {
       // if protocole_operatoire, decrypt it
       if (result.protocole_operatoire){
         const aes_key_encrypted = result.aes_key;
+        console.log("SELECT:")
+        console.log("AES_KEY_ENCRYPTED: " + aes_key_encrypted)
+        console.log("PO_ENCRYPTED: " + result.protocole_operatoire)
         const response = await fetch("http://cpabe-service/decrypt", { method: "POST", body: JSON.stringify({ ct: aes_key_encrypted, secret_key: process.env.CPABE_SECRET }) })
         const aes_key = await response.text();
+        console.log("AES_KEY: " + aes_key)
         result.protocole_operatoire = decrypt(aes_key, result.protocole_operatoire);
       }
       
@@ -101,9 +105,13 @@ class InterventionsController {
       const id = "interv-"+genID();
       const { patient, date, code_intervention, remarques, protocole_operatoire } = req.body;
       const aes_key = generate_key();
+      console.log("INSERT:")
+      console.log("AES_KEY: " + aes_key)
       const po = protocole_operatoire? encrypt(aes_key, protocole_operatoire) : "";
-      const response = await fetch("http://cpabe-service/encrypt", { method: "POST", body: JSON.stringify({ "msg": aes_key, "policy": "service_type: interventions AND authorization_level: ministry" }) })
+      console.log("Encrypted Protocol Opératoire: " + po);
+      const response = await fetch("http://cpabe-service/encrypt", { method: "POST", body: JSON.stringify({ "msg": aes_key, "policy": "(service_type:interventions) AND (authorization_level:ministry)" }) })
       const aes_key_encrypted = await response.text();
+      console.log("AES_KEY_ENCRYPTED: " + aes_key_encrypted)
       await Model.insert(id, patient, medecin, hopital, service, date, code_intervention, remarques, po, aes_key_encrypted);
 
       // blockchain

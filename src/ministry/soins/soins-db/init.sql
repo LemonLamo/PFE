@@ -32,4 +32,4 @@ CREATE TABLE `soins` (
 --
 
 INSERT INTO `soins` (`id`, `patient`, `medecin`, `infirmier`, `hospitalisation`, `hopital`, `acte`, `date_soin`, `details`) VALUES
-('soin-PZR37CU', '100010364027390000', '100010364027390000', '111111111111111111', 'hos-PZR37CU','CHU Mustapha' ,'Injection', '2023-02-17', '100mg de Pénneciline' );
+('soin-PZR37CU', '100010364027390002', '100010364027390000', '111111111111111111', 'hos-PZR37CU','CHU Mustapha' ,'Injection', '2023-02-17', '100mg de Pénneciline' );

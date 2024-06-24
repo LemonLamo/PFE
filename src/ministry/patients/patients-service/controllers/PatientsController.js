@@ -61,6 +61,7 @@ class PatientsController {
       const allergies = JSON.parse(req.body.allergies ?? "[]");
       const antecedents_medicaux = JSON.parse(req.body.antecedents_medicaux ?? "[]");
       const antecedents_familiaux = JSON.parse(req.body.antecedents_familiaux ?? "[]");
+      const handicaps = JSON.parse(req.body.handicaps ?? "[]");
 
       const result = await Model.insert(
         NIN,
@@ -120,6 +121,16 @@ class PatientsController {
             antecedent_familial.designation,
             antecedent_familial.date,
             antecedent_familial.remarques,
+            req.jwt.NIN
+          );
+
+      if (handicaps)
+        for (let handicap of handicaps)
+          Model.insertHandicap(
+            NIN,
+            handicap.code_handicap,
+            handicap.date,
+            handicap.remarques,
             req.jwt.NIN
           );
 
@@ -348,6 +359,37 @@ class PatientsController {
     try {
       const { id } = req.params;
       const result = await Model.deleteAllergie(id);
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+
+  async insertHandicap(req, res) {
+    try {
+      const { NIN } = req.params;
+      const { code_handicap, date, remarques } = req.body;
+      const medecin = req.jwt.NIN;
+      const result = await Model.insertHandicap(
+        NIN,
+        code_handicap,
+        date,
+        remarques,
+        medecin
+      );
+      return res.status(200).json(result);
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return res
+        .status(400)
+        .json({ errorCode: "database-error", errorMessage: err.code });
+    }
+  }
+  async deleteHandicap(req, res) {
+    try {
+      const { id } = req.params;
+      const result = await Model.deleteHandicap(id);
       return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);

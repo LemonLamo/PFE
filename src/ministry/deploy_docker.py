@@ -4,17 +4,6 @@ import subprocess
 
 registry = "medicalife"
 services = [
-    "auth/auth-db",
-    "auth/auth-service",
-
-    "codifications/codifications-db",
-    "codifications/codifications-service",
-
-    "consultations/consultations-db",
-    "consultations/consultations-service",
-
-    "cpabe-service",
-
     "frontend",
 
     "hopitaux/hopitaux-db",

@@ -43,8 +43,8 @@ CREATE INDEX patients_nom_prenom_IND ON `patients` (`nom`, `prenom`);
 
 INSERT INTO `patients`
 (`NIN`, `nom`, `prenom`, `date_de_naissance`, `lieu_de_naissance`, `sexe`, `situation_familiale`, `email`, `telephone`, `groupage`, `taille`, `poids`, `adresse`, `commune`, `code_postale`, `wilaya`) VALUES
-('100010364027390000', 'BRAHIM', 'Abderrazak', '2001-07-13', 'Tebessa', 'Homme', 'Célébataire', 'brahim.abderrazak1307@gmail.com', '+213549297666', 'B+', 181, 86.8, 'Cité 18 logements, de E.S.B', 'Bouzareah', 16032, 'Alger'),
-('111111111111111111', 'NADIL', 'Marwa', '2002-05-12', 'Alger', 'Femme', 'Célébataire', 'marwa02@gmail.com', '+213549297665', 'O+', 165, 56, 'Cité 15 logements, Mouhouss', 'Bordj el kiffane', 16042, 'Alger');
+('100010364027390002', 'KEBTANE', 'Djamel', '2001-07-13', 'Tebessa', 'Homme', 'Célébataire', 'kebtane@gmail.com', '+213549297666', 'B+', 181, 86.8, 'Cité 18 logements, de E.S.B', 'Bouzareah', 16032, 'Alger'),
+('111111111111111112', 'TOUATI', 'Nour El Houda', '2002-05-12', 'Alger', 'Femme', 'Célébataire', 'houda@gmail.com', '+213549297665', 'O+', 165, 56, 'Cité 15 logements, Mouhouss', 'Bordj el kiffane', 16042, 'Alger');
 
 -- --------------------------------------------------------
 --
@@ -67,7 +67,7 @@ CREATE TABLE `maladies_chroniques` (
 --
 
 INSERT INTO `maladies_chroniques` (`patient`, `code_maladie`, `date`, `medecin`) VALUES
-('100010364027390000', '1B10', '2023-06-25', '111111111111111111');
+('100010364027390002', '1B10', '2023-06-25', '111111111111111111');
 
 -- --------------------------------------------------------
 --
@@ -87,7 +87,7 @@ CREATE TABLE `handicaps` (
 
 INSERT INTO `handicaps`
 (`patient`, `code_handicap`, `date`, `remarques`, `medecin`) VALUES
-('100010364027390000', 'G04', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
+('100010364027390002', 'G04', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
 
 -- --------------------------------------------------------
 --
@@ -107,7 +107,7 @@ CREATE TABLE `allergies` (
 
 INSERT INTO `allergies`
 (`patient`, `code_allergene`, `date`, `remarques`, `medecin`) VALUES
-('100010364027390000', 'C1', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
+('100010364027390002', 'C1', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
 
 -- --------------------------------------------------------
 --
@@ -128,8 +128,8 @@ CREATE TABLE `antecedents` (
 
 INSERT INTO `antecedents`
 (`patient`, `designation`, `date`, `type`, `remarques`, `medecin`) VALUES
-('100010364027390000', 'Diabète', '2022-07-13', 'familial', "Son père, il a le diabète", '111111111111111111'),
-('100010364027390000', 'Asthme', '2022-07-13', 'medical', "Il a l'asthme, c'est tout", '111111111111111111');
+('100010364027390002', 'Diabète', '2022-07-13', 'familial', NULL, '111111111111111111'),
+('100010364027390002', 'Asthme', '2022-07-13', 'medical', NULL, '111111111111111111');
 
 -- --------------------------------------------------------
 --
@@ -152,7 +152,7 @@ CREATE TABLE `vaccinations` (
 --
 
 INSERT INTO `vaccinations` (`patient`, `code_vaccin`, `date`, `remarques`, `date_de_prochaine_dose`, `medecin` ) VALUES
-('100010364027390000', 'VAC0503', '2023-06-25', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '2023-06-30', '111111111111111111');
+('100010364027390002', 'VAC0503', '2023-06-25', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '2023-06-30', '111111111111111111');
 
 -- --------------------------------------------------------
 --

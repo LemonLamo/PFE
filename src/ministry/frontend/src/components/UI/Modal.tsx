@@ -41,10 +41,7 @@ function Modal({ icon, theme, size, isOpen, children }: ModalProps) {
     >
       <div className="fixed inset-0 bg-black/50">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <div
-            className={`relative transform rounded-md bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full ${size} max-h-[96vh] overflow-auto`}
-            style={{ overflow: "inherit" }}
-          >
+          <div className={`relative transform rounded-md bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full ${size} max-h-[96vh] overflow-auto`} style={{ overflow: "auto" }}>
             <div className="px-4 pb-4 pt-5 sm:p-6">
               <div className="sm:flex sm:items-start w-full gap-4">
                 {icon && (

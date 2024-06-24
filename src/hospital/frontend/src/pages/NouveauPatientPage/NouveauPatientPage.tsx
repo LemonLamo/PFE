@@ -18,6 +18,8 @@ import AjouterAntecedentFamilial from "../PatientPage/Modals/AjouterAntecedentFa
 import DeleteAntecedentFamilial from "../PatientPage/Modals/DeleteAntecedentFamilial";
 import moment from "moment";
 import AlertsContext from "../../hooks/AlertsContext";
+import AjouterHandicap from "../PatientPage/Modals/AjouterHandicap";
+import DeleteHandicap from "../PatientPage/Modals/DeleteHandicap";
 
 function NewPatientPage() {
   const { showAlert } = useContext(AlertsContext);
@@ -30,6 +32,7 @@ function NewPatientPage() {
   const [allergies, setAllergies] = useState<Allergie[]>([]);
   const [antecedents_medicaux, setAntecedentsMedicaux] = useState<Antecedent[]>([]);
   const [antecedents_familiaux, setAntecedentsFamiliaux] = useState<Antecedent[]>([]);
+  const [handicaps, setHandicaps] = useState<any[]>([]);
   
   const onSubmit: SubmitHandler<Patient> = async (patient) => {
     const data : Record<string, any> = {
@@ -46,6 +49,7 @@ function NewPatientPage() {
       formData.append(`allergies`, JSON.stringify(allergies))
       formData.append(`antecedents_medicaux`, JSON.stringify(antecedents_medicaux))
       formData.append(`antecedents_familiaux`, JSON.stringify(antecedents_familiaux))
+      formData.append(`handicaps`, JSON.stringify(handicaps))
       formData.append('avatar', avatar!);
 
       const config = { headers: {'content-type': 'multipart/form-data'} }
@@ -107,6 +111,15 @@ function NewPatientPage() {
   function delete_antecedants_familiales(index: number) {
     antecedents_familiaux!.splice(index, 1);
     setAntecedentsFamiliaux(antecedents_familiaux);
+    setOpenModal("");
+  }
+  async function ajouter_handicap(handicap: any) {
+    setHandicaps((handicaps) => [...handicaps!, handicap]);
+    setOpenModal("");
+  }
+  function delete_handicap(index: number) {
+    handicaps!.splice(index, 1);
+    setHandicaps(handicaps);
     setOpenModal("");
   }
   return (
@@ -573,6 +586,50 @@ function NewPatientPage() {
           <DeleteAntecedentFamilial
             isOpen={openModal === "delete_antecedants_familiales"}
             action={() => delete_antecedants_familiales(selected)}
+            close={() => setOpenModal("")}
+          />
+
+          <div className="mb-0 flex justify-between">
+            <h6 className="mb-1">Handicaps</h6>
+            <Button
+              type="button"
+              className="h-8"
+              onClick={() => setOpenModal("ajouter_handicap")}
+              theme="primary-alternate"
+            >
+              <i className="fa fa-plus" />
+              <span className="ms-2">Ajouter</span>
+            </Button>
+          </div>
+          <Table
+            fields={["#", "Nom", "Date", "Remarques", ""]}
+            className="mb-4"
+          >
+            {handicaps?.map((x, i) => (
+              <TableRow key={i}>
+                <TableCell>{x.code_handicap}</TableCell>
+                <TableCell>{x.designation}</TableCell>
+                <TableCell>{moment(x.date).format("DD/MM/YYYY")}</TableCell>
+                <TableCell>{x.remarques}</TableCell>
+                <TableCell className="text-right">
+                  <DeleteButton
+                    onClick={() => {
+                      setSelected(i);
+                      setOpenModal("delete_handicap");
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </Table>
+          <AjouterHandicap
+            isOpen={openModal === "ajouter_handicap"}
+            action={ajouter_handicap}
+            close={() => setOpenModal("")}
+          />
+          <DeleteHandicap
+            isOpen={openModal === "delete_handicap"}
+            action={() => delete_handicap(selected)}
             close={() => setOpenModal("")}
           />
         </div>
