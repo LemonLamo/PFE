@@ -8,7 +8,7 @@
 			"password": "exploreradminpw"
 		},
 		"enableAuthentication": true,
-		"organization": "Hopital1MSP",
+		"organization": "NordMSP",
 		"connection": {
 			"timeout": {
 				"peer": {

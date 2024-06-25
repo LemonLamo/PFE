@@ -6,6 +6,15 @@ import subprocess
 registry = "hospital1307"
 services = [
     "frontend",
+    
+    "pharmacy/pharmacy-db",
+    "pharmacy/pharmacy-service",
+
+    "chambres-lits/chambres-lits-db",
+    "chambres-lits/chambres-lits-service",
+
+    "reception/reception-db",
+    "reception/reception-service"
 ]
 
 cwd = os.path.dirname(os.path.realpath(__file__)) 

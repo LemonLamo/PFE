@@ -1,21 +1,24 @@
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 exports.generate_key = () => {
-  return crypto.randomBytes(32);
-};
+  const key = crypto.randomBytes(32);
+  return key.toString('base64');
+}
+
 exports.encrypt = (key, msg) => {
-  const BUFFER_SECRET = Buffer.from(key, "hex");
-  const cipher = crypto.createCipheriv("aes-256-ecb", BUFFER_SECRET, "");
-  let encoded = cipher.update(msg, "utf8", "hex");
-  encoded += cipher.final("hex");
+  const decodedKey = Buffer.from(key, 'base64');
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv('aes-256-cbc', decodedKey, iv);
+  let encrypted = cipher.update(msg, 'utf8', 'base64');
+  encrypted += cipher.final('base64');
+  return `${iv.toString('base64')}:${encrypted}`;
+}
 
-  return encoded;
-};
 exports.decrypt = (key, encoded) => {
-  const BUFFER_SECRET = Buffer.from(key, "hex");
-  const cipher = crypto.createDecipheriv("aes-256-ecb", BUFFER_SECRET, "");
-  let msg = cipher.update(encoded, "hex", "utf8");
-  msg += cipher.final("utf8");
-
-  return msg;
-};
+  const decodedKey = Buffer.from(key, 'base64');
+  const [iv, encrypted] = encoded.split(':').map(part => Buffer.from(part, 'base64'));
+  const decipher = crypto.createDecipheriv('aes-256-cbc', decodedKey, iv);
+  let decrypted = decipher.update(encrypted, 'base64', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
