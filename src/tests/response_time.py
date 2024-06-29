@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # CONFIG
-TITLE = "Temps de réponse en fonction du nombre de DMEs"
-X_AXIS = "Nombre de DMEs"
+TITLE = "Temps de réponse en fonction du nombre de DEMs"
+X_AXIS = "Nombre de DEMs"
 Y_AXIS = "Temps de réponse (en ms)"
 x = [100, 500, 1_000, 5_000, 10_000, 50_000, 100_000]
 Y1_LABEL = "En moyen"
