@@ -2,7 +2,7 @@
 import os
 import subprocess
 
-registry = "medicalife"
+registry = "localhost:5000"
 services = [
     "auth/auth-db",
     "auth/auth-service",

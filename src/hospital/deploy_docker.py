@@ -3,7 +3,7 @@ import os
 #!/usr/bin/python3
 import subprocess
 
-registry = "hospital1307"
+registry = "localhost:5050"
 services = [
     "frontend",
     
