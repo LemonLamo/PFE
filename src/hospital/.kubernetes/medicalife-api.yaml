@@ -6,7 +6,7 @@
     konghq.com/protocol: https
  spec:
    type: ExternalName
-   externalName: 172.25.2.51
+   externalName: 192.168.144.244
    ports:
    - protocol: TCP
      port: 443
