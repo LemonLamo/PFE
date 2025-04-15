@@ -81,6 +81,8 @@ CREATE TABLE `handicaps` (
   `remarques` varchar(255) DEFAULT NULL,
   `medecin` varchar(255) NOT NULL,
   `disabled` TINYINT DEFAULT 0,
+  `solidarity` TINYINT DEFAULT 0,
+  `travail` TINYINT DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
