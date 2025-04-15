@@ -91,6 +91,18 @@ RabbitConnection.on("medicaments_create", async (data) => {
   );
 });
 
+RabbitConnection.on("Interoperability", async (data) => {
+  if(data.ministry == 'Solidarity'){
+	PatientsController.UpdateSolidarity(data.NIN,data.code_handicap);
+  }else if(data.ministry == 'Travail'){
+	PatientsController.UpdateTravail(data.NIN,data.code_handicap);
+  }
+});
+
+RabbitConnection.on("RegularCheck", async (data) => {
+	PatientsController.GetNotShared();
+});
+
 app.use((req, res) => res.sendStatus(404));
 
 // graceful shutdown
