@@ -13,13 +13,13 @@ require('dotenv').config()
 RabbitConnection.connect();
  
 const generateTargetReports = () =>{
-  //console.log("cronned successfully");
-  RabbitConnection.sendMsg('handicap',{NIN:'000000',code_handicap:'12',date:'15/10/2024',remarque:'retard mental heavy',doctor:'house'})
+	//console.log("cronned successfully");
+	RabbitConnection.sendMsg('handicap',{NIN:'000000',code_handicap:'12',date:'15/10/2024',remarque:'retard mental heavy',doctor:'house'})
 //	axios.get('http://localhost:3000/handicap').then((res)=>{ console.log(res.data)});
 }
 
 const RegularCheck = () =>{
-  RabbitConnection.sendMsg('RegularCheck', {Check: 'all'});
+	RabbitConnection.sendMsg('RegularCheck', {Check: 'all'});
 }
 
 let time = 0;
@@ -49,25 +49,25 @@ app.get('/CheckHandicap', (req, res) => {
 })
 
 RabbitConnection.on('handicap',async (data) =>{
-  try{
-    const result = await CheckHandicapped({NIN: data.NIN, Code: data.code_handicap}, 'http://localhost:4000/CheckHandicap')
-    if(result == false){
-      const IsSent = await SendData(data, 'http://localhost:4000/handicap');
-      if(IsSent){
-        RabbitConnection.sendMsg('Interoperability', {ministry: 'Solidarity'});
-      }
-    }
-    const result2 = await CheckHandicapped({NIN: data.NIN, Code: data.code_handicap}, 'http://localhost:4000/CheckHandicap');
-    if(result2 == false){
-      const IsSent = await SendData(data, 'http://localhost:4000/handicap');
-      if(IsSent){
-        RabbitConnection.sendMsg('Interoperability', {ministry: 'Travail'});
-      }
-    }
-  }catch(err){
-    console.log(err);
-  }
-  //axios.post('https://httpbin.org/post',{coded}).then((res)=>{ console.log(res.data)});
+	try{
+		const result = await CheckHandicapped({NIN: data.NIN, Code: data.code_handicap}, 'http://localhost:4000/CheckHandicap')
+		if(result == false){
+			const IsSent = await SendData(data, 'http://localhost:4000/handicap');
+			if(IsSent){
+				RabbitConnection.sendMsg('Interoperability', {NIN: data.NIN,code_handicap:data.code_handicap,ministry:'Solidarity'});
+			}
+		}
+		const result2 = await CheckHandicapped({NIN: data.NIN, Code: data.code_handicap}, 'http://localhost:4000/CheckHandicap');
+		if(result2 == false){
+			const IsSent = await SendData(data, 'http://localhost:4000/handicap');
+			if(IsSent){
+				RabbitConnection.sendMsg('Interoperability', {NIN: data.NIN,code_handicap:data.code_handicap,ministry: 'Travail'});
+			}
+		}
+	}catch(err){
+		console.log(err);
+	}
+	//axios.post('https://httpbin.org/post',{coded}).then((res)=>{ console.log(res.data)});
 })
 
 
