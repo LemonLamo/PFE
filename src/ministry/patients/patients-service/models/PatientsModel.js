@@ -263,5 +263,37 @@ class PatientsModel {
       throw error;
     }
   }
+  
+  async UpdateTravail(NIN,code_handicap){
+  try{
+    console.log(NIN,code_handicap);
+  await db.execute("UPDATE handicaps SET `travail`=1 WHERE `patient`=? AND `code_handicap`=?",[NIN,code_handicap]);
+  } catch(err) {
+    logger.error("ERROR updating travail:",err);
+    throw error;
+  } 
+  }
+  
+  async UpdateSolidarity(NIN,code_handicap){
+  try{
+    console.log(NIN,code_handicap);
+  await db.execute("UPDATE handicaps SET `solidarity`=1 WHERE `patient`=? AND `code_handicap`=?",[NIN,code_handicap]);
+  } catch(err) {
+    logger.error("ERROR updating travail:",err);
+    throw error;
+  } 
+  }
+  
+  async GetNotShared(){
+  try {
+      const [results] = await db.query(
+        "SELECT * FROM `handicaps` WHERE `travail`=0 OR `solidarity`=0"
+      );
+      return results;
+    } catch (error) {
+      logger.error("Error fetching handicaps:", error);
+      throw error;
+    }  
+  }
 }
 module.exports = new PatientsModel();

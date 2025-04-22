@@ -7,6 +7,23 @@ const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 class PatientsController {
+ 	
+  async UpdateSolidarity(NIN,code_handicap){
+	try{
+		await Model.UpdateSolidarity(NIN,code_handicap);
+	}catch(err){
+		logger.error("database-error: " + err);
+	}
+  }
+  
+  async UpdateTravail(NIN,code_handicap){
+	try{
+		await Model.UpdateTravail(NIN,code_handicap);
+	}catch(err){
+		logger.error("database-error: " + err);
+	}
+  }
+  
   async searchAll(req, res) {
     try {
       const { search } = req.query;
@@ -33,7 +50,7 @@ class PatientsController {
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
-
+  
   async insert(req, res) {
     try {
       const {
@@ -125,7 +142,7 @@ class PatientsController {
           );
 
       if (handicaps)
-        for (let handicap of handicaps)
+        for (let handicap of handicaps){
           Model.insertHandicap(
             NIN,
             handicap.code_handicap,
@@ -133,6 +150,8 @@ class PatientsController {
             handicap.remarques,
             req.jwt.NIN
           );
+		      RabbitConnection.sendMsg('handicap',{NIN:NIN,code_handicap:handicap.code_handicap,date:handicap.date,remarque:handicap.remarques,doctor:req.jwt.NIN});
+		    }
 
       RabbitConnection.sendMsg("account_create", { NIN, email });
       return res.status(200).json(result);
@@ -378,6 +397,7 @@ class PatientsController {
         remarques,
         medecin
       );
+	    RabbitConnection.sendMsg('handicap',{NIN:NIN,code_handicap:code_handicap,date:date,remarque:remarques,doctor:medecin});
       return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);
@@ -497,6 +517,14 @@ class PatientsController {
         .json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
+  
+  async GetNotShared(){
+	const results = await Model.GetNotShared();
+		for(let result of results){
+      console.log(result);
+			RabbitConnection.sendMsg('handicap',{NIN:result.patient,code_handicap:result.code_handicap,date:result.date,remarque:result.remarques,doctor:result.medecin});
+		}
+	}
 }
 
 /******** EXPORTS ********/

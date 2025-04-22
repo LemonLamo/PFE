@@ -28,7 +28,7 @@ spec:
         app: patients-service
     spec:
       containers:
-        - image: medicalife/patients-service
+        - image: localhost:5000/patients-service
           name: patients-service
           ports:
             - containerPort: 80

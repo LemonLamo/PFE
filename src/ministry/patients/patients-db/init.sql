@@ -81,14 +81,17 @@ CREATE TABLE `handicaps` (
   `remarques` varchar(255) DEFAULT NULL,
   `medecin` varchar(255) NOT NULL,
   `disabled` TINYINT DEFAULT 0,
+  `solidarity` TINYINT DEFAULT 0,
+  `travail` TINYINT DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `handicaps`
 (`patient`, `code_handicap`, `date`, `remarques`, `medecin`) VALUES
-('100010364027390002', 'G04', '2022-07-13', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales est lectus. Vestibulum ante ipsum primis', '111111111111111111');
-
+('100010364027390002', 'G03', '2022-07-13', 'maskin', '111111111111111111'),
+('100010364027390003', 'G05', '2022-07-13', 'french impaired', '111111111111111111'),
+('100010364027390004', 'G06', '2022-07-13', 'tah 3la raso', '111111111111111111');
 -- --------------------------------------------------------
 --
 -- Structure de la table `allergies`

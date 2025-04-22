@@ -30,7 +30,7 @@ spec:
         app: patients-db
     spec:
       containers:
-        - image: medicalife/patients-db
+        - image: localhost:5000/patients-db
           name: patients-db
           ports:
             - containerPort: 3306

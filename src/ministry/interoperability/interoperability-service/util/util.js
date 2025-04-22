@@ -11,14 +11,14 @@ exports.CheckHandicapped = async (data, route) => {
 				code: coded
 			}
 		});
-		//console.log(response.data.success);
+		console.log(data);
 		if(response.data.success === true){
 			return true;
 		}else if(response.data.success === false){
 			return false
 		}
 	}catch(err){
-		//console.log(err);
+		console.log(err);
 		throw('couldnt connect to it')
 	}
 }

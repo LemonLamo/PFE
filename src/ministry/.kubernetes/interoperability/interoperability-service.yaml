@@ -33,6 +33,9 @@ spec:
           ports:
             - containerPort: 4000
               protocol: TCP
+          env:
+          - name: Interior
+            value: "http://192.168.1.17:5050" # Replace with the actual IP and port of the external server   
       dnsConfig:
         nameservers:
           - 8.8.8.8
