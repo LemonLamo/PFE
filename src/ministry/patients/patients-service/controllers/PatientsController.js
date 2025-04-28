@@ -151,7 +151,8 @@ class PatientsController {
             req.jwt.NIN
           );
 		      RabbitConnection.sendMsg('handicap',{NIN:NIN,code_handicap:handicap.code_handicap,date:handicap.date,remarque:handicap.remarques,doctor:req.jwt.NIN});
-		    }
+          RabbitConnection.sendMsg('CreateHandicap',{NIN:NIN,code_handicap:handicap.code_handicap,doctor:req.jwt.NIN});
+        }
 
       RabbitConnection.sendMsg("account_create", { NIN, email });
       return res.status(200).json(result);
@@ -525,6 +526,16 @@ class PatientsController {
 			RabbitConnection.sendMsg('handicap',{NIN:result.patient,code_handicap:result.code_handicap,date:result.date,remarque:result.remarques,doctor:result.medecin});
 		}
 	}
+
+  async GetId(NIN,code_handicap){
+    try {
+      const result = await Model.GetId(NIN,code_handicap);
+      return result.id;
+    } catch (err) {
+      logger.error("database-error: " + err);
+      return 
+    }
+  }
 }
 
 /******** EXPORTS ********/

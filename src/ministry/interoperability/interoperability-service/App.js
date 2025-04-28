@@ -51,24 +51,28 @@ app.get('/CheckHandicap', (req, res) => {
 
 RabbitConnection.on('handicap',async (data) =>{
   try{
-    const result = await CheckHandicapped({NIN: data.NIN, code_handicap: data.code_handicap}, 'http://192.168.1.17:5050/api/interoperability/checkhandicap')
+    const result = await CheckHandicapped({NIN: data.NIN, code_handicap: data.code_handicap}, 'http://192.168.71.174:5000/api/interoperability/checkhandicap')
+    //const result = false;
     if(result == false){
       console.log("YAY BOY")
-      const IsSent = await SendData(data, 'http://192.168.1.17:5050/api/interoperability/handicap');
+      const IsSent = await SendData(data, 'http://192.168.71.174:5000/api/interoperability/handicap');
+      //const IsSent = true;
       if(IsSent){
-        RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicap: data.code_handicap, ministry: 'Solidarity'});
+        RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicap: data.code_handicap, doctor:data.doctor, ministry: 'Solidarity'});
       }
     }else{
-      RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicapde: data.code_handicap, ministry: 'Solidarity'});
+      RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicapde: data.code_handicap, doctor:data.doctor, ministry: 'Solidarity'});
     }
-    const result2 = await CheckHandicapped({NIN: data.NIN, code_handicap: data.code_handicap}, 'http://192.168.1.17:5050/api/interoperability/checkhandicap');
+    const result2 = await CheckHandicapped({NIN: data.NIN, code_handicap: data.code_handicap}, 'http://192.168.71.174:5000/api/interoperability/checkhandicap');
+    //const result2 = false;
     if(result2 == false){
-      const IsSent = await SendData(data, 'http://192.168.1.17:5050/api/interoperability/handicap');
+      const IsSent = await SendData(data, 'http://192.168.71.174:5000/api/interoperability/handicap');
+      //const IsSent = true;
       if(IsSent){
-        RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicap: data.code_handicap,ministry: 'Travail'});
+        RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicap: data.code_handicap,doctor:data.doctor,ministry: 'Travail'});
       }
     }else{
-      RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicap: data.code_handicap,ministry: 'Travail'});
+      RabbitConnection.sendMsg('Interoperability', {NIN:data.NIN, code_handicap: data.code_handicap,doctor:data.doctor,ministry: 'Travail'});
     }
   }catch(err){
     console.log(err);

@@ -295,5 +295,17 @@ class PatientsModel {
       throw error;
     }  
   }
+
+  async GetId(NIN,code_handicap){
+    try {
+        const [results] = await db.query(
+          "SELECT id FROM `handicaps` WHERE `patient`=? OR `code_handicap`=?",[NIN,code_handicap]
+        );
+        return results[0];
+      } catch (error) {
+        logger.error("Error fetching handicaps:", error);
+        throw error;
+      }  
+    }
 }
 module.exports = new PatientsModel();
