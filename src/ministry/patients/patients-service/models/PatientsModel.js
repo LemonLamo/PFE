@@ -307,5 +307,17 @@ class PatientsModel {
         throw error;
       }  
     }
+   
+    async GetPatient(NIN){
+      try {
+          const [results] = await db.query(
+            "SELECT * FROM `patients` WHERE `NIN`=?", [NIN]
+          );
+          return results[0];
+        } catch (error) {
+          logger.error("Error fetching handicaps:", error);
+          throw error;
+        }  
+      } 
 }
 module.exports = new PatientsModel();

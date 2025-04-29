@@ -7,23 +7,23 @@ const logger = require("../utils/logger");
 //const validator = require('../middlewares/validation');
 
 class PatientsController {
- 	
-  async UpdateSolidarity(NIN,code_handicap){
-	try{
-		await Model.UpdateSolidarity(NIN,code_handicap);
-	}catch(err){
-		logger.error("database-error: " + err);
-	}
+
+  async UpdateSolidarity(NIN, code_handicap) {
+    try {
+      await Model.UpdateSolidarity(NIN, code_handicap);
+    } catch (err) {
+      logger.error("database-error: " + err);
+    }
   }
-  
-  async UpdateTravail(NIN,code_handicap){
-	try{
-		await Model.UpdateTravail(NIN,code_handicap);
-	}catch(err){
-		logger.error("database-error: " + err);
-	}
+
+  async UpdateTravail(NIN, code_handicap) {
+    try {
+      await Model.UpdateTravail(NIN, code_handicap);
+    } catch (err) {
+      logger.error("database-error: " + err);
+    }
   }
-  
+
   async searchAll(req, res) {
     try {
       const { search } = req.query;
@@ -50,7 +50,7 @@ class PatientsController {
       return res.status(400).json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
-  
+
   async insert(req, res) {
     try {
       const {
@@ -142,7 +142,7 @@ class PatientsController {
           );
 
       if (handicaps)
-        for (let handicap of handicaps){
+        for (let handicap of handicaps) {
           Model.insertHandicap(
             NIN,
             handicap.code_handicap,
@@ -150,8 +150,22 @@ class PatientsController {
             handicap.remarques,
             req.jwt.NIN
           );
-		      RabbitConnection.sendMsg('handicap',{NIN:NIN,code_handicap:handicap.code_handicap,date:handicap.date,remarque:handicap.remarques,doctor:req.jwt.NIN});
-          RabbitConnection.sendMsg('CreateHandicap',{NIN:NIN,code_handicap:handicap.code_handicap,doctor:req.jwt.NIN});
+          RabbitConnection.sendMsg('handicap', {
+            NIN: NIN, code_handicap: handicap.code_handicap, date: handicap.date, remarque: handicap.remarques, doctor: req.jwt.NIN,
+            name: nom,
+            family_name: prenom,
+            birthday: date_de_naissance,
+            birth_place: lieu_de_naissance,
+            gender: sexe,
+            situation_familiale,
+            email,
+            telephone,
+            adresse,
+            groupage,
+            taille,
+            poids,
+          });
+          RabbitConnection.sendMsg('CreateHandicap', { NIN: NIN, code_handicap: handicap.code_handicap, doctor: req.jwt.NIN });
         }
 
       RabbitConnection.sendMsg("account_create", { NIN, email });
@@ -309,13 +323,13 @@ class PatientsController {
       const [consultations, hospitalisations, interventions] = await Promise.all([
         axios.get(`http://consultations-service/api/consultations?patient=${NIN}`, { headers: { Authorization: req.headers.authorization } }),
         axios.get(`http://hospitalisations-service/api/hospitalisations?patient=${NIN}`, { headers: { Authorization: req.headers.authorization } }),
-        axios.get(`http://interventions-service/api/interventions?patient=${NIN}`, { headers: { Authorization: req.headers.authorization } } )
+        axios.get(`http://interventions-service/api/interventions?patient=${NIN}`, { headers: { Authorization: req.headers.authorization } })
       ]);
 
       return res.status(200)
-                .json([...consultations.data, ...hospitalisations.data, ...interventions.data]
-                .sort((a, b) => new Date(b.date_entree ?? b.date) - new Date(a.date_entree ?? a.date))
-      );
+        .json([...consultations.data, ...hospitalisations.data, ...interventions.data]
+          .sort((a, b) => new Date(b.date_entree ?? b.date) - new Date(a.date_entree ?? a.date))
+        );
     } catch (err) {
       logger.error("database-error: " + err);
       return res
@@ -398,7 +412,21 @@ class PatientsController {
         remarques,
         medecin
       );
-	    RabbitConnection.sendMsg('handicap',{NIN:NIN,code_handicap:code_handicap,date:date,remarque:remarques,doctor:medecin});
+      const output = await Model.GetPatient(NIN);
+      RabbitConnection.sendMsg('handicap', { NIN: NIN, code_handicap: code_handicap, date: date, remarque: remarques, doctor: medecin,
+        name: output.nom,
+        family_name: output.prenom,
+        birthday: output.date_de_naissance,
+        birth_place: output.lieu_de_naissance,
+        gender: output.sexe,
+        situation_familiale: output.situation_familiale,
+        email: output.email,
+        telephone: output.telephone,
+        adresse: output.adresse,
+        groupage: output.groupage,
+        taille: output.taille,
+        poids: output.poids,
+      });
       return res.status(200).json(result);
     } catch (err) {
       logger.error("database-error: " + err);
@@ -518,22 +546,22 @@ class PatientsController {
         .json({ errorCode: "database-error", errorMessage: err.code });
     }
   }
-  
-  async GetNotShared(){
-	const results = await Model.GetNotShared();
-		for(let result of results){
-      console.log(result);
-			RabbitConnection.sendMsg('handicap',{NIN:result.patient,code_handicap:result.code_handicap,date:result.date,remarque:result.remarques,doctor:result.medecin});
-		}
-	}
 
-  async GetId(NIN,code_handicap){
+  async GetNotShared() {
+    const results = await Model.GetNotShared();
+    for (let result of results) {
+      console.log(result);
+      RabbitConnection.sendMsg('handicap', { NIN: result.patient, code_handicap: result.code_handicap, date: result.date, remarque: result.remarques, doctor: result.medecin });
+    }
+  }
+
+  async GetId(NIN, code_handicap) {
     try {
-      const result = await Model.GetId(NIN,code_handicap);
+      const result = await Model.GetId(NIN, code_handicap);
       return result.id;
     } catch (err) {
       logger.error("database-error: " + err);
-      return 
+      return
     }
   }
 }
