@@ -413,6 +413,7 @@ class PatientsController {
         medecin
       );
       const output = await Model.GetPatient(NIN);
+      console.log(output);
       RabbitConnection.sendMsg('handicap', { NIN: NIN, code_handicap: code_handicap, date: date, remarque: remarques, doctor: medecin,
         name: output.nom,
         family_name: output.prenom,
@@ -550,8 +551,22 @@ class PatientsController {
   async GetNotShared() {
     const results = await Model.GetNotShared();
     for (let result of results) {
-      console.log(result);
-      RabbitConnection.sendMsg('handicap', { NIN: result.patient, code_handicap: result.code_handicap, date: result.date, remarque: result.remarques, doctor: result.medecin });
+      const output = await Model.GetPatient(result.patient);
+      console.log(output);
+      RabbitConnection.sendMsg('handicap', { NIN: result.patient, code_handicap: result.code_handicap, date: result.date, remarque: result.remarques, doctor: result.medecin, 
+        name: output.nom,
+        family_name: output.prenom,
+        birthday: output.date_de_naissance,
+        birth_place: output.lieu_de_naissance,
+        gender: output.sexe,
+        situation_familiale: output.situation_familiale,
+        email: output.email,
+        telephone: output.telephone,
+        adresse: output.adresse,
+        groupage: output.groupage,
+        taille: output.taille,
+        poids: output.poids,
+      });
     }
   }
 

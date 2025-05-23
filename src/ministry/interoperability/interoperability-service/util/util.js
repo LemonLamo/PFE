@@ -26,7 +26,7 @@ exports.CheckHandicapped = async (data, route) => {
 exports.SendData = async (data, route) => {
 	let attempt = 1;
 	const coded = Encrypt(JSON.stringify(data));
-	//console.log(route);
+	console.log(coded);
 	while(attempt <= MAX){
 		try{
 			const response = await axios.post(route,{coded});
