@@ -4,13 +4,10 @@ import subprocess
 
 registry = "localhost:5000"
 services = [
-
-    "frontend",
+    "blockchain-service",
 
     "patients/patients-db",
     "patients/patients-service",
-
-    "rabbitmq",
 
     "interoperability/interoperability-service",
 ]

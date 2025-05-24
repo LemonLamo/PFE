@@ -91,6 +91,26 @@ RabbitConnection.on("medicaments_create", async (data) => {
   );
 });
 
+RabbitConnection.on("Interoperability", async (data) => {
+  console.log("data: ", data);
+  if(data.ministry == 'Solidarity'){
+	  PatientsController.UpdateSolidarity(data.NIN,data.code_handicap);
+    const id = await PatientsController.GetId(data.NIN,data.code_handicap);
+    RabbitConnection.sendMsg("UpdateHandicapSolidarity",{id:id,NIN:data.NIN,code_handicap:data.code_handicap,doctor:data.doctor});
+  console.log("updated solidarity");
+  }else if(data.ministry == 'Travail'){
+	  PatientsController.UpdateTravail(data.NIN,data.code_handicap);
+    const id = await PatientsController.GetId(data.NIN,data.code_handicap);
+    RabbitConnection.sendMsg("UpdateHandicapTravail",{id:id,NIN:data.NIN,code_handicap:data.code_handicap,doctor:data.doctor});
+  console.log("updated travail");
+  }
+});
+
+RabbitConnection.on("RegularCheck", async (data) => {
+  console.log("got cronned");
+	PatientsController.GetNotShared();
+});
+
 app.use((req, res) => res.sendStatus(404));
 
 // graceful shutdown
@@ -101,7 +121,17 @@ process.on("SIGTERM", () =>
   })
 );
 
+logger.info("we cronning boys");
+
 // start server
-app.listen(80, () => logger.info(`[SERVER] Listening on port ${80}`));
+app.listen(80, () => {
+  logger.info(`[SERVER] Listening on port ${80}`);
+});
+
+//RabbitConnection.sendMsg("blockchain_insert", {id: '000004', obj: {NIN:'000000',doctor:'sarah'}, author: 'lamia' });
+/*(async () => {
+  const smth = await PatientsController.GetId("100010364027390002","G03");
+  console.log("patient id :", smth);
+})();*/
 
 module.exports = app;

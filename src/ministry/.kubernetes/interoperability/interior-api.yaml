@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: interior
   annotations:
-    konghq.com/protocol: https
+    konghq.com/protocol: http
 spec:
   clusterIP: None  
   type: ClusterIP
   ports:
-  - port: 6000
-    targetPort: 6000
+  - port: 5050
+    targetPort: 5050
 ---
 apiVersion: v1
 kind: Endpoints
@@ -17,6 +17,6 @@ metadata:
   name: interior
 subsets:
 - addresses:
-  - ip: 192.168.144.244  
+  - ip: 192.168.1.17  
   ports:
-  - port: 6000
+  - port: 5050

@@ -4,7 +4,7 @@ const { newGrpcConnection, newIdentity, newSigner } = require('./GrpcConnection'
 
 // Variables
 const channelName = 'mychannel';
-const chaincodeName = 'basic';
+const chaincodeName = 'handicap';
 
 class HFConnection{
     gateway = null;
@@ -25,10 +25,10 @@ class HFConnection{
                 endorseOptions: () => ({ deadline: Date.now() + 15000 }),
                 submitOptions: () => ({ deadline: Date.now() + 5000 }),
                 commitStatusOptions: () => ({ deadline: Date.now() + 6000 }),
-            });       
+            });
             this.network = this.gateway.getNetwork(channelName);
             this.contract = this.network.getContract(chaincodeName);
-            this.displayInputParameters();
+            this.displayInputParameters();     
         }catch(error){
             console.error('******** FAILED to connect to blockchain gateway:', error);
         }
