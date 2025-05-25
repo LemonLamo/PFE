@@ -20,6 +20,7 @@ export default function AjouterHandicap({isOpen, close, action}: Props) {
     register('code_handicap', {required: true});
 
     function select_handicap(handicap: HandicapCode) {
+        
         setValue("code_handicap", handicap?.code_handicap ?? null)
         setValue("designation", handicap?.designation ?? null)
     }
@@ -27,7 +28,7 @@ export default function AjouterHandicap({isOpen, close, action}: Props) {
         try{
             if(!confirm("Êtes-vous sûr de vouloir continuer? Cette action est irréversible et ces données ne pourront plus être modifiées par la suite."))
                 return;
-
+            console.log(data);
             await action(data);
             reset();
         } catch (error: any) {
