@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: interoperability-service
+  name: interoperability-service
+spec:
+  ports:
+    - port: 4000
+      targetPort: 4000
+  selector:
+    app: interoperability-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: interoperability-service
+  name: interoperability-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: interoperability-service
+  template:
+    metadata:
+      labels:
+        app: interoperability-service
+    spec:
+      containers:
+        - image: localhost:5000/interoperability-service
+          name: interoperability-service
+          ports:
+            - containerPort: 4000
+              protocol: TCP
+          env:
+          - name: Interior
+            value: "http://192.168.1.17:5050" # Replace with the actual IP and port of the external server   
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      restartPolicy: Always

@@ -28,7 +28,7 @@ spec:
         app: blockchain-service
     spec:
       containers:
-        - image: medicalife/blockchain-service
+        - image: localhost:5000/blockchain-service
           name: blockchain-service
           ports:
             - containerPort: 80

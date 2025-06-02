@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: interior
+  annotations:
+    konghq.com/protocol: http
+spec:
+  clusterIP: None  
+  type: ClusterIP
+  ports:
+  - port: 5050
+    targetPort: 5050
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: interior
+subsets:
+- addresses:
+  - ip: 192.168.1.17  
+  ports:
+  - port: 5050

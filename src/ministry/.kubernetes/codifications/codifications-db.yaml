@@ -30,7 +30,7 @@ spec:
         app: codifications-db
     spec:
       containers:
-        - image: medicalife/codifications-db
+        - image: localhost:5000/codifications-db
           name: codifications-db
           ports:
             - containerPort: 3306

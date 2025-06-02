@@ -64,7 +64,7 @@ export async function ajouter_vaccination(NIN : string, vaccination : Vaccinatio
 
 export async function ajouter_handicap(NIN: string, handicap: any) {
     const request = {
-        code_handicap: handicap.code_allergene,
+        code_handicap: handicap.code_handicap,
         date: handicap.date,
         remarques: handicap.remarques
     }

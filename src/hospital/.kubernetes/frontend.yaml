@@ -28,7 +28,7 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: hospital1307/frontend
+        - image: localhost:5050/frontend
           name: frontend
           ports:
             - containerPort: 3000

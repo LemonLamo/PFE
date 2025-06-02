@@ -35,6 +35,7 @@ const logger = require("./utils/logger");
 app.post("/api/blockchain/verify", async (req, res) => {
   const { id, obj } = req.body;
   try {
+    blockchain.contract = blockchain.network.getContract('handicap',"HashEntryContract");
     const blockchain_entry = await blockchain.query("GetOne", id)
     const string = stringify(sortKeysRecursive(obj))
     const hash = crypto.createHash('sha256').update(string, 'binary').digest('hex')
@@ -50,10 +51,40 @@ app.post("/api/blockchain/verify", async (req, res) => {
 });
 
 RabbitConnection.on("blockchain_insert", async (data) => {
+  blockchain.contract = blockchain.network.getContract('handicap',"HashEntryContract");
   const { id, obj, author } = data
   const string = stringify(sortKeysRecursive(obj))
   const hash = crypto.createHash('sha256').update(string, 'binary').digest('hex')
   await blockchain.invoke("AddEntry", id, hash, author, new Date().toISOString())
+});
+
+RabbitConnection.on("CreateHandicap", async (data) => {
+  blockchain.contract = blockchain.network.getContract('handicap',"HandicapEntryContract");
+  await blockchain.invoke("AddEntry", String(data.id), data.NIN, data.code_handicap, data.doctor,"false","false" ,"0","0");
+});
+
+RabbitConnection.on("UpdateHandicapTravail", async (data) => {
+  blockchain.contract = blockchain.network.getContract('handicap',"HandicapEntryContract");
+  const blockchain_entry = await blockchain.query("GetOne", String(data.id))
+  //const blockchain_entry = false;
+  console.log(blockchain_entry);
+  if (blockchain_entry) {
+    await blockchain.invoke("AddEntry", String(data.id), blockchain_entry.NIN, blockchain_entry.code_handicap, blockchain_entry.doctor,"true",blockchain_entry.Solidarity ,new Date().toISOString(),blockchain_entry.TimestampSolidarity);
+  }else{
+    await blockchain.invoke("AddEntry", String(data.id), data.NIN, data.code_handicap, data.doctor,"true","false" ,new Date().toISOString(),"0");
+  }
+});
+
+RabbitConnection.on("UpdateHandicapSolidarity", async (data) => {
+  blockchain.contract = blockchain.network.getContract('handicap',"HandicapEntryContract");
+  const blockchain_entry = await blockchain.query("GetOne", String(data.id));
+  //const blockchain_entry = false;
+  console.log(blockchain_entry);
+  if(blockchain_entry){
+    await blockchain.invoke("AddEntry", String(data.id), blockchain_entry.NIN, blockchain_entry.code_handicap, blockchain_entry.doctor,blockchain_entry.Travail,"true" ,blockchain_entry.TimestampTravail,new Date().toISOString());
+  }else{
+    await blockchain.invoke("AddEntry", String(data.id), data.NIN, data.code_handicap, data.doctor,"false","true" ,"0",new Date().toISOString());
+  }
 });
 
 

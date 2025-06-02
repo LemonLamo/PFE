@@ -4,47 +4,14 @@ import subprocess
 
 registry = "localhost:5000"
 services = [
-    "auth/auth-db",
-    "auth/auth-service",
 
     "codifications/codifications-db",
-    "codifications/codifications-service",
-
-    "consultations/consultations-db",
-    "consultations/consultations-service",
-
-    "cpabe-service",
-
-    "frontend",
-
-    "hopitaux/hopitaux-db",
-    "hopitaux/hopitaux-service",
-
-    "hospitalisations/hospitalisations-db",
-    "hospitalisations/hospitalisations-service",
-
-    "interventions/interventions-db",
-    "interventions/interventions-service",
-
-    "notifications/notifications-db",
-    "notifications/notifications-service",
+    "blockchain-service",
 
     "patients/patients-db",
     "patients/patients-service",
 
-    "personnel/personnel-db",
-    "personnel/personnel-service",
-
-    "prescriptions-bilans-radios/prescriptions-bilans-radios-db",
-    "prescriptions-bilans-radios/prescriptions-bilans-radios-service",
-
-    "rabbitmq",
-
-    "rendez-vous/rendez-vous-db",
-    "rendez-vous/rendez-vous-service",
-
-    "soins/soins-db",
-    "soins/soins-service",
+    "interoperability/interoperability-service",
 ]
 
 cwd = os.path.dirname(os.path.realpath(__file__)) 
