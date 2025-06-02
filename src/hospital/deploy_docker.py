@@ -22,4 +22,5 @@ for service in services:
     s = subprocess.Popen(f"docker push {registry}/{service_name}", shell=True, text=True, cwd=cwd)
     s.wait()
     print("pushed!")
+
 print("All services built and pushed!")
