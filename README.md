@@ -1,11 +1,5 @@
 # Préservation de la vie privée dans une platform é-sante
 
-\<Work in progress\>
-
-- Point 1
-- Point 2
-- Point 3
-
 ## Quick Start
 
 We have created a **docker-compose.yml** through which we provide the necessary scripts to install and configure each microservice.
