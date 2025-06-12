@@ -35,6 +35,3 @@ NADIL Marwa - <https://github.com/Maghwaa>
 BELKHIR Abdelkader - kaderbelkhir@hotmail.com\
 ZERAOULIA Khaled - khaled.zeraoulia@gmail.com
 
-## License
-
-Closed Source project, please respect the signed NDA.
